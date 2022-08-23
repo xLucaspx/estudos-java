@@ -12,7 +12,12 @@ public class TestesContas {
 		String nomeClienteCp = cp1.getTitular().getNome();
 		
 		cc1.deposita(800);
-		cc1.transfere(cp1, 300); //polimorfismo: transfere de uma CONTA corrente para uma CONTA poupanca (CONTA = tipo mais genérico)
+		
+		try {
+			cc1.transfere(cp1, 300); //polimorfismo: transfere de uma CONTA corrente para uma CONTA poupanca (CONTA = tipo mais genérico)
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 		System.out.println("Conta corrente " + nomeClienteCc + ": ag " + cc1.getAgencia() + " nº " + cc1.getNumero() + " Saldo R$ " + cc1.getSaldo());
 		
