@@ -3,6 +3,7 @@ package br.com.bytebank.biblioteca.testes;
 import br.com.bytebank.banco.modelo.Cliente;
 import br.com.bytebank.banco.modelo.ContaCorrente;
 import br.com.bytebank.banco.modelo.SemSaldoException;
+// imports vem do arquivo bytebank-biblioteca.jar, que adicionamos ao build-path e agora aparece em referenced libraries
 
 public class TesteBiblioteca {
 
