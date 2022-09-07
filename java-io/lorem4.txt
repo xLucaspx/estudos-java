@@ -1,0 +1,3 @@
+teste print stream
+
+será que funcionou?

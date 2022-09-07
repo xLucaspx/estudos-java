@@ -52,4 +52,9 @@ public class Cliente implements Autenticavel {
 		boolean autenticou = this.metodosAuntenticacao.autentica(senha);
 		return autenticou;
 	}
+	
+	@Override
+	public String toString() {
+		return "Cliente: " + this.getNome();
+	}
 }
