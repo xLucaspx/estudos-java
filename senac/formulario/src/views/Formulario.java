@@ -257,7 +257,7 @@ public class Formulario extends JFrame {
               String.valueOf(comboIdioma2.getSelectedItem()));
           limparCampos();
         } catch (Exception ex) {
-          JOptionPane.showMessageDialog(body, String.format("Erro ao cadastrar usuário\n%s", ex.getMessage()),
+          JOptionPane.showMessageDialog(body, String.format("Erro ao cadastrar usuário:\n%s", ex.getMessage()),
               "Formulário - Erro ao cadastrar", JOptionPane.ERROR_MESSAGE);
         }
       }
