@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 
 public class Button extends JPanel {
   private int width = 245;
-  private int height = 45;
+  private int height = 35;
   private Font font = new Font("Roboto", Font.PLAIN, 18);
   private Color foregroundColor = new Color(75, 75, 75);
 

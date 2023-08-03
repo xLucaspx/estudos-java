@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 public class Input extends JTextField {
   private int width = 475;
   private int height = 35;
-  private Font font = new Font("Roboto", Font.PLAIN, 18);
+  private Font font = new Font("Roboto", Font.PLAIN, 16);
   private Color foregroundColor = new Color(75, 75, 75);
   private Color placeholderColor = new Color(145, 145, 145);
   private Color backgroundColor = new Color(255, 255, 255);
