@@ -5,9 +5,10 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -34,6 +35,7 @@ import components.Radio;
 import enums.Opcional;
 import enums.Sabor;
 import enums.Tamanho;
+import models.Cliente;
 import models.Pedido;
 import models.Pizza;
 
@@ -55,7 +57,7 @@ public class FormPedido extends JFrame {
   private DefaultTableModel modelTabelaItens;
   private JSeparator separatorCliente, separatorSabor, separatorTamanho, separatorOpcionais;
 
-  private Font fonte, fonteBold;
+  private Font fonte, fonteSmall, fonteBold;
   private Color corFundo, corFonte, branco, verde, verdeEscuro, azul, azulEscuro, vermelho, vermelhoEscuro;
   private String[] cidades;
   private Pedido pedido;
@@ -69,6 +71,7 @@ public class FormPedido extends JFrame {
     setIconImage(Toolkit.getDefaultToolkit().getImage(FormPedido.class.getResource("/img/imgLogo.png")));
 
     fonte = new Font("Roboto", Font.PLAIN, 16);
+    fonteSmall = new Font("Roboto", Font.PLAIN, 14);
     fonteBold = new Font("Roboto Black", Font.BOLD, 16);
 
     corFundo = new Color(234, 234, 234);
@@ -87,6 +90,7 @@ public class FormPedido extends JFrame {
 
     contentPane = new JPanel();
     contentPane.setLayout(null);
+    contentPane.setBackground(corFundo);
 
     setContentPane(contentPane);
 
@@ -358,12 +362,18 @@ public class FormPedido extends JFrame {
 
     panelPedido.add(labelItens);
 
-    String[] itensColumnsNames = { "Indíce", "Sabor", "Tamanho", "Opcionais", "Un.", "Valor" };
-    modelTabelaItens = new DefaultTableModel(itensColumnsNames, 0);
+    String[] itensColumnsNames = { "Item", "Sabor", "Tamanho", "Opcionais", "Un.", "Valor" };
+    modelTabelaItens = new DefaultTableModel(itensColumnsNames, 0) {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        return false;
+      }
+    };
 
     tabelaItens = new JTable(modelTabelaItens);
-    tabelaItens.setFont(fonte);
+    tabelaItens.setFont(fonteSmall);
     tabelaItens.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    tabelaItens.setBackground(branco);
 
     TableColumn itensColumn0 = tabelaItens.getColumnModel().getColumn(0);
     TableColumn itensColumn1 = tabelaItens.getColumnModel().getColumn(1);
@@ -372,20 +382,22 @@ public class FormPedido extends JFrame {
     TableColumn itensColumn4 = tabelaItens.getColumnModel().getColumn(4);
     TableColumn itensColumn5 = tabelaItens.getColumnModel().getColumn(5);
 
-    itensColumn0.setPreferredWidth(75);
-    itensColumn1.setPreferredWidth(240);
-    itensColumn2.setPreferredWidth(165);
-    itensColumn3.setPreferredWidth(365);
-    itensColumn4.setPreferredWidth(75);
-    itensColumn5.setPreferredWidth(170);
+    itensColumn0.setPreferredWidth(50);
+    itensColumn1.setPreferredWidth(225);
+    itensColumn2.setPreferredWidth(105);
+    itensColumn3.setPreferredWidth(560);
+    itensColumn4.setPreferredWidth(45);
+    itensColumn5.setPreferredWidth(105);
 
     tablePane = new JScrollPane(tabelaItens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     tablePane.setBounds(40, 230, 1090, 310);
+    tablePane.setBackground(branco);
 
     panelPedido.add(tablePane);
 
     labelSubtotalPedido = new Label(315, 782, "Subtotal pedido R$ --,--");
+    labelSubtotalPedido.setSize(280, 20);
     labelSubtotalPedido.setFont(fonteBold);
 
     body.add(labelSubtotalPedido);
@@ -442,33 +454,27 @@ public class FormPedido extends JFrame {
     inputNome.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        if (inputTelefone.getText().trim().isEmpty())
-          inputTelefone.reset();
+        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
 
-        if (inputEndereco.getText().trim().isEmpty())
-          inputEndereco.reset();
+        if (inputEndereco.getText().trim().isEmpty()) inputEndereco.reset();
       }
     });
 
     inputTelefone.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        if (inputNome.getText().trim().isEmpty())
-          inputNome.reset();
+        if (inputNome.getText().trim().isEmpty()) inputNome.reset();
 
-        if (inputEndereco.getText().trim().isEmpty())
-          inputEndereco.reset();
+        if (inputEndereco.getText().trim().isEmpty()) inputEndereco.reset();
       }
     });
 
     inputEndereco.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        if (inputTelefone.getText().trim().isEmpty())
-          inputTelefone.reset();
+        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
 
-        if (inputTelefone.getText().trim().isEmpty())
-          inputTelefone.reset();
+        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
       }
     });
 
@@ -481,14 +487,11 @@ public class FormPedido extends JFrame {
 
           labelSubtotalItem.setText(String.format("Subtotal item R$ %.2f", p.getValor() * un));
         } catch (NumberFormatException e) {
-
-          JOptionPane.showMessageDialog(null,
+          JOptionPane.showMessageDialog(body,
               "Erro ao calcular o valor do item:\nValor inválido inserido para o campo \"Unidades\"!\nApenas números inteiros maiores que 0 são permitidos.",
-              getTitle(),
-              JOptionPane.ERROR_MESSAGE);
+              getTitle(), JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, "Erro ao calcular o valor do item:\n" + e.getMessage(), getTitle(),
-              JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(body, "Erro ao calcular o valor do item:\n" + e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
         }
       }
     });
@@ -502,15 +505,56 @@ public class FormPedido extends JFrame {
 
           pedido.addItem(p, un);
           preencheTabelaItens();
+          atualizaSubtotalPedido();
           resetaPizza();
         } catch (NumberFormatException e) {
-
-          JOptionPane.showMessageDialog(null,
+          JOptionPane.showMessageDialog(body,
               "Erro ao calcular o valor do item:\nValor inválido inserido para o campo \"Unidades\"!\nApenas números inteiros maiores que 0 são permitidos.",
-              getTitle(),
-              JOptionPane.ERROR_MESSAGE);
+              getTitle(), JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, "Erro ao calcular o valor do item:\n" + e.getMessage(), getTitle(),
+          JOptionPane.showMessageDialog(body, "Erro ao calcular o valor do item:\n" + e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    });
+
+    btnLimparPedido.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent evt) {
+        try {
+          int res;
+          String[] options = { "Sim", "Não" };
+
+          res = JOptionPane.showOptionDialog(body,
+              "Tem certeza que deseja cancelar o pedido?\nVocê não pode desfazer esta ação!", getTitle(),
+              JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+          if (res != 0) return;
+
+          resetaPedido();
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(body, "Erro ao cancelar o pedido:\n" + e.getMessage(), getTitle(),
+              JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    });
+
+    btnFecharPedido.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent evt) {
+        try {
+          int res;
+          String[] options = { "Sim", "Não" };
+
+          res = JOptionPane.showOptionDialog(body,
+              "Tem certeza que deseja fechar o pedido?", getTitle(), JOptionPane.DEFAULT_OPTION,
+              JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+          if (res != 0) return;
+
+          fechaPedido();
+          resetaPedido();
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(body, "Erro ao fechar o pedido:\n" + e.getMessage(), getTitle(),
               JOptionPane.ERROR_MESSAGE);
         }
       }
@@ -531,8 +575,35 @@ public class FormPedido extends JFrame {
     if (checkBordaChocolate.isSelected())
       p.addOpcional(Opcional.fromString(checkBordaChocolate.getName()));
 
-    System.out.println(p);
     return p;
+  }
+
+  private Cliente criaCliente() {
+    String nome =
+      inputNome.getText().trim().equals(inputNome.getPlaceholder()) ? "" : inputNome.getText();
+    String telefone =
+      inputTelefone.getText().trim().equals(inputTelefone.getPlaceholder()) ? "" : inputTelefone.getText();
+    String endereco =
+      inputEndereco.getText().trim().equals(inputEndereco.getPlaceholder()) ? "" : inputEndereco.getText();
+    String cidade = comboCidade.getSelectedItem().toString();
+
+    return new Cliente(nome, telefone, endereco, cidade);
+  }
+
+  private void fechaPedido() {
+    if (pedido.getItens().size() == 0 || pedido.getValor() <= 0)
+      throw new IllegalArgumentException("Você não pode fechar um pedido vazio!");
+
+    pedido.setCliente(criaCliente());
+    String idPedido = String.format("pedido-%d", Pedido.getNumero());
+
+    try (PrintStream ps = new PrintStream(new File(idPedido + ".txt"))) {
+      ps.println(pedido);
+      ps.println("\n\nA Pizzeria Napoletana agradece a preferência!");
+    } catch (IOException e) {
+      throw new RuntimeException(
+          "Ocorreu um erro ao tentar imprimir o pedido:\n" + e.getMessage() + "\n" + e.getStackTrace());
+    }
   }
 
   private void resetaPizza() {
@@ -546,6 +617,18 @@ public class FormPedido extends JFrame {
     labelSubtotalItem.setText("Subtotal item R$ --,--");
   }
 
+  private void resetaPedido() {
+    resetaPizza();
+    labelSubtotalPedido.setText("Subtotal pedido R$ --,--");
+    inputNome.reset();
+    inputTelefone.reset();
+    inputEndereco.reset();
+    comboCidade.setSelectedIndex(0);
+    pedido = new Pedido();
+    modelTabelaItens.getDataVector().clear();
+    tabbedPane.setSelectedIndex(0);
+  }
+
   private void preencheTabelaItens() {
     modelTabelaItens.getDataVector().clear();
     int i = 1;
@@ -553,10 +636,15 @@ public class FormPedido extends JFrame {
     for (HashMap.Entry<Pizza, Integer> item : pedido.getItens().entrySet()) {
       Pizza p = item.getKey();
       Integer unidades = item.getValue();
-      String opcionais = ""; // continuar daqui
+
       modelTabelaItens.addRow(new String[] { String.valueOf(i), p.getSabor().toString(), p.getTamanho().toString(),
-          p.getOpcionais().toString(), String.valueOf(unidades), String.format("R$ %.2f", p.getValor() * unidades) });
+          p.getOpcionais().size() > 0 ? p.getOpcionais().toString().replace("[", "").replace("]", "") : "Sem opcionais",
+          String.valueOf(unidades), String.format("R$ %.2f", p.getValor() * unidades) });
       i++;
     }
+  }
+
+  private void atualizaSubtotalPedido() {
+    labelSubtotalPedido.setText(String.format("Subtotal pedido R$ %.2f", pedido.getValor()));
   }
 }

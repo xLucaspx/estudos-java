@@ -1,3 +1,5 @@
+package app;
+
 import views.FormPedido;
 
 public class App {

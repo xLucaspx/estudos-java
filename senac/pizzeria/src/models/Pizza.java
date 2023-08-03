@@ -24,7 +24,8 @@ public class Pizza {
   }
 
   private void setSabor(Sabor sabor) {
-    if (sabor == null) throw new IllegalArgumentException("O sabor da pizza deve ser selecionado!");
+    if (sabor == null)
+      throw new IllegalArgumentException("O sabor da pizza deve ser selecionado!");
 
     this.sabor = sabor;
   }
@@ -34,7 +35,8 @@ public class Pizza {
   }
 
   private void setTamanho(Tamanho tamanho) {
-    if (tamanho == null) throw new IllegalArgumentException("O tamanho da pizza deve ser selecionado!");
+    if (tamanho == null)
+      throw new IllegalArgumentException("O tamanho da pizza deve ser selecionado!");
 
     this.valor += tamanho.getValor();
     this.tamanho = tamanho;
@@ -58,6 +60,7 @@ public class Pizza {
 
   @Override
   public String toString() {
-    return String.format("Pizza sabor %s\nTamanho: %s\nOpcionais: %s", sabor, tamanho, opcionais.size() > 0 ? opcionais : "sem opcionais");
+    return String.format("Pizza sabor %s\nTamanho: %s\nOpcionais: %s", sabor, tamanho,
+        opcionais.size() > 0 ? opcionais : "sem opcionais");
   }
 }

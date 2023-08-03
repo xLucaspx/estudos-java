@@ -5,7 +5,7 @@ public class Cliente {
   private String telefone;
   private String endereco;
   private String cidade;
-  
+
   public Cliente(String nome, String telefone, String endereco, String cidade) {
     setNome(nome);
     setTelefone(telefone);
@@ -29,8 +29,9 @@ public class Cliente {
   }
 
   public void setTelefone(String telefone) {
-    if (telefone == null || !telefone.matches("^\\(?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])\\)? ?(?:[2-8]|9 ?[1-9])[0-9]{3}\\-?[0-9]{4}$"))
-      throw new IllegalArgumentException("O telefone inserido é inválido! Valor inserido: " + telefone);
+    if (telefone == null || !telefone.matches(
+        "^\\(?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])\\)? ?(?:[2-8]|9 ?[1-9])[0-9]{3}\\-?[0-9]{4}$"))
+      throw new IllegalArgumentException("O telefone inserido é inválido!\nValor inserido: " + telefone);
 
     this.telefone = telefone;
   }

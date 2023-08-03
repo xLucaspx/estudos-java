@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 public class Label extends JLabel {
   private int width = 200;
   private int height = 20;
-  private int fontSize = 16; 
+  private int fontSize = 16;
   private Font font = new Font("Roboto", Font.PLAIN, fontSize);
   private Color foregroundColor = new Color(75, 75, 75);
   private Color backgroundColor = new Color(234, 234, 234);
