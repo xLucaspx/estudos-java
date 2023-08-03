@@ -8,11 +8,12 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 
 public class Radio extends JRadioButton {
-  private int width = 190;
-  private int height = 18;
+  private int width = 200;
+  private int height = 20;
   private int fontSize = 15; 
   private Font font = new Font("Roboto Black", Font.BOLD, fontSize);
   private Color foregroundColor = new Color(75, 75, 75);
+  private Color backgroundColor = new Color(234, 234, 234);
 
   private String text;
 
@@ -22,6 +23,7 @@ public class Radio extends JRadioButton {
     setActionCommand(text);
     setFont(font);
     setForeground(foregroundColor);
+    setBackground(backgroundColor);
 
     this.text = text;
     JLabel textContent = createLabel(text, foregroundColor);

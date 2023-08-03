@@ -3,6 +3,8 @@ package views;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -14,8 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -30,7 +34,8 @@ import enums.Tamanho;
 import models.Pizza;
 
 public class FormPedido extends JFrame {
-  private JPanel contentPane, body;
+  private JPanel contentPane, body, panelPizza, panelPedido;
+  private JTabbedPane tabbedPane;
   private JLabel logo, imgPepperoni, imgBasca, imgFrangoBacon, imgCincoQueijos, imgChocolateMorango;
   private Label titulo, subtitulo, labelNome, labelTelefone, labelEndereco, labelCidade, labelSabor, labelTamanho,
       labelOpcionais, labelUnidades, labelSubtotalItem, labelItens, labelSubtotalPedido;
@@ -54,7 +59,7 @@ public class FormPedido extends JFrame {
   public FormPedido() {
     super("Pizzeria Napoletana - Novo Pedido");
 
-    setBounds(0, 0, 1060, 1080);
+    setBounds(0, 0, 1200, 875);
     setResizable(false);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setIconImage(Toolkit.getDefaultToolkit().getImage(FormPedido.class.getResource("/img/imgLogo.png")));
@@ -80,239 +85,272 @@ public class FormPedido extends JFrame {
     setContentPane(contentPane);
 
     body = new JPanel();
-    body.setBounds(0, 0, 1060, 1080);
+    body.setBounds(5, 5, 1190, 865);
     body.setBackground(corFundo);
     body.setLayout(null);
 
     contentPane.add(body);
 
     logo = new JLabel(new ImageIcon(FormPedido.class.getResource("/img/imgLogo.png")));
-    logo.setBounds(20, 5, 105, 100);
+    logo.setBounds(5, 5, 105, 100);
 
     body.add(logo);
 
-    titulo = new Label(370, 10, "Pizzeria Napoletana");
-    titulo.setSize(320, 38);
+    titulo = new Label(5, 5, "Pizzeria Napoletana");
+    titulo.setSize(1180, 40);
     titulo.setFontSize(36);
+    titulo.setHorizontalAlignment(SwingConstants.CENTER);
 
     body.add(titulo);
 
-    subtitulo = new Label(460, 53, "- Novo pedido -");
-    subtitulo.setSize(140, 22);
+    subtitulo = new Label(5, 50, "- Novo pedido -");
+    subtitulo.setSize(1180, 22);
     subtitulo.setFontSize(20);
+    subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
     body.add(subtitulo);
 
-    labelNome = new Label(15, 120, "Nome do cliente:");
+    tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+    tabbedPane.setBounds(0, 120, 1170, 605);
+    tabbedPane.setAlignmentX(CENTER_ALIGNMENT);
+    tabbedPane.setAlignmentY(CENTER_ALIGNMENT);
+    tabbedPane.setFont(fonte);
 
-    body.add(labelNome);
+    body.add(tabbedPane);
 
-    inputNome = new Input(15, 143, "Digite o nome do cliente");
+    panelPizza = new JPanel();
+    panelPizza.setBounds(0, 0, 1170, 605);
+    panelPizza.setBackground(corFundo);
+    panelPizza.setLayout(null);
 
-    body.add(inputNome);
+    tabbedPane.addTab("Pizzas", new ImageIcon(FormPedido.class.getResource("/img/logo-pizza.png")), panelPizza, null);
 
-    labelTelefone = new Label(565, 120, "Telefone:");
+    labelSabor = new Label(5, 5, "Sabor:");
 
-    body.add(labelTelefone);
-
-    inputTelefone = new Input(565, 143, "Digite o telefone do cliente");
-
-    body.add(inputTelefone);
-
-    labelEndereco = new Label(15, 188, "Endereço:");
-
-    body.add(labelEndereco);
-
-    inputEndereco = new Input(15, 211, "Digite o endereço do cliente");
-
-    body.add(inputEndereco);
-
-    labelCidade = new Label(565, 188, "Cidade:");
-
-    body.add(labelCidade);
-
-    comboCidade = new JComboBox<>(new DefaultComboBoxModel<>(cidades));
-    comboCidade.setBounds(565, 211, 475, 35);
-    comboCidade.setFont(fonte);
-    comboCidade.setForeground(corFonte);
-    comboCidade.setBackground(branco);
-
-    body.add(comboCidade);
-
-    separatorCliente = new JSeparator();
-    separatorCliente.setBounds(15, 255, 1025, 1);
-    separatorCliente.setForeground(corFonte);
-
-    body.add(separatorCliente);
-
-    labelSabor = new Label(20, 264, "Sabor:");
-
-    body.add(labelSabor);
+    panelPizza.add(labelSabor);
 
     imgPepperoni = new JLabel(new ImageIcon(FormPedido.class.getResource("/img/sabores/imgPepperoni.png")));
-    imgPepperoni.setBounds(15, 290, 185, 185);
+    imgPepperoni.setBounds(5, 35, 200, 185);
+    imgPepperoni.setHorizontalAlignment(SwingConstants.CENTER);
+    imgPepperoni.setToolTipText("Selecionar sabor " + Sabor.PEPPERONI);
 
-    body.add(imgPepperoni);
+    panelPizza.add(imgPepperoni);
 
     imgBasca = new JLabel(new ImageIcon(FormPedido.class.getResource("/img/sabores/imgBasca.png")));
-    imgBasca.setBounds(220, 290, 185, 185);
+    imgBasca.setBounds(240, 35, 200, 185);
+    imgBasca.setHorizontalAlignment(SwingConstants.CENTER);
+    imgBasca.setToolTipText("Selecionar sabor " + Sabor.BASCA);
 
-    body.add(imgBasca);
+    panelPizza.add(imgBasca);
 
     imgFrangoBacon = new JLabel(new ImageIcon(FormPedido.class.getResource("/img/sabores/imgFrangoBacon.png")));
-    imgFrangoBacon.setBounds(425, 290, 185, 185);
+    imgFrangoBacon.setBounds(475, 35, 200, 185);
+    imgFrangoBacon.setHorizontalAlignment(SwingConstants.CENTER);
+    imgFrangoBacon.setToolTipText("Selecionar sabor " + Sabor.FRANGO_BACON);
 
-    body.add(imgFrangoBacon);
+    panelPizza.add(imgFrangoBacon);
 
     imgCincoQueijos = new JLabel(new ImageIcon(FormPedido.class.getResource("/img/sabores/imgCincoQueijos.png")));
-    imgCincoQueijos.setBounds(630, 290, 185, 185);
+    imgCincoQueijos.setBounds(710, 35, 200, 185);
+    imgCincoQueijos.setHorizontalAlignment(SwingConstants.CENTER);
+    imgCincoQueijos.setToolTipText("Selecionar sabor " + Sabor.CINCO_QUEIJOS);
 
-    body.add(imgCincoQueijos);
+    panelPizza.add(imgCincoQueijos);
 
     imgChocolateMorango = new JLabel(
         new ImageIcon(FormPedido.class.getResource("/img/sabores/imgChocolateMorango.png")));
-    imgChocolateMorango.setBounds(835, 290, 185, 185);
+    imgChocolateMorango.setBounds(945, 35, 200, 185);
+    imgChocolateMorango.setHorizontalAlignment(SwingConstants.CENTER);
+    imgChocolateMorango.setToolTipText("Selecionar sabor " + Sabor.CHOCOLATE_MORANGO);
 
-    body.add(imgChocolateMorango);
+    panelPizza.add(imgChocolateMorango);
 
     btnGroupSabor = new ButtonGroup();
 
-    radioPepperoni = new Radio(15, 485, Sabor.PEPPERONI.toString());
+    radioPepperoni = new Radio(5, 230, Sabor.PEPPERONI.toString());
     radioPepperoni.setSelected(true);
 
     btnGroupSabor.add(radioPepperoni);
-    body.add(radioPepperoni);
+    panelPizza.add(radioPepperoni);
 
-    radioBasca = new Radio(220, 485, Sabor.BASCA.toString());
+    radioBasca = new Radio(240, 230, Sabor.BASCA.toString());
 
     btnGroupSabor.add(radioBasca);
-    body.add(radioBasca);
+    panelPizza.add(radioBasca);
 
-    radioFrangoBacon = new Radio(425, 485, Sabor.FRANGO_BACON.toString());
+    radioFrangoBacon = new Radio(475, 230, Sabor.FRANGO_BACON.toString());
 
     btnGroupSabor.add(radioFrangoBacon);
-    body.add(radioFrangoBacon);
+    panelPizza.add(radioFrangoBacon);
 
-    radioCincoQueijos = new Radio(630, 485, Sabor.CINCO_QUEIJOS.toString());
+    radioCincoQueijos = new Radio(710, 230, Sabor.CINCO_QUEIJOS.toString());
 
     btnGroupSabor.add(radioCincoQueijos);
-    body.add(radioCincoQueijos);
+    panelPizza.add(radioCincoQueijos);
 
-    radioChocolateMorango = new Radio(830, 485, Sabor.CHOCOLATE_MORANGO.toString());
+    radioChocolateMorango = new Radio(945, 230, Sabor.CHOCOLATE_MORANGO.toString());
 
     btnGroupSabor.add(radioChocolateMorango);
-    body.add(radioChocolateMorango);
+    panelPizza.add(radioChocolateMorango);
 
     separatorSabor = new JSeparator();
-    separatorSabor.setBounds(15, 512, 1025, 1);
+    separatorSabor.setBounds(5, 260, 1140, 1);
     separatorSabor.setForeground(corFonte);
 
-    body.add(separatorSabor);
+    panelPizza.add(separatorSabor);
 
-    labelTamanho = new Label(20, 520, "Tamanho:");
+    labelTamanho = new Label(5, 270, "Tamanho:");
 
-    body.add(labelTamanho);
+    panelPizza.add(labelTamanho);
 
     btnGroupTamanho = new ButtonGroup();
 
-    radioBrotinho = new Radio(15, 549, Tamanho.BROTINHO.toString());
+    radioBrotinho = new Radio(5, 300, Tamanho.BROTINHO.toString());
     radioBrotinho.setToolTipText(String.format("Valor %s R$ %.2f", Tamanho.BROTINHO, Tamanho.BROTINHO.getValor()));
     radioBrotinho.setSelected(true);
 
     btnGroupTamanho.add(radioBrotinho);
-    body.add(radioBrotinho);
+    panelPizza.add(radioBrotinho);
 
-    radioMedia = new Radio(270, 549, Tamanho.MEDIA.toString());
+    radioMedia = new Radio(315, 300, Tamanho.MEDIA.toString());
     radioMedia.setToolTipText(String.format("Valor %s R$ %.2f", Tamanho.MEDIA, Tamanho.MEDIA.getValor()));
 
     btnGroupTamanho.add(radioMedia);
-    body.add(radioMedia);
+    panelPizza.add(radioMedia);
 
-    radioGrande = new Radio(525, 549, Tamanho.GRANDE.toString());
+    radioGrande = new Radio(625, 300, Tamanho.GRANDE.toString());
     radioGrande.setToolTipText(String.format("Valor %s R$ %.2f", Tamanho.GRANDE, Tamanho.GRANDE.getValor()));
 
     btnGroupTamanho.add(radioGrande);
-    body.add(radioGrande);
+    panelPizza.add(radioGrande);
 
-    radioFamilia = new Radio(780, 549, Tamanho.FAMILIA.toString());
+    radioFamilia = new Radio(935, 300, Tamanho.FAMILIA.toString());
     radioFamilia.setToolTipText(String.format("Valor %s R$ %.2f", Tamanho.FAMILIA, Tamanho.FAMILIA.getValor()));
 
     btnGroupTamanho.add(radioFamilia);
-    body.add(radioFamilia);
+    panelPizza.add(radioFamilia);
 
     separatorTamanho = new JSeparator();
-    separatorTamanho.setBounds(15, 572, 1025, 1);
+    separatorTamanho.setBounds(5, 330, 1140, 1);
     separatorTamanho.setForeground(corFonte);
 
-    body.add(separatorTamanho);
+    panelPizza.add(separatorTamanho);
 
-    labelOpcionais = new Label(15, 580, "Opcionais:");
+    labelOpcionais = new Label(5, 340, "Opcionais:");
 
-    body.add(labelOpcionais);
+    panelPizza.add(labelOpcionais);
 
-    checkMassaIntegral = new Checkbox(15, 605, Opcional.MASSA_INTEGRAL.toString());
-    checkMassaIntegral.setToolTipText(String.format("Valor %s R$ %.2f", Opcional.MASSA_INTEGRAL, Opcional.MASSA_INTEGRAL.getValor()));
+    checkMassaIntegral = new Checkbox(5, 370, Opcional.MASSA_INTEGRAL.toString());
+    checkMassaIntegral
+        .setToolTipText(String.format("Valor %s R$ %.2f", Opcional.MASSA_INTEGRAL, Opcional.MASSA_INTEGRAL.getValor()));
 
-    body.add(checkMassaIntegral);
+    panelPizza.add(checkMassaIntegral);
 
-    checkBaconExtra = new Checkbox(270, 605, Opcional.BACON_EXTRA.toString());
-    checkBaconExtra.setToolTipText(String.format("Valor %s R$ %.2f", Opcional.BACON_EXTRA, Opcional.BACON_EXTRA.getValor()));
+    checkBaconExtra = new Checkbox(315, 370, Opcional.BACON_EXTRA.toString());
+    checkBaconExtra
+        .setToolTipText(String.format("Valor %s R$ %.2f", Opcional.BACON_EXTRA, Opcional.BACON_EXTRA.getValor()));
 
-    body.add(checkBaconExtra);
+    panelPizza.add(checkBaconExtra);
 
-    checkBordaCheddar = new Checkbox(525, 605, Opcional.BORDA_CHEDDAR.toString());
-    checkBordaCheddar.setToolTipText(String.format("Valor %s R$ %.2f", Opcional.BORDA_CHEDDAR, Opcional.BORDA_CHEDDAR.getValor()));
+    checkBordaCheddar = new Checkbox(625, 370, Opcional.BORDA_CHEDDAR.toString());
+    checkBordaCheddar
+        .setToolTipText(String.format("Valor %s R$ %.2f", Opcional.BORDA_CHEDDAR, Opcional.BORDA_CHEDDAR.getValor()));
 
-    body.add(checkBordaCheddar);
+    panelPizza.add(checkBordaCheddar);
 
-    checkBordaChocolate = new Checkbox(780, 605, Opcional.BORDA_CHOCOLATE.toString());
-    checkBordaChocolate.setToolTipText(String.format("Valor %s R$ %.2f", Opcional.BORDA_CHOCOLATE, Opcional.BORDA_CHOCOLATE.getValor()));
+    checkBordaChocolate = new Checkbox(935, 370, Opcional.BORDA_CHOCOLATE.toString());
+    checkBordaChocolate.setToolTipText(
+        String.format("Valor %s R$ %.2f", Opcional.BORDA_CHOCOLATE, Opcional.BORDA_CHOCOLATE.getValor()));
 
-    body.add(checkBordaChocolate);
+    panelPizza.add(checkBordaChocolate);
 
     separatorOpcionais = new JSeparator();
-    separatorOpcionais.setBounds(15, 639, 1025, 1);
+    separatorOpcionais.setBounds(5, 400, 1140, 1);
     separatorOpcionais.setForeground(corFonte);
 
-    body.add(separatorOpcionais);
+    panelPizza.add(separatorOpcionais);
 
-    labelUnidades = new Label(15, 655, "Unidades: ");
+    labelUnidades = new Label(5, 427, "Unidades: ");
     labelUnidades.setSize(75, 18);
 
-    body.add(labelUnidades);
+    panelPizza.add(labelUnidades);
 
-    inputUnidades = new Input(100, 647, "1");
+    inputUnidades = new Input(100, 420, "1");
     inputUnidades.setSize(55, 35);
 
-    body.add(inputUnidades);
+    panelPizza.add(inputUnidades);
 
-    labelSubtotalItem = new Label(195, 655, "Subtotal item R$ --,--");
+    labelSubtotalItem = new Label(315, 427, "Subtotal item R$ --,--");
     labelSubtotalItem.setFont(fonteBold);
 
-    body.add(labelSubtotalItem);
+    panelPizza.add(labelSubtotalItem);
 
-    btnCalcularItem = new Button(530, 647, "Calcular valor");
+    btnCalcularItem = new Button(600, 420, "Calcular valor");
     btnCalcularItem.setToolTipText("Calcular o valor da pizza que está sendo montada");
     btnCalcularItem.setBackground(azul, azulEscuro);
     btnCalcularItem.setForeground(branco);
 
-    body.add(btnCalcularItem);
+    panelPizza.add(btnCalcularItem);
 
-    btnAdicionarItem = new Button(795, 647, "Adicionar item");
+    btnAdicionarItem = new Button(900, 420, "Adicionar item");
     btnAdicionarItem.setToolTipText("Adicionar a pizza montada ao pedido");
     btnAdicionarItem.setBackground(verde, verdeEscuro);
     btnAdicionarItem.setForeground(branco);
 
-    body.add(btnAdicionarItem);
+    panelPizza.add(btnAdicionarItem);
 
-    labelItens = new Label(15, 697, "Itens do pedido:");
+    panelPedido = new JPanel();
+    panelPedido.setBounds(0, 0, 1170, 605);
+    panelPedido.setBackground(corFundo);
+    panelPedido.setLayout(null);
 
-    body.add(labelItens);
+    tabbedPane.addTab("Pedido", new ImageIcon(FormPedido.class.getResource("/img/logo-pedido.png")), panelPedido, null);
 
-    labelSubtotalPedido = new Label(837, 697, "Subtotal pedido R$ --,--");
-    labelSubtotalPedido.setFont(fonteBold);
+    labelNome = new Label(40, 10, "Nome do cliente:");
 
-    body.add(labelSubtotalPedido);
+    panelPedido.add(labelNome);
+
+    inputNome = new Input(40, 40, "Digite o nome do cliente");
+
+    panelPedido.add(inputNome);
+
+    labelTelefone = new Label(655, 10, "Telefone:");
+
+    panelPedido.add(labelTelefone);
+
+    inputTelefone = new Input(655, 40, "Digite o telefone do cliente");
+
+    panelPedido.add(inputTelefone);
+
+    labelEndereco = new Label(40, 95, "Endereço:");
+
+    panelPedido.add(labelEndereco);
+
+    inputEndereco = new Input(40, 125, "Digite o endereço do cliente");
+
+    panelPedido.add(inputEndereco);
+
+    labelCidade = new Label(655, 95, "Cidade:");
+
+    panelPedido.add(labelCidade);
+
+    comboCidade = new JComboBox<>(new DefaultComboBoxModel<>(cidades));
+    comboCidade.setBounds(655, 125, 475, 35);
+    comboCidade.setFont(fonte);
+    comboCidade.setForeground(corFonte);
+    comboCidade.setBackground(branco);
+
+    panelPedido.add(comboCidade);
+
+    separatorCliente = new JSeparator();
+    separatorCliente.setBounds(5, 180, 1150, 1);
+    separatorCliente.setForeground(corFonte);
+
+    panelPedido.add(separatorCliente);
+
+    labelItens = new Label(40, 195, "Itens do pedido:");
+
+    panelPedido.add(labelItens);
 
     String[] itensColumnsNames = { "Indíce", "Sabor", "Tamanho", "Opcionais", "Un.", "Valor" };
     modelTabelaItens = new DefaultTableModel(itensColumnsNames, 0);
@@ -328,30 +366,98 @@ public class FormPedido extends JFrame {
     TableColumn itensColumn4 = tabelaItens.getColumnModel().getColumn(4);
     TableColumn itensColumn5 = tabelaItens.getColumnModel().getColumn(5);
 
-    itensColumn0.setPreferredWidth(80);
-    itensColumn1.setPreferredWidth(225);
-    itensColumn2.setPreferredWidth(160);
-    itensColumn3.setPreferredWidth(310);
-    itensColumn4.setPreferredWidth(80);
-    itensColumn5.setPreferredWidth(175);
+    itensColumn0.setPreferredWidth(75);
+    itensColumn1.setPreferredWidth(240);
+    itensColumn2.setPreferredWidth(165);
+    itensColumn3.setPreferredWidth(365);
+    itensColumn4.setPreferredWidth(75);
+    itensColumn5.setPreferredWidth(170);
 
-    tablePane = new JScrollPane(tabelaItens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    tablePane.setBounds(15, 725, 1025, 265);
+    tablePane = new JScrollPane(tabelaItens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    tablePane.setBounds(40, 230, 1090, 310);
 
-    body.add(tablePane);
+    panelPedido.add(tablePane);
 
-    btnFecharPedido = new Button(530, 1000, "Fechar pedido");
+    labelSubtotalPedido = new Label(315, 782, "Subtotal pedido R$ --,--");
+    labelSubtotalPedido.setFont(fonteBold);
+
+    body.add(labelSubtotalPedido);
+
+    btnFecharPedido = new Button(600, 775, "Fechar pedido");
     btnFecharPedido.setToolTipText("Fechar o pedido e salvar em um arquivo de texto");
     btnFecharPedido.setBackground(azul, azulEscuro);
     btnFecharPedido.setForeground(branco);
 
     body.add(btnFecharPedido);
 
-    btnLimparPedido = new Button(795, 1000, "Cancelar pedido");
+    btnLimparPedido = new Button(900, 775, "Cancelar pedido");
     btnLimparPedido.setToolTipText("Limpa todos os itens e começa um novo pedido");
     btnLimparPedido.setBackground(vermelho, vermelhoEscuro);
     btnLimparPedido.setForeground(branco);
 
     body.add(btnLimparPedido);
+
+    imgPepperoni.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        radioPepperoni.setSelected(true);
+      }
+    });
+
+    imgBasca.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        radioBasca.setSelected(true);
+      }
+    });
+
+    imgFrangoBacon.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        radioFrangoBacon.setSelected(true);
+      }
+    });
+
+    imgCincoQueijos.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        radioCincoQueijos.setSelected(true);
+      }
+    });
+
+    imgChocolateMorango.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        radioChocolateMorango.setSelected(true);
+      }
+    });
+
+    inputNome.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
+
+        if (inputEndereco.getText().trim().isEmpty()) inputEndereco.reset();
+      }
+    });
+
+    inputTelefone.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        if (inputNome.getText().trim().isEmpty()) inputNome.reset();
+
+        if (inputEndereco.getText().trim().isEmpty()) inputEndereco.reset();
+      }
+    });
+
+    inputEndereco.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
+        
+        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
+      }
+    });
   }
 }
