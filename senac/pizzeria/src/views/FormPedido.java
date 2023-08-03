@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -13,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -31,6 +34,7 @@ import components.Radio;
 import enums.Opcional;
 import enums.Sabor;
 import enums.Tamanho;
+import models.Pedido;
 import models.Pizza;
 
 public class FormPedido extends JFrame {
@@ -54,7 +58,7 @@ public class FormPedido extends JFrame {
   private Font fonte, fonteBold;
   private Color corFundo, corFonte, branco, verde, verdeEscuro, azul, azulEscuro, vermelho, vermelhoEscuro;
   private String[] cidades;
-  private ArrayList<Pizza> itens;
+  private Pedido pedido;
 
   public FormPedido() {
     super("Pizzeria Napoletana - Novo Pedido");
@@ -78,6 +82,8 @@ public class FormPedido extends JFrame {
     vermelhoEscuro = new Color(191, 33, 47);
 
     cidades = new String[] { "Porto Alegre", "Canoas", "Cachoeirinha", "Gravataí", "São Leopoldo" };
+
+    pedido = new Pedido();
 
     contentPane = new JPanel();
     contentPane.setLayout(null);
@@ -436,28 +442,121 @@ public class FormPedido extends JFrame {
     inputNome.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
+        if (inputTelefone.getText().trim().isEmpty())
+          inputTelefone.reset();
 
-        if (inputEndereco.getText().trim().isEmpty()) inputEndereco.reset();
+        if (inputEndereco.getText().trim().isEmpty())
+          inputEndereco.reset();
       }
     });
 
     inputTelefone.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        if (inputNome.getText().trim().isEmpty()) inputNome.reset();
+        if (inputNome.getText().trim().isEmpty())
+          inputNome.reset();
 
-        if (inputEndereco.getText().trim().isEmpty()) inputEndereco.reset();
+        if (inputEndereco.getText().trim().isEmpty())
+          inputEndereco.reset();
       }
     });
 
     inputEndereco.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
-        
-        if (inputTelefone.getText().trim().isEmpty()) inputTelefone.reset();
+        if (inputTelefone.getText().trim().isEmpty())
+          inputTelefone.reset();
+
+        if (inputTelefone.getText().trim().isEmpty())
+          inputTelefone.reset();
       }
     });
+
+    btnCalcularItem.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent evt) {
+        try {
+          Pizza p = criaPizza();
+          Integer un = Integer.parseInt(inputUnidades.getText());
+
+          labelSubtotalItem.setText(String.format("Subtotal item R$ %.2f", p.getValor() * un));
+        } catch (NumberFormatException e) {
+
+          JOptionPane.showMessageDialog(null,
+              "Erro ao calcular o valor do item:\nValor inválido inserido para o campo \"Unidades\"!\nApenas números inteiros maiores que 0 são permitidos.",
+              getTitle(),
+              JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(null, "Erro ao calcular o valor do item:\n" + e.getMessage(), getTitle(),
+              JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    });
+
+    btnAdicionarItem.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent evt) {
+        try {
+          Pizza p = criaPizza();
+          Integer un = Integer.parseInt(inputUnidades.getText());
+
+          pedido.addItem(p, un);
+          preencheTabelaItens();
+          resetaPizza();
+        } catch (NumberFormatException e) {
+
+          JOptionPane.showMessageDialog(null,
+              "Erro ao calcular o valor do item:\nValor inválido inserido para o campo \"Unidades\"!\nApenas números inteiros maiores que 0 são permitidos.",
+              getTitle(),
+              JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(null, "Erro ao calcular o valor do item:\n" + e.getMessage(), getTitle(),
+              JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    });
+  }
+
+  private Pizza criaPizza() {
+    Sabor sabor = Sabor.fromString(btnGroupSabor.getSelection().getActionCommand());
+    Tamanho tamanho = Tamanho.fromString(btnGroupTamanho.getSelection().getActionCommand());
+    Pizza p = new Pizza(sabor, tamanho);
+
+    if (checkMassaIntegral.isSelected())
+      p.addOpcional(Opcional.fromString(checkMassaIntegral.getName()));
+    if (checkBaconExtra.isSelected())
+      p.addOpcional(Opcional.fromString(checkBaconExtra.getName()));
+    if (checkBordaCheddar.isSelected())
+      p.addOpcional(Opcional.fromString(checkBordaCheddar.getName()));
+    if (checkBordaChocolate.isSelected())
+      p.addOpcional(Opcional.fromString(checkBordaChocolate.getName()));
+
+    System.out.println(p);
+    return p;
+  }
+
+  private void resetaPizza() {
+    radioPepperoni.setSelected(true);
+    radioBrotinho.setSelected(true);
+    checkMassaIntegral.setSelected(false);
+    checkBaconExtra.setSelected(false);
+    checkBordaCheddar.setSelected(false);
+    checkBordaChocolate.setSelected(false);
+    inputUnidades.reset();
+    labelSubtotalItem.setText("Subtotal item R$ --,--");
+  }
+
+  private void preencheTabelaItens() {
+    modelTabelaItens.getDataVector().clear();
+    int i = 1;
+
+    for (HashMap.Entry<Pizza, Integer> item : pedido.getItens().entrySet()) {
+      Pizza p = item.getKey();
+      Integer unidades = item.getValue();
+      String opcionais = ""; // continuar daqui
+      modelTabelaItens.addRow(new String[] { String.valueOf(i), p.getSabor().toString(), p.getTamanho().toString(),
+          p.getOpcionais().toString(), String.valueOf(unidades), String.format("R$ %.2f", p.getValor() * unidades) });
+      i++;
+    }
   }
 }

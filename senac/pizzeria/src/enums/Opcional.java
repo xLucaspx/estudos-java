@@ -12,6 +12,13 @@ public enum Opcional {
     this.valor = valor;
   }
 
+  public static Opcional fromString(String opcional) {
+    for (Opcional o : Opcional.values()) {
+      if (o.opcional.equals(opcional)) return o;
+    }
+    throw new IllegalArgumentException("Não foi encontrado nenhum Opcional para o valor " + opcional);
+  }
+
   public float getValor() {
     return valor;
   }

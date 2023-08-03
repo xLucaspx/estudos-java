@@ -11,10 +11,17 @@ public enum Tamanho {
     this.valor = valor;
   }
 
+  public static Tamanho fromString(String tamanho) {
+    for (Tamanho t : Tamanho.values()) {
+      if (t.tamanho.equals(tamanho)) return t;
+    }
+    throw new IllegalArgumentException("Não foi encontrado nenhum tamanho para o valor " + tamanho);
+  }
+
   public float getValor() {
     return valor;
   }
- 
+
   @Override
   public String toString() {
     return this.tamanho;

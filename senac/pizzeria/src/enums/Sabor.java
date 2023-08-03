@@ -10,6 +10,13 @@ public enum Sabor {
     this.sabor = sabor;
   }
 
+  public static Sabor fromString(String sabor) {
+    for (Sabor s : Sabor.values()) {
+      if (s.sabor.equals(sabor)) return s;
+    }
+    throw new IllegalArgumentException("Não foi encontrado nenhum sabor para o valor " + sabor);
+  }
+
   @Override
   public String toString() {
     return this.sabor;
