@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -36,6 +35,7 @@ import enums.Opcional;
 import enums.Sabor;
 import enums.Tamanho;
 import models.Cliente;
+import models.Item;
 import models.Pedido;
 import models.Pizza;
 
@@ -51,7 +51,7 @@ public class FormPedido extends JFrame {
   private Radio radioPepperoni, radioBasca, radioFrangoBacon, radioCincoQueijos, radioChocolateMorango, radioBrotinho,
       radioMedia, radioGrande, radioFamilia;
   private Checkbox checkMassaIntegral, checkBaconExtra, checkBordaCheddar, checkBordaChocolate;
-  private Button btnCalcularItem, btnAdicionarItem, btnLimparPedido, btnFecharPedido;
+  private Button btnCalcularItem, btnAdicionarItem, btnRemoverItem, btnCancelarPedido, btnFecharPedido;
   private JScrollPane tablePane;
   private JTable tabelaItens;
   private DefaultTableModel modelTabelaItens;
@@ -65,7 +65,7 @@ public class FormPedido extends JFrame {
   public FormPedido() {
     super("Pizzeria Napoletana - Novo Pedido");
 
-    setBounds(0, 0, 1200, 875);
+    setBounds(0, 0, 1200, 845);
     setResizable(false);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setIconImage(Toolkit.getDefaultToolkit().getImage(FormPedido.class.getResource("/img/imgLogo.png")));
@@ -95,7 +95,7 @@ public class FormPedido extends JFrame {
     setContentPane(contentPane);
 
     body = new JPanel();
-    body.setBounds(5, 5, 1190, 865);
+    body.setBounds(5, 5, 1190, 845);
     body.setBackground(corFundo);
     body.setLayout(null);
 
@@ -113,15 +113,15 @@ public class FormPedido extends JFrame {
 
     body.add(titulo);
 
-    subtitulo = new Label(5, 50, "- Novo pedido -");
-    subtitulo.setSize(1180, 22);
-    subtitulo.setFontSize(20);
+    subtitulo = new Label(5, 50, String.format("- Pedido %d -", Pedido.getNumero()));
+    subtitulo.setSize(1180, 28);
+    subtitulo.setFontSize(24);
     subtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 
     body.add(subtitulo);
 
     tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-    tabbedPane.setBounds(0, 120, 1170, 605);
+    tabbedPane.setBounds(0, 120, 1170, 590);
     tabbedPane.setAlignmentX(CENTER_ALIGNMENT);
     tabbedPane.setAlignmentY(CENTER_ALIGNMENT);
     tabbedPane.setFont(fonte);
@@ -129,7 +129,7 @@ public class FormPedido extends JFrame {
     body.add(tabbedPane);
 
     panelPizza = new JPanel();
-    panelPizza.setBounds(0, 0, 1170, 605);
+    panelPizza.setBounds(0, 0, 1170, 590);
     panelPizza.setBackground(corFundo);
     panelPizza.setLayout(null);
 
@@ -280,29 +280,29 @@ public class FormPedido extends JFrame {
 
     panelPizza.add(separatorOpcionais);
 
-    labelUnidades = new Label(5, 427, "Unidades: ");
+    labelUnidades = new Label(5, 437, "Unidades: ");
     labelUnidades.setSize(75, 18);
 
     panelPizza.add(labelUnidades);
 
-    inputUnidades = new Input(100, 420, "1");
+    inputUnidades = new Input(100, 430, "1");
     inputUnidades.setSize(55, 35);
 
     panelPizza.add(inputUnidades);
 
-    labelSubtotalItem = new Label(315, 427, "Subtotal item R$ --,--");
+    labelSubtotalItem = new Label(315, 437, "Subtotal item R$ --,--");
     labelSubtotalItem.setFont(fonteBold);
 
     panelPizza.add(labelSubtotalItem);
 
-    btnCalcularItem = new Button(600, 420, "Calcular valor");
+    btnCalcularItem = new Button(600, 430, "Calcular valor");
     btnCalcularItem.setToolTipText("Calcular o valor da pizza que está sendo montada");
     btnCalcularItem.setBackground(azul, azulEscuro);
     btnCalcularItem.setForeground(branco);
 
     panelPizza.add(btnCalcularItem);
 
-    btnAdicionarItem = new Button(900, 420, "Adicionar item");
+    btnAdicionarItem = new Button(900, 430, "Adicionar item");
     btnAdicionarItem.setToolTipText("Adicionar a pizza montada ao pedido");
     btnAdicionarItem.setBackground(verde, verdeEscuro);
     btnAdicionarItem.setForeground(branco);
@@ -310,7 +310,7 @@ public class FormPedido extends JFrame {
     panelPizza.add(btnAdicionarItem);
 
     panelPedido = new JPanel();
-    panelPedido.setBounds(0, 0, 1170, 605);
+    panelPedido.setBounds(0, 0, 1170, 590);
     panelPedido.setBackground(corFundo);
     panelPedido.setLayout(null);
 
@@ -391,30 +391,37 @@ public class FormPedido extends JFrame {
 
     tablePane = new JScrollPane(tabelaItens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    tablePane.setBounds(40, 230, 1090, 310);
+    tablePane.setBounds(40, 230, 1090, 245);
     tablePane.setBackground(branco);
 
     panelPedido.add(tablePane);
 
-    labelSubtotalPedido = new Label(315, 782, "Subtotal pedido R$ --,--");
+    btnRemoverItem = new Button(885, 490, "Remover item");
+    btnRemoverItem.setToolTipText("Remove o item selecionado do pedido");
+    btnRemoverItem.setBackground(vermelho, vermelhoEscuro);
+    btnRemoverItem.setForeground(branco);
+
+    panelPedido.add(btnRemoverItem);
+
+    labelSubtotalPedido = new Label(315, 752, "Subtotal pedido R$ --,--");
     labelSubtotalPedido.setSize(280, 20);
     labelSubtotalPedido.setFont(fonteBold);
 
     body.add(labelSubtotalPedido);
 
-    btnFecharPedido = new Button(600, 775, "Fechar pedido");
+    btnFecharPedido = new Button(600, 745, "Fechar pedido");
     btnFecharPedido.setToolTipText("Fechar o pedido e salvar em um arquivo de texto");
     btnFecharPedido.setBackground(azul, azulEscuro);
     btnFecharPedido.setForeground(branco);
 
     body.add(btnFecharPedido);
 
-    btnLimparPedido = new Button(900, 775, "Cancelar pedido");
-    btnLimparPedido.setToolTipText("Limpa todos os itens e começa um novo pedido");
-    btnLimparPedido.setBackground(vermelho, vermelhoEscuro);
-    btnLimparPedido.setForeground(branco);
+    btnCancelarPedido = new Button(900, 745, "Cancelar pedido");
+    btnCancelarPedido.setToolTipText("Limpa todos os itens e começa um novo pedido");
+    btnCancelarPedido.setBackground(vermelho, vermelhoEscuro);
+    btnCancelarPedido.setForeground(branco);
 
-    body.add(btnLimparPedido);
+    body.add(btnCancelarPedido);
 
     imgPepperoni.addMouseListener(new MouseAdapter() {
       @Override
@@ -482,10 +489,9 @@ public class FormPedido extends JFrame {
       @Override
       public void mousePressed(MouseEvent evt) {
         try {
-          Pizza p = criaPizza();
-          Integer un = Integer.parseInt(inputUnidades.getText());
+          Item item = criaItem();
 
-          labelSubtotalItem.setText(String.format("Subtotal item R$ %.2f", p.getValor() * un));
+          labelSubtotalItem.setText(String.format("Subtotal item R$ %.2f", item.getValor()));
         } catch (NumberFormatException e) {
           JOptionPane.showMessageDialog(body,
               "Erro ao calcular o valor do item:\nValor inválido inserido para o campo \"Unidades\"!\nApenas números inteiros maiores que 0 são permitidos.",
@@ -500,12 +506,14 @@ public class FormPedido extends JFrame {
       @Override
       public void mousePressed(MouseEvent evt) {
         try {
-          Pizza p = criaPizza();
-          Integer un = Integer.parseInt(inputUnidades.getText());
+          Item item = criaItem();
 
-          pedido.addItem(p, un);
+          pedido.addItem(item);
           preencheTabelaItens();
           atualizaSubtotalPedido();
+
+          JOptionPane.showMessageDialog(body, "Item adicionado ao pedido!", getTitle(), JOptionPane.INFORMATION_MESSAGE);
+
           resetaPizza();
         } catch (NumberFormatException e) {
           JOptionPane.showMessageDialog(body,
@@ -517,7 +525,35 @@ public class FormPedido extends JFrame {
       }
     });
 
-    btnLimparPedido.addMouseListener(new MouseAdapter() {
+    btnRemoverItem.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent evt) {
+        try {
+          int selectedIndex = tabelaItens.getSelectedRow();
+          Item item = pedido.getItens().get(selectedIndex);
+          Pizza p = item.getPizza();
+          String msgItem = String.format("%s de pizza %s sabor %s?\n",
+              item.getUnidades() == 1 ? "1 unidade" : item.getUnidades() + " unidades", p.getTamanho().toString().toLowerCase(), p.getSabor().toString().toLowerCase());
+          int res;
+          String[] options = { "Sim", "Não" };
+
+          res = JOptionPane.showOptionDialog(body,
+              "Tem certeza que deseja remover " + msgItem + "Você não pode desfazer esta ação!", getTitle(),
+              JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+          if (res != 0) return;
+
+          pedido.removeItem(selectedIndex);
+          preencheTabelaItens();
+          atualizaSubtotalPedido();
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(body, "Erro ao tentar remover item do pedido:\n" + e.getMessage(), getTitle(),
+              JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    });
+
+    btnCancelarPedido.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent evt) {
         try {
@@ -529,6 +565,9 @@ public class FormPedido extends JFrame {
               JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
           if (res != 0) return;
+
+          if (pedido.getItens().size() == 0 || pedido.getValor() <= 0)
+            throw new IllegalArgumentException("Você não pode cancelar um pedido vazio!");
 
           resetaPedido();
         } catch (Exception e) {
@@ -561,9 +600,11 @@ public class FormPedido extends JFrame {
     });
   }
 
-  private Pizza criaPizza() {
+  private Item criaItem() {
     Sabor sabor = Sabor.fromString(btnGroupSabor.getSelection().getActionCommand());
     Tamanho tamanho = Tamanho.fromString(btnGroupTamanho.getSelection().getActionCommand());
+    int unidades = Integer.parseInt(inputUnidades.getText());
+
     Pizza p = new Pizza(sabor, tamanho);
 
     if (checkMassaIntegral.isSelected())
@@ -575,34 +616,31 @@ public class FormPedido extends JFrame {
     if (checkBordaChocolate.isSelected())
       p.addOpcional(Opcional.fromString(checkBordaChocolate.getName()));
 
-    return p;
+    return new Item(p, unidades);
   }
 
   private Cliente criaCliente() {
-    String nome =
-      inputNome.getText().trim().equals(inputNome.getPlaceholder()) ? "" : inputNome.getText();
-    String telefone =
-      inputTelefone.getText().trim().equals(inputTelefone.getPlaceholder()) ? "" : inputTelefone.getText();
-    String endereco =
-      inputEndereco.getText().trim().equals(inputEndereco.getPlaceholder()) ? "" : inputEndereco.getText();
+    String nome = inputNome.getText().trim().equals(inputNome.getPlaceholder()) ? "" : inputNome.getText();
+    String telefone = inputTelefone.getText().trim().equals(inputTelefone.getPlaceholder()) ? ""
+        : inputTelefone.getText();
+    String endereco = inputEndereco.getText().trim().equals(inputEndereco.getPlaceholder()) ? ""
+        : inputEndereco.getText();
     String cidade = comboCidade.getSelectedItem().toString();
 
     return new Cliente(nome, telefone, endereco, cidade);
   }
 
-  private void fechaPedido() {
-    if (pedido.getItens().size() == 0 || pedido.getValor() <= 0)
-      throw new IllegalArgumentException("Você não pode fechar um pedido vazio!");
+  private void preencheTabelaItens() {
+    modelTabelaItens.getDataVector().clear();
 
-    pedido.setCliente(criaCliente());
-    String idPedido = String.format("pedido-%d", Pedido.getNumero());
+    for (int i = 0; i < pedido.getItens().size(); i++) {
+      Item item = pedido.getItens().get(i);
+      Pizza p = item.getPizza();
+      Integer unidades = item.getUnidades();
 
-    try (PrintStream ps = new PrintStream(new File(idPedido + ".txt"))) {
-      ps.println(pedido);
-      ps.println("\n\nA Pizzeria Napoletana agradece a preferência!");
-    } catch (IOException e) {
-      throw new RuntimeException(
-          "Ocorreu um erro ao tentar imprimir o pedido:\n" + e.getMessage() + "\n" + e.getStackTrace());
+      modelTabelaItens.addRow(new String[] { String.valueOf(i + 1), p.getSabor().toString(), p.getTamanho().toString(),
+          p.getOpcionais().size() > 0 ? p.getOpcionais().toString().replace("[", "").replace("]", "") : "Sem opcionais",
+          String.valueOf(unidades), String.format("R$ %.2f", item.getValor()) });
     }
   }
 
@@ -619,32 +657,34 @@ public class FormPedido extends JFrame {
 
   private void resetaPedido() {
     resetaPizza();
+    pedido = new Pedido();
+    subtitulo.setText(String.format("- Pedido %d -", Pedido.getNumero()));
     labelSubtotalPedido.setText("Subtotal pedido R$ --,--");
     inputNome.reset();
     inputTelefone.reset();
     inputEndereco.reset();
     comboCidade.setSelectedIndex(0);
-    pedido = new Pedido();
     modelTabelaItens.getDataVector().clear();
     tabbedPane.setSelectedIndex(0);
   }
 
-  private void preencheTabelaItens() {
-    modelTabelaItens.getDataVector().clear();
-    int i = 1;
-
-    for (HashMap.Entry<Pizza, Integer> item : pedido.getItens().entrySet()) {
-      Pizza p = item.getKey();
-      Integer unidades = item.getValue();
-
-      modelTabelaItens.addRow(new String[] { String.valueOf(i), p.getSabor().toString(), p.getTamanho().toString(),
-          p.getOpcionais().size() > 0 ? p.getOpcionais().toString().replace("[", "").replace("]", "") : "Sem opcionais",
-          String.valueOf(unidades), String.format("R$ %.2f", p.getValor() * unidades) });
-      i++;
-    }
-  }
-
   private void atualizaSubtotalPedido() {
     labelSubtotalPedido.setText(String.format("Subtotal pedido R$ %.2f", pedido.getValor()));
+  }
+
+  private void fechaPedido() {
+    if (pedido.getItens().size() == 0 || pedido.getValor() <= 0)
+      throw new IllegalArgumentException("Você não pode fechar um pedido vazio!");
+
+    pedido.setCliente(criaCliente());
+    String idPedido = String.format("pedido-%d", Pedido.getNumero());
+
+    try (PrintStream ps = new PrintStream(new File(idPedido + ".txt"))) {
+      ps.println(pedido);
+      ps.println("\n\nA Pizzeria Napoletana agradece a preferência!");
+    } catch (IOException e) {
+      throw new RuntimeException(
+          "Ocorreu um erro ao tentar imprimir o pedido:\n" + e.getMessage() + "\n" + e.getStackTrace());
+    }
   }
 }
