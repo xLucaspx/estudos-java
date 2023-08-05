@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -679,7 +680,7 @@ public class FormPedido extends JFrame {
     pedido.setCliente(criaCliente());
     String idPedido = String.format("pedido-%d", Pedido.getNumero());
 
-    try (PrintStream ps = new PrintStream(new File(idPedido + ".txt"))) {
+    try (PrintStream ps = new PrintStream(new File(idPedido + ".txt"), StandardCharsets.UTF_8.name())) {
       ps.println(pedido);
       ps.println("\n\nA Pizzeria Napoletana agradece a preferência!");
     } catch (IOException e) {

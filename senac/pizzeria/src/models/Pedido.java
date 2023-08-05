@@ -85,7 +85,7 @@ public class Pedido {
     DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     String valor = String.format("Valor total R$ %.2f", getValor());
-    return String.format("Pedido %d - %s\n\nInformações do cliente:\n%s\n\nItens do pedido:\n%s\n\n%138s", numero,
+    return String.format("Pedido %d - %s\n\nInformações do cliente:\n%s\n\nItens do pedido:\n%s\n%138s", numero,
         dtFormatter.format(datetime), cliente, listaItens(), valor);
   }
 }
