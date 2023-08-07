@@ -1,0 +1,20 @@
+ID,Hóspede,Idade,Nacionalidade,Telefone,Check-in,Check-out,Período,Diária,Total,"Forma de pagamento"
+193,"Bruna Lima",22,Brasileira,"51 98765-4321",20/10/2022,25/10/2022,"5 dias","R$ 85.00","R$ 425.00",Boleto
+200,"Henrique Diaz",27,Argentino,"(54) 98547-6687",22/10/2022,30/10/2022,"8 dias","R$ 79.80","R$ 638.40","Cartão de débito"
+212,"Leonor de Bragança",23,Portuguesa,"(57) 3387-4587",22/10/2022,27/10/2022,"5 dias","R$ 92.00","R$ 460.00",Dinheiro
+219,"Lúcia Helena Martins de Sousa",33,Brasileira,"53 985475878",25/10/2022,01/11/2022,"7 dias","R$ 99.98","R$ 699.86",PIX
+233,"Otto Von Fritz",36,Alemão,"(36) 98457-5547",29/10/2022,03/11/2022,"5 dias","R$ 79.80","R$ 399.00","Cartão de crédito"
+234,"Hérnan Fernandez",24,Espanhol,"(85) 985476663",03/11/2022,07/11/2022,"4 dias","R$ 105.00","R$ 420.00","Cartão de crédito"
+235,"Marcel Simon",27,Francês,"85 965478547",07/11/2022,20/11/2022,"13 dias","R$ 80.00","R$ 1040.00","Cartão de crédito"
+242,"Júlia Santos",25,Brasileira,"53 98745-6699",15/11/2022,25/11/2022,"10 dias","R$ 96.33","R$ 963.34","Cartão de crédito"
+247,"Paulo Rogério da Silva",35,Brasileiro,"54 3368-9874",26/11/2022,12/12/2022,"16 dias","R$ 76.00","R$ 1216.00",Boleto
+250,"Anthony Romano",43,Americano,"57 998547658",30/11/2022,10/12/2022,"10 dias","R$ 98.62","R$ 986.24",Dinheiro
+253,"Carlo di Conti",32,Italiano,"53 95478-3321",02/12/2022,18/12/2022,"16 dias","R$ 110.97","R$ 1775.52",PIX
+256,"Èdouard Saint Simon",48,Francês,"51 985214785",17/12/2022,27/12/2022,"10 dias","R$ 125.00","R$ 1250.00",Boleto
+263,"Adriana Lopes da Silveira",23,Brasileira,"52 3368-9988",22/12/2022,06/01/2023,"15 dias","R$ 135.00","R$ 2025.00","Cartão de débito"
+265,"Andrés Velasco",23,Uruguaio,"53 33687459",23/12/2022,04/01/2023,"12 dias","R$ 127.77","R$ 1533.24","Cartão de crédito"
+268,"Laurel Lennox",56,Americana,"56 3667-8487",23/12/2022,28/12/2022,"5 dias","R$ 140.00","R$ 700.00","Cartão de crédito"
+270,"João Victor de Matos",24,Brasileiro,"54 98745-0072",29/12/2022,06/01/2023,"8 dias","R$ 130.28","R$ 1042.24","Cartão de débito"
+277,"Eduardo Guilherme Monteiro",33,Brasileiro,"54 97854-6620",07/01/2023,22/01/2023,"15 dias","R$ 112.97","R$ 1694.55",Dinheiro
+281,"Mestre Jonas",101,Baleia,"51 985476584",20/10/2022,30/10/2022,"10 dias","R$ 100.00","R$ 1000.00",PIX
+289,"Chrigor Duan",26,Brasileiro,"51 98776-5543",25/05/2023,02/07/2023,"38 dias","R$ 98.16","R$ 3730.00",Dinheiro
