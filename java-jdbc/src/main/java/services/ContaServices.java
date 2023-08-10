@@ -3,7 +3,6 @@ package services;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,69 +14,73 @@ import models.Conta;
 import models.dto.DtoConta;
 
 public class ContaServices {
-  private Set<Conta> contas;
-  private ConnectionFactory connectionFactory;
+	private Set<Conta> contas;
+	private ConnectionFactory connectionFactory;
 
-  public ContaServices() {
-    this.contas = new HashSet<>();
-    this.connectionFactory = new ConnectionFactory();
-  }
+	public ContaServices() {
+		this.contas = new HashSet<>();
+		this.connectionFactory = new ConnectionFactory();
+	}
 
-  public Set<Conta> listaContas() {
-    return Collections.unmodifiableSet(contas);
-  }
+	public Set<Conta> listaContas() {
+		try (Connection con = connectionFactory.getConnection()) {
+			return new DaoConta(con).buscaContas();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
-  public void abreConta(DtoConta dados) {
-    Cliente titular = new Cliente(dados.dadosCliente());
-    Conta conta = new Conta(dados.numero(), titular);
+	}
 
-    try (Connection con = connectionFactory.getConnection()) {
-      new DaoConta(con).salvaConta(conta);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
+	public void abreConta(DtoConta dados) {
+		Cliente titular = new Cliente(dados.dadosCliente());
+		Conta conta = new Conta(dados.numero(), titular);
 
-  public void encerraConta(int numero) {
-    Conta c = buscaContaPorNumero(numero);
+		try (Connection con = connectionFactory.getConnection()) {
+			new DaoConta(con).salvaConta(conta);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    if (c.possuiSaldo())
-      throw new RegraDeNegocioException("Não foi possível encerrar a conta pois a mesma possui saldo!");
+	public void encerraConta(int numero) {
+		Conta c = buscaContaPorNumero(numero);
 
-    contas.remove(c);
-  }
+		if (c.possuiSaldo())
+			throw new RegraDeNegocioException("Não foi possível encerrar a conta pois a mesma possui saldo!");
 
-  public BigDecimal consultaSaldo(int numeroDaConta) {
-    Conta conta = buscaContaPorNumero(numeroDaConta);
-    return conta.getSaldo();
-  }
+		contas.remove(c);
+	}
 
-  public void realizarSaque(int numeroDaConta, BigDecimal valor) {
-    Conta c = buscaContaPorNumero(numeroDaConta);
+	public BigDecimal consultaSaldo(int numeroDaConta) {
+		Conta conta = buscaContaPorNumero(numeroDaConta);
+		return conta.getSaldo();
+	}
 
-    if (valor.compareTo(BigDecimal.ZERO) <= 0)
-      throw new RegraDeNegocioException("O valor do saque deve ser superior zero!");
-    if (valor.compareTo(c.getSaldo()) > 0)
-      throw new RegraDeNegocioException("Saldo insuficiente para realizar a operação!");
+	public void realizarSaque(int numeroDaConta, BigDecimal valor) {
+		Conta c = buscaContaPorNumero(numeroDaConta);
 
-    c.sacar(valor);
-  }
+		if (valor.compareTo(BigDecimal.ZERO) <= 0)
+			throw new RegraDeNegocioException("O valor do saque deve ser superior zero!");
+		if (valor.compareTo(c.getSaldo()) > 0)
+			throw new RegraDeNegocioException("Saldo insuficiente para realizar a operação!");
 
-  public void realizarDeposito(int numeroDaConta, BigDecimal valor) {
-    Conta c = buscaContaPorNumero(numeroDaConta);
+		c.sacar(valor);
+	}
 
-    if (valor.compareTo(BigDecimal.ZERO) <= 0)
-      throw new RegraDeNegocioException("O valor do depósito deve ser superior zero!");
+	public void realizarDeposito(int numeroDaConta, BigDecimal valor) {
+		Conta c = buscaContaPorNumero(numeroDaConta);
 
-    c.depositar(valor);
-  }
+		if (valor.compareTo(BigDecimal.ZERO) <= 0)
+			throw new RegraDeNegocioException("O valor do depósito deve ser superior zero!");
 
-  private Conta buscaContaPorNumero(int numero) {
-    return contas
-        .stream()
-        .filter(c -> c.getNumero() == numero)
-        .findFirst()
-        .orElseThrow(() -> new RegraDeNegocioException(
-            "Não há conta cadastrada para o número informado!\nNúmero informado: " + numero));
-  }
+		c.depositar(valor);
+	}
+
+	private Conta buscaContaPorNumero(int numero) {
+		try (Connection con = connectionFactory.getConnection()) {
+			return new DaoConta(con).buscaPorNumero(numero);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
