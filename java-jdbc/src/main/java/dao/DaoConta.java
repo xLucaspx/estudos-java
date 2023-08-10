@@ -40,16 +40,18 @@ public class DaoConta {
 			statement.setInt(1, numero);
 
 			Set<Conta> contas = transformaResultSetEmContas(statement);
-			
-			if (contas.size() == 0) throw new RegraDeNegocioException("Não há conta cadastrada para o número informado!\nNúmero informado: " + numero);
-			
-			return contas.toArray(new Conta[1])[0];	
+
+			if (contas.size() == 0)
+				throw new RegraDeNegocioException(
+						"Não há conta cadastrada para o número informado!\nNúmero informado: " + numero);
+
+			return contas.toArray(new Conta[1])[0];
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public void salvaConta(Conta c) {
+	public void criaConta(Conta c) {
 		String sql = "INSERT INTO conta (numero, saldo, nome_titular, cpf_titular, email_titular) VALUES (?, ?, ?, ?, ?);";
 		Cliente titular = c.getTitular();
 
@@ -61,6 +63,18 @@ public class DaoConta {
 			statement.setString(4, titular.getCpf());
 			statement.setString(5, titular.getEmail());
 
+			statement.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void alteraSaldoConta(int numero, BigDecimal saldo) {
+		String sql = "UPDATE conta SET saldo = ? WHERE numero = ?;";
+
+		try (PreparedStatement statement = con.prepareStatement(sql)) {
+			statement.setBigDecimal(1, saldo);
+			statement.setInt(2, numero);
 			statement.execute();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

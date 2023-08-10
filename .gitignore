@@ -2,3 +2,6 @@
 *.class
 
 .vscode
+.project
+.classpath
+.settings

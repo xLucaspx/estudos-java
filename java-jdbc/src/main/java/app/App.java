@@ -138,7 +138,7 @@ public class App {
     int numero = Integer.parseInt(s.nextLine());
 
     System.out.print("Digite o valor do saque: ");
-    BigDecimal valor = BigDecimal.valueOf(Float.parseFloat(s.nextLine()));
+    BigDecimal valor = new BigDecimal(s.nextLine());
 
     contaServices.realizarSaque(numero, valor);
 
@@ -151,7 +151,7 @@ public class App {
     int numero = Integer.parseInt(s.nextLine());
 
     System.out.print("Digite o valor do depósito: ");
-    BigDecimal valor = BigDecimal.valueOf(Float.parseFloat(s.nextLine()));
+    BigDecimal valor = new BigDecimal(s.nextLine());
 
     contaServices.realizarDeposito(numero, valor);
 

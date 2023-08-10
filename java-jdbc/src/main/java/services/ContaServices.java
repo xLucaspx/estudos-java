@@ -36,7 +36,7 @@ public class ContaServices {
 		Conta conta = new Conta(dados.numero(), titular);
 
 		try (Connection con = connectionFactory.getConnection()) {
-			new DaoConta(con).salvaConta(conta);
+			new DaoConta(con).criaConta(conta);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -65,6 +65,12 @@ public class ContaServices {
 			throw new RegraDeNegocioException("Saldo insuficiente para realizar a operação!");
 
 		c.sacar(valor);
+
+		try (Connection con = connectionFactory.getConnection()) {
+			new DaoConta(con).alteraSaldoConta(c.getNumero(), c.getSaldo());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void realizarDeposito(int numeroDaConta, BigDecimal valor) {
@@ -74,6 +80,12 @@ public class ContaServices {
 			throw new RegraDeNegocioException("O valor do depósito deve ser superior zero!");
 
 		c.depositar(valor);
+
+		try (Connection con = connectionFactory.getConnection()) {
+			new DaoConta(con).alteraSaldoConta(c.getNumero(), c.getSaldo());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private Conta buscaContaPorNumero(int numero) {

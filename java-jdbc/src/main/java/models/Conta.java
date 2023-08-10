@@ -54,6 +54,6 @@ public class Conta {
 
   @Override
   public String toString() {
-    return String.format("Conta: { numero: %d, saldo R$ %.2f, %s }", numero, saldo, titular);
+    return String.format("Conta: { numero: %04d, saldo R$ %.2f, %s }", numero, saldo, titular);
   }
 }
