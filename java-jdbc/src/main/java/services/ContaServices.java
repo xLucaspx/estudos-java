@@ -2,8 +2,6 @@ package services;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.Set;
 
 import dao.DaoConta;
@@ -14,11 +12,9 @@ import models.Conta;
 import models.dto.DtoConta;
 
 public class ContaServices {
-	private Set<Conta> contas;
 	private ConnectionFactory connectionFactory;
 
 	public ContaServices() {
-		this.contas = new HashSet<>();
 		this.connectionFactory = new ConnectionFactory();
 	}
 
@@ -28,7 +24,6 @@ public class ContaServices {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	public void abreConta(DtoConta dados) {
@@ -37,7 +32,7 @@ public class ContaServices {
 
 		try (Connection con = connectionFactory.getConnection()) {
 			new DaoConta(con).criaConta(conta);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -48,7 +43,11 @@ public class ContaServices {
 		if (c.possuiSaldo())
 			throw new RegraDeNegocioException("Não foi possível encerrar a conta pois a mesma possui saldo!");
 
-		contas.remove(c);
+		try (Connection con = connectionFactory.getConnection()) {
+			new DaoConta(con).deletaConta(numero);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public BigDecimal consultaSaldo(int numeroDaConta) {
@@ -68,7 +67,7 @@ public class ContaServices {
 
 		try (Connection con = connectionFactory.getConnection()) {
 			new DaoConta(con).alteraSaldoConta(c.getNumero(), c.getSaldo());
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -83,15 +82,30 @@ public class ContaServices {
 
 		try (Connection con = connectionFactory.getConnection()) {
 			new DaoConta(con).alteraSaldoConta(c.getNumero(), c.getSaldo());
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	public void realizarTransferencia(int numeroContaOrigem, int numeroContaDestino, BigDecimal valor) {
+		try {
+			Conta origem = buscaContaPorNumero(numeroContaOrigem);
+			Conta destino = buscaContaPorNumero(numeroContaDestino);
+
+			if (origem.equals(destino))
+				throw new RegraDeNegocioException("A conta de origem não pode ser a mesma de destino!");
+
+			realizarSaque(numeroContaOrigem, valor);
+			realizarDeposito(numeroContaDestino, valor);
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
 	private Conta buscaContaPorNumero(int numero) {
 		try (Connection con = connectionFactory.getConnection()) {
 			return new DaoConta(con).buscaPorNumero(numero);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

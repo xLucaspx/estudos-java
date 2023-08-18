@@ -69,6 +69,17 @@ public class DaoConta {
 		}
 	}
 
+	public void deletaConta(int numero) {
+		String sql = "DELETE FROM conta WHERE numero = ?";
+
+		try (PreparedStatement statement = con.prepareStatement(sql)) {
+			statement.setInt(1, numero);
+			statement.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public void alteraSaldoConta(int numero, BigDecimal saldo) {
 		String sql = "UPDATE conta SET saldo = ? WHERE numero = ?;";
 
@@ -92,8 +103,7 @@ public class DaoConta {
 				String cpf = rs.getString(4);
 				String email = rs.getString(5);
 
-				Conta c = new Conta(numero, new Cliente(new DtoCliente(nome, cpf, email)));
-				c.depositar(saldo);
+				Conta c = new Conta(numero, saldo, new Cliente(new DtoCliente(nome, cpf, email)));
 				contas.add(c);
 			}
 			return contas;

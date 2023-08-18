@@ -14,6 +14,12 @@ public class Conta {
     this.saldo = BigDecimal.ZERO;
   }
 
+  public Conta(int numero, BigDecimal saldo, Cliente titular) {
+    this.numero = numero;
+    this.titular = titular;
+    this.saldo = saldo;
+  }
+
   public int getNumero() {
     return numero;
   }
@@ -45,8 +51,10 @@ public class Conta {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || o.getClass() != getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null || o.getClass() != getClass())
+      return false;
 
     Conta c = (Conta) o;
     return numero.equals(c.getNumero());

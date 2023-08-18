@@ -15,9 +15,9 @@ public class App {
 
   public static void main(String... args) {
     Scanner s = new Scanner(System.in);
-    int opcao = 0;
+    int opcao = -1;
 
-    while (opcao != 7) {
+    while (opcao != 0) {
       try {
         opcao = exibeMenu(s);
         switch (opcao) {
@@ -46,6 +46,9 @@ public class App {
             break;
           }
           case 7 -> {
+            realizaTransferencia(s);
+          }
+          case 0 -> {
             System.out.println("\nPrograma encerrado!");
             break;
           }
@@ -54,14 +57,14 @@ public class App {
           }
         }
       } catch (NumberFormatException e) {
-        System.out.println("O valor digitado é inválido! Mensagem de erro:\n" + e.getMessage());
-        opcao = 0;
+        System.out.println("\nO valor digitado é inválido! Mensagem de erro:\n" + e.getMessage());
+        opcao = -1;
       } catch (RegraDeNegocioException e) {
-        System.out.println("Ocorreu um erro ao tentar realizar a operação:\n" + e.getMessage());
-        opcao = 0;
+        System.out.println("\nOcorreu um erro ao tentar realizar a operação:\n" + e.getMessage());
+        opcao = -1;
       } catch (Exception e) {
-        System.out.println("Ocorreu um erro durante a execução do programa:\n" + e.getMessage());
-        opcao = 0;
+        System.out.println("\nOcorreu um erro durante a execução do programa:\n" + e.getMessage());
+        opcao = -1;
       }
     }
     s.close();
@@ -76,7 +79,8 @@ public class App {
         4 - Consulta de saldo
         5 - Realizar depósito
         6 - Realizar saque
-        7 - Sair
+        7 - Realizar transferência
+        0 - Sair
         """);
     System.out.print("Digite o número da operação desejada: ");
 
@@ -97,16 +101,17 @@ public class App {
   }
 
   private static void abreConta(Scanner s) {
+    System.out.println("\nAbertura de conta");
     System.out.print("\nDigite o número da conta: ");
     int numero = Integer.parseInt(s.nextLine());
 
-    System.out.print("Digite o nome do titular: ");
+    System.out.print("\nDigite o nome do titular: ");
     String nome = s.nextLine();
 
-    System.out.print("Digite o CPF do titular: ");
+    System.out.print("\nDigite o CPF do titular: ");
     String cpf = s.nextLine();
 
-    System.out.print("Digite o e-mail do titular: ");
+    System.out.print("\nDigite o e-mail do titular: ");
     String email = s.nextLine();
 
     contaServices.abreConta(new DtoConta(numero, new DtoCliente(nome, cpf, email)));
@@ -115,6 +120,7 @@ public class App {
   }
 
   private static void encerraConta(Scanner s) {
+    System.out.println("\nEncerramento de conta");
     System.out.print("\nDigite o número da conta: ");
     int numero = Integer.parseInt(s.nextLine());
 
@@ -124,6 +130,7 @@ public class App {
   }
 
   private static void consultaSaldo(Scanner s) {
+    System.out.println("\nConsulta de saldo");
     System.out.print("\nDigite o número da conta: ");
     int numero = Integer.parseInt(s.nextLine());
     BigDecimal saldo = contaServices.consultaSaldo(numero);
@@ -134,10 +141,11 @@ public class App {
   }
 
   private static void realizaSaque(Scanner s) {
+    System.out.println("\nRealizar saque");
     System.out.print("\nDigite o número da conta: ");
     int numero = Integer.parseInt(s.nextLine());
 
-    System.out.print("Digite o valor do saque: ");
+    System.out.print("\nDigite o valor do saque: ");
     BigDecimal valor = new BigDecimal(s.nextLine());
 
     contaServices.realizarSaque(numero, valor);
@@ -147,13 +155,31 @@ public class App {
   }
 
   private static void realizaDeposito(Scanner s) {
+    System.out.println("\nRealizar depósito");
     System.out.print("\nDigite o número da conta: ");
     int numero = Integer.parseInt(s.nextLine());
 
-    System.out.print("Digite o valor do depósito: ");
+    System.out.print("\nDigite o valor do depósito: ");
     BigDecimal valor = new BigDecimal(s.nextLine());
 
     contaServices.realizarDeposito(numero, valor);
+
+    System.out.print("\nOperação realizada com sucesso!\n\nPressione ENTER para retornar ao menu principal...");
+    s.nextLine();
+  }
+
+  private static void realizaTransferencia(Scanner s) {
+    System.out.println("\nRealizar transferência");
+    System.out.print("\nDigite o número da conta de origem: ");
+    int origem = Integer.parseInt(s.nextLine());
+
+    System.out.print("\nDigite o número da conta de destino: ");
+    int destino = Integer.parseInt(s.nextLine());
+
+    System.out.print("\nDigite o valor da transferência: ");
+    BigDecimal valor = new BigDecimal(s.nextLine());
+
+    contaServices.realizarTransferencia(origem, destino, valor);
 
     System.out.print("\nOperação realizada com sucesso!\n\nPressione ENTER para retornar ao menu principal...");
     s.nextLine();
