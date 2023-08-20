@@ -1,4 +1,4 @@
-package services;
+package services.reajuste;
 
 import java.math.BigDecimal;
 

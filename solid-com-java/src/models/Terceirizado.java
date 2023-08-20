@@ -1,23 +1,14 @@
 package models;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
-public class Funcionario {
+public class Terceirizado {
   private DadosPessoais dadosPessoais;
-  private LocalDate dataUltimoReajuste;
+  private String empresa;
 
-  public Funcionario(String nome, String cpf, Cargo cargo, BigDecimal salario) {
+  public Terceirizado(String nome, String cpf, Cargo cargo, BigDecimal salario, String empresa) {
     this.dadosPessoais = new DadosPessoais(nome, cpf, cargo, salario);
-  }
-
-  public void atualizaSalario(BigDecimal novoSalario) {
-    this.dadosPessoais.setSalario(novoSalario);
-    dataUltimoReajuste = LocalDate.now();
-  }
-
-  public void promoveFuncionario(Cargo novoCargo) {
-    this.dadosPessoais.setCargo(novoCargo);
+    this.empresa = empresa;
   }
 
   public String getNome() {
@@ -52,11 +43,11 @@ public class Funcionario {
     this.dadosPessoais.setSalario(salario);
   }
 
-  public LocalDate getDataUltimoReajuste() {
-    return dataUltimoReajuste;
+  public String getEmpresa() {
+    return empresa;
   }
 
-  public void setDataUltimoReajuste(LocalDate dataUltimoReajuste) {
-    this.dataUltimoReajuste = dataUltimoReajuste;
+  public void setEmpresa(String empresa) {
+    this.empresa = empresa;
   }
 }
