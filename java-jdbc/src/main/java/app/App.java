@@ -30,22 +30,25 @@ public class App {
             break;
           }
           case 3 -> {
-            encerraConta(s);
+            desativaConta(s);
             break;
           }
           case 4 -> {
-            consultaSaldo(s);
+            reativaConta(s);
             break;
           }
           case 5 -> {
-            realizaDeposito(s);
+            consultaSaldo(s);
             break;
           }
           case 6 -> {
-            realizaSaque(s);
+            realizaDeposito(s);
             break;
           }
           case 7 -> {
+            realizaSaque(s);
+          }
+          case 8 -> {
             realizaTransferencia(s);
           }
           case 0 -> {
@@ -75,11 +78,12 @@ public class App {
         \nByteBank - Menu Principal
         1 - Listar contas
         2 - Abrir uma conta
-        3 - Encerrar uma conta
-        4 - Consulta de saldo
-        5 - Realizar depósito
-        6 - Realizar saque
-        7 - Realizar transferência
+        3 - Desativar uma conta
+        4 - Reativar uma conta
+        5 - Consultar saldo
+        6 - Realizar depósito
+        7 - Realizar saque
+        8 - Realizar transferência
         0 - Sair
         """);
     System.out.print("Digite o número da operação desejada: ");
@@ -95,9 +99,6 @@ public class App {
       System.out.println("Não existem contas abertas no momento");
     else
       contas.stream().forEach(System.out::println);
-
-    System.out.print("\nPressione ENTER para retornar ao menu principal...");
-    s.nextLine();
   }
 
   private static void abreConta(Scanner s) {
@@ -115,18 +116,25 @@ public class App {
     String email = s.nextLine();
 
     contaServices.abreConta(new DtoConta(numero, new DtoCliente(nome, cpf, email)));
-    System.out.print("\nConta aberta com sucesso!\n\nPressione ENTER para retornar ao menu principal...");
-    s.nextLine();
+    System.out.print("\nConta aberta com sucesso!");
   }
 
-  private static void encerraConta(Scanner s) {
-    System.out.println("\nEncerramento de conta");
+  private static void desativaConta(Scanner s) {
+    System.out.println("\nDesativação de conta");
     System.out.print("\nDigite o número da conta: ");
     int numero = Integer.parseInt(s.nextLine());
 
-    contaServices.encerraConta(numero);
-    System.out.print("\nConta encerrada com sucesso!\n\nPressione ENTER para retornar ao menu principal...");
-    s.nextLine();
+    contaServices.desativaConta(numero);
+    System.out.print("\nConta desativada com sucesso!");
+  }
+
+  private static void reativaConta(Scanner s) {
+    System.out.println("\nReativação de conta");
+    System.out.print("\nDigite o número da conta: ");
+    int numero = Integer.parseInt(s.nextLine());
+
+    contaServices.reativaConta(numero);
+    System.out.print("\nConta reativada com sucesso!");
   }
 
   private static void consultaSaldo(Scanner s) {
@@ -136,8 +144,6 @@ public class App {
     BigDecimal saldo = contaServices.consultaSaldo(numero);
 
     System.out.println(String.format("\nO saldo da conta é de R$ %.2f", saldo));
-    System.out.print("\nPressione ENTER para retornar ao menu principal...");
-    s.nextLine();
   }
 
   private static void realizaSaque(Scanner s) {
@@ -148,10 +154,9 @@ public class App {
     System.out.print("\nDigite o valor do saque: ");
     BigDecimal valor = new BigDecimal(s.nextLine());
 
-    contaServices.realizarSaque(numero, valor);
+    contaServices.realizaSaque(numero, valor);
 
-    System.out.print("\nOperação realizada com sucesso!\n\nPressione ENTER para retornar ao menu principal...");
-    s.nextLine();
+    System.out.print("\nOperação realizada com sucesso!");
   }
 
   private static void realizaDeposito(Scanner s) {
@@ -162,10 +167,9 @@ public class App {
     System.out.print("\nDigite o valor do depósito: ");
     BigDecimal valor = new BigDecimal(s.nextLine());
 
-    contaServices.realizarDeposito(numero, valor);
+    contaServices.realizaDeposito(numero, valor);
 
-    System.out.print("\nOperação realizada com sucesso!\n\nPressione ENTER para retornar ao menu principal...");
-    s.nextLine();
+    System.out.print("\nOperação realizada com sucesso!");
   }
 
   private static void realizaTransferencia(Scanner s) {
@@ -179,9 +183,8 @@ public class App {
     System.out.print("\nDigite o valor da transferência: ");
     BigDecimal valor = new BigDecimal(s.nextLine());
 
-    contaServices.realizarTransferencia(origem, destino, valor);
+    contaServices.realizaTransferencia(origem, destino, valor);
 
-    System.out.print("\nOperação realizada com sucesso!\n\nPressione ENTER para retornar ao menu principal...");
-    s.nextLine();
+    System.out.print("\nOperação realizada com sucesso!");
   }
 }

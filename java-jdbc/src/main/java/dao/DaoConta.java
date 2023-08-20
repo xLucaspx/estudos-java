@@ -21,8 +21,8 @@ public class DaoConta {
 		this.con = con;
 	}
 
-	public Set<Conta> buscaContas() {
-		String sql = "SELECT numero, saldo, nome_titular, cpf_titular, email_titular FROM conta;";
+	public Set<Conta> buscaContasAtivas() {
+		String sql = "SELECT numero, saldo, nome_titular, cpf_titular, email_titular, ativa FROM conta WHERE ativa = true;";
 		Set<Conta> contas;
 
 		try (PreparedStatement statement = con.prepareStatement(sql)) {
@@ -34,7 +34,7 @@ public class DaoConta {
 	}
 
 	public Conta buscaPorNumero(int numero) {
-		String sql = "SELECT numero, saldo, nome_titular, cpf_titular, email_titular FROM conta WHERE numero = ? LIMIT 1;";
+		String sql = "SELECT numero, saldo, nome_titular, cpf_titular, email_titular, ativa FROM conta WHERE numero = ? LIMIT 1;";
 
 		try (PreparedStatement statement = con.prepareStatement(sql)) {
 			statement.setInt(1, numero);
@@ -69,8 +69,19 @@ public class DaoConta {
 		}
 	}
 
-	public void deletaConta(int numero) {
-		String sql = "DELETE FROM conta WHERE numero = ?";
+	public void desativaConta(int numero) {
+		String sql = "UPDATE conta SET ativa = false WHERE numero = ?";
+
+		try (PreparedStatement statement = con.prepareStatement(sql)) {
+			statement.setInt(1, numero);
+			statement.execute();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void ativaConta(int numero) {
+		String sql = "UPDATE conta SET ativa = true WHERE numero = ?";
 
 		try (PreparedStatement statement = con.prepareStatement(sql)) {
 			statement.setInt(1, numero);
@@ -102,11 +113,14 @@ public class DaoConta {
 				String nome = rs.getString(3);
 				String cpf = rs.getString(4);
 				String email = rs.getString(5);
+				boolean ativa = rs.getBoolean(6);
 
-				Conta c = new Conta(numero, saldo, new Cliente(new DtoCliente(nome, cpf, email)));
+				Conta c = new Conta(numero, saldo, new Cliente(new DtoCliente(nome, cpf, email)), ativa);
 				contas.add(c);
 			}
 			return contas;
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 }

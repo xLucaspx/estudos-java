@@ -7,17 +7,27 @@ public class Conta {
   private Integer numero;
   private BigDecimal saldo;
   private Cliente titular;
+  private boolean ativa;
 
   public Conta(int numero, Cliente titular) {
     this.numero = numero;
     this.titular = titular;
     this.saldo = BigDecimal.ZERO;
+    this.ativa = true;
   }
 
   public Conta(int numero, BigDecimal saldo, Cliente titular) {
     this.numero = numero;
     this.titular = titular;
     this.saldo = saldo;
+    this.ativa = true;
+  }
+
+  public Conta(int numero, BigDecimal saldo, Cliente titular, boolean ativa) {
+    this.numero = numero;
+    this.titular = titular;
+    this.saldo = saldo;
+    this.ativa = ativa;
   }
 
   public int getNumero() {
@@ -34,6 +44,10 @@ public class Conta {
 
   public boolean possuiSaldo() {
     return this.saldo.compareTo(BigDecimal.ZERO) != 0;
+  }
+
+  public boolean estaAtiva() {
+    return this.ativa;
   }
 
   public void sacar(BigDecimal valor) {
