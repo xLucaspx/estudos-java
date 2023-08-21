@@ -24,39 +24,19 @@ public class Funcionario {
     return dadosPessoais.getNome();
   }
 
-  public void setNome(String nome) {
-    this.dadosPessoais.setNome(nome);
-  }
-
   public String getCpf() {
     return dadosPessoais.getCpf();
-  }
-
-  public void setCpf(String cpf) {
-    this.dadosPessoais.setCpf(cpf);
   }
 
   public Cargo getCargo() {
     return dadosPessoais.getCargo();
   }
 
-  public void setCargo(Cargo cargo) {
-    this.dadosPessoais.setCargo(cargo);
-  }
-
   public BigDecimal getSalario() {
     return dadosPessoais.getSalario();
   }
 
-  public void setSalario(BigDecimal salario) {
-    this.dadosPessoais.setSalario(salario);
-  }
-
   public LocalDate getDataUltimoReajuste() {
     return dataUltimoReajuste;
-  }
-
-  public void setDataUltimoReajuste(LocalDate dataUltimoReajuste) {
-    this.dataUltimoReajuste = dataUltimoReajuste;
   }
 }

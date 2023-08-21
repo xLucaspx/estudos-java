@@ -8,7 +8,8 @@ import models.Funcionario;
 
 public class ValidacaoPercentualReajuste implements ValidacaoReajuste {
 
-  public void validar(Funcionario funcionario, BigDecimal aumento) {
+  @Override
+  public void valida(Funcionario funcionario, BigDecimal aumento) {
     BigDecimal salarioAtual = funcionario.getSalario();
     BigDecimal percentualReajuste = aumento.divide(salarioAtual, RoundingMode.HALF_UP);
 

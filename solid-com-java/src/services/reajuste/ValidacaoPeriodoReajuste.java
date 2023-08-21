@@ -9,7 +9,8 @@ import models.Funcionario;
 
 public class ValidacaoPeriodoReajuste implements ValidacaoReajuste {
 
-  public void validar(Funcionario funcionario, BigDecimal aumento) {
+  @Override
+  public void valida(Funcionario funcionario, BigDecimal aumento) {
     LocalDate dataUltimoReajuste = funcionario.getDataUltimoReajuste();
     long mesesDesdeUltimoReajuste = ChronoUnit.MONTHS.between(dataUltimoReajuste, LocalDate.now());
 
