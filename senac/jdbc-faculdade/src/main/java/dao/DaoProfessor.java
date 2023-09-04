@@ -63,7 +63,7 @@ public class DaoProfessor {
   }
 
   public void editaProfessor(int id, DadosPessoais dados, BigDecimal salario) {
-    String sql = "UPDATE Professor SET nome = ?, email = ?, salario = ? WHERE matricula = ?;";
+    String sql = "UPDATE Professor SET nome = ?, email = ?, salario = ? WHERE id = ?;";
 
     try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setString(1, dados.nome());

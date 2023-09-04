@@ -1,184 +1,223 @@
-// package app;
+package app;
 
-// import java.math.BigDecimal;
-// import java.util.Scanner;
-// import java.util.Set;
+import java.math.BigDecimal;
+import java.util.Scanner;
+import java.util.Set;
 
-// public class App {
-//   private static ContaServices contaServices = new ContaServices();
+import models.Aluno;
+import models.Professor;
+import models.dto.DadosPessoais;
+import services.AlunoServices;
+import services.ProfessorServices;
 
-//   public static void main(String... args) {
-//     Scanner s = new Scanner(System.in);
-//     int opcao = -1;
+public class App {
+  private static AlunoServices alunoServices = new AlunoServices();
+  private static ProfessorServices professorServices = new ProfessorServices();
 
-//     while (opcao != 0) {
-//       try {
-//         opcao = exibeMenu(s);
-//         switch (opcao) {
-//           case 1 -> {
-//             listaContas(s);
-//             break;
-//           }
-//           case 2 -> {
-//             abreConta(s);
-//             break;
-//           }
-//           case 3 -> {
-//             desativaConta(s);
-//             break;
-//           }
-//           case 4 -> {
-//             reativaConta(s);
-//             break;
-//           }
-//           case 5 -> {
-//             consultaSaldo(s);
-//             break;
-//           }
-//           case 6 -> {
-//             realizaDeposito(s);
-//             break;
-//           }
-//           case 7 -> {
-//             realizaSaque(s);
-//           }
-//           case 8 -> {
-//             realizaTransferencia(s);
-//           }
-//           case 0 -> {
-//             System.out.println("\nPrograma encerrado!");
-//             break;
-//           }
-//           default -> {
-//             throw new IllegalArgumentException("O valor digitado não corresponde a nenhuma operação!");
-//           }
-//         }
-//       } catch (NumberFormatException e) {
-//         System.out.println("\nO valor digitado é inválido! Mensagem de erro:\n" + e.getMessage());
-//         opcao = -1;
-//       } catch (RegraDeNegocioException e) {
-//         System.out.println("\nOcorreu um erro ao tentar realizar a operação:\n" + e.getMessage());
-//         opcao = -1;
-//       } catch (Exception e) {
-//         System.out.println("\nOcorreu um erro durante a execução do programa:\n" + e.getMessage());
-//         opcao = -1;
-//       }
-//     }
-//     s.close();
-//   }
+  public static void main(String... args) {
+    Scanner s = new Scanner(System.in);
+    int opcao = -1;
 
-//   private static int exibeMenu(Scanner s) {
-//     System.out.print("""
-//         \nByteBank - Menu Principal
-//         1 - Listar contas
-//         2 - Abrir uma conta
-//         3 - Desativar uma conta
-//         4 - Reativar uma conta
-//         5 - Consultar saldo
-//         6 - Realizar depósito
-//         7 - Realizar saque
-//         8 - Realizar transferência
-//         0 - Sair
-//         """);
-//     System.out.print("Digite o número da operação desejada: ");
+    while (opcao != 0) {
+      try {
+        opcao = exibeMenu(s);
+        switch (opcao) {
+          case 1 -> {
+            listaProfessores();
+            break;
+          }
+          case 2 -> {
+            listaAlunos();
+            break;
+          }
+          case 3 -> {
+            cadastraProfessor(s);
+            break;
+          }
+          case 4 -> {
+            cadastraAluno(s);
+            break;
+          }
+          case 5 -> {
+            editaProfessor(s);
+            break;
+          }
+          case 6 -> {
+            editaAluno(s);
+            break;
+          }
+          case 7 -> {
+            deletaProfessor(s);
+            break;
+          }
+          case 8 -> {
+            deletaAluno(s);
+            break;
+          }
+          case 0 -> {
+            System.out.println("\nPrograma encerrado!");
+            break;
+          }
+          default -> {
+            throw new IllegalArgumentException("O valor digitado não corresponde a nenhuma operação!");
+          }
+        }
+      } catch (NumberFormatException e) {
+        System.out.println("\nO valor digitado é inválido! Mensagem de erro:\n" + e.getMessage());
+        opcao = -1;
+      } catch (Exception e) {
+        System.out.println("\nOcorreu um erro ao tentar realizar a operação:\n" + e.getMessage());
+        opcao = -1;
+      }
+    }
+    s.close();
+  }
 
-//     return Integer.parseInt(s.nextLine());
-//   }
+  private static int exibeMenu(Scanner s) {
+    System.out.print("""
+        \nFaculdade JDBC  - Menu Principal
+        1 - Listar professores
+        2 - Listar alunos
+        3 - Cadastrar professor
+        4 - Cadastrar aluno
+        5 - Editar professor
+        6 - Editar aluno
+        7 - Excluir professor
+        8 - Excluir aluno
+        0 - Sair
+        """);
+    System.out.print("\nDigite o número da operação desejada: ");
 
-//   private static void listaContas(Scanner s) {
-//     System.out.println("\nContas abertas:");
-//     Set<Conta> contas = contaServices.listaContas();
+    return Integer.parseInt(s.nextLine());
+  }
 
-//     if (contas.size() <= 0)
-//       System.out.println("Não existem contas abertas no momento");
-//     else
-//       contas.stream().forEach(System.out::println);
-//   }
+  private static void listaProfessores() {
+    System.out.println("\nProfessores cadastrados:");
+    Set<Professor> professores = professorServices.listaProfessores();
 
-//   private static void abreConta(Scanner s) {
-//     System.out.println("\nAbertura de conta");
-//     System.out.print("\nDigite o número da conta: ");
-//     int numero = Integer.parseInt(s.nextLine());
+    if (professores.size() <= 0)
+      System.out.println("Não existem professores cadastrados!");
+    else
+      professores.stream().forEach(System.out::println);
+  }
 
-//     System.out.print("\nDigite o nome do titular: ");
-//     String nome = s.nextLine();
+  private static void listaAlunos() {
+    System.out.println("\nAlunos cadastrados:");
+    Set<Aluno> alunos = alunoServices.listaAlunos();
 
-//     System.out.print("\nDigite o CPF do titular: ");
-//     String cpf = s.nextLine();
+    if (alunos.size() <= 0)
+      System.out.println("Não existem alunos cadastrados!");
+    else
+      alunos.stream().forEach(System.out::println);
+  }
 
-//     System.out.print("\nDigite o e-mail do titular: ");
-//     String email = s.nextLine();
+  private static void cadastraProfessor(Scanner s) {
+    System.out.println("\nCadastro de professor");
+    System.out.print("\nDigite o nome do professor: ");
+    String nome = s.nextLine();
 
-//     contaServices.abreConta(new DtoConta(numero, new DtoCliente(nome, cpf, email)));
-//     System.out.print("\nConta aberta com sucesso!");
-//   }
+    System.out.print("Digite o e-mail do professor: ");
+    String email = s.nextLine();
 
-//   private static void desativaConta(Scanner s) {
-//     System.out.println("\nDesativação de conta");
-//     System.out.print("\nDigite o número da conta: ");
-//     int numero = Integer.parseInt(s.nextLine());
+    System.out.print("Digite o salário do professor: R$ ");
+    BigDecimal salario = new BigDecimal(s.nextLine());
 
-//     contaServices.desativaConta(numero);
-//     System.out.print("\nConta desativada com sucesso!");
-//   }
+    professorServices.cadastraProfessor(new DadosPessoais(nome, email), salario);
+    System.out.println("\nProfessor cadastrado com sucesso!");
+  }
 
-//   private static void reativaConta(Scanner s) {
-//     System.out.println("\nReativação de conta");
-//     System.out.print("\nDigite o número da conta: ");
-//     int numero = Integer.parseInt(s.nextLine());
+  private static void cadastraAluno(Scanner s) {
+    System.out.println("\nCadastro de Aluno");
+    System.out.print("\nDigite o nome do aluno: ");
+    String nome = s.nextLine();
 
-//     contaServices.reativaConta(numero);
-//     System.out.print("\nConta reativada com sucesso!");
-//   }
+    System.out.print("Digite o e-mail do aluno: ");
+    String email = s.nextLine();
 
-//   private static void consultaSaldo(Scanner s) {
-//     System.out.println("\nConsulta de saldo");
-//     System.out.print("\nDigite o número da conta: ");
-//     int numero = Integer.parseInt(s.nextLine());
-//     BigDecimal saldo = contaServices.consultaSaldo(numero);
+    System.out.print("Digite a matrícula do aluno: ");
+    int matricula = Integer.parseInt(s.nextLine());
 
-//     System.out.println(String.format("\nO saldo da conta é de R$ %.2f", saldo));
-//   }
+    alunoServices.cadastraAluno(new DadosPessoais(nome, email), matricula);
+    System.out.println("\nAluno cadastrado com sucesso!");
+  }
 
-//   private static void realizaSaque(Scanner s) {
-//     System.out.println("\nRealizar saque");
-//     System.out.print("\nDigite o número da conta: ");
-//     int numero = Integer.parseInt(s.nextLine());
+  private static void editaProfessor(Scanner s) {
+    System.out.println("\nEdição de professor");
+    System.out.print("\nDigite o ID do professor: ");
+    int id = Integer.parseInt(s.nextLine());
 
-//     System.out.print("\nDigite o valor do saque: ");
-//     BigDecimal valor = new BigDecimal(s.nextLine());
+    Professor professor = professorServices.buscaProfessorPorId(id);
 
-//     contaServices.realizaSaque(numero, valor);
+    System.out.println("\nNome: " + professor.getNome());
+    System.out.print("Digite o novo nome: ");
+    String nome = s.nextLine();
 
-//     System.out.print("\nOperação realizada com sucesso!");
-//   }
+    System.out.println("\nE-mail: " + professor.getEmail());
+    System.out.print("Digite o novo e-mail: ");
+    String email = s.nextLine();
 
-//   private static void realizaDeposito(Scanner s) {
-//     System.out.println("\nRealizar depósito");
-//     System.out.print("\nDigite o número da conta: ");
-//     int numero = Integer.parseInt(s.nextLine());
+    System.out.println(String.format("\nSalário R$ %.2f", professor.getSalario()));
+    System.out.print("Digite o novo salário: R$ ");
+    BigDecimal salario = new BigDecimal(s.nextLine());
 
-//     System.out.print("\nDigite o valor do depósito: ");
-//     BigDecimal valor = new BigDecimal(s.nextLine());
+    professorServices.editaProfessor(new DadosPessoais(nome, email), id, salario);
+    System.out.println("\nProfessor atualizado com sucesso!");
+  }
 
-//     contaServices.realizaDeposito(numero, valor);
+  private static void editaAluno(Scanner s) {
+    System.out.println("\nEdição de aluno");
+    System.out.print("\nDigite a matrícula do aluno: ");
+    int matricula = Integer.parseInt(s.nextLine());
 
-//     System.out.print("\nOperação realizada com sucesso!");
-//   }
+    Aluno aluno = alunoServices.buscaAlunoPorMatricula(matricula);
 
-//   private static void realizaTransferencia(Scanner s) {
-//     System.out.println("\nRealizar transferência");
-//     System.out.print("\nDigite o número da conta de origem: ");
-//     int origem = Integer.parseInt(s.nextLine());
+    System.out.println("\nNome: " + aluno.getNome());
+    System.out.print("Digite o novo nome: ");
+    String nome = s.nextLine();
 
-//     System.out.print("\nDigite o número da conta de destino: ");
-//     int destino = Integer.parseInt(s.nextLine());
+    System.out.println("\nE-mail: " + aluno.getEmail());
+    System.out.print("Digite o novo e-mail: ");
+    String email = s.nextLine();
 
-//     System.out.print("\nDigite o valor da transferência: ");
-//     BigDecimal valor = new BigDecimal(s.nextLine());
+    alunoServices.editaAluno(new DadosPessoais(nome, email), matricula);
+    System.out.println("\nAluno atualizado com sucesso!");
+  }
 
-//     contaServices.realizaTransferencia(origem, destino, valor);
+  private static void deletaProfessor(Scanner s) {
+    System.out.println("\nExcluir professor");
+    System.out.print("\nDigite o ID do professor: ");
+    int id = Integer.parseInt(s.nextLine());
 
-//     System.out.print("\nOperação realizada com sucesso!");
-//   }
-// }
+    Professor professor = professorServices.buscaProfessorPorId(id);
+
+    System.out.println("\nTem certeza que deseja excluir o professor " + professor.getNome() + "?");
+    System.out.print("Digite 'S' para confirmar: ");
+    String res = s.nextLine();
+
+    if (res.toLowerCase().equals("s")) {
+      professorServices.deletaProfessor(id);
+      System.out.println("\nProfessor excluído com sucesso!");
+      return;
+    }
+    System.out.println("\nValor inválido, a operação não foi concluída!");
+  }
+
+  private static void deletaAluno(Scanner s) {
+    System.out.println("\nExcluir aluno");
+    System.out.print("\nDigite a matrícula do aluno: ");
+    int matricula = Integer.parseInt(s.nextLine());
+
+    Aluno aluno = alunoServices.buscaAlunoPorMatricula(matricula);
+
+    System.out.println("\nTem certeza que deseja excluir o aluno " + aluno.getNome() + "?");
+    System.out.print("Digite 'S' para confirmar: ");
+    String res = s.nextLine();
+
+    if (res.toLowerCase().equals("s")) {
+      alunoServices.deletaAluno(matricula);
+      System.out.println("\nAluno excluído com sucesso!");
+      return;
+    }
+    System.out.println("\nValor inválido, a operação não foi concluída!");
+  }
+}

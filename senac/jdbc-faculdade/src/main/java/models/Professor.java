@@ -18,6 +18,12 @@ public class Professor {
     this.salario = salario;
   }
 
+  public Professor(DadosPessoais dados, BigDecimal salario) {
+    this.nome = dados.nome();
+    this.email = dados.email();
+    this.salario = salario;
+  }
+
   public String getNome() {
     return nome;
   }
