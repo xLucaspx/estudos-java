@@ -2,7 +2,7 @@ package imposto;
 
 import java.math.BigDecimal;
 
-import models.Orcamento;
+import orcamento.Orcamento;
 
 public class ISS implements Imposto {
   @Override

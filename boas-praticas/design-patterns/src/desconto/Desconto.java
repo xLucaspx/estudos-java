@@ -2,7 +2,7 @@ package desconto;
 
 import java.math.BigDecimal;
 
-import models.Orcamento;
+import orcamento.Orcamento;
 
 public abstract class Desconto {
   protected Desconto next;

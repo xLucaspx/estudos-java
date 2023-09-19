@@ -4,7 +4,7 @@ import desconto.CalculadoraDesconto;
 import imposto.CalculadoraImposto;
 import imposto.ICMS;
 import imposto.ISS;
-import models.Orcamento;
+import orcamento.Orcamento;
 
 public class Testes {
   public static void main(String... args) {

@@ -2,7 +2,7 @@ package desconto;
 
 import java.math.BigDecimal;
 
-import models.Orcamento;
+import orcamento.Orcamento;
 
 public class DescontoPorValor extends Desconto {
   public DescontoPorValor(Desconto proximo) {
