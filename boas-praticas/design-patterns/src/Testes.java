@@ -5,6 +5,8 @@ import imposto.CalculadoraImposto;
 import imposto.ICMS;
 import imposto.ISS;
 import orcamento.Orcamento;
+import pedido.GeraPedido;
+import pedido.GeraPedidoHandler;
 
 public class Testes {
   public static void main(String... args) {
@@ -29,5 +31,30 @@ public class Testes {
     System.out.println(String.format("Desconto orçamento 1: R$ %.2f", desconto1));
     System.out.println(String.format("Desconto orçamento 2: R$ %.2f", desconto2));
     System.out.println(String.format("Desconto orçamento 3: R$ %.2f", desconto3));
+
+    orcamento1.aprovar();
+    orcamento3.reprovar();
+
+    orcamento1.aplicarDescontoExtra();
+    orcamento2.aplicarDescontoExtra();
+    orcamento3.aplicarDescontoExtra();
+
+    System.out.println(String.format("Valor 1 após desconto extra R$ %.2f", orcamento1.getValor())); // aprovado: 2%
+    System.out.println(String.format("Valor 2 após desconto extra R$ %.2f", orcamento2.getValor())); // em analise: 5%
+    System.out.println(String.format("Valor 3 após desconto extra R$ %.2f", orcamento3.getValor())); // reprovado: 0
+
+    orcamento2.aprovar();
+
+    orcamento1.finalizar();
+    orcamento2.finalizar();
+    orcamento3.finalizar();
+
+    String cliente = "Wilmur Machado";
+    BigDecimal valor = BigDecimal.valueOf(600);
+    int quantidadeItens = 4;
+
+    GeraPedido geradorPedido = new GeraPedido(cliente, valor, quantidadeItens);
+    GeraPedidoHandler handler = new GeraPedidoHandler(/* repository/dao, services, etc */);
+    handler.executa(geradorPedido);
   }
 }
