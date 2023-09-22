@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import desconto.CalculadoraDesconto;
 import imposto.CalculadoraImposto;
@@ -7,6 +8,8 @@ import imposto.ISS;
 import orcamento.Orcamento;
 import pedido.GeraPedido;
 import pedido.GeraPedidoHandler;
+import pedido.acao.EnviarEmailPedido;
+import pedido.acao.SalvarPedidoNoBanco;
 
 public class Testes {
   public static void main(String... args) {
@@ -54,7 +57,10 @@ public class Testes {
     int quantidadeItens = 4;
 
     GeraPedido geradorPedido = new GeraPedido(cliente, valor, quantidadeItens);
-    GeraPedidoHandler handler = new GeraPedidoHandler(/* repository/dao, services, etc */);
+    GeraPedidoHandler handler = new GeraPedidoHandler(
+      Arrays.asList(new SalvarPedidoNoBanco(), new EnviarEmailPedido())
+    );
+
     handler.executa(geradorPedido);
   }
 }
