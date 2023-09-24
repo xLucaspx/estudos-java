@@ -1,12 +1,16 @@
 package app;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import factory.ConnectionFactory;
 import models.Author;
 import models.Book;
 import models.Category;
 import models.Format;
+import models.dto.AuthorDto;
+import services.AuthorServices;
 
 public class App {
   public static void main(String... args) {
@@ -25,5 +29,13 @@ public class App {
     System.out.println("\n" + brazillian);
     System.out.println("\n" + euclides);
     System.out.println("\n" + sertoes);
+
+    ConnectionFactory cf = new ConnectionFactory();
+    Connection conn = cf.getConection();
+
+    AuthorServices authorServices = new AuthorServices(conn);
+
+    authorServices.create(new AuthorDto(euclides.getName(), euclides.getNationality()));
+    System.out.println(authorServices.getAll());
   }
 }
