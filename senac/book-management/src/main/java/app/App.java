@@ -1,19 +1,33 @@
 package app;
 
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import factory.ConnectionFactory;
 import models.Author;
 import models.Book;
 import models.Category;
 import models.Format;
-import models.dto.AuthorDto;
-import services.AuthorServices;
 
 public class App {
   public static void main(String... args) {
+    // ConnectionFactory cf = new ConnectionFactory();
+    // Connection conn = cf.getConection();
+
+    // AuthorServices authorServices = new AuthorServices(conn);
+
+    // authorServices.create(new AuthorDto("Euclides da Cunha", "American"));
+    // authorServices.create(new AuthorDto("Stephen King", "American"));
+    // authorServices.create(new AuthorDto("erick larssonn", "American"));
+
+    // authorServices.getAll().forEach(System.out::println);
+
+    // authorServices.update(3, new AuthorDto("Erik Larson", "American"));
+
+    // System.out.println(authorServices.filterByName("cunha"));
+    // System.out.println(authorServices.filterByNationality("american"));
+
+    // Author euclides = authorServices.getById(1);
+
     Format papperback = new Format(1, "Papperback");
 
     Category journalism = new Category(1, "Journalism");
@@ -29,13 +43,5 @@ public class App {
     System.out.println("\n" + brazillian);
     System.out.println("\n" + euclides);
     System.out.println("\n" + sertoes);
-
-    ConnectionFactory cf = new ConnectionFactory();
-    Connection conn = cf.getConection();
-
-    AuthorServices authorServices = new AuthorServices(conn);
-
-    authorServices.create(new AuthorDto(euclides.getName(), euclides.getNationality()));
-    System.out.println(authorServices.getAll());
   }
 }
