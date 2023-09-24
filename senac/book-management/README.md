@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS book (
   `read` BOOLEAN DEFAULT false,
   author_id INT NOT NULL,
   format_id INT NOT NULL,
-  puchase_date DATE DEFAULT null,
-  price FLOAT(3, 2) NOT NULL,
+  purchase_date DATE DEFAULT null,
+  price FLOAT(5, 2) NOT NULL,
   review TEXT DEFAULT null,
   CONSTRAINT FK_author_code FOREIGN KEY (author_id)
       REFERENCES author(id),
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS book_category (
   category_id INT,
   PRIMARY KEY (book_id , category_id),
   CONSTRAINT FK_book_code FOREIGN KEY (book_id)
-      REFERENCES book (id),
+      REFERENCES book (id) ON DELETE CASCADE,
   CONSTRAINT FK_category_code FOREIGN KEY (category_id)
       REFERENCES category (id)
 );
