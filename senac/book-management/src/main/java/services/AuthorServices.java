@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,16 +13,16 @@ import models.Author;
 import models.dto.AuthorDto;
 
 public class AuthorServices {
-  private Connection conn;
+  private Connection con;
 
-  public AuthorServices(Connection conn) {
-    this.conn = conn;
+  public AuthorServices(Connection con) {
+    this.con = con;
   }
 
   public Author getById(int id) {
     String sql = "SELECT `id`, `name`, `nationality`, `books_owned` FROM `author` WHERE `id` = ?;";
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setInt(1, id);
       Set<Author> authors = transformResultSet(statement);
 
@@ -37,7 +38,7 @@ public class AuthorServices {
   public Set<Author> getAll() {
     String sql = "SELECT `id`, `name`, `nationality`, `books_owned` FROM `author`;";
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
       Set<Author> authors = transformResultSet(statement);
       return authors;
     } catch (SQLException e) {
@@ -49,7 +50,7 @@ public class AuthorServices {
     name = "%" + name + "%";
     String sql = "SELECT `id`, `name`, `nationality`, `books_owned` FROM `author` WHERE `name` LIKE ?;";
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setString(1, name);
       Set<Author> authors = transformResultSet(statement);
       return authors;
@@ -62,7 +63,7 @@ public class AuthorServices {
     nationality = "%" + nationality + "%";
     String sql = "SELECT `id`, `name`, `nationality`, `books_owned` FROM `author` WHERE `nationality` LIKE ?;";
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setString(1, nationality);
       Set<Author> authors = transformResultSet(statement);
       return authors;
@@ -74,7 +75,7 @@ public class AuthorServices {
   public void create(AuthorDto authorData) {
     String sql = "INSERT INTO `author` (`name`, `nationality`) VALUES (?, ?);";
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setString(1, authorData.name());
       statement.setString(2, authorData.nationality());
 
@@ -87,7 +88,7 @@ public class AuthorServices {
   public void update(int id, AuthorDto authorData) {
     String sql = "UPDATE `author` SET `name` = ?, `nationality` = ? WHERE `id` = ?;";
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setString(1, authorData.name());
       statement.setString(2, authorData.nationality());
       statement.setInt(3, id);
@@ -101,7 +102,7 @@ public class AuthorServices {
   public void delete(int id) {
     String sql = "DELETE FROM `author` WHERE `id` = ?";
 
-    try (PreparedStatement statement = conn.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setInt(1, id);
       statement.execute();
     } catch (Exception e) {
@@ -122,7 +123,7 @@ public class AuthorServices {
         Author author = new Author(id, name, nationality, booksOwned);
         authors.add(author);
       }
-      return authors;
+      return Collections.unmodifiableSet(authors);
     } catch (Exception e) {
       throw e;
     }

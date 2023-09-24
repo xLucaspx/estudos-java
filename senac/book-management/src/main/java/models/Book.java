@@ -3,7 +3,8 @@ package models;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Book {
   private int id;
@@ -13,12 +14,12 @@ public class Book {
   private boolean read;
   private Author author;
   private Format format;
-  private List<Category> categories;
+  private Set<Category> categories;
   private LocalDate purchaseDate;
   private float price;
 
   public Book(int id, String title, String isbn, int pages, boolean read, Author author, Format format,
-      List<Category> categories, LocalDate purchaseDate, float price) {
+      LocalDate purchaseDate, float price) {
     this.id = id;
     this.title = title;
     this.isbn = isbn;
@@ -26,7 +27,7 @@ public class Book {
     this.read = read;
     this.author = author;
     this.format = format;
-    this.categories = categories;
+    this.categories = new HashSet<>();
     this.purchaseDate = purchaseDate;
     this.price = price;
   }
@@ -59,8 +60,12 @@ public class Book {
     return format;
   }
 
-  public List<Category> getCategories() {
-    return Collections.unmodifiableList(categories);
+  public void addCategory(Category category) {
+    categories.add(category);
+  }
+
+  public Set<Category> getCategories() {
+    return Collections.unmodifiableSet(categories);
   }
 
   public LocalDate getPurchaseDate() {
@@ -78,26 +83,29 @@ public class Book {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null) return false;
-    if (this.getClass() != o.getClass()) return false;
+    if (this == o)
+      return true;
+    if (o == null)
+      return false;
+    if (this.getClass() != o.getClass())
+      return false;
 
     Book book = (Book) o;
     return id == book.getId()
-      && title.equals(book.getTitle())
-      && isbn.equals(book.getIsbn())
-      && author.equals(book.getAuthor())
-      && format.equals(book.getFormat());
+        && title.equals(book.getTitle())
+        && isbn.equals(book.getIsbn())
+        && author.equals(book.getAuthor())
+        && format.equals(book.getFormat());
   }
 
   @Override
   public String toString() {
     String strCategories = "";
     for (Category c : categories)
-      strCategories += "    " + c.toString() + "\n";
+      strCategories += "    " + c.toString() + ",\n";
 
     return String.format(
-        "Book {\n  id: %d,\n  title: %s,\n  ISBN: %s,\n  pages: %d,\n  read: %b,\n  purchase date: %s,\n  price R$ %.2f\n  %s\n  %s\n  categories: { \n%s  }\n}",
+        "Book {\n  id: %d,\n  title: %s,\n  ISBN: %s,\n  pages: %d,\n  read: %b,\n  purchase date: %s,\n  price R$ %.2f,\n  %s,\n  %s,\n  categories: { \n%s  }\n}",
         id, title, isbn, pages, read, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(purchaseDate), price, author,
         format, strCategories);
   }
