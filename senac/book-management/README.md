@@ -1,4 +1,4 @@
-# SBook management system
+# Book management system
 
 Um leitor assíduo que possui um grande número de peças literárias em diversos formatos deseja um sistema onde possa armazenar informações da sua coleção, como por exemplo: título, autor, número de páginas, categoria, data da compra, preço de custo, etc.
 

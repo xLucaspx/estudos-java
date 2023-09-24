@@ -72,13 +72,32 @@ public class Book {
   }
 
   @Override
+  public int hashCode() {
+    return id * title.hashCode() * isbn.hashCode() * author.hashCode() * format.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null) return false;
+    if (this.getClass() != o.getClass()) return false;
+
+    Book book = (Book) o;
+    return id == book.getId()
+      && title.equals(book.getTitle())
+      && isbn.equals(book.getIsbn())
+      && author.equals(book.getAuthor())
+      && format.equals(book.getFormat());
+  }
+
+  @Override
   public String toString() {
     String strCategories = "";
     for (Category c : categories)
       strCategories += "    " + c.toString() + "\n";
 
     return String.format(
-        "Book {   id: %d,\n  title: %s,\n  ISBN: %s,\n  pages: %d,\n  read: %b,\n  purchase date: %s,\n  price R$ %.2f\n  %s\n  %s\n  categories: { \n%s  }\n}",
+        "Book {\n  id: %d,\n  title: %s,\n  ISBN: %s,\n  pages: %d,\n  read: %b,\n  purchase date: %s,\n  price R$ %.2f\n  %s\n  %s\n  categories: { \n%s  }\n}",
         id, title, isbn, pages, read, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(purchaseDate), price, author,
         format, strCategories);
   }

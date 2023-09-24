@@ -30,9 +30,25 @@ public class Author {
   }
 
   @Override
+  public int hashCode() {
+    return id * name.hashCode() * nationality.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null) return false;
+    if (this.getClass() != o.getClass()) return false;
+
+    Author author = (Author) o;
+    return id == author.getId()
+      && name.equals(author.getName())
+      && nationality.equals(author.getNationality());
+  }
+
+  @Override
   public String toString() {
     return String.format(
-      "Author { id: %d, name: %s, nationality: %s, books owned: %d }", id, name, nationality, booksOwned
-    );
+      "Author { id: %d, name: %s, nationality: %s, books owned: %d }", id, name, nationality, booksOwned);
   }
 }
