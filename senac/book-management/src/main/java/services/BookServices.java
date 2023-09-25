@@ -77,49 +77,44 @@ public class BookServices {
 
   // criar book controller e fazer com que os métodos create retornem o ID, para
   // chamar o metodo add category pela controller
-  public void create(BookDto bookData, Set<Category> categories) {
-    String bookSql = "INSERT INTO `book` (`title`, `isbn`, `pages`, `author_id`, `format_id`, `purchase_date`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?);";
-    String categorySql = "INSERT INTO `book_category` (`book_id`, `category_id`) VALUES (?, ?);";
+  // returns generated id!
+  public int create(BookDto bookData) {
+    String sql = "INSERT INTO `book` (`title`, `isbn`, `pages`, `author_id`, `format_id`, `purchase_date`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
-    try (PreparedStatement bookStatement = con.prepareStatement(bookSql, Statement.RETURN_GENERATED_KEYS);
-        PreparedStatement categoryStatement = con.prepareStatement(categorySql)) {
-      con.setAutoCommit(false);
+    try (PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+      statement.setString(1, bookData.title());
+      statement.setString(2, bookData.isbn());
+      statement.setInt(3, bookData.pages());
+      statement.setInt(4, bookData.author().getId());
+      statement.setInt(5, bookData.format().getId());
+      statement.setDate(6, Date.valueOf(bookData.purchaseDate()));
+      statement.setFloat(7, bookData.price());
 
-      bookStatement.setString(1, bookData.title());
-      bookStatement.setString(2, bookData.isbn());
-      bookStatement.setInt(3, bookData.pages());
-      bookStatement.setInt(4, bookData.author().getId());
-      bookStatement.setInt(5, bookData.format().getId());
-      bookStatement.setDate(6, Date.valueOf(bookData.purchaseDate()));
-      bookStatement.setFloat(7, bookData.price());
-
-      int bookId = 0;
-      int rowsAffected = bookStatement.executeUpdate();
+      int rowsAffected = statement.executeUpdate();
       if (rowsAffected == 0)
         throw new SQLException("Failed to create book, no rows affected!");
 
-      try (ResultSet generatedKeys = bookStatement.getGeneratedKeys()) {
-        if (generatedKeys.next())
-          bookId = generatedKeys.getInt(1);
-        else
-          throw new SQLException("Failed to create book, no ID obtained!");
-      }
+      ResultSet generatedKeys = statement.getGeneratedKeys();
+      // returns generated id
+      if (generatedKeys.next())
+        return generatedKeys.getInt(1);
 
-      for (Category category : categories) {
-        categoryStatement.setInt(1, bookId);
-        categoryStatement.setInt(2, category.getId());
-        categoryStatement.execute();
-      }
-      con.commit();
-    } catch (Exception e) {
-      if (con != null) {
-        try {
-          System.err.println("Rolling back transition...");
-          con.rollback();
-        } catch (SQLException ex) {
-          throw new RuntimeException(ex);
-        }
-      }
+      generatedKeys.close();
+
+      throw new SQLException("Failed to create book, no ID obtained!");
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void addCategory(int bookId, int categoryId) {
+    String sql = "INSERT INTO `book_category` (book_id, category_id) VALUES (?, ?);";
+
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
+      statement.setInt(1, bookId);
+      statement.setInt(2, categoryId);
+      statement.execute();
+    } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }
