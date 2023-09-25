@@ -20,11 +20,9 @@ import models.Category;
 import models.Format;
 import models.dto.BookDto;
 
-public class BookServices {
-  private Connection con;
-
+public class BookServices extends Services {
   public BookServices(Connection con) {
-    this.con = con;
+    super(con);
   }
 
   public Book getById(int id) {
@@ -75,9 +73,7 @@ public class BookServices {
     }
   }
 
-  // criar book controller e fazer com que os métodos create retornem o ID, para
-  // chamar o metodo add category pela controller
-  // returns generated id!
+  // returns the generated id
   public int create(BookDto bookData) {
     String sql = "INSERT INTO `book` (`title`, `isbn`, `pages`, `author_id`, `format_id`, `purchase_date`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
@@ -94,14 +90,8 @@ public class BookServices {
       if (rowsAffected == 0)
         throw new SQLException("Failed to create book, no rows affected!");
 
-      ResultSet generatedKeys = statement.getGeneratedKeys();
-      // returns generated id
-      if (generatedKeys.next())
-        return generatedKeys.getInt(1);
-
-      generatedKeys.close();
-
-      throw new SQLException("Failed to create book, no ID obtained!");
+      int bookId = getGeneratedId(statement);
+      return bookId;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,11 +12,9 @@ import java.util.Set;
 import exceptions.NotFoundException;
 import models.Category;
 
-public class CategoryServices {
-  private Connection con;
-
+public class CategoryServices extends Services {
   public CategoryServices(Connection con) {
-    this.con = con;
+    super(con);
   }
 
   public Category getById(int id) {
@@ -45,12 +44,32 @@ public class CategoryServices {
     }
   }
 
-  public void create(String category) {
-    String sql = "INSERT INTO `category` (`category`) VALUES (?);";
+    public Set<Category> filterByName(String name) {
+    name = "%" + name + "%";
+    String sql = "SELECT `id`, `category` FROM `category` WHERE `category` LIKE ?;";
 
     try (PreparedStatement statement = con.prepareStatement(sql)) {
+      statement.setString(1, name);
+      Set<Category> categories = transformResultSet(statement);
+      return categories;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  // returns the generated id
+  public int create(String category) {
+    String sql = "INSERT INTO `category` (`category`) VALUES (?);";
+
+    try (PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
       statement.setString(1, category);
-      statement.execute();
+
+      int rowsAffected = statement.executeUpdate();
+      if (rowsAffected == 0)
+        throw new SQLException("Failed to create category, no rows affected!");
+
+      int categoryId = getGeneratedId(statement);
+      return categoryId;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

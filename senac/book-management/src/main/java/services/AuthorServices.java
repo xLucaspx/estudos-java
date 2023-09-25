@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,11 +13,9 @@ import exceptions.NotFoundException;
 import models.Author;
 import models.dto.AuthorDto;
 
-public class AuthorServices {
-  private Connection con;
-
+public class AuthorServices extends Services {
   public AuthorServices(Connection con) {
-    this.con = con;
+    super(con);
   }
 
   public Author getById(int id) {
@@ -72,14 +71,20 @@ public class AuthorServices {
     }
   }
 
-  public void create(AuthorDto authorData) {
+  // returns the generated id
+  public int create(AuthorDto authorData) {
     String sql = "INSERT INTO `author` (`name`, `nationality`) VALUES (?, ?);";
 
-    try (PreparedStatement statement = con.prepareStatement(sql)) {
+    try (PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
       statement.setString(1, authorData.name());
       statement.setString(2, authorData.nationality());
 
-      statement.execute();
+      int rowsAffected = statement.executeUpdate();
+      if (rowsAffected == 0)
+        throw new SQLException("Failed to create author, no rows affected!");
+
+      int authorId = getGeneratedId(statement);
+      return authorId;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

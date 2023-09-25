@@ -1,8 +1,13 @@
-// package controller;
+package controller;
 
-// import java.sql.Connection;
+import java.sql.Connection;
 
-// public abstract class Controller {
-//   private Connection connection;
-//   private Services services;
-// }
+import factory.ConnectionFactory;
+
+public abstract class Controller {
+  protected Connection connection;
+
+  public Controller() {
+    this.connection = new ConnectionFactory().getConection();
+  }
+}

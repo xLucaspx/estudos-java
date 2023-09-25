@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,11 +12,9 @@ import java.util.Set;
 import exceptions.NotFoundException;
 import models.Format;
 
-public class FormatServices {
-  private Connection con;
-
+public class FormatServices extends Services {
   public FormatServices(Connection con) {
-    this.con = con;
+    super(con);
   }
 
   public Format getById(int id) {
@@ -45,12 +44,32 @@ public class FormatServices {
     }
   }
 
-  public void create(String format) {
-    String sql = "INSERT INTO `format` (`format`) VALUES (?);";
+  public Set<Format> filterByName(String name) {
+    name = "%" + name + "%";
+    String sql = "SELECT `id`, `format` FROM `format` WHERE `format` LIKE ?;";
 
     try (PreparedStatement statement = con.prepareStatement(sql)) {
+      statement.setString(1, name);
+      Set<Format> formats = transformResultSet(statement);
+      return formats;
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  // returns the generated id
+  public int create(String format) {
+    String sql = "INSERT INTO `format` (`format`) VALUES (?);";
+
+    try (PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
       statement.setString(1, format);
-      statement.execute();
+
+      int rowsAffected = statement.executeUpdate();
+      if (rowsAffected == 0)
+        throw new SQLException("Failed to create format, no rows affected!");
+
+      int formatId = getGeneratedId(statement);
+      return formatId;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

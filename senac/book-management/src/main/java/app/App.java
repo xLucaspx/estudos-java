@@ -1,39 +1,59 @@
 package app;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashSet;
 
+import controller.AuthorController;
 import controller.BookController;
-import factory.ConnectionFactory;
+import controller.CategoryController;
+import controller.FormatController;
+import models.Category;
+import models.dto.AuthorDto;
 import models.dto.BookDto;
-import services.AuthorServices;
-import services.CategoryServices;
-import services.FormatServices;
 
 public class App {
-  public static void main(String... args) throws SQLException {
-    ConnectionFactory cf = new ConnectionFactory();
-    Connection conn = cf.getConection();
-
-    // BookServices bookServices = new BookServices(conn);
-    AuthorServices authorServices = new AuthorServices(conn);
-    CategoryServices categoryServices = new CategoryServices(conn);
-    FormatServices formatServices = new FormatServices(conn);
-
+  public static void main(String... args) {
+    FormatController formatController = new FormatController();
+    CategoryController categoryController = new CategoryController();
+    AuthorController authorController = new AuthorController();
     BookController bookController = new BookController();
 
-    bookController.create(new BookDto("teste criado", "1234567890934", 567, authorServices.getById(1),
-        formatServices.getById(1), LocalDate.now(), 24.6f), categoryServices.getAll());
+    var papperback = formatController.create("Papperback");
+    var ebook = formatController.create("Ebook");
 
-    bookController.update(7, new BookDto("teste atualizado", "0000000765432", 100, authorServices.getById(3),
-        formatServices.getById(2), LocalDate.now(), 1.65f));
+    var romance = categoryController.create("Romance");
+    var journalism = categoryController.create("Journalism");
+    var brazillian = categoryController.create("Brazillian Literature");
+    var german = categoryController.create("g");
+
+    var euclides = authorController.create(new AuthorDto("Euclides da Cunha", "Brasileiro"));
+    var goethe = authorController.create(new AuthorDto("Johann Wolfgang von Goethe", "German"));
+    var larson = authorController.create(new AuthorDto("erick larssonn", "americano"));
+
+    HashSet<Category> categoriesSertoes = new HashSet<>();
+    HashSet<Category> categoriesWerther = new HashSet<>();
+    HashSet<Category> categoriesWhiteCity = new HashSet<>();
+
+    categoriesSertoes.add(journalism);
+    categoriesSertoes.add(brazillian);
+
+    categoriesWerther.add(romance);
+    categoriesWerther.add(german);
+
+    categoriesWhiteCity.add(journalism);
+
+    var sertoes = bookController.create(new BookDto("Os Sertões", "1234567384937", 659, euclides, ebook, LocalDate.of(2023, 2, 12), 7.59f), categoriesSertoes);
+    var werther = bookController.create(new BookDto("Os Sofrimentos do Jovem Werther", "7463527183627", 191, goethe, papperback, LocalDate.of(2022, 9, 12), 12.75f), categoriesWerther);
+    var whiteCity = bookController.create(new BookDto("Devil in White City", "6352415263555", 626, larson, papperback, LocalDate.of(2022, 3, 21), 16f), categoriesWhiteCity);
+
+    formatController.update(ebook.getId(), "e-book");
+    categoryController.update(german.getId(), "German Literature");
+    authorController.update(larson.getId(), new AuthorDto("Erik Larson", "American"));
 
     bookController.getAll().forEach(System.out::println);
-    // authorServices.getAll().forEach(System.out::println);
-    // categoryServices.getAll().forEach(System.out::println);
-    // formatServices.getAll().forEach(System.out::println);
 
-    conn.close();
+    bookController.delete(sertoes.getId());
+    bookController.delete(werther.getId());
+    bookController.delete(whiteCity.getId());
   }
 }

@@ -1,20 +1,16 @@
 package controller;
 
-import java.sql.Connection;
 import java.util.Set;
 
-import factory.ConnectionFactory;
 import models.Book;
 import models.Category;
 import models.dto.BookDto;
 import services.BookServices;
 
-public class BookController {
-  private Connection connection;
+public class BookController extends Controller {
   private BookServices bookServices;
 
   public BookController() {
-    this.connection = new ConnectionFactory().getConection();
     this.bookServices = new BookServices(connection);
   }
 
@@ -26,12 +22,20 @@ public class BookController {
     return bookServices.getAll();
   }
 
-  public void create(BookDto bookData, Set<Category> categories) {
+  // returns the created book
+  // TODO: check if the range of categories is between 1 and 3.
+  public Book create(BookDto bookData, Set<Category> categories) {
     int bookId = bookServices.create(bookData);
     categories.forEach(c -> bookServices.addCategory(bookId, c.getId()));
+    return getById(bookId);
   }
 
-  public void update(int id, BookDto bookData) {
-    bookServices.update(id, bookData);
+  // TODO: implement update method
+  // public void update(int id, BookDto bookData) {
+  // bookServices.update(id, bookData);
+  // }
+
+  public void delete(int id) {
+    bookServices.delete(id);
   }
 }
