@@ -42,18 +42,39 @@ public class App {
 
     categoriesWhiteCity.add(journalism);
 
-    var sertoes = bookController.create(new BookDto("Os Sertões", "1234567384937", 659, euclides, ebook, LocalDate.of(2023, 2, 12), 7.59f), categoriesSertoes);
-    var werther = bookController.create(new BookDto("Os Sofrimentos do Jovem Werther", "7463527183627", 191, goethe, papperback, LocalDate.of(2022, 9, 12), 12.75f), categoriesWerther);
-    var whiteCity = bookController.create(new BookDto("Devil in White City", "6352415263555", 626, larson, papperback, LocalDate.of(2022, 3, 21), 16f), categoriesWhiteCity);
+    var sertoes = bookController.create(
+        new BookDto("Os Sertões", "1234567384937", 659, euclides, ebook, LocalDate.of(2023, 2, 12), 7.59f),
+        categoriesSertoes);
+    var werther = bookController.create(new BookDto("Os Sofrimentos do Jovem Werther", "7463527183627", 191, goethe,
+        papperback, LocalDate.of(2022, 9, 12), 12.75f), categoriesWerther);
+    var whiteCity = bookController.create(
+        new BookDto("whitecity", "654", 626, euclides, papperback, LocalDate.of(2022, 3, 21), 16f), categoriesWerther);
 
     formatController.update(ebook.getId(), "e-book");
+
     categoryController.update(german.getId(), "German Literature");
+
     authorController.update(larson.getId(), new AuthorDto("Erik Larson", "American"));
+
+    bookController.update(whiteCity.getId(), new BookDto("The Devil in the White City", "0182635799221", 626, larson,
+        ebook, whiteCity.getPurchaseDate(), 16f), categoriesWhiteCity);
 
     bookController.getAll().forEach(System.out::println);
 
     bookController.delete(sertoes.getId());
     bookController.delete(werther.getId());
     bookController.delete(whiteCity.getId());
+
+    authorController.delete(euclides.getId());
+    authorController.delete(goethe.getId());
+    authorController.delete(larson.getId());
+
+    categoryController.delete(journalism.getId());
+    categoryController.delete(romance.getId());
+    categoryController.delete(brazillian.getId());
+    categoryController.delete(german.getId());
+
+    formatController.delete(papperback.getId());
+    formatController.delete(ebook.getId());
   }
 }

@@ -30,10 +30,25 @@ public class BookController extends Controller {
     return getById(bookId);
   }
 
-  // TODO: implement update method
-  // public void update(int id, BookDto bookData) {
-  // bookServices.update(id, bookData);
-  // }
+  public void update(int id, BookDto bookData, Set<Category> categories) {
+    bookServices.update(id, bookData);
+    var book = getById(id);
+    var oldCategories = book.getCategories();
+
+    for (Category category : oldCategories) {
+      if (categories.contains(category)) {
+        categories.remove(category);
+        continue;
+      }
+      bookServices.removeCategory(id, category.getId());
+    }
+
+    for (Category category : categories) {
+      if (oldCategories.contains(category))
+        continue;
+      bookServices.addCategory(id, category.getId());
+    }
+  }
 
   public void delete(int id) {
     bookServices.delete(id);

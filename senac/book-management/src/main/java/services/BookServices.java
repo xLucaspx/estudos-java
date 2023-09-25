@@ -98,7 +98,19 @@ public class BookServices extends Services {
   }
 
   public void addCategory(int bookId, int categoryId) {
-    String sql = "INSERT INTO `book_category` (book_id, category_id) VALUES (?, ?);";
+    String sql = "INSERT INTO `book_category` (`book_id`, `category_id`) VALUES (?, ?);";
+
+    try (PreparedStatement statement = con.prepareStatement(sql)) {
+      statement.setInt(1, bookId);
+      statement.setInt(2, categoryId);
+      statement.execute();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public void removeCategory(int bookId, int categoryId) {
+    String sql = "DELETE FROM `book_category` WHERE `book_id` = ? AND `category_id` = ?;";
 
     try (PreparedStatement statement = con.prepareStatement(sql)) {
       statement.setInt(1, bookId);
