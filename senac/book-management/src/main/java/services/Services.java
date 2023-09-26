@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public abstract class Services {
+
   protected Connection con;
 
   public Services(Connection con) {

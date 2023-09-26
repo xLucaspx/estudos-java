@@ -13,6 +13,7 @@ import exceptions.NotFoundException;
 import models.Format;
 
 public class FormatServices extends Services {
+
   public FormatServices(Connection con) {
     super(con);
   }
@@ -24,7 +25,7 @@ public class FormatServices extends Services {
       statement.setInt(1, id);
       Set<Format> formats = transformResultSet(statement);
 
-      if (formats.size() == 0)
+      if (formats.isEmpty())
         throw new NotFoundException("No format was found for the id: " + id);
 
       return formats.toArray(new Format[1])[0];

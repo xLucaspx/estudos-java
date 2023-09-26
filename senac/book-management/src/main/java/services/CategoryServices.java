@@ -13,6 +13,7 @@ import exceptions.NotFoundException;
 import models.Category;
 
 public class CategoryServices extends Services {
+
   public CategoryServices(Connection con) {
     super(con);
   }
@@ -24,7 +25,7 @@ public class CategoryServices extends Services {
       statement.setInt(1, id);
       Set<Category> categories = transformResultSet(statement);
 
-      if (categories.size() == 0)
+      if (categories.isEmpty())
         throw new NotFoundException("No category was found for the id: " + id);
 
       return categories.toArray(new Category[1])[0];

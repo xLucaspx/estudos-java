@@ -6,7 +6,8 @@ import models.Category;
 import services.CategoryServices;
 
 public class CategoryController extends Controller {
-  private CategoryServices categoryServices;
+
+  private final CategoryServices categoryServices;
 
   public CategoryController() {
     this.categoryServices = new CategoryServices(connection);

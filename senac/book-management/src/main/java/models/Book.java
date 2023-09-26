@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Book {
+
   private int id;
   private String title;
   private String isbn;
@@ -92,10 +93,10 @@ public class Book {
 
     Book book = (Book) o;
     return id == book.getId()
-        && title.equals(book.getTitle())
-        && isbn.equals(book.getIsbn())
-        && author.equals(book.getAuthor())
-        && format.equals(book.getFormat());
+      && title.equals(book.getTitle())
+      && isbn.equals(book.getIsbn())
+      && author.equals(book.getAuthor())
+      && format.equals(book.getFormat());
   }
 
   @Override

@@ -14,6 +14,7 @@ import models.Author;
 import models.dto.AuthorDto;
 
 public class AuthorServices extends Services {
+
   public AuthorServices(Connection con) {
     super(con);
   }
@@ -25,7 +26,7 @@ public class AuthorServices extends Services {
       statement.setInt(1, id);
       Set<Author> authors = transformResultSet(statement);
 
-      if (authors.size() == 0)
+      if (authors.isEmpty())
         throw new NotFoundException("No author was found for the id: " + id);
 
       return authors.toArray(new Author[1])[0];

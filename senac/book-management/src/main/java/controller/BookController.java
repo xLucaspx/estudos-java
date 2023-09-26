@@ -8,7 +8,8 @@ import models.dto.BookDto;
 import services.BookServices;
 
 public class BookController extends Controller {
-  private BookServices bookServices;
+
+  private final BookServices bookServices;
 
   public BookController() {
     this.bookServices = new BookServices(connection);
@@ -44,8 +45,9 @@ public class BookController extends Controller {
     }
 
     for (Category category : categories) {
-      if (oldCategories.contains(category))
+      if (oldCategories.contains(category)) {
         continue;
+      }
       bookServices.addCategory(id, category.getId());
     }
   }

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import factory.ConnectionFactory;
 
 public abstract class Controller {
+
   protected Connection connection;
 
   public Controller() {

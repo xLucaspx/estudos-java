@@ -21,6 +21,7 @@ import models.Format;
 import models.dto.BookDto;
 
 public class BookServices extends Services {
+
   public BookServices(Connection con) {
     super(con);
   }
@@ -43,7 +44,7 @@ public class BookServices extends Services {
       statement.setInt(1, id);
       Set<Book> books = transformResultSet(statement);
 
-      if (books.size() == 0)
+      if (books.isEmpty())
         throw new NotFoundException("No book was found for the id: " + id);
 
       return books.toArray(new Book[1])[0];
@@ -186,7 +187,7 @@ public class BookServices extends Services {
         books.put(id, book);
       }
 
-      return Collections.unmodifiableSet(new HashSet<Book>(books.values()));
+      return Collections.unmodifiableSet(new HashSet<>(books.values()));
     } catch (Exception e) {
       throw e;
     }

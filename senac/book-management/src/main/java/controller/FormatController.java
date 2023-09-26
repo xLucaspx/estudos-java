@@ -6,7 +6,8 @@ import models.Format;
 import services.FormatServices;
 
 public class FormatController extends Controller {
-  private FormatServices formatServices;
+
+  private final FormatServices formatServices;
 
   public FormatController() {
     this.formatServices = new FormatServices(connection);
