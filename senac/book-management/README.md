@@ -101,7 +101,10 @@ The ISBN is ten digits long if assigned before 2007, and thirteen digits long if
 
 ## Tasks
 
-[ ] Create SQL procedure to update `author`.`books_owned`.
+[ ] Create SQL procedure to update `author`.`books_owned`;
+[ ] Add ISBN validation;
+[ ] Convert ISBN-10 to ISBN-13;
+[ ] Implement Dewey Decimal System.
 
 ## Design and screens
 
