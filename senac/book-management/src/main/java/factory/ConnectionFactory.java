@@ -4,15 +4,16 @@ import java.sql.Connection;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import java.sql.SQLException;
 
 public class ConnectionFactory {
-  private String username = "user01";
-  private String password = "admin";
+  private final String username = "user01";
+  private final String password = "admin";
 
   public Connection getConection() {
     try {
       return this.createDataSource().getConnection();
-    } catch (Exception e) {
+    } catch (SQLException e) {
       throw new RuntimeException(e);
     }
   }

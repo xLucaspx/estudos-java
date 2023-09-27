@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views;
 
 import controller.AuthorController;
 import javax.swing.JOptionPane;
 import models.dto.AuthorDto;
 import models.Author;
+import views.constants.Constants;
 
 public class AuthorForm extends javax.swing.JFrame {
 
@@ -38,28 +35,39 @@ public class AuthorForm extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle(author != null ? "Edição de autor" : "Cadastro de autor");
+    setBackground(Constants.BACKGROUND_COLOR);
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    setFont(new java.awt.Font("Source Code Pro Light", 0, 14)); // NOI18N
-    setForeground(java.awt.Color.white);
+    setFont(Constants.DEFAULT_FONT);
+    setForeground(Constants.FONT_COLOR);
+    setMaximumSize(new java.awt.Dimension(600, 400));
+    setMinimumSize(new java.awt.Dimension(600, 400));
     setName("window"); // NOI18N
     setPreferredSize(new java.awt.Dimension(600, 400));
     setResizable(false);
     setSize(new java.awt.Dimension(600, 400));
 
-    title.setFont(new java.awt.Font("Source Code Pro Semibold", 0, 24)); // NOI18N
+    title.setBackground(Constants.BACKGROUND_COLOR);
+    title.setFont(Constants.TITLE_FONT);
+    title.setForeground(Constants.FONT_COLOR);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    title.setLabelFor(this);
     title.setText(author != null ? "Editar autor" : "Cadastrar autor");
     title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
     title.setFocusable(false);
     title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    title.setMaximumSize(new java.awt.Dimension(295, 30));
+    title.setMinimumSize(new java.awt.Dimension(295, 30));
     title.setName("Título"); // NOI18N
+    title.setPreferredSize(new java.awt.Dimension(295, 30));
     title.setRequestFocusEnabled(false);
     title.setVerifyInputWhenFocusTarget(false);
     title.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-    nameLabel.setFont(new java.awt.Font("Source Code Pro Medium", 0, 14)); // NOI18N
+    nameLabel.setBackground(Constants.BACKGROUND_COLOR);
+    nameLabel.setFont(Constants.DEFAULT_FONT);
+    nameLabel.setForeground(Constants.FONT_COLOR);
     nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    nameLabel.setLabelFor(nationalityInput);
+    nameLabel.setLabelFor(nameInput);
     nameLabel.setText("Nome");
     nameLabel.setFocusable(false);
     nameLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -67,20 +75,25 @@ public class AuthorForm extends javax.swing.JFrame {
     nameLabel.setRequestFocusEnabled(false);
     nameLabel.setVerifyInputWhenFocusTarget(false);
 
-    nameInput.setBackground(new java.awt.Color(255, 255, 255));
+    nameInput.setBackground(Constants.WHITE);
     nameInput.setColumns(25);
-    nameInput.setFont(new java.awt.Font("Source Code Pro Medium", 0, 14)); // NOI18N
-    nameInput.setForeground(new java.awt.Color(30, 30, 30));
+    nameInput.setFont(Constants.DEFAULT_FONT);
+    nameInput.setForeground(Constants.FONT_COLOR);
     nameInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
     nameInput.setText(author != null ? author.getName() : "");
     nameInput.setToolTipText("Insira o nome do autor");
-    nameInput.setMaximumSize(new java.awt.Dimension(220, 30));
-    nameInput.setMinimumSize(new java.awt.Dimension(220, 30));
+    nameInput.setCaretColor(Constants.FONT_COLOR);
+    nameInput.setMaximumSize(new java.awt.Dimension(295, 30));
+    nameInput.setMinimumSize(new java.awt.Dimension(295, 30));
     nameInput.setName("Nome do autor"); // NOI18N
     nameInput.setNextFocusableComponent(nationalityInput);
-    nameInput.setPreferredSize(new java.awt.Dimension(220, 30));
+    nameInput.setPreferredSize(new java.awt.Dimension(295, 30));
+    nameInput.setSelectedTextColor(Constants.WHITE);
+    nameInput.setSelectionColor(Constants.DARK_BLUE);
 
-    nationalityLabel.setFont(new java.awt.Font("Source Code Pro Medium", 0, 14)); // NOI18N
+    nationalityLabel.setBackground(Constants.BACKGROUND_COLOR);
+    nationalityLabel.setFont(Constants.DEFAULT_FONT);
+    nationalityLabel.setForeground(Constants.FONT_COLOR);
     nationalityLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     nationalityLabel.setLabelFor(nationalityInput);
     nationalityLabel.setText("Nacionalidade");
@@ -90,22 +103,25 @@ public class AuthorForm extends javax.swing.JFrame {
     nationalityLabel.setRequestFocusEnabled(false);
     nationalityLabel.setVerifyInputWhenFocusTarget(false);
 
-    nationalityInput.setBackground(new java.awt.Color(255, 255, 255));
+    nationalityInput.setBackground(Constants.WHITE);
     nationalityInput.setColumns(25);
-    nationalityInput.setFont(new java.awt.Font("Source Code Pro Medium", 0, 14)); // NOI18N
-    nationalityInput.setForeground(new java.awt.Color(30, 30, 30));
+    nationalityInput.setFont(Constants.DEFAULT_FONT);
+    nationalityInput.setForeground(Constants.FONT_COLOR);
     nationalityInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
     nationalityInput.setText(author != null ? author.getNationality() : "");
     nationalityInput.setToolTipText("Insira a nacionalidade do autor");
-    nationalityInput.setMaximumSize(new java.awt.Dimension(220, 30));
-    nationalityInput.setMinimumSize(new java.awt.Dimension(220, 30));
+    nationalityInput.setCaretColor(Constants.FONT_COLOR);
+    nationalityInput.setMaximumSize(new java.awt.Dimension(295, 30));
+    nationalityInput.setMinimumSize(new java.awt.Dimension(295, 30));
     nationalityInput.setName("Nacionalidade do autor"); // NOI18N
     nationalityInput.setNextFocusableComponent(saveBtn);
-    nationalityInput.setPreferredSize(new java.awt.Dimension(220, 30));
+    nationalityInput.setPreferredSize(new java.awt.Dimension(295, 30));
+    nationalityInput.setSelectedTextColor(Constants.WHITE);
+    nationalityInput.setSelectionColor(Constants.DARK_BLUE);
 
-    saveBtn.setBackground(new java.awt.Color(0, 153, 202));
-    saveBtn.setFont(new java.awt.Font("Source Code Pro Medium", 0, 18)); // NOI18N
-    saveBtn.setForeground(new java.awt.Color(255, 255, 255));
+    saveBtn.setBackground(Constants.BLUE);
+    saveBtn.setFont(Constants.MEDIUM_FONT);
+    saveBtn.setForeground(Constants.WHITE);
     saveBtn.setText(author != null ? "Editar" : "Cadastrar");
     saveBtn.setToolTipText(author != null ? String.format("Editar o autor %s", author.getName()) : "Cadastrar novo autor");
     saveBtn.setActionCommand("Salvar");
@@ -123,9 +139,9 @@ public class AuthorForm extends javax.swing.JFrame {
       }
     });
 
-    cancelBtn.setBackground(new java.awt.Color(220, 20, 20));
-    cancelBtn.setFont(new java.awt.Font("Source Code Pro Medium", 0, 18)); // NOI18N
-    cancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+    cancelBtn.setBackground(Constants.RED);
+    cancelBtn.setFont(Constants.MEDIUM_FONT);
+    cancelBtn.setForeground(Constants.WHITE);
     cancelBtn.setText("Cancelar");
     cancelBtn.setToolTipText("Descartar alterações e voltar para o menu");
     cancelBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -145,33 +161,31 @@ public class AuthorForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addContainerGap())
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap(161, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addGap(9, 9, 9)
-            .addComponent(nameLabel))
+            .addGap(153, 153, 153)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(nameLabel))
+              .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(nationalityLabel))
+              .addComponent(nameInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(nationalityInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
           .addGroup(layout.createSequentialGroup()
-            .addGap(6, 6, 6)
-            .addComponent(nationalityLabel))
-          .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(nationalityInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(146, 146, 146))
-      .addGroup(layout.createSequentialGroup()
-        .addGap(210, 210, 210)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(208, 208, 208)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        .addContainerGap(152, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(15, 15, 15)
-        .addComponent(title)
+        .addGap(20, 20, 20)
+        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(nameLabel)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,11 +194,11 @@ public class AuthorForm extends javax.swing.JFrame {
         .addComponent(nationalityLabel)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(nationalityInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(37, 37, 37)
+        .addGap(39, 39, 39)
         .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(61, Short.MAX_VALUE))
+        .addContainerGap(43, Short.MAX_VALUE))
     );
 
     title.getAccessibleContext().setAccessibleDescription("");

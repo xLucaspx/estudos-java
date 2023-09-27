@@ -7,6 +7,7 @@ package views;
 import controller.CategoryController;
 import javax.swing.JOptionPane;
 import models.Category;
+import views.constants.Constants;
 
 public class CategoryForm extends javax.swing.JFrame {
 
@@ -35,29 +36,39 @@ public class CategoryForm extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle(category != null ? "Edição de categoria" : "Cadastro de categoria");
+    setBackground(Constants.BACKGROUND_COLOR);
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    setFont(new java.awt.Font("Source Code Pro Light", 0, 14)); // NOI18N
-    setForeground(java.awt.Color.white);
-    setMaximumSize(new java.awt.Dimension(600, 300));
-    setMinimumSize(new java.awt.Dimension(600, 300));
+    setFont(Constants.DEFAULT_FONT);
+    setForeground(Constants.FONT_COLOR);
+    setMaximumSize(new java.awt.Dimension(600, 320));
+    setMinimumSize(new java.awt.Dimension(600, 320));
     setName("window"); // NOI18N
-    setPreferredSize(new java.awt.Dimension(600, 300));
+    setPreferredSize(new java.awt.Dimension(600, 320));
     setResizable(false);
-    setSize(new java.awt.Dimension(600, 300));
+    setSize(new java.awt.Dimension(600, 320));
 
-    title.setFont(new java.awt.Font("Source Code Pro Semibold", 0, 24)); // NOI18N
+    title.setBackground(Constants.BACKGROUND_COLOR);
+    title.setFont(Constants.TITLE_FONT);
+    title.setForeground(Constants.FONT_COLOR);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    title.setLabelFor(this);
     title.setText(category != null ? "Editar categoria" : "Cadastrar categoria");
     title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
     title.setFocusable(false);
     title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    title.setMaximumSize(new java.awt.Dimension(295, 30));
+    title.setMinimumSize(new java.awt.Dimension(295, 30));
     title.setName("Título"); // NOI18N
+    title.setPreferredSize(new java.awt.Dimension(295, 30));
     title.setRequestFocusEnabled(false);
     title.setVerifyInputWhenFocusTarget(false);
     title.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-    nameLabel.setFont(new java.awt.Font("Source Code Pro Medium", 0, 14)); // NOI18N
+    nameLabel.setBackground(Constants.BACKGROUND_COLOR);
+    nameLabel.setFont(Constants.DEFAULT_FONT);
+    nameLabel.setForeground(Constants.FONT_COLOR);
     nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    nameLabel.setLabelFor(nameInput);
     nameLabel.setText("Nome");
     nameLabel.setFocusable(false);
     nameLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -65,22 +76,25 @@ public class CategoryForm extends javax.swing.JFrame {
     nameLabel.setRequestFocusEnabled(false);
     nameLabel.setVerifyInputWhenFocusTarget(false);
 
-    nameInput.setBackground(new java.awt.Color(255, 255, 255));
+    nameInput.setBackground(Constants.WHITE);
     nameInput.setColumns(25);
-    nameInput.setFont(new java.awt.Font("Source Code Pro Medium", 0, 14)); // NOI18N
-    nameInput.setForeground(new java.awt.Color(30, 30, 30));
+    nameInput.setFont(Constants.DEFAULT_FONT);
+    nameInput.setForeground(Constants.FONT_COLOR);
     nameInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
     nameInput.setText(category != null ? category.getName() : "");
     nameInput.setToolTipText("Insira o nome da categoria");
-    nameInput.setMaximumSize(new java.awt.Dimension(220, 30));
-    nameInput.setMinimumSize(new java.awt.Dimension(220, 30));
+    nameInput.setCaretColor(Constants.FONT_COLOR);
+    nameInput.setMaximumSize(new java.awt.Dimension(295, 30));
+    nameInput.setMinimumSize(new java.awt.Dimension(295, 30));
     nameInput.setName("Nome da categoria"); // NOI18N
     nameInput.setNextFocusableComponent(saveBtn);
-    nameInput.setPreferredSize(new java.awt.Dimension(220, 30));
+    nameInput.setPreferredSize(new java.awt.Dimension(295, 30));
+    nameInput.setSelectedTextColor(Constants.WHITE);
+    nameInput.setSelectionColor(Constants.DARK_BLUE);
 
-    saveBtn.setBackground(new java.awt.Color(0, 153, 202));
-    saveBtn.setFont(new java.awt.Font("Source Code Pro Medium", 0, 18)); // NOI18N
-    saveBtn.setForeground(new java.awt.Color(255, 255, 255));
+    saveBtn.setBackground(Constants.BLUE);
+    saveBtn.setFont(Constants.MEDIUM_FONT);
+    saveBtn.setForeground(Constants.WHITE);
     saveBtn.setText(category != null ? "Editar" : "Cadastrar");
     saveBtn.setToolTipText(category != null ? String.format("Editar a categoria %s", category.getName()) : "Cadastrar nova categoria");
     saveBtn.setActionCommand("Salvar");
@@ -98,9 +112,9 @@ public class CategoryForm extends javax.swing.JFrame {
       }
     });
 
-    cancelBtn.setBackground(new java.awt.Color(220, 20, 20));
-    cancelBtn.setFont(new java.awt.Font("Source Code Pro Medium", 0, 18)); // NOI18N
-    cancelBtn.setForeground(new java.awt.Color(255, 255, 255));
+    cancelBtn.setBackground(Constants.RED);
+    cancelBtn.setFont(Constants.MEDIUM_FONT);
+    cancelBtn.setForeground(Constants.WHITE);
     cancelBtn.setText("Cancelar");
     cancelBtn.setToolTipText("Descartar alterações e voltar para o menu");
     cancelBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -120,45 +134,39 @@ public class CategoryForm extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addContainerGap())
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGap(0, 155, Short.MAX_VALUE)
+            .addGap(208, 208, 208)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addGroup(layout.createSequentialGroup()
-                    .addGap(9, 9, 9)
-                    .addComponent(nameLabel))
-                  .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(146, 146, 146))
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(211, 211, 211))))))
+              .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addGroup(layout.createSequentialGroup()
+            .addGap(153, 153, 153)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(nameInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(nameLabel))))
+        .addContainerGap(152, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(15, 15, 15)
-        .addComponent(title)
+        .addGap(20, 20, 20)
+        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(nameLabel)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(28, 28, 28)
+        .addGap(39, 39, 39)
         .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(54, Short.MAX_VALUE))
+        .addContainerGap(43, Short.MAX_VALUE))
     );
 
     title.getAccessibleContext().setAccessibleName("Título");
     title.getAccessibleContext().setAccessibleDescription("");
+    nameInput.getAccessibleContext().setAccessibleName("Nome");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
     saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informaões da categoria");
 

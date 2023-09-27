@@ -1,14 +1,19 @@
 package app;
 
+import views.AuthorForm;
+import views.CategoryForm;
 import views.FormatForm;
 
 public class App {
 
   public static void main(String... args) {
-//    AuthorForm view = new AuthorForm();
-//    CategoryForm view = new CategoryForm();
-    FormatForm view = new FormatForm();
-    view.setVisible(true);
+    AuthorForm authorForm = new AuthorForm();
+    CategoryForm categoryForm = new CategoryForm();
+    FormatForm formatForm = new FormatForm();
+
+    authorForm.setVisible(true);
+    categoryForm.setVisible(true);
+    formatForm.setVisible(true);
 
 //    FormatController formatController = new FormatController(j);
 //    CategoryController categoryController = new CategoryController();
