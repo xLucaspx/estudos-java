@@ -1,9 +1,11 @@
 package controller;
 
+import exceptions.ValidationException;
 import java.util.Set;
 
 import models.Format;
 import services.FormatServices;
+import utils.Validator;
 
 public class FormatController extends Controller {
 
@@ -26,14 +28,20 @@ public class FormatController extends Controller {
   }
 
   // returns the created format
-  public Format create(String format) {
-    int id = formatServices.create(format);
+  public Format create(String name) {
+    if (!Validator.checkValidString(name))
+      throw new ValidationException("O nome do formato deve ser preenchido corretamente!");
+
+    int id = formatServices.create(name);
     return getById(id);
   }
 
   // returns the updated format
-  public Format update(int id, String format) {
-    formatServices.update(id, format);
+  public Format update(int id, String name) {
+    if (!Validator.checkValidString(name))
+      throw new ValidationException("O nome do formato deve ser preenchido corretamente!");
+
+    formatServices.update(id, name);
     return getById(id);
   }
 

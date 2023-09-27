@@ -1,23 +1,16 @@
 package app;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-
-import controller.AuthorController;
-import controller.BookController;
-import controller.CategoryController;
-import controller.FormatController;
-import models.Category;
-import models.dto.AuthorDto;
-import models.dto.BookDto;
-import views.AuthorForm;
+import views.FormatForm;
 
 public class App {
 
   public static void main(String... args) {
-    AuthorForm view = new AuthorForm();
+//    AuthorForm view = new AuthorForm();
+//    CategoryForm view = new CategoryForm();
+    FormatForm view = new FormatForm();
     view.setVisible(true);
-//    FormatController formatController = new FormatController();
+
+//    FormatController formatController = new FormatController(j);
 //    CategoryController categoryController = new CategoryController();
 //    AuthorController authorController = new AuthorController();
 //    BookController bookController = new BookController();

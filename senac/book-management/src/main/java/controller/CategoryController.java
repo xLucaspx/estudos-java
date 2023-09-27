@@ -1,9 +1,10 @@
 package controller;
 
+import exceptions.ValidationException;
 import java.util.Set;
-
 import models.Category;
 import services.CategoryServices;
+import utils.Validator;
 
 public class CategoryController extends Controller {
 
@@ -26,14 +27,20 @@ public class CategoryController extends Controller {
   }
 
   // returns the created category
-  public Category create(String category) {
-    int id = categoryServices.create(category);
+  public Category create(String name) {
+    if (!Validator.checkValidString(name))
+      throw new ValidationException("O nome da categoria deve ser preenchido corretamente!");
+
+    int id = categoryServices.create(name);
     return getById(id);
   }
 
   // returns the updated category
-  public Category update(int id, String category) {
-    categoryServices.update(id, category);
+  public Category update(int id, String name) {
+    if (!Validator.checkValidString(name))
+      throw new ValidationException("O nome da categoria deve ser preenchido corretamente!");
+
+    categoryServices.update(id, name);
     return getById(id);
   }
 
