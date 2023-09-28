@@ -36,6 +36,10 @@ public class Format {
 
   @Override
   public String toString() {
+    return name;
+  }
+
+  public String formatAsJson() {
     return String.format("Format { id: %d, name: %s }", id, name);
   }
 }

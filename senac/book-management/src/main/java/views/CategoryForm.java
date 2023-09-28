@@ -168,9 +168,10 @@ public class CategoryForm extends javax.swing.JFrame {
     title.getAccessibleContext().setAccessibleDescription("");
     nameInput.getAccessibleContext().setAccessibleName("Nome");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
-    saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informaões da categoria");
+    saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informações da categoria");
 
     getAccessibleContext().setAccessibleName("Formulário de categorias");
+    getAccessibleContext().setAccessibleDescription("");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
@@ -199,6 +200,12 @@ public class CategoryForm extends javax.swing.JFrame {
     this.dispose();
   }//GEN-LAST:event_cancelBtnActionPerformed
 
+  @Override
+  public void dispose() {
+    categoryController.closeConnection();
+    super.dispose();
+  }
+  
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton cancelBtn;
   private javax.swing.JTextField nameInput;

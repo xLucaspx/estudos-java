@@ -246,7 +246,7 @@
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Salvar"/>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Salvar informa&#xf5;es do formato"/>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Salvar informa&#xe7;&#xf5;es do formato"/>
       </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>

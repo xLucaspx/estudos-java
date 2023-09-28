@@ -203,7 +203,7 @@ public class AuthorForm extends javax.swing.JFrame {
 
     title.getAccessibleContext().setAccessibleDescription("");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
-    saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informaões do autor");
+    saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informações do autor");
 
     getAccessibleContext().setAccessibleName("Formulário de autores");
 
@@ -231,8 +231,14 @@ public class AuthorForm extends javax.swing.JFrame {
   }//GEN-LAST:event_saveBtnActionPerformed
 
   private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-    this.dispose();
+    dispose();
   }//GEN-LAST:event_cancelBtnActionPerformed
+
+  @Override
+  public void dispose() {
+    authorController.closeConnection();
+    super.dispose();
+  }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton cancelBtn;

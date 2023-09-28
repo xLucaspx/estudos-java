@@ -49,6 +49,10 @@ public class Author {
 
   @Override
   public String toString() {
+    return name;
+  }
+
+  public String formatAsJson() {
     return String.format(
       "Author { id: %d, name: %s, nationality: %s, books owned: %d }", id, name, nationality, booksOwned);
   }

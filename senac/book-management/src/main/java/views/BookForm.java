@@ -1,21 +1,49 @@
 package views;
 
+import controller.AuthorController;
 import controller.BookController;
+import controller.CategoryController;
+import controller.FormatController;
+import java.util.Set;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import models.Book;
+import models.Author;
+import models.Format;
+import models.Category;
 import views.constants.Constants;
 
 public class BookForm extends javax.swing.JFrame {
 
   private final BookController bookController;
+  private final AuthorController authorController;
+  private final FormatController formatController;
+  private final CategoryController categoryController;
+
+  private Set<Author> authors;
+  private Set<Format> formats;
+  private Set<Category> categories;
   private Book book;
 
   public BookForm() {
     this.bookController = new BookController();
+    this.authorController = new AuthorController();
+    this.formatController = new FormatController();
+    this.categoryController = new CategoryController();
+    this.authors = authorController.getAll();
+    this.formats = formatController.getAll();
+    this.categories = categoryController.getAll();
     initComponents();
   }
 
   public BookForm(Book book) {
     this.bookController = new BookController();
+    this.authorController = new AuthorController();
+    this.formatController = new FormatController();
+    this.categoryController = new CategoryController();
+    this.authors = authorController.getAll();
+    this.formats = formatController.getAll();
+    this.categories = categoryController.getAll();
     this.book = book;
     initComponents();
   }
@@ -24,32 +52,36 @@ public class BookForm extends javax.swing.JFrame {
   private void initComponents() {
 
     title = new javax.swing.JLabel();
-    nameLabel = new javax.swing.JLabel();
-    nameInput = new javax.swing.JTextField();
-    nationalityLabel = new javax.swing.JLabel();
-    nationalityInput = new javax.swing.JTextField();
+    titleLabel = new javax.swing.JLabel();
+    titleInput = new javax.swing.JTextField();
+    isbnLabel = new javax.swing.JLabel();
+    isbnInput = new javax.swing.JTextField();
+    authorLabel = new javax.swing.JLabel();
+    authorCombo = new javax.swing.JComboBox<>();
+    formatLabel = new javax.swing.JLabel();
+    formatCombo = new javax.swing.JComboBox<>();
     saveBtn = new javax.swing.JButton();
     cancelBtn = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    setTitle(book != null ? "Edição de autor" : "Cadastro de autor");
+    setTitle(book != null ? "Edição de livro" : "Cadastro de livro");
     setBackground(Constants.BACKGROUND_COLOR);
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     setFont(Constants.DEFAULT_FONT);
     setForeground(Constants.FONT_COLOR);
-    setMaximumSize(new java.awt.Dimension(600, 400));
-    setMinimumSize(new java.awt.Dimension(600, 400));
+    setMaximumSize(new java.awt.Dimension(925, 600));
+    setMinimumSize(new java.awt.Dimension(925, 600));
     setName("window"); // NOI18N
-    setPreferredSize(new java.awt.Dimension(600, 400));
+    setPreferredSize(new java.awt.Dimension(925, 600));
     setResizable(false);
-    setSize(new java.awt.Dimension(600, 400));
+    setSize(new java.awt.Dimension(925, 600));
 
     title.setBackground(Constants.BACKGROUND_COLOR);
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     title.setLabelFor(this);
-    title.setText(book != null ? "Editar autor" : "Cadastrar autor");
+    title.setText(book != null ? "Editar livro" : "Cadastrar livro");
     title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
     title.setFocusable(false);
     title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -61,67 +93,116 @@ public class BookForm extends javax.swing.JFrame {
     title.setVerifyInputWhenFocusTarget(false);
     title.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-    nameLabel.setBackground(Constants.BACKGROUND_COLOR);
-    nameLabel.setFont(Constants.DEFAULT_FONT);
-    nameLabel.setForeground(Constants.FONT_COLOR);
-    nameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    nameLabel.setLabelFor(nameInput);
-    nameLabel.setText("Nome");
-    nameLabel.setFocusable(false);
-    nameLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-    nameLabel.setName("Label nome"); // NOI18N
-    nameLabel.setRequestFocusEnabled(false);
-    nameLabel.setVerifyInputWhenFocusTarget(false);
+    titleLabel.setBackground(Constants.BACKGROUND_COLOR);
+    titleLabel.setFont(Constants.DEFAULT_FONT);
+    titleLabel.setForeground(Constants.FONT_COLOR);
+    titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    titleLabel.setLabelFor(titleInput);
+    titleLabel.setText("Título");
+    titleLabel.setFocusable(false);
+    titleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    titleLabel.setName("Label título"); // NOI18N
+    titleLabel.setRequestFocusEnabled(false);
+    titleLabel.setVerifyInputWhenFocusTarget(false);
 
-    nameInput.setBackground(Constants.WHITE);
-    nameInput.setColumns(25);
-    nameInput.setFont(Constants.DEFAULT_FONT);
-    nameInput.setForeground(Constants.FONT_COLOR);
-    nameInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    nameInput.setText(book != null ? book.getName() : "");
-    nameInput.setToolTipText("Insira o nome do autor");
-    nameInput.setCaretColor(Constants.FONT_COLOR);
-    nameInput.setMaximumSize(new java.awt.Dimension(295, 30));
-    nameInput.setMinimumSize(new java.awt.Dimension(295, 30));
-    nameInput.setName("Nome do autor"); // NOI18N
-    nameInput.setNextFocusableComponent(nationalityInput);
-    nameInput.setPreferredSize(new java.awt.Dimension(295, 30));
-    nameInput.setSelectedTextColor(Constants.WHITE);
-    nameInput.setSelectionColor(Constants.DARK_BLUE);
+    titleInput.setBackground(Constants.WHITE);
+    titleInput.setColumns(25);
+    titleInput.setFont(Constants.DEFAULT_FONT);
+    titleInput.setForeground(Constants.FONT_COLOR);
+    titleInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+    titleInput.setText(book != null ? book.getTitle() : "");
+    titleInput.setToolTipText("Insira o título do livro");
+    titleInput.setCaretColor(Constants.FONT_COLOR);
+    titleInput.setMaximumSize(new java.awt.Dimension(295, 30));
+    titleInput.setMinimumSize(new java.awt.Dimension(295, 30));
+    titleInput.setName("Título do livro"); // NOI18N
+    titleInput.setNextFocusableComponent(isbnInput);
+    titleInput.setPreferredSize(new java.awt.Dimension(295, 30));
+    titleInput.setSelectedTextColor(Constants.WHITE);
+    titleInput.setSelectionColor(Constants.DARK_BLUE);
 
-    nationalityLabel.setBackground(Constants.BACKGROUND_COLOR);
-    nationalityLabel.setFont(Constants.DEFAULT_FONT);
-    nationalityLabel.setForeground(Constants.FONT_COLOR);
-    nationalityLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    nationalityLabel.setLabelFor(nationalityInput);
-    nationalityLabel.setText("Nacionalidade");
-    nationalityLabel.setFocusable(false);
-    nationalityLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-    nationalityLabel.setName("Label nacionalidade"); // NOI18N
-    nationalityLabel.setRequestFocusEnabled(false);
-    nationalityLabel.setVerifyInputWhenFocusTarget(false);
+    isbnLabel.setBackground(Constants.BACKGROUND_COLOR);
+    isbnLabel.setFont(Constants.DEFAULT_FONT);
+    isbnLabel.setForeground(Constants.FONT_COLOR);
+    isbnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    isbnLabel.setLabelFor(isbnInput);
+    isbnLabel.setText("ISBN");
+    isbnLabel.setFocusable(false);
+    isbnLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    isbnLabel.setName("Label ISBN"); // NOI18N
+    isbnLabel.setRequestFocusEnabled(false);
+    isbnLabel.setVerifyInputWhenFocusTarget(false);
 
-    nationalityInput.setBackground(Constants.WHITE);
-    nationalityInput.setColumns(25);
-    nationalityInput.setFont(Constants.DEFAULT_FONT);
-    nationalityInput.setForeground(Constants.FONT_COLOR);
-    nationalityInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    nationalityInput.setText(book != null ? book.getNationality() : "");
-    nationalityInput.setToolTipText("Insira a nacionalidade do autor");
-    nationalityInput.setCaretColor(Constants.FONT_COLOR);
-    nationalityInput.setMaximumSize(new java.awt.Dimension(295, 30));
-    nationalityInput.setMinimumSize(new java.awt.Dimension(295, 30));
-    nationalityInput.setName("Nacionalidade do autor"); // NOI18N
-    nationalityInput.setNextFocusableComponent(saveBtn);
-    nationalityInput.setPreferredSize(new java.awt.Dimension(295, 30));
-    nationalityInput.setSelectedTextColor(Constants.WHITE);
-    nationalityInput.setSelectionColor(Constants.DARK_BLUE);
+    isbnInput.setBackground(Constants.WHITE);
+    isbnInput.setColumns(25);
+    isbnInput.setFont(Constants.DEFAULT_FONT);
+    isbnInput.setForeground(Constants.FONT_COLOR);
+    isbnInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+    isbnInput.setText(book != null ? book.getIsbn() : "");
+    isbnInput.setToolTipText("Insira o ISBN do livro");
+    isbnInput.setCaretColor(Constants.FONT_COLOR);
+    isbnInput.setMaximumSize(new java.awt.Dimension(295, 30));
+    isbnInput.setMinimumSize(new java.awt.Dimension(295, 30));
+    isbnInput.setName("ISBN do livro"); // NOI18N
+    isbnInput.setNextFocusableComponent(authorCombo);
+    isbnInput.setPreferredSize(new java.awt.Dimension(295, 30));
+    isbnInput.setSelectedTextColor(Constants.WHITE);
+    isbnInput.setSelectionColor(Constants.DARK_BLUE);
+
+    authorLabel.setBackground(Constants.BACKGROUND_COLOR);
+    authorLabel.setFont(Constants.DEFAULT_FONT);
+    authorLabel.setForeground(Constants.FONT_COLOR);
+    authorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    authorLabel.setLabelFor(titleInput);
+    authorLabel.setText("Autor");
+    authorLabel.setFocusable(false);
+    authorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    authorLabel.setName("Label título"); // NOI18N
+    authorLabel.setRequestFocusEnabled(false);
+    authorLabel.setVerifyInputWhenFocusTarget(false);
+
+    authorCombo.setBackground(Constants.WHITE);
+    authorCombo.setEditable(true);
+    authorCombo.setFont(Constants.DEFAULT_FONT);
+    authorCombo.setForeground(Constants.FONT_COLOR);
+    authorCombo.setMaximumRowCount(authors.size());
+    authorCombo.setModel(new DefaultComboBoxModel<Author>(new Vector<Author>(authors)));
+    authorCombo.setToolTipText("Selecione o autor do livro");
+    authorCombo.setMaximumSize(new java.awt.Dimension(295, 30));
+    authorCombo.setMinimumSize(new java.awt.Dimension(295, 30));
+    authorCombo.setName("Autor"); // NOI18N
+    authorCombo.setNextFocusableComponent(formatCombo);
+    authorCombo.setPreferredSize(new java.awt.Dimension(295, 30));
+
+    formatLabel.setBackground(Constants.BACKGROUND_COLOR);
+    formatLabel.setFont(Constants.DEFAULT_FONT);
+    formatLabel.setForeground(Constants.FONT_COLOR);
+    formatLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    formatLabel.setLabelFor(titleInput);
+    formatLabel.setText("Formato");
+    formatLabel.setFocusable(false);
+    formatLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    formatLabel.setName("Label título"); // NOI18N
+    formatLabel.setRequestFocusEnabled(false);
+    formatLabel.setVerifyInputWhenFocusTarget(false);
+
+    formatCombo.setBackground(Constants.WHITE);
+    formatCombo.setEditable(true);
+    formatCombo.setFont(Constants.DEFAULT_FONT);
+    formatCombo.setForeground(Constants.FONT_COLOR);
+    formatCombo.setMaximumRowCount(formats.size());
+    formatCombo.setModel(new DefaultComboBoxModel<Format>(new Vector<Format>(formats)));
+    formatCombo.setToolTipText("Selecione o formato do livro");
+    formatCombo.setMaximumSize(new java.awt.Dimension(295, 30));
+    formatCombo.setMinimumSize(new java.awt.Dimension(295, 30));
+    formatCombo.setName("Formato"); // NOI18N
+    formatCombo.setPreferredSize(new java.awt.Dimension(295, 30));
 
     saveBtn.setBackground(Constants.BLUE);
     saveBtn.setFont(Constants.MEDIUM_FONT);
     saveBtn.setForeground(Constants.WHITE);
     saveBtn.setText(book != null ? "Editar" : "Cadastrar");
-    saveBtn.setToolTipText(book != null ? String.format("Editar o autor %s", book.getName()) : "Cadastrar novo autor");
+    saveBtn.setToolTipText(book != null ? String.format("Editar o livro %s", book.getTitle()) : "Cadastrar novo livro");
     saveBtn.setActionCommand("Salvar");
     saveBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     saveBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -162,22 +243,34 @@ public class BookForm extends javax.swing.JFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
             .addGap(153, 153, 153)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(nameLabel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(titleLabel)
+                  .addComponent(authorLabel)))
+              .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(29, 29, 29)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(nationalityLabel))
-              .addComponent(nameInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(nationalityInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(isbnLabel))
+              .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(formatLabel))
+              .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
           .addGroup(layout.createSequentialGroup()
-            .addGap(208, 208, 208)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGap(315, 315, 315)
+            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(152, Short.MAX_VALUE))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(364, 364, 364))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,28 +278,46 @@ public class BookForm extends javax.swing.JFrame {
         .addGap(20, 20, 20)
         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
-        .addComponent(nameLabel)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(nameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(titleLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(isbnLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addGap(29, 29, 29)
-        .addComponent(nationalityLabel)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(nationalityInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(39, 39, 39)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(authorLabel)
+            .addGap(36, 36, 36))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(formatLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
         .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(43, Short.MAX_VALUE))
+        .addGap(48, 48, 48))
     );
 
     title.getAccessibleContext().setAccessibleDescription("");
+    titleInput.getAccessibleContext().setAccessibleName("Input título");
+    isbnInput.getAccessibleContext().setAccessibleName("Input ISBN");
+    authorCombo.getAccessibleContext().setAccessibleName("Combo autor");
+    formatCombo.getAccessibleContext().setAccessibleName("Combo formato");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
     saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informaões do autor");
 
-    getAccessibleContext().setAccessibleName("Formulário de autores");
+    getAccessibleContext().setAccessibleName("Formulário de livros");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
+
 
   private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
 //    BookDto bookData = ;
@@ -229,16 +340,29 @@ public class BookForm extends javax.swing.JFrame {
   }//GEN-LAST:event_saveBtnActionPerformed
 
   private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-    this.dispose();
+    dispose();
   }//GEN-LAST:event_cancelBtnActionPerformed
 
+  @Override
+  public void dispose() {
+    bookController.closeConnection();
+    authorController.closeConnection();
+    formatController.closeConnection();
+    categoryController.closeConnection();
+    super.dispose();
+  }
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JComboBox<Author> authorCombo;
+  private javax.swing.JLabel authorLabel;
   private javax.swing.JButton cancelBtn;
-  private javax.swing.JTextField nameInput;
-  private javax.swing.JLabel nameLabel;
-  private javax.swing.JTextField nationalityInput;
-  private javax.swing.JLabel nationalityLabel;
+  private javax.swing.JComboBox<Format> formatCombo;
+  private javax.swing.JLabel formatLabel;
+  private javax.swing.JTextField isbnInput;
+  private javax.swing.JLabel isbnLabel;
   private javax.swing.JButton saveBtn;
   private javax.swing.JLabel title;
+  private javax.swing.JTextField titleInput;
+  private javax.swing.JLabel titleLabel;
   // End of variables declaration//GEN-END:variables
 }

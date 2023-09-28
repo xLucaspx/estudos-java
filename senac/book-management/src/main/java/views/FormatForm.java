@@ -168,7 +168,7 @@ public class FormatForm extends javax.swing.JFrame {
     title.getAccessibleContext().setAccessibleDescription("");
     nameInput.getAccessibleContext().setAccessibleName("Nome");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
-    saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informaões do formato");
+    saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informações do formato");
 
     getAccessibleContext().setAccessibleName("Formulário de formatos");
 
@@ -198,6 +198,12 @@ public class FormatForm extends javax.swing.JFrame {
   private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
     this.dispose();
   }//GEN-LAST:event_cancelBtnActionPerformed
+
+  @Override
+  public void dispose() {
+    formatController.closeConnection();
+    super.dispose();
+  }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton cancelBtn;

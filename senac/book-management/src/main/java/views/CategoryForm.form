@@ -35,6 +35,7 @@
   </Properties>
   <AccessibilityProperties>
     <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Formul&#xe1;rio de categorias"/>
+    <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
   </AccessibilityProperties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -246,7 +247,7 @@
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Salvar"/>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Salvar informa&#xf5;es da categoria"/>
+        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Salvar informa&#xe7;&#xf5;es da categoria"/>
       </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
