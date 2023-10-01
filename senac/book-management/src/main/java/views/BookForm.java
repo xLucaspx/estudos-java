@@ -68,6 +68,11 @@ public class BookForm extends javax.swing.JFrame {
     pagesLabel = new javax.swing.JLabel();
     pagesInput = new javax.swing.JFormattedTextField();
     readCheckbox = new javax.swing.JCheckBox();
+    categoriesPanel = new javax.swing.JPanel();
+    categoriesLabel = new javax.swing.JLabel();
+    categoryCombo1 = new javax.swing.JComboBox<>();
+    categoryCombo2 = new javax.swing.JComboBox<>();
+    categoryCombo3 = new javax.swing.JComboBox<>();
     saveBtn = new javax.swing.JButton();
     cancelBtn = new javax.swing.JButton();
 
@@ -152,7 +157,7 @@ public class BookForm extends javax.swing.JFrame {
     isbnInput.setMaximumSize(new java.awt.Dimension(295, 30));
     isbnInput.setMinimumSize(new java.awt.Dimension(295, 30));
     isbnInput.setName("ISBN do livro"); // NOI18N
-    isbnInput.setNextFocusableComponent(authorCombo);
+    isbnInput.setNextFocusableComponent(categoryCombo1);
     isbnInput.setPreferredSize(new java.awt.Dimension(295, 30));
     isbnInput.setSelectedTextColor(Constants.WHITE);
     isbnInput.setSelectionColor(Constants.DARK_BLUE);
@@ -303,12 +308,124 @@ public class BookForm extends javax.swing.JFrame {
     readCheckbox.setMaximumSize(new java.awt.Dimension(140, 30));
     readCheckbox.setMinimumSize(new java.awt.Dimension(140, 30));
     readCheckbox.setName("Checkbox leitura concluída"); // NOI18N
+    readCheckbox.setNextFocusableComponent(categoryCombo1);
     readCheckbox.setPreferredSize(new java.awt.Dimension(140, 30));
     readCheckbox.addItemListener(new java.awt.event.ItemListener() {
       public void itemStateChanged(java.awt.event.ItemEvent evt) {
         readCheckboxItemStateChanged(evt);
       }
     });
+
+    categoriesPanel.setBackground(Constants.BACKGROUND_COLOR);
+    categoriesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(Constants.FONT_COLOR, 1, true), "Categorias", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, Constants.MEDIUM_FONT, Constants.FONT_COLOR));
+    categoriesPanel.setForeground(Constants.FONT_COLOR);
+    categoriesPanel.setFocusable(false);
+    categoriesPanel.setFont(Constants.DEFAULT_FONT);
+    categoriesPanel.setMaximumSize(new java.awt.Dimension(635, 90));
+    categoriesPanel.setMinimumSize(new java.awt.Dimension(635, 90));
+    categoriesPanel.setName("Painel de categorias"); // NOI18N
+
+    categoriesLabel.setBackground(Constants.BACKGROUND_COLOR);
+    categoriesLabel.setFont(Constants.SMALL_FONT);
+    categoriesLabel.setForeground(Constants.FONT_COLOR);
+    categoriesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    categoriesLabel.setLabelFor(categoriesPanel);
+    categoriesLabel.setText("Selecione entre uma e três categorias para o livro");
+    categoriesLabel.setFocusable(false);
+    categoriesLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    categoriesLabel.setMaximumSize(new java.awt.Dimension(623, 16));
+    categoriesLabel.setMinimumSize(new java.awt.Dimension(623, 16));
+    categoriesLabel.setName("Legenda categorias"); // NOI18N
+    categoriesLabel.setPreferredSize(new java.awt.Dimension(623, 16));
+
+    categoryCombo1.setBackground(Constants.WHITE);
+    categoryCombo1.setEditable(true);
+    categoryCombo1.setFont(Constants.DEFAULT_FONT);
+    categoryCombo1.setForeground(Constants.FONT_COLOR);
+    categoryCombo1.setMaximumRowCount(categories.size());
+    categoryCombo1.setModel(new DefaultComboBoxModel<Category>(new Vector<>(categories)));
+    categoryCombo1.setSelectedItem(null);
+    categoryCombo1.setToolTipText("Selecione a categoria 1");
+    categoryCombo1.setMaximumSize(new java.awt.Dimension(187, 30));
+    categoryCombo1.setMinimumSize(new java.awt.Dimension(187, 30));
+    categoryCombo1.setName("Categoria 1"); // NOI18N
+    categoryCombo1.setNextFocusableComponent(categoryCombo2);
+    categoryCombo1.setPreferredSize(new java.awt.Dimension(187, 30));
+    categoryCombo1.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        categoryCombo1ActionPerformed(evt);
+      }
+    });
+
+    categoryCombo2.setBackground(Constants.WHITE);
+    categoryCombo2.setEditable(true);
+    categoryCombo2.setFont(Constants.DEFAULT_FONT);
+    categoryCombo2.setForeground(Constants.FONT_COLOR);
+    categoryCombo2.setMaximumRowCount(categories.size());
+    categoryCombo2.setModel(new DefaultComboBoxModel<Category>(new Vector<>(categories)));
+    categoryCombo2.setSelectedItem(null);
+    categoryCombo2.setToolTipText("Selecione a categoria 2");
+    categoryCombo2.setMaximumSize(new java.awt.Dimension(187, 30));
+    categoryCombo2.setMinimumSize(new java.awt.Dimension(187, 30));
+    categoryCombo2.setName("Categoria 2"); // NOI18N
+    categoryCombo2.setNextFocusableComponent(categoryCombo3);
+    categoryCombo2.setPreferredSize(new java.awt.Dimension(187, 30));
+    categoryCombo2.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        categoryCombo2ActionPerformed(evt);
+      }
+    });
+
+    categoryCombo3.setBackground(Constants.WHITE);
+    categoryCombo3.setEditable(true);
+    categoryCombo3.setFont(Constants.DEFAULT_FONT);
+    categoryCombo3.setForeground(Constants.FONT_COLOR);
+    categoryCombo3.setMaximumRowCount(categories.size());
+    categoryCombo3.setModel(new DefaultComboBoxModel<Category>(new Vector<>(categories)));
+    categoryCombo3.setSelectedItem(null);
+    categoryCombo3.setToolTipText("Selecione a categoria 3");
+    categoryCombo3.setMaximumSize(new java.awt.Dimension(187, 30));
+    categoryCombo3.setMinimumSize(new java.awt.Dimension(187, 30));
+    categoryCombo3.setName("Categoria 3"); // NOI18N
+    categoryCombo3.setNextFocusableComponent(saveBtn);
+    categoryCombo3.setPreferredSize(new java.awt.Dimension(187, 30));
+    categoryCombo3.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        categoryCombo3ActionPerformed(evt);
+      }
+    });
+
+    javax.swing.GroupLayout categoriesPanelLayout = new javax.swing.GroupLayout(categoriesPanel);
+    categoriesPanel.setLayout(categoriesPanelLayout);
+    categoriesPanelLayout.setHorizontalGroup(
+      categoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(categoriesPanelLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(categoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(categoriesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addGroup(categoriesPanelLayout.createSequentialGroup()
+            .addComponent(categoryCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(31, 31, 31)
+            .addComponent(categoryCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(31, 31, 31)
+            .addComponent(categoryCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap())
+    );
+    categoriesPanelLayout.setVerticalGroup(
+      categoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(categoriesPanelLayout.createSequentialGroup()
+        .addComponent(categoriesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(18, 18, 18)
+        .addGroup(categoriesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(categoryCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(categoryCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(categoryCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(0, 20, Short.MAX_VALUE))
+    );
+
+    categoryCombo1.getAccessibleContext().setAccessibleName("Combo categoria 1");
+    categoryCombo2.getAccessibleContext().setAccessibleName("Combo categoria 2");
+    categoryCombo3.getAccessibleContext().setAccessibleName("Combo categoria 3");
 
     saveBtn.setBackground(Constants.BLUE);
     saveBtn.setFont(Constants.MEDIUM_FONT);
@@ -354,49 +471,51 @@ public class BookForm extends javax.swing.JFrame {
       .addGroup(layout.createSequentialGroup()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addGap(145, 145, 145)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGroup(layout.createSequentialGroup()
-                    .addGap(9, 9, 9)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(titleLabel)
-                      .addComponent(authorLabel)
-                      .addComponent(purchaseDateLabel))))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGroup(layout.createSequentialGroup()
-                    .addGap(9, 9, 9)
-                    .addComponent(priceLabel)))))
-            .addGap(45, 45, 45)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(isbnLabel)
-                  .addComponent(formatLabel)
-                  .addComponent(pagesLabel)))
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                  .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(35, 35, 35)
-                  .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(formatCombo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-          .addGroup(layout.createSequentialGroup()
             .addGap(315, 315, 315)
             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(layout.createSequentialGroup()
             .addGap(262, 262, 262)
             .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
-            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(145, Short.MAX_VALUE))
+            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addGap(140, 140, 140)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+              .addComponent(categoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                      .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                          .addComponent(titleLabel)
+                          .addComponent(authorLabel)
+                          .addComponent(purchaseDateLabel))))
+                    .addGap(55, 55, 55)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                      .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(priceLabel))))
+                  .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                  .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(layout.createSequentialGroup()
+                    .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(35, 35, 35)
+                    .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addGroup(layout.createSequentialGroup()
+                    .addGap(9, 9, 9)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                      .addComponent(isbnLabel)
+                      .addComponent(formatLabel)
+                      .addComponent(pagesLabel))))))))
+        .addContainerGap(140, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,59 +523,58 @@ public class BookForm extends javax.swing.JFrame {
         .addGap(20, 20, 20)
         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(titleLabel)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
             .addComponent(isbnLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addGap(29, 29, 29)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(authorLabel)
-            .addGap(36, 36, 36))
-          .addGroup(layout.createSequentialGroup()
+            .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
             .addComponent(formatLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(titleLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
+            .addComponent(authorLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(purchaseDateLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(priceLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(pagesLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                  .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         .addGap(29, 29, 29)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(purchaseDateLabel)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(priceLabel)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(pagesLabel)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+        .addComponent(categoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(39, 39, 39)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(51, 51, 51))
+        .addContainerGap(103, Short.MAX_VALUE))
     );
 
     title.getAccessibleContext().setAccessibleDescription("");
     titleInput.getAccessibleContext().setAccessibleName("Input título");
     isbnInput.getAccessibleContext().setAccessibleName("Input ISBN");
-    authorCombo.getAccessibleContext().setAccessibleName("Combo autor");
     formatCombo.getAccessibleContext().setAccessibleName("Combo formato");
     purchaseDateInput.getAccessibleContext().setAccessibleName("Input data da compra");
     priceInput.getAccessibleContext().setAccessibleName("");
     pagesInput.getAccessibleContext().setAccessibleName("Input número de páginas");
     readCheckbox.getAccessibleContext().setAccessibleName("Checkbox leitura concluída");
     readCheckbox.getAccessibleContext().setAccessibleDescription("Alternar leitura concluída/não concluída");
+    categoriesPanel.getAccessibleContext().setAccessibleDescription("Painel de categorias");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
     saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informações do livro");
 
@@ -467,6 +585,17 @@ public class BookForm extends javax.swing.JFrame {
 
 
   private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+    // criar função que pega o retorno de filterByName e seleciona o autor, ou cria uma
+    // janela com os autores encontrados e solicita a seleção
+    var author = authorCombo.getSelectedItem();
+    var format = formatCombo.getSelectedItem();
+
+    System.out.println(author.getClass());
+    System.out.println(author instanceof Author);
+    System.out.println(author);
+    System.out.println(format.getClass());
+    System.out.println(format instanceof Format);
+    System.out.println(format);
 //    BookDto bookData = ;
 //    String msg;
 //
@@ -494,6 +623,18 @@ public class BookForm extends javax.swing.JFrame {
     readCheckbox.setToolTipText(readCheckbox.isSelected() ? "Marcar livro como não lido" : "Marcar livro como lido");
   }//GEN-LAST:event_readCheckboxItemStateChanged
 
+  private void categoryCombo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryCombo1ActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_categoryCombo1ActionPerformed
+
+  private void categoryCombo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryCombo3ActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_categoryCombo3ActionPerformed
+
+  private void categoryCombo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryCombo2ActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_categoryCombo2ActionPerformed
+
   @Override
   public void dispose() {
     bookController.closeConnection();
@@ -507,6 +648,11 @@ public class BookForm extends javax.swing.JFrame {
   private javax.swing.JComboBox<Author> authorCombo;
   private javax.swing.JLabel authorLabel;
   private javax.swing.JButton cancelBtn;
+  private javax.swing.JLabel categoriesLabel;
+  private javax.swing.JPanel categoriesPanel;
+  private javax.swing.JComboBox<Category> categoryCombo1;
+  private javax.swing.JComboBox<Category> categoryCombo2;
+  private javax.swing.JComboBox<Category> categoryCombo3;
   private javax.swing.JComboBox<Format> formatCombo;
   private javax.swing.JLabel formatLabel;
   private javax.swing.JTextField isbnInput;

@@ -10,6 +10,7 @@ public class Constants {
   public static final Font DEFAULT_FONT = new Font("Source Code Pro", Font.PLAIN, 14);
   public static final Font SERIF_FONT = new Font("Source Serif Pro", Font.PLAIN, 14);
   public static final Font MEDIUM_FONT = new Font("Source Code Pro Medium", Font.PLAIN, 18);
+  public static final Font SMALL_FONT = new Font("Source Code Pro", Font.PLAIN, 12);
   
   // colors
   public static final Color FONT_COLOR = new Color(42, 42, 42);

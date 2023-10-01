@@ -36,6 +36,10 @@ public class Category {
 
   @Override
   public String toString() {
+    return name;
+  }
+
+  public String formatAsJson() {
     return String.format("Category { id: %d, name: %s }", id, name);
   }
 }
