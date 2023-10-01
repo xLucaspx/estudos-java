@@ -205,7 +205,7 @@ public class CategoryForm extends javax.swing.JFrame {
     categoryController.closeConnection();
     super.dispose();
   }
-  
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton cancelBtn;
   private javax.swing.JTextField nameInput;

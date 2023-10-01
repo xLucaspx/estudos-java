@@ -23,7 +23,7 @@ public class ConnectionFactory {
     config.setJdbcUrl("jdbc:mysql://localhost:3306/library");
     config.setUsername(username);
     config.setPassword(password);
-    config.setMaximumPoolSize(10);
+    config.setMaximumPoolSize(5);
 
     return new HikariDataSource(config);
   }

@@ -229,11 +229,11 @@ public class BookForm extends javax.swing.JFrame {
     purchaseDateInput.setToolTipText("Insira a data da compra no formato dd/MM/aaaa");
     purchaseDateInput.setCaretColor(Constants.FONT_COLOR);
     purchaseDateInput.setFont(Constants.DEFAULT_FONT);
-    purchaseDateInput.setMaximumSize(new java.awt.Dimension(130, 30));
-    purchaseDateInput.setMinimumSize(new java.awt.Dimension(130, 30));
+    purchaseDateInput.setMaximumSize(new java.awt.Dimension(120, 30));
+    purchaseDateInput.setMinimumSize(new java.awt.Dimension(120, 30));
     purchaseDateInput.setName("Data da compra"); // NOI18N
     purchaseDateInput.setNextFocusableComponent(priceInput);
-    purchaseDateInput.setPreferredSize(new java.awt.Dimension(130, 30));
+    purchaseDateInput.setPreferredSize(new java.awt.Dimension(120, 30));
     purchaseDateInput.setSelectedTextColor(Constants.WHITE);
     purchaseDateInput.setSelectionColor(Constants.DARK_BLUE);
 
@@ -257,11 +257,11 @@ public class BookForm extends javax.swing.JFrame {
     priceInput.setToolTipText("Insira o preço do livro, apenas números e vírgula");
     priceInput.setCaretColor(Constants.FONT_COLOR);
     priceInput.setFont(Constants.DEFAULT_FONT);
-    priceInput.setMaximumSize(new java.awt.Dimension(130, 30));
-    priceInput.setMinimumSize(new java.awt.Dimension(130, 30));
+    priceInput.setMaximumSize(new java.awt.Dimension(120, 30));
+    priceInput.setMinimumSize(new java.awt.Dimension(120, 30));
     priceInput.setName("Preço do livro"); // NOI18N
     priceInput.setNextFocusableComponent(pagesInput);
-    priceInput.setPreferredSize(new java.awt.Dimension(130, 30));
+    priceInput.setPreferredSize(new java.awt.Dimension(120, 30));
     priceInput.setSelectedTextColor(Constants.WHITE);
     priceInput.setSelectionColor(Constants.DARK_BLUE);
 
@@ -285,11 +285,11 @@ public class BookForm extends javax.swing.JFrame {
     pagesInput.setToolTipText("Insira o número de páginas do livro");
     pagesInput.setCaretColor(Constants.FONT_COLOR);
     pagesInput.setFont(Constants.DEFAULT_FONT);
-    pagesInput.setMaximumSize(new java.awt.Dimension(100, 30));
-    pagesInput.setMinimumSize(new java.awt.Dimension(100, 30));
+    pagesInput.setMaximumSize(new java.awt.Dimension(120, 30));
+    pagesInput.setMinimumSize(new java.awt.Dimension(120, 30));
     pagesInput.setName("Número de páginas"); // NOI18N
     pagesInput.setNextFocusableComponent(readCheckbox);
-    pagesInput.setPreferredSize(new java.awt.Dimension(100, 30));
+    pagesInput.setPreferredSize(new java.awt.Dimension(120, 30));
     pagesInput.setSelectedTextColor(Constants.WHITE);
     pagesInput.setSelectionColor(Constants.DARK_BLUE);
 
@@ -300,10 +300,15 @@ public class BookForm extends javax.swing.JFrame {
     readCheckbox.setText("Leitura concluída");
     readCheckbox.setToolTipText(readCheckbox.isSelected() ? "Marcar livro como não lido" : "Marcar livro como lido");
     readCheckbox.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    readCheckbox.setMaximumSize(new java.awt.Dimension(170, 30));
-    readCheckbox.setMinimumSize(new java.awt.Dimension(170, 30));
+    readCheckbox.setMaximumSize(new java.awt.Dimension(140, 30));
+    readCheckbox.setMinimumSize(new java.awt.Dimension(140, 30));
     readCheckbox.setName("Checkbox leitura concluída"); // NOI18N
-    readCheckbox.setPreferredSize(new java.awt.Dimension(170, 30));
+    readCheckbox.setPreferredSize(new java.awt.Dimension(140, 30));
+    readCheckbox.addItemListener(new java.awt.event.ItemListener() {
+      public void itemStateChanged(java.awt.event.ItemEvent evt) {
+        readCheckboxItemStateChanged(evt);
+      }
+    });
 
     saveBtn.setBackground(Constants.BLUE);
     saveBtn.setFont(Constants.MEDIUM_FONT);
@@ -351,41 +356,38 @@ public class BookForm extends javax.swing.JFrame {
           .addGroup(layout.createSequentialGroup()
             .addGap(145, 145, 145)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createSequentialGroup()
+              .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addGroup(layout.createSequentialGroup()
                     .addGap(9, 9, 9)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                       .addComponent(titleLabel)
-                      .addComponent(authorLabel)))
-                  .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-              .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(purchaseDateLabel)
-                .addGap(81, 81, 81)
-                .addComponent(priceLabel))
-              .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                      .addComponent(authorLabel)
+                      .addComponent(purchaseDateLabel))))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addGroup(layout.createSequentialGroup()
                     .addGap(9, 9, 9)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(isbnLabel)
-                      .addComponent(formatLabel)))
-                  .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGroup(layout.createSequentialGroup()
-                    .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(readCheckbox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(priceLabel)))))
+            .addGap(45, 45, 45)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(pagesLabel))))
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(isbnLabel)
+                  .addComponent(formatLabel)
+                  .addComponent(pagesLabel)))
+              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                  .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGap(35, 35, 35)
+                  .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(formatCombo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
           .addGroup(layout.createSequentialGroup()
             .addGap(315, 315, 315)
             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -425,19 +427,19 @@ public class BookForm extends javax.swing.JFrame {
         .addGap(29, 29, 29)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(layout.createSequentialGroup()
+            .addComponent(purchaseDateLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(priceLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
             .addComponent(pagesLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-          .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-              .addComponent(purchaseDateLabel)
-              .addComponent(priceLabel))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(purchaseDateInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(priceInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+              .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -453,6 +455,7 @@ public class BookForm extends javax.swing.JFrame {
     purchaseDateInput.getAccessibleContext().setAccessibleName("Input data da compra");
     priceInput.getAccessibleContext().setAccessibleName("");
     pagesInput.getAccessibleContext().setAccessibleName("Input número de páginas");
+    readCheckbox.getAccessibleContext().setAccessibleName("Checkbox leitura concluída");
     readCheckbox.getAccessibleContext().setAccessibleDescription("Alternar leitura concluída/não concluída");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
     saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informações do livro");
@@ -486,6 +489,10 @@ public class BookForm extends javax.swing.JFrame {
   private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
     dispose();
   }//GEN-LAST:event_cancelBtnActionPerformed
+
+  private void readCheckboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_readCheckboxItemStateChanged
+    readCheckbox.setToolTipText(readCheckbox.isSelected() ? "Marcar livro como não lido" : "Marcar livro como lido");
+  }//GEN-LAST:event_readCheckboxItemStateChanged
 
   @Override
   public void dispose() {
