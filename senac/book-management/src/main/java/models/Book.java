@@ -17,10 +17,10 @@ public class Book {
   private Format format;
   private Set<Category> categories;
   private LocalDate purchaseDate;
-  private float price;
+  private double price;
 
   public Book(int id, String title, String isbn, int pages, boolean read, Author author, Format format,
-      LocalDate purchaseDate, float price) {
+    LocalDate purchaseDate, double price) {
     this.id = id;
     this.title = title;
     this.isbn = isbn;
@@ -73,7 +73,7 @@ public class Book {
     return purchaseDate;
   }
 
-  public float getPrice() {
+  public double getPrice() {
     return price;
   }
 
@@ -106,8 +106,8 @@ public class Book {
       strCategories += "    " + c.toString() + ",\n";
 
     return String.format(
-        "Book {\n  id: %d,\n  title: %s,\n  ISBN: %s,\n  pages: %d,\n  read: %b,\n  purchase date: %s,\n  price R$ %.2f,\n  %s,\n  %s,\n  categories: { \n%s  }\n}",
-        id, title, isbn, pages, read, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(purchaseDate), price, author,
-        format, strCategories);
+      "Book {\n  id: %d,\n  title: %s,\n  ISBN: %s,\n  pages: %d,\n  read: %b,\n  purchase date: %s,\n  price R$ %.2f,\n  %s,\n  %s,\n  categories: { \n%s  }\n}",
+      id, title, isbn, pages, read, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(purchaseDate), price, author,
+      format, strCategories);
   }
 }

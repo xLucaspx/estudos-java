@@ -4,14 +4,23 @@ import controller.AuthorController;
 import controller.BookController;
 import controller.CategoryController;
 import controller.FormatController;
+import exceptions.ValidationException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import models.Book;
 import models.Author;
 import models.Format;
 import models.Category;
+import models.dto.BookDto;
 import views.constants.Constants;
 
 public class BookForm extends javax.swing.JFrame {
@@ -20,6 +29,11 @@ public class BookForm extends javax.swing.JFrame {
   private final AuthorController authorController;
   private final FormatController formatController;
   private final CategoryController categoryController;
+
+  private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+  private final java.text.Format dateFormat = dateFormatter.toFormat();
+  private final NumberFormat decimalFormat = DecimalFormat.getInstance();
+  private final NumberFormat integerFormat = NumberFormat.getIntegerInstance();
 
   private Set<Author> authors;
   private Set<Format> formats;
@@ -47,6 +61,7 @@ public class BookForm extends javax.swing.JFrame {
     this.categories = categoryController.getAll();
     this.book = book;
     initComponents();
+    defineCategories(book);
   }
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -62,11 +77,12 @@ public class BookForm extends javax.swing.JFrame {
     formatLabel = new javax.swing.JLabel();
     formatCombo = new javax.swing.JComboBox<>();
     purchaseDateLabel = new javax.swing.JLabel();
-    purchaseDateInput = new javax.swing.JFormattedTextField();
+    purchaseDateInput = new JFormattedTextField(dateFormat);
     priceLabel = new javax.swing.JLabel();
-    priceInput = new javax.swing.JFormattedTextField();
+    decimalFormat.setMaximumFractionDigits(2);
+    decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+    priceInput = new JFormattedTextField(decimalFormat);
     pagesLabel = new javax.swing.JLabel();
-    pagesInput = new javax.swing.JFormattedTextField();
     readCheckbox = new javax.swing.JCheckBox();
     categoriesPanel = new javax.swing.JPanel();
     categoriesLabel = new javax.swing.JLabel();
@@ -75,6 +91,8 @@ public class BookForm extends javax.swing.JFrame {
     categoryCombo3 = new javax.swing.JComboBox<>();
     saveBtn = new javax.swing.JButton();
     cancelBtn = new javax.swing.JButton();
+    integerFormat.setMaximumIntegerDigits(5);
+    pagesInput = new JFormattedTextField(integerFormat);
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle(book != null ? "Edição de livro" : "Cadastro de livro");
@@ -86,7 +104,6 @@ public class BookForm extends javax.swing.JFrame {
     setMinimumSize(new java.awt.Dimension(925, 600));
     setName("window"); // NOI18N
     setPreferredSize(new java.awt.Dimension(925, 600));
-    setResizable(false);
     setSize(new java.awt.Dimension(925, 600));
 
     title.setBackground(Constants.BACKGROUND_COLOR);
@@ -175,7 +192,6 @@ public class BookForm extends javax.swing.JFrame {
     authorLabel.setVerifyInputWhenFocusTarget(false);
 
     authorCombo.setBackground(Constants.WHITE);
-    authorCombo.setEditable(true);
     authorCombo.setFont(Constants.DEFAULT_FONT);
     authorCombo.setForeground(Constants.FONT_COLOR);
     authorCombo.setMaximumRowCount(authors.size());
@@ -201,12 +217,11 @@ public class BookForm extends javax.swing.JFrame {
     formatLabel.setVerifyInputWhenFocusTarget(false);
 
     formatCombo.setBackground(Constants.WHITE);
-    formatCombo.setEditable(true);
     formatCombo.setFont(Constants.DEFAULT_FONT);
     formatCombo.setForeground(Constants.FONT_COLOR);
     formatCombo.setMaximumRowCount(formats.size());
     formatCombo.setModel(new DefaultComboBoxModel<Format>(new Vector<Format>(formats)));
-    formatCombo.setSelectedItem(book != null ? book.getFormat() : "");
+    formatCombo.setSelectedItem(book != null ? book.getFormat() : null);
     formatCombo.setToolTipText("Selecione o formato do livro");
     formatCombo.setMaximumSize(new java.awt.Dimension(295, 30));
     formatCombo.setMinimumSize(new java.awt.Dimension(295, 30));
@@ -230,7 +245,6 @@ public class BookForm extends javax.swing.JFrame {
     purchaseDateInput.setColumns(10);
     purchaseDateInput.setForeground(Constants.FONT_COLOR);
     purchaseDateInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    purchaseDateInput.setText(book != null ? DateTimeFormatter.ofPattern("dd/MM/yyyy").format(book.getPurchaseDate()) : "dd/MM/aaaa");
     purchaseDateInput.setToolTipText("Insira a data da compra no formato dd/MM/aaaa");
     purchaseDateInput.setCaretColor(Constants.FONT_COLOR);
     purchaseDateInput.setFont(Constants.DEFAULT_FONT);
@@ -238,9 +252,9 @@ public class BookForm extends javax.swing.JFrame {
     purchaseDateInput.setMinimumSize(new java.awt.Dimension(120, 30));
     purchaseDateInput.setName("Data da compra"); // NOI18N
     purchaseDateInput.setNextFocusableComponent(priceInput);
-    purchaseDateInput.setPreferredSize(new java.awt.Dimension(120, 30));
     purchaseDateInput.setSelectedTextColor(Constants.WHITE);
     purchaseDateInput.setSelectionColor(Constants.DARK_BLUE);
+    purchaseDateInput.setValue(book != null ? book.getPurchaseDate() : LocalDate.now());
 
     priceLabel.setBackground(Constants.BACKGROUND_COLOR);
     priceLabel.setFont(Constants.DEFAULT_FONT);
@@ -258,7 +272,6 @@ public class BookForm extends javax.swing.JFrame {
     priceInput.setColumns(10);
     priceInput.setForeground(Constants.FONT_COLOR);
     priceInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    priceInput.setText(book != null ? String.format("%.2f", book.getPrice()) : "");
     priceInput.setToolTipText("Insira o preço do livro, apenas números e vírgula");
     priceInput.setCaretColor(Constants.FONT_COLOR);
     priceInput.setFont(Constants.DEFAULT_FONT);
@@ -269,6 +282,7 @@ public class BookForm extends javax.swing.JFrame {
     priceInput.setPreferredSize(new java.awt.Dimension(120, 30));
     priceInput.setSelectedTextColor(Constants.WHITE);
     priceInput.setSelectionColor(Constants.DARK_BLUE);
+    priceInput.setValue(book != null ? book.getPrice() : 0);
 
     pagesLabel.setBackground(Constants.BACKGROUND_COLOR);
     pagesLabel.setFont(Constants.DEFAULT_FONT);
@@ -281,22 +295,6 @@ public class BookForm extends javax.swing.JFrame {
     pagesLabel.setName("Label título"); // NOI18N
     pagesLabel.setRequestFocusEnabled(false);
     pagesLabel.setVerifyInputWhenFocusTarget(false);
-
-    pagesInput.setBackground(Constants.WHITE);
-    pagesInput.setColumns(10);
-    pagesInput.setForeground(Constants.FONT_COLOR);
-    pagesInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-    pagesInput.setText(book != null ? String.format("%d", book.getPages()) : "");
-    pagesInput.setToolTipText("Insira o número de páginas do livro");
-    pagesInput.setCaretColor(Constants.FONT_COLOR);
-    pagesInput.setFont(Constants.DEFAULT_FONT);
-    pagesInput.setMaximumSize(new java.awt.Dimension(120, 30));
-    pagesInput.setMinimumSize(new java.awt.Dimension(120, 30));
-    pagesInput.setName("Número de páginas"); // NOI18N
-    pagesInput.setNextFocusableComponent(readCheckbox);
-    pagesInput.setPreferredSize(new java.awt.Dimension(120, 30));
-    pagesInput.setSelectedTextColor(Constants.WHITE);
-    pagesInput.setSelectionColor(Constants.DARK_BLUE);
 
     readCheckbox.setBackground(Constants.BACKGROUND_COLOR);
     readCheckbox.setFont(Constants.DEFAULT_FONT);
@@ -339,7 +337,6 @@ public class BookForm extends javax.swing.JFrame {
     categoriesLabel.setPreferredSize(new java.awt.Dimension(623, 16));
 
     categoryCombo1.setBackground(Constants.WHITE);
-    categoryCombo1.setEditable(true);
     categoryCombo1.setFont(Constants.DEFAULT_FONT);
     categoryCombo1.setForeground(Constants.FONT_COLOR);
     categoryCombo1.setMaximumRowCount(categories.size());
@@ -358,13 +355,13 @@ public class BookForm extends javax.swing.JFrame {
     });
 
     categoryCombo2.setBackground(Constants.WHITE);
-    categoryCombo2.setEditable(true);
     categoryCombo2.setFont(Constants.DEFAULT_FONT);
     categoryCombo2.setForeground(Constants.FONT_COLOR);
     categoryCombo2.setMaximumRowCount(categories.size());
     categoryCombo2.setModel(new DefaultComboBoxModel<Category>(new Vector<>(categories)));
     categoryCombo2.setSelectedItem(null);
     categoryCombo2.setToolTipText("Selecione a categoria 2");
+    categoryCombo2.setEnabled(categoryCombo1.getSelectedIndex() > 0);
     categoryCombo2.setMaximumSize(new java.awt.Dimension(187, 30));
     categoryCombo2.setMinimumSize(new java.awt.Dimension(187, 30));
     categoryCombo2.setName("Categoria 2"); // NOI18N
@@ -377,23 +374,18 @@ public class BookForm extends javax.swing.JFrame {
     });
 
     categoryCombo3.setBackground(Constants.WHITE);
-    categoryCombo3.setEditable(true);
     categoryCombo3.setFont(Constants.DEFAULT_FONT);
     categoryCombo3.setForeground(Constants.FONT_COLOR);
     categoryCombo3.setMaximumRowCount(categories.size());
     categoryCombo3.setModel(new DefaultComboBoxModel<Category>(new Vector<>(categories)));
     categoryCombo3.setSelectedItem(null);
     categoryCombo3.setToolTipText("Selecione a categoria 3");
+    categoryCombo3.setEnabled(categoryCombo1.getSelectedIndex() > 0);
     categoryCombo3.setMaximumSize(new java.awt.Dimension(187, 30));
     categoryCombo3.setMinimumSize(new java.awt.Dimension(187, 30));
     categoryCombo3.setName("Categoria 3"); // NOI18N
     categoryCombo3.setNextFocusableComponent(saveBtn);
     categoryCombo3.setPreferredSize(new java.awt.Dimension(187, 30));
-    categoryCombo3.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        categoryCombo3ActionPerformed(evt);
-      }
-    });
 
     javax.swing.GroupLayout categoriesPanelLayout = new javax.swing.GroupLayout(categoriesPanel);
     categoriesPanel.setLayout(categoriesPanelLayout);
@@ -423,9 +415,14 @@ public class BookForm extends javax.swing.JFrame {
         .addGap(0, 20, Short.MAX_VALUE))
     );
 
+    categoriesLabel.getAccessibleContext().setAccessibleName("Legenda categorias");
+    categoriesLabel.getAccessibleContext().setAccessibleDescription("Selecione entre uma e três categorias para o livro");
     categoryCombo1.getAccessibleContext().setAccessibleName("Combo categoria 1");
+    ((DefaultComboBoxModel) categoryCombo1.getModel()).insertElementAt("", 0);
     categoryCombo2.getAccessibleContext().setAccessibleName("Combo categoria 2");
+    ((DefaultComboBoxModel) categoryCombo2.getModel()).insertElementAt("", 0);
     categoryCombo3.getAccessibleContext().setAccessibleName("Combo categoria 3");
+    ((DefaultComboBoxModel) categoryCombo3.getModel()).insertElementAt("", 0);
 
     saveBtn.setBackground(Constants.BLUE);
     saveBtn.setFont(Constants.MEDIUM_FONT);
@@ -464,63 +461,76 @@ public class BookForm extends javax.swing.JFrame {
       }
     });
 
+    pagesInput.setBackground(Constants.WHITE);
+    pagesInput.setColumns(10);
+    pagesInput.setForeground(Constants.FONT_COLOR);
+    pagesInput.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+    pagesInput.setToolTipText("Insira o número de páginas do livro");
+    pagesInput.setCaretColor(Constants.FONT_COLOR);
+    pagesInput.setFont(Constants.DEFAULT_FONT);
+    pagesInput.setMaximumSize(new java.awt.Dimension(120, 30));
+    pagesInput.setMinimumSize(new java.awt.Dimension(120, 30));
+    pagesInput.setName("Número de páginas"); // NOI18N
+    pagesInput.setNextFocusableComponent(readCheckbox);
+    pagesInput.setPreferredSize(new java.awt.Dimension(120, 30));
+    pagesInput.setSelectedTextColor(Constants.WHITE);
+    pagesInput.setSelectionColor(Constants.DARK_BLUE);
+    pagesInput.setValue(book != null ? book.getPages() : 0);
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addGap(0, 0, Short.MAX_VALUE)
+        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(18, 18, 18)
+        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       .addGroup(layout.createSequentialGroup()
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addGap(315, 315, 315)
-            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(262, 262, 262)
-            .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createSequentialGroup()
-            .addGap(140, 140, 140)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-              .addComponent(categoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(146, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(categoriesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                      .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                          .addComponent(titleLabel)
-                          .addComponent(authorLabel)
-                          .addComponent(purchaseDateLabel))))
-                    .addGap(55, 55, 55)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                      .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(priceLabel))))
-                  .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGroup(layout.createSequentialGroup()
-                    .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(35, 35, 35)
-                    .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addGroup(layout.createSequentialGroup()
                     .addGap(9, 9, 9)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                      .addComponent(isbnLabel)
-                      .addComponent(formatLabel)
-                      .addComponent(pagesLabel))))))))
+                      .addComponent(titleLabel)
+                      .addComponent(authorLabel)
+                      .addComponent(purchaseDateLabel))))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(layout.createSequentialGroup()
+                    .addGap(9, 9, 9)
+                    .addComponent(priceLabel))))
+              .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(55, 55, 55)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(isbnInput, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(isbnLabel)
+                  .addComponent(formatLabel)
+                  .addComponent(pagesLabel))))))
         .addContainerGap(140, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addGap(20, 20, 20)
+        .addContainerGap(20, Short.MAX_VALUE)
         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -554,65 +564,109 @@ public class BookForm extends javax.swing.JFrame {
                 .addComponent(pagesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                  .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                  .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         .addGap(29, 29, 29)
         .addComponent(categoriesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(39, 39, 39)
+        .addGap(38, 38, 38)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(103, Short.MAX_VALUE))
+        .addContainerGap(104, Short.MAX_VALUE))
     );
 
     title.getAccessibleContext().setAccessibleDescription("");
     titleInput.getAccessibleContext().setAccessibleName("Input título");
     isbnInput.getAccessibleContext().setAccessibleName("Input ISBN");
+    ((DefaultComboBoxModel) authorCombo.getModel()).insertElementAt("", 0);
+    authorCombo.getAccessibleContext().setAccessibleName("Combo autor");
     formatCombo.getAccessibleContext().setAccessibleName("Combo formato");
+    ((DefaultComboBoxModel) formatCombo.getModel()).insertElementAt("", 0);
     purchaseDateInput.getAccessibleContext().setAccessibleName("Input data da compra");
-    priceInput.getAccessibleContext().setAccessibleName("");
-    pagesInput.getAccessibleContext().setAccessibleName("Input número de páginas");
+    priceInput.getAccessibleContext().setAccessibleName("Input preço");
     readCheckbox.getAccessibleContext().setAccessibleName("Checkbox leitura concluída");
     readCheckbox.getAccessibleContext().setAccessibleDescription("Alternar leitura concluída/não concluída");
     categoriesPanel.getAccessibleContext().setAccessibleDescription("Painel de categorias");
     saveBtn.getAccessibleContext().setAccessibleName("Salvar");
     saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informações do livro");
+    pagesInput.getAccessibleContext().setAccessibleName("Input número de páginas");
 
     getAccessibleContext().setAccessibleName("Formulário de livros");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void defineCategories(Book book) {
+    var categories = book.getCategories().toArray();
+
+    categoryCombo1.setSelectedItem(categories[0]);
+
+    if (categories.length > 1)
+      categoryCombo2.setSelectedItem(categories[1]);
+
+    if (categories.length > 2)
+      categoryCombo3.setSelectedItem(categories[2]);
+  }
+
+  private Author selectAuthor() {
+    if (authorCombo.getSelectedIndex() < 1)
+      throw new ValidationException("Por favor, selecione o autor do livro!");
+
+    return (Author) authorCombo.getSelectedItem();
+  }
+
+  private Format selectFormat() {
+    if (formatCombo.getSelectedIndex() < 1)
+      throw new ValidationException("Por favor, selecione o formato do livro!");
+
+    return (Format) formatCombo.getSelectedItem();
+  }
+
+  private Set<Category> selectCategories() {
+    Set<Category> categories = new HashSet<>();
+
+    if (categoryCombo1.getSelectedIndex() < 1)
+      throw new ValidationException("Por favor, selecione ao menos uma categoria!");
+
+    categories.add((Category) categoryCombo1.getSelectedItem());
+
+    if (categoryCombo2.isEnabled() && categoryCombo2.getSelectedIndex() > 0)
+      categories.add((Category) categoryCombo2.getSelectedItem());
+
+    if (categoryCombo3.isEnabled() && categoryCombo3.getSelectedIndex() > 0)
+      categories.add((Category) categoryCombo3.getSelectedItem());
+
+    return categories;
+  }
 
   private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-    // criar função que pega o retorno de filterByName e seleciona o autor, ou cria uma
-    // janela com os autores encontrados e solicita a seleção
-    var author = authorCombo.getSelectedItem();
-    var format = formatCombo.getSelectedItem();
+    try {
+      String title = titleInput.getText();
+      String isbn = isbnInput.getText();
+      Author author = selectAuthor();
+      Format format = selectFormat();
+      LocalDate purchaseDate = LocalDate.parse(purchaseDateInput.getText(), dateFormatter);
+      double price = (Double) priceInput.getValue();
+      int pages = Integer.parseInt(pagesInput.getText());
+      boolean read = readCheckbox.isSelected();
+      Set<Category> categories = selectCategories();
 
-    System.out.println(author.getClass());
-    System.out.println(author instanceof Author);
-    System.out.println(author);
-    System.out.println(format.getClass());
-    System.out.println(format instanceof Format);
-    System.out.println(format);
-//    BookDto bookData = ;
-//    String msg;
-//
-//    try {
-//      if (book != null) {
-//        bookController.update(book.getId(), bookData);
-//        msg = "Livro atualizado com sucesso!";
-//      } else {
-//        bookController.create(bookData);
-//        msg = "Livro cadastrado com sucesso!";
-//      }
-//
-//      JOptionPane.showMessageDialog(this, msg, getTitle(), JOptionPane.INFORMATION_MESSAGE);
-//      dispose();
-//    } catch (Exception e) {
-//      JOptionPane.showMessageDialog(this, String.format("Ocorreu um erro ao tentar salvar:\n%s", e.getMessage()), getTitle(), JOptionPane.ERROR_MESSAGE);
-//    }
+      BookDto bookData = new BookDto(title, isbn, pages, author, format, purchaseDate, price, read);
+      String msg;
+
+      if (book != null) {
+        bookController.update(book.getId(), bookData, categories);
+        msg = "Livro atualizado com sucesso!";
+      } else {
+        bookController.create(bookData, categories);
+        msg = "Livro cadastrado com sucesso!";
+      }
+
+      JOptionPane.showMessageDialog(this, msg, getTitle(), JOptionPane.INFORMATION_MESSAGE);
+      dispose();
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this, String.format("Ocorreu um erro ao tentar salvar:\n%s", e.getMessage()), getTitle(), JOptionPane.ERROR_MESSAGE);
+    }
   }//GEN-LAST:event_saveBtnActionPerformed
 
   private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -624,15 +678,20 @@ public class BookForm extends javax.swing.JFrame {
   }//GEN-LAST:event_readCheckboxItemStateChanged
 
   private void categoryCombo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryCombo1ActionPerformed
-    // TODO add your handling code here:
+    if (categoryCombo1.getSelectedIndex() > 0) {
+      categoryCombo2.setEnabled(true);
+      categoryCombo2.actionPerformed(evt);
+    } else {
+      categoryCombo2.setEnabled(false);
+      categoryCombo3.setEnabled(false);
+    }
   }//GEN-LAST:event_categoryCombo1ActionPerformed
 
-  private void categoryCombo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryCombo3ActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_categoryCombo3ActionPerformed
-
   private void categoryCombo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryCombo2ActionPerformed
-    // TODO add your handling code here:
+    if (categoryCombo2.getSelectedIndex() > 0)
+      categoryCombo3.setEnabled(true);
+    else
+      categoryCombo3.setEnabled(false);
   }//GEN-LAST:event_categoryCombo2ActionPerformed
 
   @Override

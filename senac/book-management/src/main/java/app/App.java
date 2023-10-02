@@ -12,7 +12,7 @@ public class App {
 //    AuthorForm authorForm = new AuthorForm();
 //    CategoryForm categoryForm = new CategoryForm();
 //    FormatForm formatForm = new FormatForm();
-    BookForm bookForm = new BookForm(new BookController().getById(1));
+    BookForm bookForm = new BookForm(new BookController().getById(13));
 
 //    authorForm.setVisible(true);
 //    categoryForm.setVisible(true);
