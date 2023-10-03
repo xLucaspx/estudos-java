@@ -29,7 +29,7 @@ public class FormatController extends Controller {
 
   // returns the created format
   public Format create(String name) {
-    if (!Validator.checkValidString(name))
+    if (!Validator.isValidString(name))
       throw new ValidationException("O nome do formato deve ser preenchido corretamente!");
 
     int id = formatServices.create(name);
@@ -38,7 +38,7 @@ public class FormatController extends Controller {
 
   // returns the updated format
   public Format update(int id, String name) {
-    if (!Validator.checkValidString(name))
+    if (!Validator.isValidString(name))
       throw new ValidationException("O nome do formato deve ser preenchido corretamente!");
 
     formatServices.update(id, name);

@@ -642,7 +642,7 @@ public class BookForm extends javax.swing.JFrame {
   private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
     try {
       String title = titleInput.getText();
-      String isbn = isbnInput.getText();
+      String isbn = isbnInput.getText().replace("-", "");
       Author author = selectAuthor();
       Format format = selectFormat();
       LocalDate purchaseDate = LocalDate.parse(purchaseDateInput.getText(), dateFormatter);

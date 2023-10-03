@@ -28,7 +28,7 @@ public class CategoryController extends Controller {
 
   // returns the created category
   public Category create(String name) {
-    if (!Validator.checkValidString(name))
+    if (!Validator.isValidString(name))
       throw new ValidationException("O nome da categoria deve ser preenchido corretamente!");
 
     int id = categoryServices.create(name);
@@ -37,7 +37,7 @@ public class CategoryController extends Controller {
 
   // returns the updated category
   public Category update(int id, String name) {
-    if (!Validator.checkValidString(name))
+    if (!Validator.isValidString(name))
       throw new ValidationException("O nome da categoria deve ser preenchido corretamente!");
 
     categoryServices.update(id, name);

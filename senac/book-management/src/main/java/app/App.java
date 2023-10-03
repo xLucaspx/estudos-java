@@ -1,18 +1,18 @@
 package app;
 
 import controller.BookController;
+import utils.Validator;
 import views.AuthorForm;
 import views.BookForm;
 import views.CategoryForm;
 import views.FormatForm;
 
 public class App {
-  
   public static void main(String... args) {
 //    AuthorForm authorForm = new AuthorForm();
 //    CategoryForm categoryForm = new CategoryForm();
 //    FormatForm formatForm = new FormatForm();
-    BookForm bookForm = new BookForm(new BookController().getById(13));
+    BookForm bookForm = new BookForm();
 
 //    authorForm.setVisible(true);
 //    categoryForm.setVisible(true);

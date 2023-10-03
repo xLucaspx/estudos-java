@@ -1,11 +1,13 @@
 package controller;
 
+import exceptions.ValidationException;
 import java.util.Set;
 
 import models.Book;
 import models.Category;
 import models.dto.BookDto;
 import services.BookServices;
+import utils.Validator;
 
 public class BookController extends Controller {
 
@@ -26,6 +28,12 @@ public class BookController extends Controller {
   // returns the created book
   // TODO: check if the range of categories is between 1 and 3.
   public Book create(BookDto bookData, Set<Category> categories) {
+    if (!Validator.isValidString(bookData.title()))
+      throw new ValidationException("O título do livro deve ser preenchido corretamente!");
+
+    if (!Validator.isValidIsbn(bookData.isbn()))
+      throw new ValidationException("O ISBN inserido é inválido!");
+
     int bookId = bookServices.create(bookData);
     categories.forEach(c -> bookServices.addCategory(bookId, c.getId()));
     return getById(bookId);
