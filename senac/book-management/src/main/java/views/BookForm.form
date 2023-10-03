@@ -62,10 +62,9 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <EmptySpace pref="146" max="32767" attributes="0"/>
+              <EmptySpace pref="140" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="title" max="32767" attributes="0"/>
-                  <Component id="categoriesPanel" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="titleInput" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
@@ -111,6 +110,7 @@
                           </Group>
                       </Group>
                   </Group>
+                  <Component id="categoriesPanel" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="140" max="32767" attributes="0"/>
           </Group>
@@ -337,7 +337,7 @@
         </Property>
         <Property name="name" type="java.lang.String" value="ISBN do livro" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="categoryCombo1"/>
+          <ComponentRef name="authorCombo"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[295, 30]"/>
@@ -391,7 +391,7 @@
           <Connection code="authors.size()" type="code"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new DefaultComboBoxModel&lt;Author&gt;(new Vector&lt;Author&gt;(authors))" type="code"/>
+          <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(authors))" type="code"/>
         </Property>
         <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="book != null ? book.getAuthor() : null" type="code"/>
@@ -415,7 +415,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo autor"/>
       </AccessibilityProperties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="((DefaultComboBoxModel) authorCombo.getModel()).insertElementAt(&quot;&quot;, 0);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="((DefaultComboBoxModel&lt;Author&gt;) authorCombo.getModel()).insertElementAt(null, 0);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Author&gt;"/>
       </AuxValues>
     </Component>
@@ -478,7 +478,7 @@
         </Property>
       </Properties>
       <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo formato" postCode="((DefaultComboBoxModel) formatCombo.getModel()).insertElementAt(&quot;&quot;, 0);"/>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo formato" postCode="((DefaultComboBoxModel&lt;Format&gt;) formatCombo.getModel()).insertElementAt(null, 0);"/>
       </AccessibilityProperties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Format&gt;"/>
@@ -708,10 +708,10 @@
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[635, 90]"/>
+          <Dimension value="[645, 90]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[635, 90]"/>
+          <Dimension value="[645, 90]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Painel de categorias" noResource="true"/>
       </Properties>
@@ -803,7 +803,7 @@
               <Connection code="categories.size()" type="code"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel&lt;Category&gt;(new Vector&lt;&gt;(categories))" type="code"/>
+              <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(categories))" type="code"/>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
@@ -824,7 +824,7 @@
             </Property>
           </Properties>
           <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo categoria 1" postCode="((DefaultComboBoxModel) categoryCombo1.getModel()).insertElementAt(&quot;&quot;, 0);"/>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="" postCode="((DefaultComboBoxModel&lt;Category&gt;) categoryCombo1.getModel()).insertElementAt(null, 0);"/>
           </AccessibilityProperties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoryCombo1ActionPerformed"/>
@@ -848,7 +848,7 @@
               <Connection code="categories.size()" type="code"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel&lt;Category&gt;(new Vector&lt;&gt;(categories))" type="code"/>
+              <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(categories))" type="code"/>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
@@ -872,7 +872,7 @@
             </Property>
           </Properties>
           <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo categoria 2" postCode="((DefaultComboBoxModel) categoryCombo2.getModel()).insertElementAt(&quot;&quot;, 0);"/>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="" postCode="((DefaultComboBoxModel&lt;Category&gt;) categoryCombo2.getModel()).insertElementAt(null, 0);"/>
           </AccessibilityProperties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoryCombo2ActionPerformed"/>
@@ -896,7 +896,7 @@
               <Connection code="categories.size()" type="code"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel&lt;Category&gt;(new Vector&lt;&gt;(categories))" type="code"/>
+              <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(categories))" type="code"/>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
@@ -920,7 +920,7 @@
             </Property>
           </Properties>
           <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo categoria 3" postCode="((DefaultComboBoxModel) categoryCombo3.getModel()).insertElementAt(&quot;&quot;, 0);"/>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="" postCode="((DefaultComboBoxModel&lt;Category&gt;) categoryCombo3.getModel()).insertElementAt(null, 0);"/>
           </AccessibilityProperties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Category&gt;"/>

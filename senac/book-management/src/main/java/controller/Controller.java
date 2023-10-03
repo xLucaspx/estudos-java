@@ -1,23 +1,24 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import factory.ConnectionFactory;
-import java.sql.SQLException;
 
 public abstract class Controller {
 
-  protected Connection connection;
+	protected Connection connection;
 
-  public Controller() {
-    this.connection = new ConnectionFactory().getConection();
-  }
+	public Controller() {
+		this.connection = new ConnectionFactory().getConection();
+	}
 
-  public void closeConnection() {
-    try {
-      connection.close();
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-  }
+	public void closeConnection() {
+
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
