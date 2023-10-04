@@ -7,18 +7,17 @@ import factory.ConnectionFactory;
 
 public abstract class Controller {
 
-	protected Connection connection;
+  protected Connection connection;
 
-	public Controller() {
-		this.connection = new ConnectionFactory().getConection();
-	}
+  public Controller() {
+    this.connection = new ConnectionFactory().getConection();
+  }
 
-	public void closeConnection() {
-
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+  public void closeConnection() {
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

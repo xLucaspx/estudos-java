@@ -1,4 +1,4 @@
-package views;
+package views.forms;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

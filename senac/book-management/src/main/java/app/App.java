@@ -1,18 +1,19 @@
 package app;
 
-import views.BookForm;
+import views.MainMenu;
 
 public class App {
-	public static void main(String... args) {
-//    AuthorForm authorForm = new AuthorForm();
-//    CategoryForm categoryForm = new CategoryForm();
-//    FormatForm formatForm = new FormatForm();
-		BookForm bookForm = new BookForm();
-
-//    authorForm.setVisible(true);
-//    categoryForm.setVisible(true);
-//    formatForm.setVisible(true);
-		bookForm.setVisible(true);
+  public static void main(String... args) {
+    /*
+    - passar conexão via injeção de dependências (configurar poolsize e testar a eficiência);
+    - avaliar a utilização de interfaces para Services e Controller;
+    - refatorar SQL:
+      - criar procedure para atualizar books_owned;
+      - definir formato como enum;
+      - add editora.
+     */
+    MainMenu menu = new MainMenu();
+    menu.setVisible(true);
 
 //    FormatController formatController = new FormatController(j);
 //    CategoryController categoryController = new CategoryController();
@@ -77,5 +78,5 @@ public class App {
 //
 //    formatController.delete(papperback.getId());
 //    formatController.delete(ebook.getId());
-	}
+  }
 }
