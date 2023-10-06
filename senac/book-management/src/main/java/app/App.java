@@ -1,6 +1,7 @@
 package app;
 
 import views.MainMenu;
+import views.lists.AuthorList;
 
 public class App {
   public static void main(String... args) {
@@ -12,8 +13,11 @@ public class App {
       - definir formato como enum;
       - add editora.
      */
-    MainMenu menu = new MainMenu();
-    menu.setVisible(true);
+//    MainMenu menu = new MainMenu();
+//    menu.setVisible(true);
+
+    AuthorList aList = new AuthorList();
+    aList.setVisible(true);
 
 //    FormatController formatController = new FormatController(j);
 //    CategoryController categoryController = new CategoryController();
