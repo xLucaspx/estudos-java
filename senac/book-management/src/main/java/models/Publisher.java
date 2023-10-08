@@ -1,13 +1,15 @@
 package models;
 
-public class Category {
+public class Publisher {
 
 	private int id;
 	private String name;
+	private int booksOwned;
 
-	public Category(int id, String name) {
+	public Publisher(int id, String name, int booksOwned) {
 		this.id = id;
 		this.name = name;
+		this.booksOwned = booksOwned;
 	}
 
 	public int getId() {
@@ -16,6 +18,10 @@ public class Category {
 
 	public String getName() {
 		return name;
+	}
+
+	public int getBooksOwned() {
+		return booksOwned;
 	}
 
 	@Override
@@ -29,8 +35,8 @@ public class Category {
 		if (o == null) return false;
 		if (this.getClass() != o.getClass()) return false;
 
-		Category category = (Category) o;
-		return id == category.getId() && name.equals(category.getName());
+		Publisher publisher = (Publisher) o;
+		return id == publisher.getId() && name.equals(publisher.getName());
 	}
 
 	@Override
@@ -39,6 +45,6 @@ public class Category {
 	}
 
 	public String formatAsJson() {
-		return String.format("Category { id: %d, name: %s }", id, name);
+		return String.format("Publisher: { id: %d, name: \"%s\", booksOwned: %d }", id, name, booksOwned);
 	}
 }

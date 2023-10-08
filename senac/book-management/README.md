@@ -1,90 +1,117 @@
 # Book management system
 
-Um leitor assíduo que possui um grande número de peças literárias em diversos formatos deseja um sistema onde possa armazenar informações da sua coleção, como por exemplo: título, autor, número de páginas, categoria, data da compra, preço de custo, etc.
+Um leitor assíduo que possui um grande número de peças literárias em diversos formatos deseja um sistema onde possa armazenar informações da sua coleção, como por exemplo: título, autor, número de páginas, categoria, data da compra, preço de custo, etc. Para ele também é interessante guardar qual a editora e o formato de cada livro.
+O cliente também deseja a opção de marcar se já leu aquela peça e armazenar uma resenha contendo sua opinião; outro requisito é armazenar informações dos autores, como a nacionalidade e quantos livros daquele autor existem na coleção do cliente.
 
-O cliente também deseja a opção de marcar se já leu aquela peça e armazenar uma resenha contendo sua opinião. Outro requisito é armazenar informações dos autores, como a nacionalidade e quantos livros daquele autor existem na coleção do cliente.
+## Database and tables
 
-## Database
-
-In this project we're going to use MySQL for the database. To create and use the database, use the following commands:
-
-```sql
-CREATE SCHEMA IF NOT EXISTS library;
-USE library;
-```
-
-### Table: format
-
-The `format` table is meant for storing the variation of the piece, eg.: paperback, hardcover, ebook, etc.
+In this project we're going to use MySQL for the database. To create the database and the tables, use the following commands:
 
 ```sql
-CREATE TABLE IF NOT EXISTS `format` (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  `format` VARCHAR(20) NOT NULL
+CREATE SCHEMA `book_management`;
+USE `book_management`;
+
+CREATE TABLE `publisher` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL
 );
-```
 
-### Table: category
-
-The `category` table is meant for storing all the different categories; the books may have between one and three categories.
-
-```sql
-CREATE TABLE IF NOT EXISTS category (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  category VARCHAR(50) NOT NULL
+CREATE TABLE `genre` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL
 );
-```
 
-### Table: author
-
-The `author` table is meant to store informations about the author as well as how many of his books are stored in the collection.
-
-```sql
-CREATE TABLE IF NOT EXISTS author (
-  id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE `author` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
-  nationality VARCHAR(50) NOT NULL,
-  books_owned INT DEFAULT 0
+  `nationality` VARCHAR(50) NOT NULL
 );
-```
 
-### Table: book
-
-The `book` table is obviously meant to keep informations about the books.
-
-```sql
-CREATE TABLE IF NOT EXISTS book (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(50) NOT NULL,
-  isbn VARCHAR(13) NOT NULL,
-  pages INT NOT NULL,
-  `read` BOOLEAN DEFAULT false,
-  author_id INT NOT NULL,
-  format_id INT NOT NULL,
-  purchase_date DATE DEFAULT null,
-  price FLOAT(5, 2) NOT NULL,
-  review TEXT DEFAULT null,
+CREATE TABLE `book` (
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `title` VARCHAR(50) NOT NULL,
+  `isbn_10` VARCHAR(10),
+  `isbn_13` VARCHAR(13) NOT NULL,
+  `pages` INT NOT NULL,
+  `read` BOOLEAN NOT NULL DEFAULT false,
+  `format` ENUM('Hardcover', 'Paperback', 'Ebook', 'Box') NOT NULL,
+  `author_id` INT NOT NULL,
+  `publisher_id` INT NOT NULL,
+  `purchase_date` DATE,
+  `price` FLOAT(5, 2) NOT NULL,
+  `review` TEXT,
   CONSTRAINT FK_author_code FOREIGN KEY (author_id)
       REFERENCES author(id),
-  CONSTRAINT FK_format_code FOREIGN KEY (format_id)
-      REFERENCES `format`(id)
+  CONSTRAINT FK_publisher_code FOREIGN KEY (publisher_id)
+      REFERENCES publisher(id)
+);
+
+CREATE TABLE `book_genre` (
+  `book_id` INT,
+  `genre_id` INT,
+  PRIMARY KEY (`book_id` , `genre_id`),
+  CONSTRAINT FK_book_code FOREIGN KEY (book_id)
+      REFERENCES book (id) ON DELETE CASCADE,
+  CONSTRAINT FK_genre_code FOREIGN KEY (genre_id)
+      REFERENCES genre (id)
 );
 ```
 
-### Table: book_category
+The format column in the book table is an Enum that allows the following values:
 
-This table is meant for the `book`and `category` tables relationship. Remember: books may have between one and three categories.
+| Enum        | Index |
+| `Hardcover` | 1     |
+| `Paperback` | 2     |
+| `Ebook`     | 3     |
+| `Box`       | 4     |
+
+### SQL Functions
+
+We've created SQL functions to easily retrieve the number of books read or the amount of books owned that belongs to a certain criteria; are tyhey:
+
+| Function              | Parameters                | Returns                                                                                 | Example                                                                           |
+| countBooksByRead      | `BOOLEAN` _readStatus_    | the total of books with the read value corresponding to the _readStatus_ parameter      | `SELECT countBooksByRead(true) AS 'Total read books';`                            |
+| countBooksByFormat    | `INT` _formatCode_        | the total of books with the format value corresponding to the _formatCode_ parameter    | `SELECT format, countBooksByFormat(format) AS 'total' FROM book GROUP BY format;` |
+| countBooksByAuthor    | `INT` _authorId_          | the total of books owned by the author with the corresponding ID                        | `SELECT name, countBooksByAuthor(id) AS 'books owned' FROM author;`               |
+| countBooksByPublisher | `INT` _publisherId_       | the total of books owned by the publisher with the corresponding ID                     | `SELECT name, countBooksByPublisher(id) AS 'books' FROM publisher;`               |
+| countBooksByGenre     | `INT` _genreId_           | the total of books that are included in the corresponding genre                         | `SELECT name, countBooksByGenre(id) AS 'books owned' FROM genre;`                 |
+
+To create these functions, run the following SQL script:
 
 ```sql
-CREATE TABLE IF NOT EXISTS book_category (
-  book_id INT,
-  category_id INT,
-  PRIMARY KEY (book_id , category_id),
-  CONSTRAINT FK_book_code FOREIGN KEY (book_id)
-      REFERENCES book (id) ON DELETE CASCADE,
-  CONSTRAINT FK_category_code FOREIGN KEY (category_id)
-      REFERENCES category (id)
-);
+DELIMITER $$
+
+CREATE FUNCTION countBooksByRead(readStatus BOOLEAN)
+RETURNS INT READS SQL DATA
+BEGIN
+	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `read` = readStatus);
+END $$
+
+CREATE FUNCTION countBooksByFormat(formatCode INT)
+RETURNS INT READS SQL DATA
+BEGIN
+	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `format` = formatCode);
+END $$
+
+CREATE FUNCTION countBooksByAuthor(authorId INT)
+RETURNS INT READS SQL DATA
+BEGIN
+	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `author_id` = authorId);
+END $$
+
+CREATE FUNCTION countBooksByPublisher(publisherId INT)
+RETURNS INT READS SQL DATA
+BEGIN
+	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `publisher_id` = publisherId);
+END $$
+
+CREATE FUNCTION countBooksByGenre(genreId INT)
+RETURNS INT READS SQL DATA
+BEGIN
+	RETURN (SELECT COUNT(`book_id`) FROM `book_genre` WHERE `genre_id` = genreId);
+END $$
+
+DELIMITER ;
 ```
 
 ## International Standard Book Number (ISBN)
@@ -101,8 +128,7 @@ The ISBN is ten digits long if assigned before 2007, and thirteen digits long if
 
 ## Tasks
 
-[ ] Create SQL procedure to update `author`.`books_owned`;
-[ ] Add ISBN validation;
+[x] Add ISBN validation;
 [ ] Convert ISBN-10 to ISBN-13;
 [ ] Implement Dewey Decimal System.
 

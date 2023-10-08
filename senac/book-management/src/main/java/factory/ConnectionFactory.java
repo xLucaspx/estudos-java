@@ -9,6 +9,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class ConnectionFactory {
 	private final String username = "user01";
 	private final String password = "admin";
+	private final String database = "book_management";
 
 	public Connection getConection() {
 		try {
@@ -20,7 +21,7 @@ public class ConnectionFactory {
 
 	private HikariDataSource createDataSource() {
 		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl("jdbc:mysql://localhost:3306/library");
+		config.setJdbcUrl("jdbc:mysql://localhost:3306/" + database);
 		config.setUsername(username);
 		config.setPassword(password);
 		config.setMaximumPoolSize(5);

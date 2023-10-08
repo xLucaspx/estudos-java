@@ -8,13 +8,11 @@ public class App {
     /*
     - passar conexão via injeção de dependências (configurar poolsize e testar a eficiência);
     - avaliar a utilização de interfaces para Services e Controller;
-    - refatorar SQL:
-      - criar procedure para atualizar books_owned;
-      - definir formato como enum;
-      - add editora.
+    - Testar conversão e valição de ISBN
      */
-//    MainMenu menu = new MainMenu();
-//    menu.setVisible(true);
+
+    MainMenu mm = new MainMenu();
+    mm.setVisible(true);
 
     AuthorList aList = new AuthorList();
     aList.setVisible(true);

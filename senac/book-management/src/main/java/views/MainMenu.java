@@ -4,10 +4,10 @@
  */
 package views;
 
-import views.forms.CategoryForm;
+import views.forms.GenreForm;
 import views.forms.BookForm;
 import views.forms.AuthorForm;
-import views.forms.FormatForm;
+import views.forms.PublisherForm;
 import java.awt.Component;
 import views.constants.Constants;
 
@@ -26,8 +26,8 @@ public class MainMenu extends javax.swing.JFrame {
     formMenusLabel = new javax.swing.JLabel();
     bookFormBtn = new javax.swing.JButton();
     authorFormBtn = new javax.swing.JButton();
-    categoryFormBtn = new javax.swing.JButton();
-    formatFormBtn = new javax.swing.JButton();
+    genreFormBtn = new javax.swing.JButton();
+    publisherFormBtn = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("Gerenciamento de livros");
@@ -107,7 +107,7 @@ public class MainMenu extends javax.swing.JFrame {
     authorFormBtn.setMaximumSize(new java.awt.Dimension(280, 30));
     authorFormBtn.setMinimumSize(new java.awt.Dimension(280, 30));
     authorFormBtn.setName("Botão cadastro de autor"); // NOI18N
-    authorFormBtn.setNextFocusableComponent(categoryFormBtn);
+    authorFormBtn.setNextFocusableComponent(genreFormBtn);
     authorFormBtn.setPreferredSize(new java.awt.Dimension(280, 30));
     authorFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
@@ -131,20 +131,20 @@ public class MainMenu extends javax.swing.JFrame {
       }
     });
 
-    categoryFormBtn.setBackground(Constants.BLUE);
-    categoryFormBtn.setFont(Constants.MEDIUM_FONT);
-    categoryFormBtn.setForeground(Constants.WHITE);
-    categoryFormBtn.setText("Cadastro de categoria");
-    categoryFormBtn.setToolTipText("Abrir o formulário de cadastro de categorias");
-    categoryFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
-    categoryFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    categoryFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    categoryFormBtn.setMaximumSize(new java.awt.Dimension(280, 30));
-    categoryFormBtn.setMinimumSize(new java.awt.Dimension(280, 30));
-    categoryFormBtn.setName("Botão cadastro de categoria"); // NOI18N
-    categoryFormBtn.setNextFocusableComponent(formatFormBtn);
-    categoryFormBtn.setPreferredSize(new java.awt.Dimension(280, 30));
-    categoryFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+    genreFormBtn.setBackground(Constants.BLUE);
+    genreFormBtn.setFont(Constants.MEDIUM_FONT);
+    genreFormBtn.setForeground(Constants.WHITE);
+    genreFormBtn.setText("Cadastro de categoria");
+    genreFormBtn.setToolTipText("Abrir o formulário de cadastro de categorias");
+    genreFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
+    genreFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    genreFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    genreFormBtn.setMaximumSize(new java.awt.Dimension(280, 30));
+    genreFormBtn.setMinimumSize(new java.awt.Dimension(280, 30));
+    genreFormBtn.setName("Botão cadastro de categoria"); // NOI18N
+    genreFormBtn.setNextFocusableComponent(publisherFormBtn);
+    genreFormBtn.setPreferredSize(new java.awt.Dimension(280, 30));
+    genreFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
       }
@@ -152,7 +152,7 @@ public class MainMenu extends javax.swing.JFrame {
         formBtnFocusLost(evt);
       }
     });
-    categoryFormBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+    genreFormBtn.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         formBtnMouseEntered(evt);
       }
@@ -160,25 +160,25 @@ public class MainMenu extends javax.swing.JFrame {
         formBtnMouseExited(evt);
       }
     });
-    categoryFormBtn.addActionListener(new java.awt.event.ActionListener() {
+    genreFormBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        categoryFormBtnActionPerformed(evt);
+        genreFormBtnActionPerformed(evt);
       }
     });
 
-    formatFormBtn.setBackground(Constants.BLUE);
-    formatFormBtn.setFont(Constants.MEDIUM_FONT);
-    formatFormBtn.setForeground(Constants.WHITE);
-    formatFormBtn.setText("Cadastro de formato");
-    formatFormBtn.setToolTipText("Abrir o formulário de cadastro de formatos");
-    formatFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
-    formatFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    formatFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    formatFormBtn.setMaximumSize(new java.awt.Dimension(280, 30));
-    formatFormBtn.setMinimumSize(new java.awt.Dimension(280, 30));
-    formatFormBtn.setName("Botão cadastro de formato"); // NOI18N
-    formatFormBtn.setPreferredSize(new java.awt.Dimension(280, 30));
-    formatFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+    publisherFormBtn.setBackground(Constants.BLUE);
+    publisherFormBtn.setFont(Constants.MEDIUM_FONT);
+    publisherFormBtn.setForeground(Constants.WHITE);
+    publisherFormBtn.setText("Cadastro de editora");
+    publisherFormBtn.setToolTipText("Abrir o formulário de cadastro de editoras");
+    publisherFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
+    publisherFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    publisherFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    publisherFormBtn.setMaximumSize(new java.awt.Dimension(280, 30));
+    publisherFormBtn.setMinimumSize(new java.awt.Dimension(280, 30));
+    publisherFormBtn.setName("Botão cadastro de editora"); // NOI18N
+    publisherFormBtn.setPreferredSize(new java.awt.Dimension(280, 30));
+    publisherFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
       }
@@ -186,7 +186,7 @@ public class MainMenu extends javax.swing.JFrame {
         formBtnFocusLost(evt);
       }
     });
-    formatFormBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+    publisherFormBtn.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         formBtnMouseEntered(evt);
       }
@@ -194,9 +194,9 @@ public class MainMenu extends javax.swing.JFrame {
         formBtnMouseExited(evt);
       }
     });
-    formatFormBtn.addActionListener(new java.awt.event.ActionListener() {
+    publisherFormBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        formatFormBtnActionPerformed(evt);
+        publisherFormBtnActionPerformed(evt);
       }
     });
 
@@ -207,8 +207,8 @@ public class MainMenu extends javax.swing.JFrame {
       .addGroup(formMenusPanelLayout.createSequentialGroup()
         .addGroup(formMenusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(authorFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(categoryFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(formatFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(genreFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(publisherFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(bookFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(0, 0, Short.MAX_VALUE))
       .addGroup(formMenusPanelLayout.createSequentialGroup()
@@ -226,9 +226,9 @@ public class MainMenu extends javax.swing.JFrame {
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(authorFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(categoryFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(genreFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(formatFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(publisherFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap(21, Short.MAX_VALUE))
     );
 
@@ -299,23 +299,23 @@ public class MainMenu extends javax.swing.JFrame {
     c.setBackground(Constants.BLUE);
   }//GEN-LAST:event_formBtnMouseExited
 
-  private void categoryFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryFormBtnActionPerformed
-    var categoryForm = new CategoryForm();
-    categoryForm.setVisible(true);
-  }//GEN-LAST:event_categoryFormBtnActionPerformed
+  private void genreFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreFormBtnActionPerformed
+    var genreForm = new GenreForm();
+    genreForm.setVisible(true);
+  }//GEN-LAST:event_genreFormBtnActionPerformed
 
-  private void formatFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formatFormBtnActionPerformed
-    var formatForm = new FormatForm();
-    formatForm.setVisible(true);
-  }//GEN-LAST:event_formatFormBtnActionPerformed
+  private void publisherFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherFormBtnActionPerformed
+    var publisherForm = new PublisherForm();
+    publisherForm.setVisible(true);
+  }//GEN-LAST:event_publisherFormBtnActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton authorFormBtn;
   private javax.swing.JButton bookFormBtn;
-  private javax.swing.JButton categoryFormBtn;
   private javax.swing.JLabel formMenusLabel;
   private javax.swing.JPanel formMenusPanel;
-  private javax.swing.JButton formatFormBtn;
+  private javax.swing.JButton genreFormBtn;
+  private javax.swing.JButton publisherFormBtn;
   private javax.swing.JPanel sidebarPanel;
   // End of variables declaration//GEN-END:variables
 }

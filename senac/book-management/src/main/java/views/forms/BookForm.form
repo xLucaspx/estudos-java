@@ -19,17 +19,17 @@
       <Connection code="Constants.FONT_COLOR" type="code"/>
     </Property>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[925, 600]"/>
+      <Dimension value="[975, 550]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[925, 600]"/>
+      <Dimension value="[975, 550]"/>
     </Property>
     <Property name="name" type="java.lang.String" value="window" noResource="true"/>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[925, 600]"/>
+      <Dimension value="[975, 550]"/>
     </Property>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[925, 600]"/>
+      <Dimension value="[975, 550]"/>
     </Property>
   </Properties>
   <AccessibilityProperties>
@@ -54,123 +54,123 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
-              <EmptySpace pref="140" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="title" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="buttonsPanel" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="titleInput" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="purchaseDateInput" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="titleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="authorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="purchaseDateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                          <Component id="titleInput" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="purchaseDateInput" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <Component id="purchaseDateLabel" min="-2" pref="120" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="priceInput" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <Component id="priceLabel" min="-2" pref="120" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="priceInput" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
-                                      <Component id="priceLabel" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="formatCombo" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="authorCombo" min="-2" max="-2" attributes="0"/>
+                          <Component id="titleLabel" alignment="1" min="-2" pref="265" max="-2" attributes="0"/>
+                          <Component id="formatLabel" alignment="1" min="-2" pref="265" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="isbnInput" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                          <Component id="formatCombo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="pagesInput" min="-2" pref="120" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="readCheckbox" min="-2" pref="140" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="isbnLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="formatLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pagesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="authorCombo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="authorLabel" min="-2" pref="265" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="pagesLabel" min="-2" pref="95" max="-2" attributes="0"/>
+                                          <Component id="pagesInput" min="-2" pref="100" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Component id="readCheckbox" min="-2" pref="150" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="isbn10Label" min="-2" pref="265" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="isbn10Input" min="-2" pref="270" max="-2" attributes="0"/>
+                                      <Component id="publisherCombo" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="publisherLabel" min="-2" pref="265" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="isbn13Input" min="-2" pref="270" max="-2" attributes="0"/>
+                              <Component id="isbn13Label" min="-2" pref="265" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="categoriesPanel" alignment="1" max="32767" attributes="0"/>
+                  <Component id="title" max="32767" attributes="0"/>
+                  <Component id="genresPanel" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="140" max="32767" attributes="0"/>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Component id="title" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="isbnLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="titleLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="isbn13Label" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="isbn10Label" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="titleInput" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="isbn13Input" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="isbn10Input" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="publisherLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="authorLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="formatLabel" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="formatCombo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="authorCombo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="publisherCombo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="priceLabel" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="isbnInput" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="formatLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="formatCombo" min="-2" max="-2" attributes="0"/>
+                      <Component id="priceInput" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="pagesLabel" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleInput" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="authorLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="authorCombo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="purchaseDateLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="purchaseDateInput" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="priceLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="priceInput" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="pagesLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="readCheckbox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pagesInput" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="pagesInput" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="readCheckbox" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="purchaseDateLabel" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="purchaseDateInput" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Component id="categoriesPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="saveBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="104" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="genresPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <Component id="buttonsPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -226,14 +226,24 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="titleInput"/>
         </Property>
         <Property name="text" type="java.lang.String" value="T&#xed;tulo"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="Label t&#xed;tulo" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
@@ -261,17 +271,17 @@
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="T&#xed;tulo do livro" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="isbnInput"/>
+          <ComponentRef name="isbn13Input"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.WHITE" type="code"/>
@@ -284,7 +294,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Input t&#xed;tulo"/>
       </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="isbnLabel">
+    <Component class="javax.swing.JLabel" name="isbn13Label">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.BACKGROUND_COLOR" type="code"/>
@@ -295,19 +305,29 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="isbnInput"/>
+          <ComponentRef name="isbn13Input"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ISBN"/>
+        <Property name="text" type="java.lang.String" value="ISBN-13"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
-        <Property name="name" type="java.lang.String" value="Label ISBN" noResource="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label ISBN-13" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="isbnInput">
+    <Component class="javax.swing.JTextField" name="isbn13Input">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.WHITE" type="code"/>
@@ -323,24 +343,24 @@
           <Connection code="javax.swing.JTextField.LEFT" type="code"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="book != null ? book.getIsbn() : &quot;&quot;" type="code"/>
+          <Connection code="book != null ? book.getIsbn13() : &quot;&quot;" type="code"/>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Insira o ISBN do livro"/>
+        <Property name="toolTipText" type="java.lang.String" value="Insira o ISBN-13 do livro, somente n&#xfa;meros"/>
         <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="ISBN do livro" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="ISBN-13 do livro" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="authorCombo"/>
+          <ComponentRef name="isbn10Input"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.WHITE" type="code"/>
@@ -350,10 +370,10 @@
         </Property>
       </Properties>
       <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Input ISBN"/>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Input ISBN-13"/>
       </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="authorLabel">
+    <Component class="javax.swing.JLabel" name="isbn10Label">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.BACKGROUND_COLOR" type="code"/>
@@ -364,60 +384,73 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="titleInput"/>
+          <ComponentRef name="isbn10Input"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Autor"/>
+        <Property name="text" type="java.lang.String" value="ISBN-10"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
-        <Property name="name" type="java.lang.String" value="Label t&#xed;tulo" noResource="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label ISBN-10" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="authorCombo">
+    <Component class="javax.swing.JTextField" name="isbn10Input">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.WHITE" type="code"/>
         </Property>
+        <Property name="columns" type="int" value="25"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="maximumRowCount" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="authors.size()" type="code"/>
+        <Property name="horizontalAlignment" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="javax.swing.JTextField.LEFT" type="code"/>
         </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(authors))" type="code"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="book != null ? book.getIsbn10() : &quot;&quot;" type="code"/>
         </Property>
-        <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="book != null ? book.getAuthor() : null" type="code"/>
+        <Property name="toolTipText" type="java.lang.String" value="Insira o ISBN-10 do livro, somente n&#xfa;meros"/>
+        <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Selecione o autor do livro"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="Autor" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="ISBN-10 do livro" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="formatCombo"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
+        </Property>
+        <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.WHITE" type="code"/>
+        </Property>
+        <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DARK_BLUE" type="code"/>
         </Property>
       </Properties>
       <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo autor"/>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Input ISBN-10"/>
       </AccessibilityProperties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="((DefaultComboBoxModel&lt;Author&gt;) authorCombo.getModel()).insertElementAt(null, 0);"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Author&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="formatLabel">
       <Properties>
@@ -430,14 +463,24 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="titleInput"/>
+          <ComponentRef name="formatCombo"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Formato"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
-        <Property name="name" type="java.lang.String" value="Label t&#xed;tulo" noResource="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label formato" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
@@ -453,35 +496,182 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="maximumRowCount" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="formats.size()" type="code"/>
-        </Property>
+        <Property name="maximumRowCount" type="int" value="10"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new DefaultComboBoxModel&lt;Format&gt;(new Vector&lt;Format&gt;(formats))" type="code"/>
+          <Connection code="formatComboModel" type="code"/>
         </Property>
         <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="book != null ? book.getFormat() : null" type="code"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Selecione o formato do livro"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Formato" noResource="true"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="authorCombo"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 30]"/>
+        </Property>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo formato"/>
+      </AccessibilityProperties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var formatComboModel = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(formats));&#xd;&#xa;formatComboModel.insertElementAt(null, 0);"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Format&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="authorLabel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.BACKGROUND_COLOR" type="code"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DEFAULT_FONT" type="code"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.FONT_COLOR" type="code"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="authorCombo"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Autor"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="focusable" type="boolean" value="false"/>
+        <Property name="horizontalTextPosition" type="int" value="2"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label autor" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+        <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="authorCombo">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.WHITE" type="code"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DEFAULT_FONT" type="code"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.FONT_COLOR" type="code"/>
+        </Property>
+        <Property name="maximumRowCount" type="int" value="10"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="authorComboModel" type="code"/>
+        </Property>
+        <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="book != null ? book.getAuthor() : null" type="code"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Selecione o autor do livro"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 30]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 30]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Autor" noResource="true"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="publisherCombo"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 30]"/>
+        </Property>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo autor"/>
+      </AccessibilityProperties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var authorComboModel = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(authors));&#xd;&#xa;authorComboModel.insertElementAt(null, 0);"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Author&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="publisherLabel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.BACKGROUND_COLOR" type="code"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DEFAULT_FONT" type="code"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.FONT_COLOR" type="code"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="publisherCombo"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Editora"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="focusable" type="boolean" value="false"/>
+        <Property name="horizontalTextPosition" type="int" value="2"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label editora" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[265, 16]"/>
+        </Property>
+        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+        <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="publisherCombo">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.WHITE" type="code"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DEFAULT_FONT" type="code"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.FONT_COLOR" type="code"/>
+        </Property>
+        <Property name="maximumRowCount" type="int" value="10"/>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="publisherComboModel" type="code"/>
+        </Property>
+        <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="book != null ? book.getPublisher() : null" type="code"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Selecione a editora do livro"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 30]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[270, 30]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Editora" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="purchaseDateInput"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[295, 30]"/>
+          <Dimension value="[270, 30]"/>
         </Property>
       </Properties>
       <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo formato" postCode="((DefaultComboBoxModel&lt;Format&gt;) formatCombo.getModel()).insertElementAt(null, 0);"/>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo editora"/>
       </AccessibilityProperties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Format&gt;"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var publisherComboModel = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(publishers));&#xd;&#xa;publisherComboModel.insertElementAt(null, 0);&#xd;&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Publisher&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="purchaseDateLabel">
@@ -495,14 +685,23 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="titleInput"/>
+          <ComponentRef name="purchaseDateInput"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Data da compra"/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
-        <Property name="name" type="java.lang.String" value="Label t&#xed;tulo" noResource="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label data da compra" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 16]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
@@ -525,14 +724,17 @@
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
+          <Dimension value="[125, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
+          <Dimension value="[125, 30]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Data da compra" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="priceInput"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[125, 30]"/>
         </Property>
         <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.WHITE" type="code"/>
@@ -540,13 +742,15 @@
         <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.DARK_BLUE" type="code"/>
         </Property>
+        <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="book != null ? book.getPurchaseDate() : LocalDate.now()" type="code"/>
+        </Property>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Input data da compra"/>
       </AccessibilityProperties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(dateFormat)"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="purchaseDateInput.setValue(book != null ? book.getPurchaseDate() : LocalDate.now());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="priceLabel">
@@ -560,14 +764,23 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="titleInput"/>
+          <ComponentRef name="priceInput"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
-        <Property name="name" type="java.lang.String" value="Label t&#xed;tulo" noResource="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label pre&#xe7;o" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[120, 16]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
@@ -582,7 +795,7 @@
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
-        <Property name="toolTipText" type="java.lang.String" value="Insira o pre&#xe7;o do livro, apenas n&#xfa;meros e v&#xed;rgula"/>
+        <Property name="toolTipText" type="java.lang.String" value="Insira o pre&#xe7;o do livro, separando as cadas decimais com v&#xed;rgula"/>
         <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
@@ -590,23 +803,26 @@
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
+          <Dimension value="[125, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
+          <Dimension value="[125, 30]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Pre&#xe7;o do livro" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="pagesInput"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
+          <Dimension value="[125, 30]"/>
         </Property>
         <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.WHITE" type="code"/>
         </Property>
         <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.DARK_BLUE" type="code"/>
+        </Property>
+        <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="book != null ? book.getPrice() : 0" type="code"/>
         </Property>
       </Properties>
       <AccessibilityProperties>
@@ -615,7 +831,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(decimalFormat)"/>
         <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="decimalFormat.setMaximumFractionDigits(2);&#xd;&#xa;decimalFormat.setRoundingMode(RoundingMode.HALF_UP);"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="priceInput.setValue(book != null ? book.getPrice() : 0);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="pagesLabel">
@@ -629,22 +844,79 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="titleInput"/>
+          <ComponentRef name="pagesInput"/>
         </Property>
         <Property name="text" type="java.lang.String" value="N&#xba; de p&#xe1;ginas"/>
         <Property name="focusable" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
-        <Property name="name" type="java.lang.String" value="Label t&#xed;tulo" noResource="true"/>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[95, 16]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[95, 16]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="Label n&#xfa;mero de p&#xe1;ginas" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[95, 16]"/>
+        </Property>
         <Property name="requestFocusEnabled" type="boolean" value="false"/>
         <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JFormattedTextField" name="pagesInput">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.WHITE" type="code"/>
+        </Property>
+        <Property name="columns" type="int" value="10"/>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.FONT_COLOR" type="code"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="toolTipText" type="java.lang.String" value="Insira o n&#xfa;mero de p&#xe1;ginas do livro"/>
+        <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.FONT_COLOR" type="code"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DEFAULT_FONT" type="code"/>
+        </Property>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[100, 30]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[100, 30]"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="N&#xfa;mero de p&#xe1;ginas" noResource="true"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="readCheckbox"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[100, 30]"/>
+        </Property>
+        <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.WHITE" type="code"/>
+        </Property>
+        <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DARK_BLUE" type="code"/>
+        </Property>
+        <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="book != null ? book.getPages() : 0" type="code"/>
+        </Property>
+      </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Input n&#xfa;mero de p&#xe1;ginas"/>
+      </AccessibilityProperties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(integerFormat)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="integerFormat.setMaximumIntegerDigits(5);"/>
+      </AuxValues>
+    </Component>
     <Component class="javax.swing.JCheckBox" name="readCheckbox">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.BACKGROUND_COLOR" type="code"/>
+          <Connection code="null" type="code"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
@@ -661,17 +933,17 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[140, 30]"/>
+          <Dimension value="[150, 30]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[140, 30]"/>
+          <Dimension value="[150, 30]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Checkbox leitura conclu&#xed;da" noResource="true"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="categoryCombo1"/>
+          <ComponentRef name="genreCombo1"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[140, 30]"/>
+          <Dimension value="[150, 30]"/>
         </Property>
       </Properties>
       <AccessibilityProperties>
@@ -682,10 +954,10 @@
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="readCheckboxItemStateChanged"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JPanel" name="categoriesPanel">
+    <Container class="javax.swing.JPanel" name="genresPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.BACKGROUND_COLOR" type="code"/>
+          <Connection code="null" type="code"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -708,12 +980,15 @@
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[645, 90]"/>
+          <Dimension value="[874, 95]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[645, 90]"/>
+          <Dimension value="[874, 95]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Painel de categorias" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[874, 95]"/>
+        </Property>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Painel de categorias"/>
@@ -722,39 +997,39 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="categoriesLabel" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="genresLabel" alignment="1" min="-2" pref="849" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="categoryCombo1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="categoryCombo2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                          <Component id="categoryCombo3" min="-2" max="-2" attributes="0"/>
+                          <Component id="genreCombo1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="genreCombo2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="genreCombo3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="categoriesLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="genresLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="categoryCombo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="categoryCombo2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="categoryCombo3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="genreCombo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="genreCombo2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="genreCombo3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="categoriesLabel">
+        <Component class="javax.swing.JLabel" name="genresLabel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.BACKGROUND_COLOR" type="code"/>
@@ -767,7 +1042,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="categoriesPanel"/>
+              <ComponentRef name="genresPanel"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Selecione entre uma e tr&#xea;s categorias para o livro"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -788,7 +1063,7 @@
             <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Selecione entre uma e tr&#xea;s categorias para o livro"/>
           </AccessibilityProperties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="categoryCombo1">
+        <Component class="javax.swing.JComboBox" name="genreCombo1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.WHITE" type="code"/>
@@ -799,41 +1074,40 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.FONT_COLOR" type="code"/>
             </Property>
-            <Property name="maximumRowCount" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="categories.size()" type="code"/>
-            </Property>
+            <Property name="maximumRowCount" type="int" value="10"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(categories))" type="code"/>
+              <Connection code="genresComboModel1" type="code"/>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Selecione a categoria 1"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
             <Property name="name" type="java.lang.String" value="Categoria 1" noResource="true"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="categoryCombo2"/>
+              <ComponentRef name="genreCombo2"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
           </Properties>
           <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="" postCode="((DefaultComboBoxModel&lt;Category&gt;) categoryCombo1.getModel()).insertElementAt(null, 0);"/>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo categoria 1"/>
           </AccessibilityProperties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoryCombo1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genreCombo1ActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Category&gt;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel1 = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(genres));&#xd;&#xa;genresComboModel1.insertElementAt(null, 0);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Genre&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="categoryCombo2">
+        <Component class="javax.swing.JComboBox" name="genreCombo2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.WHITE" type="code"/>
@@ -844,44 +1118,41 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.FONT_COLOR" type="code"/>
             </Property>
-            <Property name="maximumRowCount" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="categories.size()" type="code"/>
-            </Property>
+            <Property name="maximumRowCount" type="int" value="10"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(categories))" type="code"/>
+              <Connection code="genresComboModel2" type="code"/>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Selecione a categoria 2"/>
-            <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="categoryCombo1.getSelectedIndex() &gt; 0" type="code"/>
-            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
             <Property name="name" type="java.lang.String" value="Categoria 2" noResource="true"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="categoryCombo3"/>
+              <ComponentRef name="genreCombo3"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
           </Properties>
           <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="" postCode="((DefaultComboBoxModel&lt;Category&gt;) categoryCombo2.getModel()).insertElementAt(null, 0);"/>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo categoria 2"/>
           </AccessibilityProperties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoryCombo2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genreCombo2ActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Category&gt;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel2 = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(genres));&#xd;&#xa;genresComboModel2.insertElementAt(null, 0);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Genre&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="categoryCombo3">
+        <Component class="javax.swing.JComboBox" name="genreCombo3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.WHITE" type="code"/>
@@ -892,166 +1163,171 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.FONT_COLOR" type="code"/>
             </Property>
-            <Property name="maximumRowCount" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="categories.size()" type="code"/>
-            </Property>
+            <Property name="maximumRowCount" type="int" value="10"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(categories))" type="code"/>
+              <Connection code="genresComboModel3" type="code"/>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="null" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Selecione a categoria 3"/>
-            <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="categoryCombo1.getSelectedIndex() &gt; 0" type="code"/>
-            </Property>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
             <Property name="name" type="java.lang.String" value="Categoria 3" noResource="true"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="saveBtn"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[187, 30]"/>
+              <Dimension value="[270, 30]"/>
             </Property>
           </Properties>
           <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="" postCode="((DefaultComboBoxModel&lt;Category&gt;) categoryCombo3.getModel()).insertElementAt(null, 0);"/>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo categoria 3"/>
           </AccessibilityProperties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Category&gt;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel3 = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(genres));&#xd;&#xa;genresComboModel3.insertElementAt(null, 0);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Genre&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="saveBtn">
+    <Container class="javax.swing.JPanel" name="buttonsPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.BLUE" type="code"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.MEDIUM_FONT" type="code"/>
+          <Connection code="null" type="code"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.WHITE" type="code"/>
-        </Property>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="book != null ? &quot;Editar&quot; : &quot;Cadastrar&quot;" type="code"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="book != null ? String.format(&quot;Editar o livro %s&quot;, book.getTitle()) : &quot;Cadastrar novo livro&quot;" type="code"/>
-        </Property>
-        <Property name="actionCommand" type="java.lang.String" value="Salvar"/>
-        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Hand Cursor"/>
-        </Property>
-        <Property name="horizontalTextPosition" type="int" value="0"/>
-        <Property name="label" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="book != null ? &quot;Editar&quot; : &quot;Cadastrar&quot;" type="code"/>
-        </Property>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="Bot&#xe3;o salvar" noResource="true"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="cancelBtn"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-      </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Salvar"/>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Salvar informa&#xe7;&#xf5;es do livro"/>
-      </AccessibilityProperties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="cancelBtn">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.RED" type="code"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.MEDIUM_FONT" type="code"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.WHITE" type="code"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Cancelar"/>
-        <Property name="toolTipText" type="java.lang.String" value="Descartar altera&#xe7;&#xf5;es e voltar para o menu"/>
-        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Hand Cursor"/>
-        </Property>
-        <Property name="horizontalTextPosition" type="int" value="0"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="Bot&#xe3;o de cancelar" noResource="true"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBtnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="pagesInput">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.WHITE" type="code"/>
-        </Property>
-        <Property name="columns" type="int" value="10"/>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.FONT_COLOR" type="code"/>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="2"/>
-        <Property name="toolTipText" type="java.lang.String" value="Insira o n&#xfa;mero de p&#xe1;ginas do livro"/>
-        <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.FONT_COLOR" type="code"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
+          <Dimension value="[874, 50]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
+          <Dimension value="[874, 50]"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="N&#xfa;mero de p&#xe1;ginas" noResource="true"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="readCheckbox"/>
-        </Property>
+        <Property name="name" type="java.lang.String" value="Painel de bot&#xf5;es" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[120, 30]"/>
-        </Property>
-        <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.WHITE" type="code"/>
-        </Property>
-        <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.DARK_BLUE" type="code"/>
+          <Dimension value="[874, 50]"/>
         </Property>
       </Properties>
       <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Input n&#xfa;mero de p&#xe1;ginas"/>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Painel de bot&#xf5;es"/>
       </AccessibilityProperties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JFormattedTextField(integerFormat)"/>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="integerFormat.setMaximumIntegerDigits(5);&#xd;&#xa;"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="pagesInput.setValue(book != null ? book.getPages() : 0);"/>
-      </AuxValues>
-    </Component>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="saveBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="saveBtn">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.BLUE" type="code"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.MEDIUM_FONT" type="code"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.WHITE" type="code"/>
+            </Property>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="book != null ? &quot;Editar&quot; : &quot;Cadastrar&quot;" type="code"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="book != null ? String.format(&quot;Editar o livro %s&quot;, book.getTitle()) : &quot;Cadastrar novo livro&quot;" type="code"/>
+            </Property>
+            <Property name="actionCommand" type="java.lang.String" value="Salvar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="label" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="book != null ? &quot;Editar&quot; : &quot;Cadastrar&quot;" type="code"/>
+            </Property>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[175, 40]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[175, 40]"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="Bot&#xe3;o salvar" noResource="true"/>
+            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="cancelBtn"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[175, 40]"/>
+            </Property>
+          </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Salvar"/>
+            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Salvar informa&#xe7;&#xf5;es do livro"/>
+          </AccessibilityProperties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="cancelBtn">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.RED" type="code"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.MEDIUM_FONT" type="code"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.WHITE" type="code"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Descartar altera&#xe7;&#xf5;es e voltar para o menu"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[175, 40]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[175, 40]"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="Bot&#xe3;o de cancelar" noResource="true"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[175, 40]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBtnActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

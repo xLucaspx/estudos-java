@@ -2,12 +2,10 @@ package controller;
 
 import java.util.Set;
 
-import exceptions.ValidationException;
 import models.Book;
-import models.Category;
+import models.Genre;
 import models.dto.BookDto;
 import services.BookServices;
-import utils.Validator;
 
 public class BookController extends Controller {
 
@@ -27,38 +25,26 @@ public class BookController extends Controller {
 
 	// returns the created book
 	// TODO: check if the range of categories is between 1 and 3.
-	public Book create(BookDto bookData, Set<Category> categories) {
-		if (!Validator.isValidString(bookData.title()))
-			throw new ValidationException("O título do livro deve ser preenchido corretamente!");
-
-		if (!Validator.isValidIsbn(bookData.isbn()))
-			throw new ValidationException("O ISBN inserido é inválido!");
-
+	public Book create(BookDto bookData, Set<Genre> genres) {
 		int bookId = bookServices.create(bookData);
-		categories.forEach(c -> bookServices.addCategory(bookId, c.getId()));
+		genres.forEach(g -> bookServices.addGenre(bookId, g.getId()));
 		return getById(bookId);
 	}
 
-	public void update(int id, BookDto bookData, Set<Category> categories) {
+	public void update(int id, BookDto bookData, Set<Genre> newGenres) {
 		bookServices.update(id, bookData);
 		var book = getById(id);
-		var oldCategories = book.getCategories();
+		var oldGenres = book.getGenres();
 
-		for (Category category : oldCategories) {
-
-			if (categories.contains(category)) {
-				categories.remove(category);
+		for (Genre g : oldGenres) {
+			if (newGenres.contains(g)) {
+				newGenres.remove(g);
 				continue;
 			}
-			bookServices.removeCategory(id, category.getId());
+			bookServices.removeGenre(id, g.getId());
 		}
 
-		for (Category category : categories) {
-
-			if (oldCategories.contains(category)) continue;
-			
-			bookServices.addCategory(id, category.getId());
-		}
+		newGenres.forEach(g -> bookServices.addGenre(id, g.getId()));
 	}
 
 	public void delete(int id) {

@@ -9,28 +9,32 @@ import java.util.Set;
 public class Book {
 
 	private int id;
-	private String title;
-	private String isbn;
 	private int pages;
-	private boolean read;
-	private Author author;
-	private Format format;
-	private Set<Category> categories;
-	private LocalDate purchaseDate;
 	private double price;
+	private boolean read;
+	private String title;
+	private String isbn10;
+	private String isbn13;
+	private String review;
+	private Format format;
+	private Author author;
+	private Publisher publisher;
+	private LocalDate purchaseDate;
+	private Set<Genre> genres;
 
-	public Book(int id, String title, String isbn, int pages, boolean read, Author author, Format format, LocalDate purchaseDate,
-			double price) {
+	// constuctor with the required fields
+	public Book(int id, String title, String isbn13, int pages, boolean read, Format format, Author author,
+			Publisher publisher, float price) {
 		this.id = id;
 		this.title = title;
-		this.isbn = isbn;
+		this.isbn13 = isbn13;
 		this.pages = pages;
 		this.read = read;
-		this.author = author;
 		this.format = format;
-		this.categories = new HashSet<>();
-		this.purchaseDate = purchaseDate;
+		this.author = author;
+		this.publisher = publisher;
 		this.price = price;
+		this.genres = new HashSet<>();
 	}
 
 	public int getId() {
@@ -41,8 +45,16 @@ public class Book {
 		return title;
 	}
 
-	public String getIsbn() {
-		return isbn;
+	public String getIsbn10() {
+		return isbn10;
+	}
+
+	public void setIsbn10(String isbn10) {
+		this.isbn10 = isbn10;
+	}
+
+	public String getIsbn13() {
+		return isbn13;
 	}
 
 	public int getPages() {
@@ -57,29 +69,45 @@ public class Book {
 		return author;
 	}
 
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
 	public Format getFormat() {
 		return format;
 	}
 
-	public void addCategory(Category category) {
-		categories.add(category);
+	public void addGenre(Genre genre) {
+		genres.add(genre);
 	}
 
-	public Set<Category> getCategories() {
-		return Collections.unmodifiableSet(categories);
+	public Set<Genre> getGenres() {
+		return Collections.unmodifiableSet(genres);
 	}
 
 	public LocalDate getPurchaseDate() {
 		return purchaseDate;
 	}
 
+	public void setPurchaseDate(LocalDate purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
 	public double getPrice() {
 		return price;
 	}
 
+	public String getReview() {
+		return review;
+	}
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+
 	@Override
 	public int hashCode() {
-		return id * title.hashCode() * isbn.hashCode() * author.hashCode() * format.hashCode();
+		return id * title.hashCode() * isbn13.hashCode() * author.hashCode() * publisher.hashCode() * format.hashCode();
 	}
 
 	@Override
@@ -91,18 +119,33 @@ public class Book {
 		Book book = (Book) o;
 		return id == book.getId()
 				&& title.equals(book.getTitle())
-				&& isbn.equals(book.getIsbn())
+				&& isbn13.equals(book.getIsbn13())
 				&& author.equals(book.getAuthor())
 				&& format.equals(book.getFormat());
 	}
 
 	@Override
 	public String toString() {
-		String strCategories = "";
-		for (Category c : categories) strCategories += "    " + c.toString() + ",\n";
+		String strGenres = "";
+		for (Genre g : genres) strGenres += String.format("%3s%s,\n", "	", g.formatAsJson());
 
-		return String.format(
-				"Book {\n  id: %d,\n  title: %s,\n  ISBN: %s,\n  pages: %d,\n  read: %b,\n  purchase date: %s,\n  price R$ %.2f,\n  %s,\n  %s,\n  categories: { \n%s  }\n}",
-				id, title, isbn, pages, read, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(purchaseDate), price, author, format, strCategories);
+		return """
+			Book: {
+				id: %d,
+				title: "%s",
+				ISBN-10: "%s",
+				ISBN-13: "%s",
+				pages: %d,
+				read: %b,
+				purchaseDate: "%s",
+				price "R$ %.2f",
+				%s,
+				%s,
+				%s,
+				genres: {\n%s  }
+			}
+						""".formatted(id, title, (isbn10 != null ? isbn10 : "n/c"), isbn13, pages, read,
+				(purchaseDate != null ? DateTimeFormatter.ofPattern("dd/MM/yyyy").format(purchaseDate) : "n/c"), price,
+				format.formatAsJson(), author.formatAsJson(), publisher.formatAsJson(), strGenres);
 	}
 }
