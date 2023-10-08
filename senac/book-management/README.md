@@ -60,6 +60,7 @@ CREATE TABLE `book_genre` (
 The format column in the book table is an Enum that allows the following values:
 
 | Enum        | Index |
+| ----------- | ----- |
 | `Hardcover` | 1     |
 | `Paperback` | 2     |
 | `Ebook`     | 3     |
@@ -70,6 +71,7 @@ The format column in the book table is an Enum that allows the following values:
 We've created SQL functions to easily retrieve the number of books read or the amount of books owned that belongs to a certain criteria; are tyhey:
 
 | Function              | Parameters                | Returns                                                                                 | Example                                                                           |
+| --------------------- | ------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | countBooksByRead      | `BOOLEAN` _readStatus_    | the total of books with the read value corresponding to the _readStatus_ parameter      | `SELECT countBooksByRead(true) AS 'Total read books';`                            |
 | countBooksByFormat    | `INT` _formatCode_        | the total of books with the format value corresponding to the _formatCode_ parameter    | `SELECT format, countBooksByFormat(format) AS 'total' FROM book GROUP BY format;` |
 | countBooksByAuthor    | `INT` _authorId_          | the total of books owned by the author with the corresponding ID                        | `SELECT name, countBooksByAuthor(id) AS 'books owned' FROM author;`               |
@@ -129,7 +131,7 @@ The ISBN is ten digits long if assigned before 2007, and thirteen digits long if
 ## Tasks
 
 [x] Add ISBN validation;
-[ ] Convert ISBN-10 to ISBN-13;
+[x] Convert ISBN-10 to ISBN-13;
 [ ] Implement Dewey Decimal System.
 
 ## Design and screens
