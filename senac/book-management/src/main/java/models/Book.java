@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Book {
+public class Book implements Comparable<Book> {
 
 	private int id;
 	private int pages;
@@ -118,10 +118,15 @@ public class Book {
 
 		Book book = (Book) o;
 		return id == book.getId()
-				&& title.equals(book.getTitle())
-				&& isbn13.equals(book.getIsbn13())
-				&& author.equals(book.getAuthor())
-				&& format.equals(book.getFormat());
+			&& title.equals(book.getTitle())
+			&& isbn13.equals(book.getIsbn13())
+			&& author.equals(book.getAuthor())
+			&& format.equals(book.getFormat());
+	}
+
+	@Override
+	public int compareTo(Book o) {
+		return this.id - o.getId();
 	}
 
 	@Override

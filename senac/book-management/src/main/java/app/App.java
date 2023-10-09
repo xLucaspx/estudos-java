@@ -10,9 +10,8 @@ public class App {
     - Testar conversão e valição de ISBN
      */
 
-    MainMenu mm = new MainMenu();
-    mm.setVisible(true);
-
+    var menu = new MainMenu();
+    menu.setVisible(true);
 
 //    FormatController formatController = new FormatController(j);
 //    CategoryController categoryController = new CategoryController();

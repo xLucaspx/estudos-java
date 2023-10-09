@@ -87,7 +87,7 @@ public class PublisherServices extends Services {
 	}
 
 	public void delete(int id) {
-		String sql = "DELETE FROM `publisher` WHERE `id` = ?";
+		String sql = "DELETE FROM `publisher` WHERE `id` = ?;";
 
 		try (PreparedStatement statement = con.prepareStatement(sql)) {
 			statement.setInt(1, id);

@@ -87,7 +87,7 @@ public class GenreServices extends Services {
 	}
 
 	public void delete(int id) {
-		String sql = "DELETE FROM `genre` WHERE `id` = ?";
+		String sql = "DELETE FROM `genre` WHERE `id` = ?;";
 
 		try (PreparedStatement statement = con.prepareStatement(sql)) {
 			statement.setInt(1, id);

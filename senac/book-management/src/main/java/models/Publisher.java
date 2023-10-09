@@ -39,10 +39,10 @@ public class Publisher implements Comparable<Publisher> {
 		return id == publisher.getId() && name.equals(publisher.getName());
 	}
 
-  @Override
-  public int compareTo(Publisher o) {
-    return id - o.getId();
-  }
+	@Override
+	public int compareTo(Publisher o) {
+		return id - o.getId();
+	}
 
 	@Override
 	public String toString() {

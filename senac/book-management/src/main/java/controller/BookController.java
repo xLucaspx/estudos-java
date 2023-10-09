@@ -47,6 +47,10 @@ public class BookController extends Controller {
 		newGenres.forEach(g -> bookServices.addGenre(id, g.getId()));
 	}
 
+	public void updateReadStatus(Book b) {
+		bookServices.updateReadStatus(b);
+	}
+
 	public void delete(int id) {
 		bookServices.delete(id);
 	}
