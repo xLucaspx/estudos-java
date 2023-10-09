@@ -1,7 +1,6 @@
 package app;
 
 import views.MainMenu;
-import views.lists.AuthorList;
 
 public class App {
   public static void main(String... args) {
@@ -14,8 +13,6 @@ public class App {
     MainMenu mm = new MainMenu();
     mm.setVisible(true);
 
-    AuthorList aList = new AuthorList();
-    aList.setVisible(true);
 
 //    FormatController formatController = new FormatController(j);
 //    CategoryController categoryController = new CategoryController();

@@ -1,6 +1,6 @@
 package views.lists;
 
-import controller.AuthorController;
+import controller.GenreController;
 import exceptions.ValidationException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,20 +8,20 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import models.Author;
+import models.Genre;
 import views.constants.Constants;
-import views.forms.AuthorForm;
+import views.forms.GenreForm;
 
-public class AuthorList extends javax.swing.JFrame {
+public class GenreList extends javax.swing.JFrame {
 
-  private final AuthorController authorController;
-  private Set<Author> authors;
+  private final GenreController genreController;
+  private Set<Genre> genres;
 
   private DefaultTableModel tableModel;
 
-  public AuthorList() {
-    this.authorController = new AuthorController();
-    this.authors = authorController.getAll();
+  public GenreList() {
+    this.genreController = new GenreController();
+    this.genres = genreController.getAll();
     initComponents();
     fillTable();
   }
@@ -29,20 +29,20 @@ public class AuthorList extends javax.swing.JFrame {
   private void fillTable() {
     tableModel.getDataVector().clear();
 
-    var authorsList = new ArrayList<>(authors);
-    Collections.sort(authorsList);
+    var genreList = new ArrayList<>(genres);
+    Collections.sort(genreList);
 
-    authorsList.forEach(a -> tableModel.addRow(new Object[]{ a.getId(), a.getName(), a.getNationality(), a.getBooksOwned() }));
+    genreList.forEach(g -> tableModel.addRow(new Object[]{ g.getId(), g.getName(), g.getBooksOwned() }));
   }
 
-  private Author getSelectedAuthor() {
-    int selectedRow = authorTable.getSelectedRow();
+  private Genre getSelectedGenre() {
+    int selectedRow = genreTable.getSelectedRow();
 
     if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
-      throw new RuntimeException("Você deve selecionar um autor!");
+      throw new RuntimeException("Você deve selecionar uma categoria!");
 
     var id = (int) tableModel.getValueAt(selectedRow, 0);
-    return authorController.getById(id);
+    return genreController.getById(id);
   }
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -50,14 +50,14 @@ public class AuthorList extends javax.swing.JFrame {
 
     title = new javax.swing.JLabel();
     tableScrollPane = new javax.swing.JScrollPane();
-    String[] columnNames = { "ID", "Nome", "Nacionalidade", "Livros obtidos" };
+    String[] columnNames = { "ID", "Nome", "Livros obtidos" };
     tableModel = new DefaultTableModel(columnNames, 0) {
       @Override
       public boolean isCellEditable(int row, int column) {
         return false;
       }
     };
-    authorTable = new javax.swing.JTable();
+    genreTable = new javax.swing.JTable();
     detailsButton = new javax.swing.JButton();
     editBtn = new javax.swing.JButton();
     newBtn = new javax.swing.JButton();
@@ -65,23 +65,23 @@ public class AuthorList extends javax.swing.JFrame {
     deleteBtn = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    setTitle("Autores");
+    setTitle("Categorias");
     setBackground(Constants.BACKGROUND_COLOR);
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     setFont(Constants.DEFAULT_FONT);
     setForeground(Constants.FONT_COLOR);
     setMaximumSize(null);
-    setMinimumSize(new java.awt.Dimension(975, 625));
+    setMinimumSize(new java.awt.Dimension(900, 625));
     setName("window"); // NOI18N
-    setPreferredSize(new java.awt.Dimension(975, 625));
-    setSize(new java.awt.Dimension(975, 625));
+    setPreferredSize(new java.awt.Dimension(900, 625));
+    setSize(new java.awt.Dimension(900, 625));
 
     title.setBackground(Constants.BACKGROUND_COLOR);
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     title.setLabelFor(this);
-    title.setText("Autores");
+    title.setText("Categorias");
     title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
     title.setFocusable(false);
     title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -98,46 +98,44 @@ public class AuthorList extends javax.swing.JFrame {
     tableScrollPane.setFocusable(false);
     tableScrollPane.setFont(Constants.DEFAULT_FONT);
     tableScrollPane.setMaximumSize(null);
-    tableScrollPane.setMinimumSize(new java.awt.Dimension(650, 500));
+    tableScrollPane.setMinimumSize(new java.awt.Dimension(480, 500));
     tableScrollPane.setName("Painel da tabela"); // NOI18N
 
-    authorTable.setBackground(Constants.WHITE);
-    authorTable.setFont(Constants.DEFAULT_FONT);
-    authorTable.setForeground(Constants.FONT_COLOR);
-    authorTable.setModel(tableModel);
-    authorTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    authorTable.setGridColor(Constants.FONT_COLOR);
-    authorTable.setIntercellSpacing(new java.awt.Dimension(5, 5));
-    authorTable.setMaximumSize(null);
-    authorTable.setMinimumSize(new java.awt.Dimension(650, 500));
-    authorTable.setName("Lista de autores"); // NOI18N
-    authorTable.setNextFocusableComponent(detailsButton);
-    authorTable.setPreferredSize(null);
-    authorTable.setRowHeight(25);
-    authorTable.setSelectionBackground(Constants.DARK_GREEN);
-    authorTable.setSelectionForeground(Constants.WHITE);
-    authorTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-    authorTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-    authorTable.setShowGrid(false);
-    authorTable.setShowHorizontalLines(true);
-    authorTable.getTableHeader().setReorderingAllowed(false);
-    TableColumn idColumn = authorTable.getColumnModel().getColumn(0);
-    TableColumn nameColumn = authorTable.getColumnModel().getColumn(1);
-    TableColumn nationalityColumn = authorTable.getColumnModel().getColumn(2);
-    TableColumn booksOwnedColumn = authorTable.getColumnModel().getColumn(3);
+    genreTable.setBackground(Constants.WHITE);
+    genreTable.setFont(Constants.DEFAULT_FONT);
+    genreTable.setForeground(Constants.FONT_COLOR);
+    genreTable.setModel(tableModel);
+    genreTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    genreTable.setGridColor(Constants.FONT_COLOR);
+    genreTable.setIntercellSpacing(new java.awt.Dimension(5, 5));
+    genreTable.setMaximumSize(null);
+    genreTable.setMinimumSize(new java.awt.Dimension(480, 500));
+    genreTable.setName("Lista de categorias"); // NOI18N
+    genreTable.setNextFocusableComponent(detailsButton);
+    genreTable.setPreferredSize(null);
+    genreTable.setRowHeight(25);
+    genreTable.setSelectionBackground(Constants.DARK_GREEN);
+    genreTable.setSelectionForeground(Constants.WHITE);
+    genreTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    genreTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    genreTable.setShowGrid(false);
+    genreTable.setShowHorizontalLines(true);
+    genreTable.getTableHeader().setReorderingAllowed(false);
+    TableColumn idColumn = genreTable.getColumnModel().getColumn(0);
+    TableColumn nameColumn = genreTable.getColumnModel().getColumn(1);
+    TableColumn booksOwnedColumn = genreTable.getColumnModel().getColumn(2);
 
-    idColumn.setPreferredWidth(105);
-    nameColumn.setPreferredWidth(225);
-    nationalityColumn.setPreferredWidth(190);
-    booksOwnedColumn.setPreferredWidth(130);
-    tableScrollPane.setViewportView(authorTable);
-    authorTable.getAccessibleContext().setAccessibleName("Lista de autores");
+    idColumn.setPreferredWidth(125);
+    nameColumn.setPreferredWidth(230);
+    booksOwnedColumn.setPreferredWidth(125);
+    tableScrollPane.setViewportView(genreTable);
+    genreTable.getAccessibleContext().setAccessibleName("Lista de categorias");
 
     detailsButton.setBackground(Constants.BLUE);
     detailsButton.setFont(Constants.MEDIUM_FONT);
     detailsButton.setForeground(Constants.WHITE);
     detailsButton.setText("Detalhes");
-    detailsButton.setToolTipText("Visualizar detalhes do autor");
+    detailsButton.setToolTipText("Visualizar detalhes da categoria");
     detailsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     detailsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     detailsButton.setMaximumSize(new java.awt.Dimension(175, 40));
@@ -155,7 +153,7 @@ public class AuthorList extends javax.swing.JFrame {
     editBtn.setFont(Constants.MEDIUM_FONT);
     editBtn.setForeground(Constants.WHITE);
     editBtn.setText("Editar");
-    editBtn.setToolTipText("Abrir formulário de edição de autor");
+    editBtn.setToolTipText("Abrir formulário de edição de categoria");
     editBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     editBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     editBtn.setMaximumSize(new java.awt.Dimension(175, 40));
@@ -173,12 +171,12 @@ public class AuthorList extends javax.swing.JFrame {
     newBtn.setFont(Constants.MEDIUM_FONT);
     newBtn.setForeground(Constants.WHITE);
     newBtn.setText("Novo");
-    newBtn.setToolTipText("Abrir formulário de cadastro de autor");
+    newBtn.setToolTipText("Abrir formulário de cadastro de categoria");
     newBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     newBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     newBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     newBtn.setMinimumSize(new java.awt.Dimension(175, 40));
-    newBtn.setName("Botão novo autor"); // NOI18N
+    newBtn.setName("Botão nova categoria"); // NOI18N
     newBtn.setNextFocusableComponent(refreshBtn);
     newBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     newBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +189,7 @@ public class AuthorList extends javax.swing.JFrame {
     refreshBtn.setFont(Constants.MEDIUM_FONT);
     refreshBtn.setForeground(Constants.WHITE);
     refreshBtn.setText("Atualizar");
-    refreshBtn.setToolTipText("Atualizar a lista de autores");
+    refreshBtn.setToolTipText("Atualizar a lista de categorias");
     refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     refreshBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     refreshBtn.setMaximumSize(new java.awt.Dimension(175, 40));
@@ -209,7 +207,7 @@ public class AuthorList extends javax.swing.JFrame {
     deleteBtn.setFont(Constants.MEDIUM_FONT);
     deleteBtn.setForeground(Constants.WHITE);
     deleteBtn.setText("Excluir");
-    deleteBtn.setToolTipText("Excluir o autor selecionado");
+    deleteBtn.setToolTipText("Excluir a categoria selecionada");
     deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     deleteBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     deleteBtn.setMaximumSize(new java.awt.Dimension(175, 40));
@@ -228,9 +226,9 @@ public class AuthorList extends javax.swing.JFrame {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(50, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+          .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -265,11 +263,11 @@ public class AuthorList extends javax.swing.JFrame {
     title.getAccessibleContext().setAccessibleDescription("");
     detailsButton.getAccessibleContext().setAccessibleName("Botão detalhes");
     editBtn.getAccessibleContext().setAccessibleName("Botão editar");
-    newBtn.getAccessibleContext().setAccessibleName("Botão novo autor");
+    newBtn.getAccessibleContext().setAccessibleName("Botão nova categoria");
     refreshBtn.getAccessibleContext().setAccessibleName("Botão atualizar");
     deleteBtn.getAccessibleContext().setAccessibleName("Botão excluir");
 
-    getAccessibleContext().setAccessibleName("Lista de autores");
+    getAccessibleContext().setAccessibleName("Lista de categorias");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
@@ -280,37 +278,37 @@ public class AuthorList extends javax.swing.JFrame {
 
   private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
     try {
-      var selectedAuthor = getSelectedAuthor();
-      var form = new AuthorForm(selectedAuthor);
+      var selectedGenre= getSelectedGenre();
+      var form = new GenreForm(selectedGenre);
       form.setVisible(true);
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar abrir o formulário de edição de autor:\n%s", e.getMessage()), getTitle(), JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar abrir o formulário de edição de categoria:\n%s", e.getMessage()), getTitle(), JOptionPane.ERROR_MESSAGE);
     }
   }//GEN-LAST:event_editBtnActionPerformed
 
   private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
     try {
-      this.authors = authorController.getAll();
+      this.genres = genreController.getAll();
       fillTable();
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a tabela de autores:\n%s", e.getMessage()), getTitle(), JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a tabela de categorias:\n%s", e.getMessage()), getTitle(), JOptionPane.ERROR_MESSAGE);
     }
   }//GEN-LAST:event_refreshBtnActionPerformed
 
   private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
     try {
-      var selectedAuthor = getSelectedAuthor();
+      var selectedGenre = getSelectedGenre();
 
       String[] options = { "Sim", "Não" };
-      int res = JOptionPane.showOptionDialog(this, String.format("Tem certeza que deseja excluir o autor %s?\nNão é possível desfazer esta ação!", selectedAuthor.getName()), getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+      int res = JOptionPane.showOptionDialog(this, String.format("Tem certeza que deseja excluir a categoria %s?\nNão é possível desfazer esta ação!", selectedGenre.getName()), getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
       if (res != 0) return;
 
-      if (selectedAuthor.getBooksOwned() > 0)
-        throw new ValidationException("O autor selecionado possui livros cadastrados no sistema!");
-      
-      authorController.delete(selectedAuthor.getId());
-      this.authors = authorController.getAll();
+      if (selectedGenre.getBooksOwned() > 0)
+        throw new ValidationException("A categoria selecionada possui livros cadastrados no sistema!");
+
+      genreController.delete(selectedGenre.getId());
+      this.genres = genreController.getAll();
       fillTable();
     } catch (Exception e) {
       JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(), JOptionPane.ERROR_MESSAGE);
@@ -318,21 +316,21 @@ public class AuthorList extends javax.swing.JFrame {
   }//GEN-LAST:event_deleteBtnActionPerformed
 
   private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
-    var form = new AuthorForm();
+    var form = new GenreForm();
     form.setVisible(true);
   }//GEN-LAST:event_newBtnActionPerformed
 
   @Override
   public void dispose() {
-    authorController.closeConnection();
+    genreController.closeConnection();
     super.dispose();
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JTable authorTable;
   private javax.swing.JButton deleteBtn;
   private javax.swing.JButton detailsButton;
   private javax.swing.JButton editBtn;
+  private javax.swing.JTable genreTable;
   private javax.swing.JButton newBtn;
   private javax.swing.JButton refreshBtn;
   private javax.swing.JScrollPane tableScrollPane;

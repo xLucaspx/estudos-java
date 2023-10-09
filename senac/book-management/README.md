@@ -86,31 +86,31 @@ DELIMITER $$
 CREATE FUNCTION countBooksByRead(readStatus BOOLEAN)
 RETURNS INT READS SQL DATA
 BEGIN
-	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `read` = readStatus);
+  RETURN (SELECT COUNT(`id`) FROM `book` WHERE `read` = readStatus);
 END $$
 
 CREATE FUNCTION countBooksByFormat(formatCode INT)
 RETURNS INT READS SQL DATA
 BEGIN
-	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `format` = formatCode);
+  RETURN (SELECT COUNT(`id`) FROM `book` WHERE `format` = formatCode);
 END $$
 
 CREATE FUNCTION countBooksByAuthor(authorId INT)
 RETURNS INT READS SQL DATA
 BEGIN
-	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `author_id` = authorId);
+  RETURN (SELECT COUNT(`id`) FROM `book` WHERE `author_id` = authorId);
 END $$
 
 CREATE FUNCTION countBooksByPublisher(publisherId INT)
 RETURNS INT READS SQL DATA
 BEGIN
-	RETURN (SELECT COUNT(`id`) FROM `book` WHERE `publisher_id` = publisherId);
+  RETURN (SELECT COUNT(`id`) FROM `book` WHERE `publisher_id` = publisherId);
 END $$
 
 CREATE FUNCTION countBooksByGenre(genreId INT)
 RETURNS INT READS SQL DATA
 BEGIN
-	RETURN (SELECT COUNT(`book_id`) FROM `book_genre` WHERE `genre_id` = genreId);
+  RETURN (SELECT COUNT(`book_id`) FROM `book_genre` WHERE `genre_id` = genreId);
 END $$
 
 DELIMITER ;
@@ -132,6 +132,7 @@ The ISBN is ten digits long if assigned before 2007, and thirteen digits long if
 
 [x] Add ISBN validation;
 [x] Convert ISBN-10 to ISBN-13;
+[ ] Implement filters in the views;
 [ ] Implement Dewey Decimal System.
 
 ## Design and screens

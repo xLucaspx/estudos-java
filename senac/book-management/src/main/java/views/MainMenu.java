@@ -10,6 +10,9 @@ import views.forms.AuthorForm;
 import views.forms.PublisherForm;
 import java.awt.Component;
 import views.constants.Constants;
+import views.lists.AuthorList;
+import views.lists.GenreList;
+import views.lists.PublisherList;
 
 public class MainMenu extends javax.swing.JFrame {
 
@@ -22,6 +25,12 @@ public class MainMenu extends javax.swing.JFrame {
   private void initComponents() {
 
     sidebarPanel = new javax.swing.JPanel();
+    listMenusPanel = new javax.swing.JPanel();
+    listMenusLabel = new javax.swing.JLabel();
+    bookListBtn = new javax.swing.JButton();
+    authorListBtn = new javax.swing.JButton();
+    genreListBtn = new javax.swing.JButton();
+    publisherListBtn = new javax.swing.JButton();
     formMenusPanel = new javax.swing.JPanel();
     formMenusLabel = new javax.swing.JLabel();
     bookFormBtn = new javax.swing.JButton();
@@ -43,6 +52,193 @@ public class MainMenu extends javax.swing.JFrame {
     sidebarPanel.setMinimumSize(new java.awt.Dimension(280, 600));
     sidebarPanel.setName("Menu lateral"); // NOI18N
     sidebarPanel.setPreferredSize(new java.awt.Dimension(280, 600));
+
+    listMenusPanel.setBackground(Constants.BLUE);
+    listMenusPanel.setForeground(Constants.WHITE);
+    listMenusPanel.setFocusable(false);
+    listMenusPanel.setFont(Constants.DEFAULT_FONT);
+    listMenusPanel.setMinimumSize(new java.awt.Dimension(280, 195));
+    listMenusPanel.setName("Menu de cadastros"); // NOI18N
+
+    listMenusLabel.setBackground(Constants.BLUE);
+    listMenusLabel.setFont(Constants.MEDIUM_FONT);
+    listMenusLabel.setForeground(Constants.WHITE);
+    listMenusLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    listMenusLabel.setLabelFor(listMenusPanel);
+    listMenusLabel.setText("Listas");
+    listMenusLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
+    listMenusLabel.setMaximumSize(new java.awt.Dimension(280, 20));
+
+    bookListBtn.setBackground(Constants.BLUE);
+    bookListBtn.setFont(Constants.MEDIUM_FONT);
+    bookListBtn.setForeground(Constants.WHITE);
+    bookListBtn.setText("Lista de livros");
+    bookListBtn.setToolTipText("Abrir a lista de livros");
+    bookListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
+    bookListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    bookListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    bookListBtn.setMaximumSize(new java.awt.Dimension(280, 30));
+    bookListBtn.setMinimumSize(new java.awt.Dimension(280, 30));
+    bookListBtn.setName("Botão listar livros"); // NOI18N
+    bookListBtn.setNextFocusableComponent(authorListBtn);
+    bookListBtn.setPreferredSize(new java.awt.Dimension(280, 30));
+    bookListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+      public void focusGained(java.awt.event.FocusEvent evt) {
+        formBtnFocusGained(evt);
+      }
+      public void focusLost(java.awt.event.FocusEvent evt) {
+        formBtnFocusLost(evt);
+      }
+    });
+    bookListBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        formBtnMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        formBtnMouseExited(evt);
+      }
+    });
+    bookListBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        bookListBtnActionPerformed(evt);
+      }
+    });
+
+    authorListBtn.setBackground(Constants.BLUE);
+    authorListBtn.setFont(Constants.MEDIUM_FONT);
+    authorListBtn.setForeground(Constants.WHITE);
+    authorListBtn.setText("Lista de autores");
+    authorListBtn.setToolTipText("Abrir a lista de autores");
+    authorListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
+    authorListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    authorListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    authorListBtn.setMaximumSize(new java.awt.Dimension(280, 30));
+    authorListBtn.setMinimumSize(new java.awt.Dimension(280, 30));
+    authorListBtn.setName("Botão listar autores"); // NOI18N
+    authorListBtn.setNextFocusableComponent(genreListBtn);
+    authorListBtn.setPreferredSize(new java.awt.Dimension(280, 30));
+    authorListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+      public void focusGained(java.awt.event.FocusEvent evt) {
+        formBtnFocusGained(evt);
+      }
+      public void focusLost(java.awt.event.FocusEvent evt) {
+        formBtnFocusLost(evt);
+      }
+    });
+    authorListBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        formBtnMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        formBtnMouseExited(evt);
+      }
+    });
+    authorListBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        authorListBtnActionPerformed(evt);
+      }
+    });
+
+    genreListBtn.setBackground(Constants.BLUE);
+    genreListBtn.setFont(Constants.MEDIUM_FONT);
+    genreListBtn.setForeground(Constants.WHITE);
+    genreListBtn.setText("Lista de categorias");
+    genreListBtn.setToolTipText("Abrir a lista de categorias");
+    genreListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
+    genreListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    genreListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    genreListBtn.setMaximumSize(new java.awt.Dimension(280, 30));
+    genreListBtn.setMinimumSize(new java.awt.Dimension(280, 30));
+    genreListBtn.setName("Botão listar categorias"); // NOI18N
+    genreListBtn.setNextFocusableComponent(publisherListBtn);
+    genreListBtn.setPreferredSize(new java.awt.Dimension(280, 30));
+    genreListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+      public void focusGained(java.awt.event.FocusEvent evt) {
+        formBtnFocusGained(evt);
+      }
+      public void focusLost(java.awt.event.FocusEvent evt) {
+        formBtnFocusLost(evt);
+      }
+    });
+    genreListBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        formBtnMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        formBtnMouseExited(evt);
+      }
+    });
+    genreListBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        genreListBtnActionPerformed(evt);
+      }
+    });
+
+    publisherListBtn.setBackground(Constants.BLUE);
+    publisherListBtn.setFont(Constants.MEDIUM_FONT);
+    publisherListBtn.setForeground(Constants.WHITE);
+    publisherListBtn.setText("Lista de editoras");
+    publisherListBtn.setToolTipText("Abrir a lista de editoras");
+    publisherListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
+    publisherListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    publisherListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    publisherListBtn.setMaximumSize(new java.awt.Dimension(280, 30));
+    publisherListBtn.setMinimumSize(new java.awt.Dimension(280, 30));
+    publisherListBtn.setName("Botão listar editoras"); // NOI18N
+    publisherListBtn.setPreferredSize(new java.awt.Dimension(280, 30));
+    publisherListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+      public void focusGained(java.awt.event.FocusEvent evt) {
+        formBtnFocusGained(evt);
+      }
+      public void focusLost(java.awt.event.FocusEvent evt) {
+        formBtnFocusLost(evt);
+      }
+    });
+    publisherListBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        formBtnMouseEntered(evt);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        formBtnMouseExited(evt);
+      }
+    });
+    publisherListBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        publisherListBtnActionPerformed(evt);
+      }
+    });
+
+    javax.swing.GroupLayout listMenusPanelLayout = new javax.swing.GroupLayout(listMenusPanel);
+    listMenusPanel.setLayout(listMenusPanelLayout);
+    listMenusPanelLayout.setHorizontalGroup(
+      listMenusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(listMenusPanelLayout.createSequentialGroup()
+        .addGroup(listMenusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(authorListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(genreListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(publisherListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(bookListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addGap(0, 0, Short.MAX_VALUE))
+      .addGroup(listMenusPanelLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(listMenusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    listMenusPanelLayout.setVerticalGroup(
+      listMenusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(listMenusPanelLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(listMenusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        .addComponent(bookListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(authorListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(genreListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(publisherListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(21, Short.MAX_VALUE))
+    );
 
     formMenusPanel.setBackground(Constants.BLUE);
     formMenusPanel.setForeground(Constants.WHITE);
@@ -237,14 +433,19 @@ public class MainMenu extends javax.swing.JFrame {
     sidebarPanelLayout.setHorizontalGroup(
       sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(sidebarPanelLayout.createSequentialGroup()
-        .addComponent(formMenusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(0, 0, Short.MAX_VALUE))
+        .addGap(0, 0, 0)
+        .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(listMenusPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(formMenusPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap())
     );
     sidebarPanelLayout.setVerticalGroup(
       sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(sidebarPanelLayout.createSequentialGroup()
+        .addComponent(listMenusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(formMenusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(0, 405, Short.MAX_VALUE))
+        .addGap(0, 204, Short.MAX_VALUE))
     );
 
     formMenusPanel.getAccessibleContext().setAccessibleName("Menu de cadastros");
@@ -309,13 +510,38 @@ public class MainMenu extends javax.swing.JFrame {
     publisherForm.setVisible(true);
   }//GEN-LAST:event_publisherFormBtnActionPerformed
 
+  private void bookListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookListBtnActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_bookListBtnActionPerformed
+
+  private void authorListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorListBtnActionPerformed
+    var authorList = new AuthorList();
+    authorList.setVisible(true);
+  }//GEN-LAST:event_authorListBtnActionPerformed
+
+  private void genreListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreListBtnActionPerformed
+    var genreList = new GenreList();
+    genreList.setVisible(true);
+  }//GEN-LAST:event_genreListBtnActionPerformed
+
+  private void publisherListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherListBtnActionPerformed
+    var publisherList = new PublisherList();
+    publisherList.setVisible(true);
+  }//GEN-LAST:event_publisherListBtnActionPerformed
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton authorFormBtn;
+  private javax.swing.JButton authorListBtn;
   private javax.swing.JButton bookFormBtn;
+  private javax.swing.JButton bookListBtn;
   private javax.swing.JLabel formMenusLabel;
   private javax.swing.JPanel formMenusPanel;
   private javax.swing.JButton genreFormBtn;
+  private javax.swing.JButton genreListBtn;
+  private javax.swing.JLabel listMenusLabel;
+  private javax.swing.JPanel listMenusPanel;
   private javax.swing.JButton publisherFormBtn;
+  private javax.swing.JButton publisherListBtn;
   private javax.swing.JPanel sidebarPanel;
   // End of variables declaration//GEN-END:variables
 }

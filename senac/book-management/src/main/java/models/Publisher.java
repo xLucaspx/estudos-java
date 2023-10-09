@@ -1,6 +1,6 @@
 package models;
 
-public class Publisher {
+public class Publisher implements Comparable<Publisher> {
 
 	private int id;
 	private String name;
@@ -38,6 +38,11 @@ public class Publisher {
 		Publisher publisher = (Publisher) o;
 		return id == publisher.getId() && name.equals(publisher.getName());
 	}
+
+  @Override
+  public int compareTo(Publisher o) {
+    return id - o.getId();
+  }
 
 	@Override
 	public String toString() {
