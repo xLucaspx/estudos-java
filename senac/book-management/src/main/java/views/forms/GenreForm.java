@@ -103,7 +103,7 @@ public class GenreForm extends javax.swing.JFrame {
 		buttonsPanel.setName("Painel de botões"); // NOI18N
 
 		saveBtn.setBackground(Constants.BLUE);
-		saveBtn.setFont(Constants.MEDIUM_FONT);
+		saveBtn.setFont(Constants.LARGE_FONT);
 		saveBtn.setForeground(Constants.WHITE);
 		saveBtn.setText(genre != null ? "Editar" : "Cadastrar");
 		saveBtn.setToolTipText(
@@ -124,7 +124,7 @@ public class GenreForm extends javax.swing.JFrame {
 		});
 
 		cancelBtn.setBackground(Constants.RED);
-		cancelBtn.setFont(Constants.MEDIUM_FONT);
+		cancelBtn.setFont(Constants.LARGE_FONT);
 		cancelBtn.setForeground(Constants.WHITE);
 		cancelBtn.setText("Cancelar");
 		cancelBtn.setToolTipText("Descartar alterações e voltar para o menu");

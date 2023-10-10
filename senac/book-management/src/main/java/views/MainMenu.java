@@ -22,7 +22,6 @@ public class MainMenu extends javax.swing.JFrame {
 		initComponents();
 	}
 
-	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
@@ -72,7 +71,7 @@ public class MainMenu extends javax.swing.JFrame {
 		listMenusLabel.setMaximumSize(new java.awt.Dimension(280, 20));
 
 		bookListBtn.setBackground(Constants.BLUE);
-		bookListBtn.setFont(Constants.MEDIUM_FONT);
+		bookListBtn.setFont(Constants.LARGE_FONT);
 		bookListBtn.setForeground(Constants.WHITE);
 		bookListBtn.setText("Lista de livros");
 		bookListBtn.setToolTipText("Abrir a lista de livros");
@@ -109,7 +108,7 @@ public class MainMenu extends javax.swing.JFrame {
 		});
 
 		authorListBtn.setBackground(Constants.BLUE);
-		authorListBtn.setFont(Constants.MEDIUM_FONT);
+		authorListBtn.setFont(Constants.LARGE_FONT);
 		authorListBtn.setForeground(Constants.WHITE);
 		authorListBtn.setText("Lista de autores");
 		authorListBtn.setToolTipText("Abrir a lista de autores");
@@ -146,7 +145,7 @@ public class MainMenu extends javax.swing.JFrame {
 		});
 
 		genreListBtn.setBackground(Constants.BLUE);
-		genreListBtn.setFont(Constants.MEDIUM_FONT);
+		genreListBtn.setFont(Constants.LARGE_FONT);
 		genreListBtn.setForeground(Constants.WHITE);
 		genreListBtn.setText("Lista de categorias");
 		genreListBtn.setToolTipText("Abrir a lista de categorias");
@@ -183,7 +182,7 @@ public class MainMenu extends javax.swing.JFrame {
 		});
 
 		publisherListBtn.setBackground(Constants.BLUE);
-		publisherListBtn.setFont(Constants.MEDIUM_FONT);
+		publisherListBtn.setFont(Constants.LARGE_FONT);
 		publisherListBtn.setForeground(Constants.WHITE);
 		publisherListBtn.setText("Lista de editoras");
 		publisherListBtn.setToolTipText("Abrir a lista de editoras");
@@ -276,7 +275,7 @@ public class MainMenu extends javax.swing.JFrame {
 		formMenusLabel.setMaximumSize(new java.awt.Dimension(280, 20));
 
 		bookFormBtn.setBackground(Constants.BLUE);
-		bookFormBtn.setFont(Constants.MEDIUM_FONT);
+		bookFormBtn.setFont(Constants.LARGE_FONT);
 		bookFormBtn.setForeground(Constants.WHITE);
 		bookFormBtn.setText("Cadastro de livro");
 		bookFormBtn.setToolTipText("Abrir o formulário de cadastro de livros");
@@ -313,7 +312,7 @@ public class MainMenu extends javax.swing.JFrame {
 		});
 
 		authorFormBtn.setBackground(Constants.BLUE);
-		authorFormBtn.setFont(Constants.MEDIUM_FONT);
+		authorFormBtn.setFont(Constants.LARGE_FONT);
 		authorFormBtn.setForeground(Constants.WHITE);
 		authorFormBtn.setText("Cadastro de autor");
 		authorFormBtn.setToolTipText("Abrir o formulário de cadastro de autores");
@@ -350,7 +349,7 @@ public class MainMenu extends javax.swing.JFrame {
 		});
 
 		genreFormBtn.setBackground(Constants.BLUE);
-		genreFormBtn.setFont(Constants.MEDIUM_FONT);
+		genreFormBtn.setFont(Constants.LARGE_FONT);
 		genreFormBtn.setForeground(Constants.WHITE);
 		genreFormBtn.setText("Cadastro de categoria");
 		genreFormBtn.setToolTipText("Abrir o formulário de cadastro de categorias");
@@ -387,7 +386,7 @@ public class MainMenu extends javax.swing.JFrame {
 		});
 
 		publisherFormBtn.setBackground(Constants.BLUE);
-		publisherFormBtn.setFont(Constants.MEDIUM_FONT);
+		publisherFormBtn.setFont(Constants.LARGE_FONT);
 		publisherFormBtn.setForeground(Constants.WHITE);
 		publisherFormBtn.setText("Cadastro de editora");
 		publisherFormBtn.setToolTipText("Abrir o formulário de cadastro de editoras");

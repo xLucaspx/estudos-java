@@ -131,7 +131,7 @@ public class AuthorForm extends javax.swing.JFrame {
 		buttonsPanel.setPreferredSize(new java.awt.Dimension(270, 110));
 
 		saveBtn.setBackground(Constants.BLUE);
-		saveBtn.setFont(Constants.MEDIUM_FONT);
+		saveBtn.setFont(Constants.LARGE_FONT);
 		saveBtn.setForeground(Constants.WHITE);
 		saveBtn.setText(author != null ? "Editar" : "Cadastrar");
 		saveBtn
@@ -152,7 +152,7 @@ public class AuthorForm extends javax.swing.JFrame {
 		});
 
 		cancelBtn.setBackground(Constants.RED);
-		cancelBtn.setFont(Constants.MEDIUM_FONT);
+		cancelBtn.setFont(Constants.LARGE_FONT);
 		cancelBtn.setForeground(Constants.WHITE);
 		cancelBtn.setText("Cancelar");
 		cancelBtn.setToolTipText("Descartar alterações e voltar para o menu");

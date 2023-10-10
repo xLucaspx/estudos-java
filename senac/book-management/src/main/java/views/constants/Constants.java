@@ -2,14 +2,16 @@ package views.constants;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.time.format.DateTimeFormatter;
 
 public class Constants {
 	// fonts
 	public static final Font TITLE_FONT = new Font("Source Code Pro Semibold", Font.PLAIN, 24);
 	public static final Font DEFAULT_FONT = new Font("Source Code Pro", Font.PLAIN, 14);
 	public static final Font SERIF_FONT = new Font("Source Serif Pro", Font.PLAIN, 14);
-	public static final Font MEDIUM_FONT = new Font("Source Code Pro Medium", Font.PLAIN, 18);
 	public static final Font SMALL_FONT = new Font("Source Code Pro", Font.PLAIN, 12);
+	public static final Font MEDIUM_FONT = new Font("Source Code Pro", Font.PLAIN, 16);
+	public static final Font LARGE_FONT = new Font("Source Code Pro Medium", Font.PLAIN, 18);
 
 	// colors
 	public static final Color FONT_COLOR = new Color(42, 42, 42);
@@ -24,4 +26,7 @@ public class Constants {
 	public static final Color GREEN = new Color(0, 164, 0);
 	public static final Color DARK_GREEN = new Color(30, 113, 37);
 	public static final Color BURNT_YELLOW = new Color(221, 127, 3);
+
+	// formats
+	public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 }

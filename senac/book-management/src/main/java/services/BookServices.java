@@ -48,6 +48,66 @@ public class BookServices extends Services {
 		}
 	}
 
+	public Set<Book> getByAuthor(Author author) {
+		String sql = """
+			  SELECT
+			    b.`id`, b.`title`, b.`isbn_10`, b.`isbn_13`, b.`pages`, b.`read`, b.`purchase_date`, b.`price`,
+			    b.`format`, b.`author_id`, b.`publisher_id`, g.`genre_id`
+			  FROM `book` b
+			    INNER JOIN `book_genre` g ON b.`id` = g.`book_id`
+			  WHERE b.`author_id` = ?;
+			""";
+
+		try (PreparedStatement statement = con.prepareStatement(sql)) {
+			statement.setInt(1, author.getId());
+
+			Set<Book> books = transformResultSet(statement);
+			return books;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public Set<Book> getByPublisher(Publisher publisher) {
+		String sql = """
+			  SELECT
+			    b.`id`, b.`title`, b.`isbn_10`, b.`isbn_13`, b.`pages`, b.`read`, b.`purchase_date`, b.`price`,
+			    b.`format`, b.`author_id`, b.`publisher_id`, g.`genre_id`
+			  FROM `book` b
+			    INNER JOIN `book_genre` g ON b.`id` = g.`book_id`
+			  WHERE b.`publisher_id` = ?;
+			""";
+
+		try (PreparedStatement statement = con.prepareStatement(sql)) {
+			statement.setInt(1, publisher.getId());
+
+			Set<Book> books = transformResultSet(statement);
+			return books;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public Set<Book> getByGenre(Genre genre) {
+		String sql = """
+			  SELECT
+			    b.`id`, b.`title`, b.`isbn_10`, b.`isbn_13`, b.`pages`, b.`read`, b.`purchase_date`, b.`price`,
+			    b.`format`, b.`author_id`, b.`publisher_id`, g.`genre_id`
+			  FROM `book` b
+			    INNER JOIN `book_genre` g ON b.`id` = g.`book_id`
+			  WHERE g.`genre_id` = ?;
+			""";
+
+		try (PreparedStatement statement = con.prepareStatement(sql)) {
+			statement.setInt(1, genre.getId());
+
+			Set<Book> books = transformResultSet(statement);
+			return books;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public Set<Book> getAll() {
 		String sql = """
 			  SELECT

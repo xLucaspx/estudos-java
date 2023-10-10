@@ -37,6 +37,12 @@ public class BookList extends javax.swing.JFrame {
 				b.getPublisher(), b.getPages(), b.isRead() ? "Lido" : "Não lido" }));
 	}
 
+	private void updateView(Set<Book> books) {
+		this.books = books;
+		this.totalLabel.setText(String.format("Total encontrado: %d", books.size()));
+		fillTable();
+	}
+
 	private Book getSelectedBook() {
 		int selectedRow = bookTable.getSelectedRow();
 
@@ -74,6 +80,7 @@ public class BookList extends javax.swing.JFrame {
     newBtn = new javax.swing.JButton();
     refreshBtn = new javax.swing.JButton();
     deleteBtn = new javax.swing.JButton();
+    totalLabel = new javax.swing.JLabel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Lista de livros");
@@ -84,6 +91,7 @@ public class BookList extends javax.swing.JFrame {
     setMaximumSize(null);
     setMinimumSize(new java.awt.Dimension(1090, 625));
     setName("window"); // NOI18N
+    setPreferredSize(new java.awt.Dimension(1120, 625));
     setSize(new java.awt.Dimension(975, 625));
 
     title.setBackground(Constants.BACKGROUND_COLOR);
@@ -150,7 +158,7 @@ public class BookList extends javax.swing.JFrame {
     bookTable.getAccessibleContext().setAccessibleName("Lista de livros");
 
     detailsButton.setBackground(Constants.BLUE);
-    detailsButton.setFont(Constants.MEDIUM_FONT);
+    detailsButton.setFont(Constants.LARGE_FONT);
     detailsButton.setForeground(Constants.WHITE);
     detailsButton.setText("Detalhes");
     detailsButton.setToolTipText("Visualizar detalhes do livro");
@@ -168,7 +176,7 @@ public class BookList extends javax.swing.JFrame {
     });
 
     editBtn.setBackground(Constants.DARK_BLUE);
-    editBtn.setFont(Constants.MEDIUM_FONT);
+    editBtn.setFont(Constants.LARGE_FONT);
     editBtn.setForeground(Constants.WHITE);
     editBtn.setText("Editar");
     editBtn.setToolTipText("Abrir formulário de edição de livro");
@@ -186,7 +194,7 @@ public class BookList extends javax.swing.JFrame {
     });
 
     statusBtn.setBackground(Constants.BURNT_YELLOW);
-    statusBtn.setFont(Constants.MEDIUM_FONT);
+    statusBtn.setFont(Constants.LARGE_FONT);
     statusBtn.setForeground(Constants.WHITE);
     statusBtn.setText("Alterar status");
     statusBtn.setToolTipText("Alternar status do livro entre lido/não lido");
@@ -204,7 +212,7 @@ public class BookList extends javax.swing.JFrame {
     });
 
     newBtn.setBackground(Constants.GREEN);
-    newBtn.setFont(Constants.MEDIUM_FONT);
+    newBtn.setFont(Constants.LARGE_FONT);
     newBtn.setForeground(Constants.WHITE);
     newBtn.setText("Novo");
     newBtn.setToolTipText("Abrir formulário de cadastro de livro");
@@ -222,7 +230,7 @@ public class BookList extends javax.swing.JFrame {
     });
 
     refreshBtn.setBackground(Constants.DARK_GREEN);
-    refreshBtn.setFont(Constants.MEDIUM_FONT);
+    refreshBtn.setFont(Constants.LARGE_FONT);
     refreshBtn.setForeground(Constants.WHITE);
     refreshBtn.setText("Atualizar");
     refreshBtn.setToolTipText("Atualizar a lista de livros");
@@ -240,7 +248,7 @@ public class BookList extends javax.swing.JFrame {
     });
 
     deleteBtn.setBackground(Constants.RED);
-    deleteBtn.setFont(Constants.MEDIUM_FONT);
+    deleteBtn.setFont(Constants.LARGE_FONT);
     deleteBtn.setForeground(Constants.WHITE);
     deleteBtn.setText("Excluir");
     deleteBtn.setToolTipText("Excluir o livro selecionado");
@@ -256,29 +264,42 @@ public class BookList extends javax.swing.JFrame {
       }
     });
 
+    totalLabel.setBackground(Constants.BACKGROUND_COLOR);
+    totalLabel.setFont(Constants.MEDIUM_FONT);
+    totalLabel.setForeground(Constants.FONT_COLOR);
+    totalLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    totalLabel.setText(String.format("Total encontrado: %d", books.size()));
+    totalLabel.setFocusable(false);
+    totalLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+    totalLabel.setMaximumSize(null);
+    totalLabel.setMinimumSize(new java.awt.Dimension(70, 20));
+    totalLabel.setName("Total registros"); // NOI18N
+    totalLabel.setPreferredSize(new java.awt.Dimension(175, 20));
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(25, Short.MAX_VALUE)
+        .addContainerGap(35, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(detailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(newBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(statusBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(25, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(detailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(refreshBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(statusBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(35, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(30, Short.MAX_VALUE)
+        .addContainerGap(35, Short.MAX_VALUE)
         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(25, 25, 25)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,9 +315,11 @@ public class BookList extends javax.swing.JFrame {
             .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 0, Short.MAX_VALUE))
           .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
-        .addContainerGap(40, Short.MAX_VALUE))
+        .addContainerGap(45, Short.MAX_VALUE))
     );
 
     title.getAccessibleContext().setAccessibleDescription("");
@@ -328,8 +351,8 @@ public class BookList extends javax.swing.JFrame {
 
 	private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_refreshBtnActionPerformed
 		try {
-			this.books = bookController.getAll();
-			fillTable();
+			var books = bookController.getAll();
+			updateView(books);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,
 					String.format("Erro ao tentar atualizar a tabela de livros:\n%s", e.getMessage()), getTitle(),
@@ -350,9 +373,8 @@ public class BookList extends javax.swing.JFrame {
 			if (res != 0) return;
 
 			bookController.delete(selectedBook.getId());
-			// TODO: criar função refresh substituir:
-			this.books = bookController.getAll();
-			fillTable();
+			var books = bookController.getAll();
+			updateView(books);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
 					JOptionPane.ERROR_MESSAGE);
@@ -377,12 +399,11 @@ public class BookList extends javax.swing.JFrame {
 			if (res != 0) return;
 
 			bookController.updateReadStatus(selectedBook);
-			// TODO: criar função refresh substituir:
-			this.books = bookController.getAll();
-			fillTable();
+			var books = bookController.getAll();
+			updateView(books);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar alterar o status:\n%s", e.getMessage()),
+					getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}// GEN-LAST:event_statusBtnActionPerformed
 
@@ -402,5 +423,6 @@ public class BookList extends javax.swing.JFrame {
   private javax.swing.JButton statusBtn;
   private javax.swing.JScrollPane tableScrollPane;
   private javax.swing.JLabel title;
+  private javax.swing.JLabel totalLabel;
   // End of variables declaration//GEN-END:variables
 }

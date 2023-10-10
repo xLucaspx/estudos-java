@@ -6,7 +6,6 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,8 +30,7 @@ import views.constants.Constants;
 
 public class BookForm extends javax.swing.JFrame {
 
-	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	private final java.text.Format dateFormat = dateFormatter.toFormat();
+	private final java.text.Format dateFormat = Constants.dateFormatter.toFormat();
 	private final NumberFormat decimalFormat = DecimalFormat.getInstance();
 	private final NumberFormat integerFormat = NumberFormat.getIntegerInstance();
 
@@ -613,7 +611,7 @@ public class BookForm extends javax.swing.JFrame {
 		buttonsPanel.setPreferredSize(new java.awt.Dimension(874, 50));
 
 		saveBtn.setBackground(Constants.BLUE);
-		saveBtn.setFont(Constants.MEDIUM_FONT);
+		saveBtn.setFont(Constants.LARGE_FONT);
 		saveBtn.setForeground(Constants.WHITE);
 		saveBtn.setText(book != null ? "Editar" : "Cadastrar");
 		saveBtn.setToolTipText(book != null ? String.format("Editar o livro %s", book.getTitle()) : "Cadastrar novo livro");
@@ -633,7 +631,7 @@ public class BookForm extends javax.swing.JFrame {
 		});
 
 		cancelBtn.setBackground(Constants.RED);
-		cancelBtn.setFont(Constants.MEDIUM_FONT);
+		cancelBtn.setFont(Constants.LARGE_FONT);
 		cancelBtn.setForeground(Constants.WHITE);
 		cancelBtn.setText("Cancelar");
 		cancelBtn.setToolTipText("Descartar alterações e voltar para o menu");
@@ -869,7 +867,7 @@ public class BookForm extends javax.swing.JFrame {
 			Format format = selectFormat();
 			Author author = selectAuthor();
 			Publisher publisher = selectPublisher();
-			LocalDate purchaseDate = LocalDate.parse(purchaseDateInput.getText(), dateFormatter);
+			LocalDate purchaseDate = LocalDate.parse(purchaseDateInput.getText(), Constants.dateFormatter);
 			float price = Float.parseFloat(priceInput.getText().replace(".", "").replace(",", "."));
 			int pages = Integer.parseInt(pagesInput.getText().replace(".", ""));
 			boolean read = readCheckbox.isSelected();

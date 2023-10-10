@@ -2,8 +2,10 @@ package controller;
 
 import java.util.Set;
 
+import models.Author;
 import models.Book;
 import models.Genre;
+import models.Publisher;
 import models.dto.BookDto;
 import services.BookServices;
 
@@ -17,6 +19,18 @@ public class BookController extends Controller {
 
 	public Book getById(int id) {
 		return bookServices.getById(id);
+	}
+
+	public Set<Book> getByAuthor(Author author) {
+		return bookServices.getByAuthor(author);
+	}
+
+	public Set<Book> getByPublisher(Publisher publisher) {
+		return bookServices.getByPublisher(publisher);
+	}
+
+	public Set<Book> getByGenre(Genre genre) {
+		return bookServices.getByGenre(genre);
 	}
 
 	public Set<Book> getAll() {
