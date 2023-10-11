@@ -126,7 +126,7 @@ public class Book implements Comparable<Book> {
 
 	@Override
 	public int compareTo(Book o) {
-		return this.id - o.getId();
+		return title.compareToIgnoreCase(o.getTitle());
 	}
 
 	@Override

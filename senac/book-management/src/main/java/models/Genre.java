@@ -41,7 +41,7 @@ public class Genre implements Comparable<Genre> {
 
 	@Override
 	public int compareTo(Genre o) {
-		return id - o.getId();
+		return name.compareToIgnoreCase(o.getName());
 	}
 
 	@Override

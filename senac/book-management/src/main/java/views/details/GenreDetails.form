@@ -40,23 +40,23 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="booksLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="305" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="totalLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="tableScrollPane" max="32767" attributes="0"/>
                   <Component id="nameLabel" alignment="0" max="32767" attributes="0"/>
                   <Component id="title" alignment="1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="genreMenuPanel" max="32767" attributes="0"/>
-                  <Component id="bookMenuPanel" max="32767" attributes="0"/>
+                  <Component id="genreMenuPanel" pref="135" max="32767" attributes="0"/>
+                  <Component id="bookMenuPanel" pref="135" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -216,7 +216,7 @@
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[115, 150]"/>
+          <Dimension value="[135, 150]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -229,15 +229,18 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="genreMenuLabel" max="-2" attributes="0"/>
-                      <Component id="deleteGenreBtn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="editGenreBtn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="refreshBtn" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="editGenreBtn" alignment="1" max="32767" attributes="0"/>
+                      <Component id="refreshBtn" alignment="1" max="32767" attributes="0"/>
+                      <Component id="deleteGenreBtn" alignment="1" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="genreMenuLabel" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -245,8 +248,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="genreMenuLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="genreMenuLabel" min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="editGenreBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="refreshBtn" min="-2" max="-2" attributes="0"/>
@@ -282,9 +285,6 @@
               <Dimension value="[105, 20]"/>
             </Property>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Menu categoria"/>
-          </AccessibilityProperties>
         </Component>
         <Component class="javax.swing.JButton" name="editGenreBtn">
           <Properties>
@@ -494,7 +494,7 @@
           <Connection code="Constants.DEFAULT_FONT" type="code"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[115, 150]"/>
+          <Dimension value="[135, 150]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -508,18 +508,17 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="deleteBookBtn" alignment="0" max="32767" attributes="0"/>
                       <Component id="editBookBtn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="bookDetailsButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="bookDetailsButton" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bookMenuLabel" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="bookMenuLabel" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -527,8 +526,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="bookMenuLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="bookMenuLabel" min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="bookDetailsButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="editBookBtn" max="-2" attributes="0"/>

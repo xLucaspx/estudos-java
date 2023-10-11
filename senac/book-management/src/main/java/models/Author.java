@@ -49,7 +49,7 @@ public class Author implements Comparable<Author> {
 
 	@Override
 	public int compareTo(Author o) {
-		return id - o.getId();
+		return name.compareToIgnoreCase(o.getName());
 	}
 
 	@Override

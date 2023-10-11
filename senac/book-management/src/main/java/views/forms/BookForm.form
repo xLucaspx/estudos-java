@@ -522,7 +522,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo formato"/>
       </AccessibilityProperties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var formatComboModel = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(formats));&#xd;&#xa;formatComboModel.insertElementAt(null, 0);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var formatComboModel = new DefaultComboBoxModel&lt;&gt;(formats);&#xd;&#xa;formatComboModel.insertElementAt(null, 0);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Format&gt;"/>
       </AuxValues>
     </Component>
@@ -596,7 +596,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo autor"/>
       </AccessibilityProperties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var authorComboModel = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(authors));&#xd;&#xa;authorComboModel.insertElementAt(null, 0);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var authorsList = new ArrayList&lt;&gt;(authors);&#xd;&#xa;Collections.sort(authorsList);&#xd;&#xa;var authorComboModel = new DefaultComboBoxModel&lt;&gt;(authorsList.toArray(Author[]::new));&#xd;&#xa;authorComboModel.insertElementAt(null, 0);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Author&gt;"/>
       </AuxValues>
     </Component>
@@ -670,7 +670,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo editora"/>
       </AccessibilityProperties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var publisherComboModel = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(publishers));&#xd;&#xa;publisherComboModel.insertElementAt(null, 0);&#xd;&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var publishersList = new ArrayList&lt;&gt;(publishers);&#xd;&#xa;Collections.sort(publishersList);&#xd;&#xa;var publisherComboModel = new DefaultComboBoxModel&lt;&gt;(publishersList.toArray(Publisher[]::new));&#xd;&#xa;publisherComboModel.insertElementAt(null, 0);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Publisher&gt;"/>
       </AuxValues>
     </Component>
@@ -1103,7 +1103,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genreCombo1ActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel1 = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(genres));&#xd;&#xa;genresComboModel1.insertElementAt(null, 0);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresList = new ArrayList&lt;&gt;(genres);&#xd;&#xa;Collections.sort(genresList);&#xd;&#xa;var genresComboModel1 = new DefaultComboBoxModel&lt;&gt;(genresList.toArray(Genre[]::new));&#xd;&#xa;genresComboModel1.insertElementAt(null, 0);&#xd;&#xa;"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Genre&gt;"/>
           </AuxValues>
         </Component>
@@ -1148,7 +1148,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genreCombo2ActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel2 = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(genres));&#xd;&#xa;genresComboModel2.insertElementAt(null, 0);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel2 = new DefaultComboBoxModel&lt;&gt;(genresList.toArray(Genre[]::new));&#xd;&#xa;genresComboModel2.insertElementAt(null, 0);&#xd;&#xa;"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Genre&gt;"/>
           </AuxValues>
         </Component>
@@ -1190,7 +1190,7 @@
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Combo categoria 3"/>
           </AccessibilityProperties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel3 = new DefaultComboBoxModel&lt;&gt;(new Vector&lt;&gt;(genres));&#xd;&#xa;genresComboModel3.insertElementAt(null, 0);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresComboModel3 = new DefaultComboBoxModel&lt;&gt;(genresList.toArray(Genre[]::new));&#xd;&#xa;genresComboModel3.insertElementAt(null, 0);&#xd;&#xa;"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Genre&gt;"/>
           </AuxValues>
         </Component>

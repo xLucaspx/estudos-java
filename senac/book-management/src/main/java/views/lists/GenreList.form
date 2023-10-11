@@ -218,7 +218,7 @@
           </AccessibilityProperties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="String[] columnNames = { &quot;ID&quot;, &quot;Nome&quot;, &quot;Livros obtidos&quot; };&#xd;&#xa;tableModel = new DefaultTableModel(columnNames, 0) {&#xd;&#xa;  @Override&#xd;&#xa;    public boolean isCellEditable(int row, int column) {&#xd;&#xa;    return false;&#xd;&#xa;  }&#xd;&#xa;};"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="TableColumn idColumn = genreTable.getColumnModel().getColumn(0);&#xd;&#xa;TableColumn nameColumn = genreTable.getColumnModel().getColumn(1);&#xd;&#xa;TableColumn booksOwnedColumn = genreTable.getColumnModel().getColumn(2);&#xd;&#xa;&#xd;&#xa;idColumn.setPreferredWidth(125);&#xd;&#xa;nameColumn.setPreferredWidth(230);&#xd;&#xa;booksOwnedColumn.setPreferredWidth(125);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="TableColumn idColumn = genreTable.getColumnModel().getColumn(0);&#xd;&#xa;TableColumn nameColumn = genreTable.getColumnModel().getColumn(1);&#xd;&#xa;TableColumn booksOwnedColumn = genreTable.getColumnModel().getColumn(2);&#xd;&#xa;&#xd;&#xa;idColumn.setPreferredWidth(100);&#xd;&#xa;nameColumn.setPreferredWidth(255);&#xd;&#xa;booksOwnedColumn.setPreferredWidth(125);"/>
           </AuxValues>
         </Component>
       </SubComponents>

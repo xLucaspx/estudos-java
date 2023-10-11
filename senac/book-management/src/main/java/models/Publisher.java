@@ -41,7 +41,7 @@ public class Publisher implements Comparable<Publisher> {
 
 	@Override
 	public int compareTo(Publisher o) {
-		return id - o.getId();
+		return name.compareToIgnoreCase(o.getName());
 	}
 
 	@Override

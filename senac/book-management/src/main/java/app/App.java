@@ -5,9 +5,7 @@ import views.MainMenu;
 public class App {
   public static void main(String... args) {
     /*
-    - Implementar Comparable por ordem alfabética!
     - Nacionalidade como ENUM
-    - passar conexão via injeção de dependências (configurar poolsize e testar a eficiência);
     - avaliar a utilização de interfaces para Services e Controller;
     - Testar conversão e valição de ISBN
      */
