@@ -9,19 +9,22 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import controller.BookController;
+import factory.ControllerFactory;
 import models.Book;
 import views.constants.Constants;
 import views.forms.BookForm;
 
 public class BookList extends javax.swing.JFrame {
+	private ControllerFactory controllerFactory;
 
 	private final BookController bookController;
 	private Set<Book> books;
 
 	private DefaultTableModel tableModel;
 
-	public BookList() {
-		this.bookController = new BookController();
+	public BookList(ControllerFactory controllerFactory) {
+		this.controllerFactory = controllerFactory;
+		this.bookController = controllerFactory.getBookController();
 		this.books = bookController.getAll();
 		initComponents();
 		fillTable();
@@ -147,13 +150,13 @@ public class BookList extends javax.swing.JFrame {
     TableColumn pagesColumn = bookTable.getColumnModel().getColumn(5);
     TableColumn statusColumn = bookTable.getColumnModel().getColumn(6);
 
-    idColumn.setPreferredWidth(60);
-    titleColumn.setPreferredWidth(170);
-    authorColumn.setPreferredWidth(170);
-    formatColumn.setPreferredWidth(120);
+    idColumn.setPreferredWidth(45);
+    titleColumn.setPreferredWidth(202);
+    authorColumn.setPreferredWidth(188);
+    formatColumn.setPreferredWidth(105);
     publisherColumn.setPreferredWidth(160);
-    pagesColumn.setPreferredWidth(75);
-    statusColumn.setPreferredWidth(85);
+    pagesColumn.setPreferredWidth(67);
+    statusColumn.setPreferredWidth(73);
     tableScrollPane.setViewportView(bookTable);
     bookTable.getAccessibleContext().setAccessibleName("Lista de livros");
 
@@ -340,7 +343,7 @@ public class BookList extends javax.swing.JFrame {
 	private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBtnActionPerformed
 		try {
 			var selectedBook = getSelectedBook();
-			var form = new BookForm(selectedBook);
+			var form = new BookForm(controllerFactory, selectedBook);
 			form.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,
@@ -382,7 +385,7 @@ public class BookList extends javax.swing.JFrame {
 	}// GEN-LAST:event_deleteBtnActionPerformed
 
 	private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_newBtnActionPerformed
-		var form = new BookForm();
+		var form = new BookForm(controllerFactory);
 		form.setVisible(true);
 	}// GEN-LAST:event_newBtnActionPerformed
 
@@ -406,12 +409,6 @@ public class BookList extends javax.swing.JFrame {
 					getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}// GEN-LAST:event_statusBtnActionPerformed
-
-	@Override
-	public void dispose() {
-		bookController.closeConnection();
-		super.dispose();
-	}
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTable bookTable;

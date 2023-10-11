@@ -9,12 +9,11 @@ import models.Publisher;
 import models.dto.BookDto;
 import services.BookServices;
 
-public class BookController extends Controller {
-
+public class BookController {
 	private final BookServices bookServices;
 
-	public BookController() {
-		this.bookServices = new BookServices(connection);
+	public BookController(BookServices services) {
+		this.bookServices = services;
 	}
 
 	public Book getById(int id) {

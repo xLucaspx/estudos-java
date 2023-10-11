@@ -8,12 +8,11 @@ import exceptions.ValidationException;
 import models.Publisher;
 import services.PublisherServices;;
 
-public class PublisherController extends Controller {
-
+public class PublisherController {
 	private final PublisherServices publisherServices;
 
-	public PublisherController() {
-		this.publisherServices = new PublisherServices(connection);
+	public PublisherController(PublisherServices services) {
+		this.publisherServices = services;
 	}
 
 	public Publisher getById(int id) {

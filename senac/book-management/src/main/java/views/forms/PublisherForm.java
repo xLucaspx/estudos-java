@@ -7,6 +7,7 @@ package views.forms;
 import javax.swing.JOptionPane;
 
 import controller.PublisherController;
+import factory.ControllerFactory;
 import models.Publisher;
 import views.constants.Constants;
 
@@ -15,13 +16,13 @@ public class PublisherForm extends javax.swing.JFrame {
 	private final PublisherController publisherController;
 	private Publisher publisher;
 
-	public PublisherForm() {
-		this.publisherController = new PublisherController();
+	public PublisherForm(ControllerFactory controllerFactory) {
+		this.publisherController = controllerFactory.getPublisherController();
 		initComponents();
 	}
 
-	public PublisherForm(Publisher publisher) {
-		this.publisherController = new PublisherController();
+	public PublisherForm(ControllerFactory controllerFactory, Publisher publisher) {
+		this.publisherController = controllerFactory.getPublisherController();
 		this.publisher = publisher;
 		initComponents();
 	}
@@ -224,12 +225,6 @@ public class PublisherForm extends javax.swing.JFrame {
 	private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
 		this.dispose();
 	}// GEN-LAST:event_cancelBtnActionPerformed
-
-	@Override
-	public void dispose() {
-		publisherController.closeConnection();
-		super.dispose();
-	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JPanel buttonsPanel;

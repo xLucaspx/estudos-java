@@ -15,6 +15,7 @@ import javax.swing.table.TableColumn;
 import controller.BookController;
 import controller.PublisherController;
 import exceptions.ValidationException;
+import factory.ControllerFactory;
 import models.Book;
 import models.Publisher;
 import views.constants.Constants;
@@ -22,6 +23,7 @@ import views.forms.BookForm;
 import views.forms.PublisherForm;
 
 public class PublisherDetails extends javax.swing.JFrame {
+	private ControllerFactory controllerFactory;
 
 	private PublisherController publisherController;
 	private BookController bookController;
@@ -30,17 +32,18 @@ public class PublisherDetails extends javax.swing.JFrame {
 	private Publisher publisher;
 	private Set<Book> books;
 
-	public PublisherDetails(Publisher publisher) {
-		initControllers();
+	public PublisherDetails(ControllerFactory controllerFactory, Publisher publisher) {
+		this.controllerFactory = controllerFactory;
+		initControllers(controllerFactory);
 		this.publisher = publisher;
 		this.books = bookController.getByPublisher(publisher);
 		initComponents();
 		fillTable();
 	}
 
-	private void initControllers() {
-		this.publisherController = new PublisherController();
-		this.bookController = new BookController();
+	private void initControllers(ControllerFactory controllerFactory) {
+		this.publisherController = controllerFactory.getPublisherController();
+		this.bookController = controllerFactory.getBookController();
 	}
 
 	private void fillTable() {
@@ -512,7 +515,7 @@ public class PublisherDetails extends javax.swing.JFrame {
 	private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBookBtnActionPerformed
 		try {
 			var selectedBook = getSelectedBook();
-			var form = new BookForm(selectedBook);
+			var form = new BookForm(controllerFactory, selectedBook);
 			form.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,
@@ -543,7 +546,7 @@ public class PublisherDetails extends javax.swing.JFrame {
 
 	private void editPublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editPublisherBtnActionPerformed
 		try {
-			var form = new PublisherForm(publisher);
+			var form = new PublisherForm(controllerFactory, publisher);
 			form.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,

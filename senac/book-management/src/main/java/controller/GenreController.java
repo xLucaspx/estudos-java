@@ -8,12 +8,11 @@ import exceptions.ValidationException;
 import models.Genre;
 import services.GenreServices;
 
-public class GenreController extends Controller {
-
+public class GenreController {
 	private final GenreServices genreServices;
 
-	public GenreController() {
-		this.genreServices = new GenreServices(connection);
+	public GenreController(GenreServices services) {
+		this.genreServices = services;
 	}
 
 	public Genre getById(int id) {

@@ -7,6 +7,7 @@ package views.forms;
 import javax.swing.JOptionPane;
 
 import controller.GenreController;
+import factory.ControllerFactory;
 import models.Genre;
 import views.constants.Constants;
 
@@ -15,13 +16,13 @@ public class GenreForm extends javax.swing.JFrame {
 	private final GenreController genreController;
 	private Genre genre;
 
-	public GenreForm() {
-		this.genreController = new GenreController();
+	public GenreForm(ControllerFactory controllerFactory) {
+		this.genreController = controllerFactory.getGenreController();
 		initComponents();
 	}
 
-	public GenreForm(Genre genre) {
-		this.genreController = new GenreController();
+	public GenreForm(ControllerFactory controllerFactory, Genre genre) {
+		this.genreController = controllerFactory.getGenreController();
 		this.genre = genre;
 		initComponents();
 	}
@@ -227,12 +228,6 @@ public class GenreForm extends javax.swing.JFrame {
 					getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}// GEN-LAST:event_saveBtnActionPerformed
-
-	@Override
-	public void dispose() {
-		genreController.closeConnection();
-		super.dispose();
-	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JPanel buttonsPanel;

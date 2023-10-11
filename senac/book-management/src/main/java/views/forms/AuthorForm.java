@@ -3,6 +3,7 @@ package views.forms;
 import javax.swing.JOptionPane;
 
 import controller.AuthorController;
+import factory.ControllerFactory;
 import models.Author;
 import models.dto.AuthorDto;
 import views.constants.Constants;
@@ -12,13 +13,13 @@ public class AuthorForm extends javax.swing.JFrame {
 	private final AuthorController authorController;
 	private Author author;
 
-	public AuthorForm() {
-		this.authorController = new AuthorController();
+	public AuthorForm(ControllerFactory controllerFactory) {
+		this.authorController = controllerFactory.getAuthorController();
 		initComponents();
 	}
 
-	public AuthorForm(Author author) {
-		this.authorController = new AuthorController();
+	public AuthorForm(ControllerFactory controllerFactory, Author author) {
+		this.authorController = controllerFactory.getAuthorController();
 		this.author = author;
 		initComponents();
 	}
@@ -267,12 +268,6 @@ public class AuthorForm extends javax.swing.JFrame {
 	private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
 		dispose();
 	}// GEN-LAST:event_cancelBtnActionPerformed
-
-	@Override
-	public void dispose() {
-		authorController.closeConnection();
-		super.dispose();
-	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JPanel buttonsPanel;

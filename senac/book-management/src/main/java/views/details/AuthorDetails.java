@@ -15,6 +15,7 @@ import javax.swing.table.TableColumn;
 import controller.AuthorController;
 import controller.BookController;
 import exceptions.ValidationException;
+import factory.ControllerFactory;
 import models.Author;
 import models.Book;
 import views.constants.Constants;
@@ -22,6 +23,7 @@ import views.forms.AuthorForm;
 import views.forms.BookForm;
 
 public class AuthorDetails extends javax.swing.JFrame {
+	private ControllerFactory controllerFactory;
 
 	private AuthorController authorController;
 	private BookController bookController;
@@ -30,17 +32,18 @@ public class AuthorDetails extends javax.swing.JFrame {
 	private Author author;
 	private Set<Book> books;
 
-	public AuthorDetails(Author author) {
-		initControllers();
+	public AuthorDetails(ControllerFactory controllerFactory, Author author) {
+		this.controllerFactory = controllerFactory;
+		initControllers(controllerFactory);
 		this.author = author;
 		this.books = bookController.getByAuthor(author);
 		initComponents();
 		fillTable();
 	}
 
-	private void initControllers() {
-		this.authorController = new AuthorController();
-		this.bookController = new BookController();
+	private void initControllers(ControllerFactory controllerFactory) {
+		this.authorController = controllerFactory.getAuthorController();
+		this.bookController = controllerFactory.getBookController();
 	}
 
 	private void fillTable() {
@@ -531,7 +534,7 @@ public class AuthorDetails extends javax.swing.JFrame {
 	private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBookBtnActionPerformed
 		try {
 			var selectedBook = getSelectedBook();
-			var form = new BookForm(selectedBook);
+			var form = new BookForm(controllerFactory, selectedBook);
 			form.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,
@@ -562,7 +565,7 @@ public class AuthorDetails extends javax.swing.JFrame {
 
 	private void editAuthorBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editAuthorBtnActionPerformed
 		try {
-			var form = new AuthorForm(author);
+			var form = new AuthorForm(controllerFactory, author);
 			form.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,

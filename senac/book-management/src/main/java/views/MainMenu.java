@@ -6,6 +6,7 @@ package views;
 
 import java.awt.Component;
 
+import factory.ControllerFactory;
 import views.constants.Constants;
 import views.forms.AuthorForm;
 import views.forms.BookForm;
@@ -17,8 +18,10 @@ import views.lists.GenreList;
 import views.lists.PublisherList;
 
 public class MainMenu extends javax.swing.JFrame {
+	private final ControllerFactory controllerFactory;
 
 	public MainMenu() {
+		this.controllerFactory = new ControllerFactory();
 		initComponents();
 	}
 
@@ -506,12 +509,12 @@ public class MainMenu extends javax.swing.JFrame {
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void bookFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookFormBtnActionPerformed
-		var bookForm = new BookForm();
+		var bookForm = new BookForm(controllerFactory);
 		bookForm.setVisible(true);
 	}// GEN-LAST:event_bookFormBtnActionPerformed
 
 	private void authorFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_authorFormBtnActionPerformed
-		var authorForm = new AuthorForm();
+		var authorForm = new AuthorForm(controllerFactory);
 		authorForm.setVisible(true);
 	}// GEN-LAST:event_authorFormBtnActionPerformed
 
@@ -536,32 +539,32 @@ public class MainMenu extends javax.swing.JFrame {
 	}// GEN-LAST:event_formBtnMouseExited
 
 	private void genreFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreFormBtnActionPerformed
-		var genreForm = new GenreForm();
+		var genreForm = new GenreForm(controllerFactory);
 		genreForm.setVisible(true);
 	}// GEN-LAST:event_genreFormBtnActionPerformed
 
 	private void publisherFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publisherFormBtnActionPerformed
-		var publisherForm = new PublisherForm();
+		var publisherForm = new PublisherForm(controllerFactory);
 		publisherForm.setVisible(true);
 	}// GEN-LAST:event_publisherFormBtnActionPerformed
 
 	private void bookListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookListBtnActionPerformed
-		var bookList = new BookList();
+		var bookList = new BookList(controllerFactory);
 		bookList.setVisible(true);
 	}// GEN-LAST:event_bookListBtnActionPerformed
 
 	private void authorListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_authorListBtnActionPerformed
-		var authorList = new AuthorList();
+		var authorList = new AuthorList(controllerFactory);
 		authorList.setVisible(true);
 	}// GEN-LAST:event_authorListBtnActionPerformed
 
 	private void genreListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreListBtnActionPerformed
-		var genreList = new GenreList();
+		var genreList = new GenreList(controllerFactory);
 		genreList.setVisible(true);
 	}// GEN-LAST:event_genreListBtnActionPerformed
 
 	private void publisherListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publisherListBtnActionPerformed
-		var publisherList = new PublisherList();
+		var publisherList = new PublisherList(controllerFactory);
 		publisherList.setVisible(true);
 	}// GEN-LAST:event_publisherListBtnActionPerformed
 

@@ -6,12 +6,11 @@ import models.Author;
 import models.dto.AuthorDto;
 import services.AuthorServices;
 
-public class AuthorController extends Controller {
-
+public class AuthorController {
 	private final AuthorServices authorServices;
 
-	public AuthorController() {
-		this.authorServices = new AuthorServices(connection);
+	public AuthorController(AuthorServices services) {
+		this.authorServices = services;
 	}
 
 	public Author getById(int id) {

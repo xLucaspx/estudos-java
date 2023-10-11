@@ -20,6 +20,7 @@ import controller.BookController;
 import controller.GenreController;
 import controller.PublisherController;
 import exceptions.ValidationException;
+import factory.ControllerFactory;
 import models.Author;
 import models.Book;
 import models.Format;
@@ -45,23 +46,23 @@ public class BookForm extends javax.swing.JFrame {
 	private Set<Format> formats;
 	private Book book;
 
-	public BookForm() {
-		initControllers();
+	public BookForm(ControllerFactory controllerFactory) {
+		initControllers(controllerFactory);
 		initComponents();
 	}
 
-	public BookForm(Book book) {
+	public BookForm(ControllerFactory controllerFactory, Book book) {
 		this.book = book;
-		initControllers();
+		initControllers(controllerFactory);
 		initComponents();
 		defineCategories(book);
 	}
 
-	private void initControllers() {
-		this.bookController = new BookController();
-		this.authorController = new AuthorController();
-		this.publisherController = new PublisherController();
-		this.genreController = new GenreController();
+	private void initControllers(ControllerFactory controllerFactory) {
+		this.bookController = controllerFactory.getBookController();
+		this.authorController = controllerFactory.getAuthorController();
+		this.publisherController = controllerFactory.getPublisherController();
+		this.genreController = controllerFactory.getGenreController();
 		this.authors = authorController.getAll();
 		this.publishers = publisherController.getAll();
 		this.genres = genreController.getAll();
@@ -892,15 +893,6 @@ public class BookForm extends javax.swing.JFrame {
 					getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}// GEN-LAST:event_saveBtnActionPerformed
-
-	@Override
-	public void dispose() {
-		bookController.closeConnection();
-		authorController.closeConnection();
-		publisherController.closeConnection();
-		genreController.closeConnection();
-		super.dispose();
-	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JComboBox<Author> authorCombo;

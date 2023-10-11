@@ -15,6 +15,7 @@ import javax.swing.table.TableColumn;
 import controller.BookController;
 import controller.GenreController;
 import exceptions.ValidationException;
+import factory.ControllerFactory;
 import models.Book;
 import models.Genre;
 import views.constants.Constants;
@@ -22,6 +23,7 @@ import views.forms.BookForm;
 import views.forms.GenreForm;
 
 public class GenreDetails extends javax.swing.JFrame {
+	private ControllerFactory controllerFactory;
 
 	private GenreController genreController;
 	private BookController bookController;
@@ -30,17 +32,18 @@ public class GenreDetails extends javax.swing.JFrame {
 	private Genre genre;
 	private Set<Book> books;
 
-	public GenreDetails(Genre genre) {
-		initControllers();
+	public GenreDetails(ControllerFactory controllerFactory, Genre genre) {
+		this.controllerFactory = controllerFactory;
+		initControllers(controllerFactory);
 		this.genre = genre;
 		this.books = bookController.getByGenre(genre);
 		initComponents();
 		fillTable();
 	}
 
-	private void initControllers() {
-		this.genreController = new GenreController();
-		this.bookController = new BookController();
+	private void initControllers(ControllerFactory controllerFactory) {
+		this.genreController = controllerFactory.getGenreController();
+		this.bookController = controllerFactory.getBookController();
 	}
 
 	private void fillTable() {
@@ -513,7 +516,7 @@ public class GenreDetails extends javax.swing.JFrame {
 	private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBookBtnActionPerformed
 		try {
 			var selectedBook = getSelectedBook();
-			var form = new BookForm(selectedBook);
+			var form = new BookForm(controllerFactory, selectedBook);
 			form.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,
@@ -544,7 +547,7 @@ public class GenreDetails extends javax.swing.JFrame {
 
 	private void editGenreBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editGenreBtnActionPerformed
 		try {
-			var form = new GenreForm(genre);
+			var form = new GenreForm(controllerFactory, genre);
 			form.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,
