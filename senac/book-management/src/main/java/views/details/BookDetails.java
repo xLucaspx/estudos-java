@@ -4,6 +4,7 @@
  */
 package views.details;
 
+import factory.ControllerFactory;
 import static utils.Validator.isValidString;
 
 import models.Book;
@@ -12,6 +13,7 @@ import models.Publisher;
 import views.constants.Constants;
 
 public class BookDetails extends javax.swing.JFrame {
+  private final ControllerFactory controllerFactory;
 
   private Book book;
   private Author author;
@@ -29,7 +31,8 @@ public class BookDetails extends javax.swing.JFrame {
   
     String review;
    */
-  public BookDetails(Book book) {
+  public BookDetails(ControllerFactory controllerFactory, Book book) {
+    this.controllerFactory = controllerFactory;
     this.book = book;
     this.author = book.getAuthor();
     this.publisher = book.getPublisher();
@@ -41,9 +44,8 @@ public class BookDetails extends javax.swing.JFrame {
 
     windowTitle = new javax.swing.JLabel();
     bookTitleLabel = new javax.swing.JLabel();
-    bookTitle = new javax.swing.JLabel();
+    bookTitle = new javax.swing.JTextField();
     authorLabel = new javax.swing.JLabel();
-    authorLink = new javax.swing.JLabel();
     publisherLabel = new javax.swing.JLabel();
     publisherLink = new javax.swing.JLabel();
     formatLabel = new javax.swing.JLabel();
@@ -52,6 +54,7 @@ public class BookDetails extends javax.swing.JFrame {
     isbn13 = new javax.swing.JLabel();
     isbn10Label = new javax.swing.JLabel();
     isbn14 = new javax.swing.JLabel();
+    authorLink = new javax.swing.JTextField();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle(String.format("Livro - %s", book.getTitle()));
@@ -81,17 +84,19 @@ public class BookDetails extends javax.swing.JFrame {
     bookTitleLabel.setName(""); // NOI18N
     bookTitleLabel.setPreferredSize(null);
 
-    bookTitle.setBackground(Constants.BACKGROUND_COLOR);
+    bookTitle.setEditable(false);
+    bookTitle.setBackground(null);
     bookTitle.setFont(Constants.TITLE_FONT);
     bookTitle.setForeground(Constants.FONT_COLOR);
     bookTitle.setText(book.getTitle());
-    bookTitle.setMaximumSize(null);
+    bookTitle.setBorder(null);
+    bookTitle.setCaretColor(Constants.FONT_COLOR);
+    bookTitle.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
     bookTitle.setMinimumSize(new java.awt.Dimension(20, 30));
     bookTitle.setName("Título do livro"); // NOI18N
     bookTitle.setPreferredSize(null);
-    bookTitle.setRequestFocusEnabled(false);
-    bookTitle.setVerifyInputWhenFocusTarget(false);
-    bookTitle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+    bookTitle.setSelectedTextColor(Constants.WHITE);
+    bookTitle.setSelectionColor(Constants.DARK_BLUE);
 
     authorLabel.setBackground(Constants.BACKGROUND_COLOR);
     authorLabel.setFont(Constants.DEFAULT_FONT);
@@ -104,31 +109,13 @@ public class BookDetails extends javax.swing.JFrame {
     authorLabel.setName(""); // NOI18N
     authorLabel.setPreferredSize(null);
 
-    authorLink.setBackground(Constants.BACKGROUND_COLOR);
-    authorLink.setFont(Constants.LARGE_FONT);
-    authorLink.setForeground(Constants.FONT_COLOR);
-    authorLink.setText(author.getName());
-    authorLink.setToolTipText(String.format("Abrir a página do autor %s", author.getName())
-    );
-    authorLink.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Constants.FONT_COLOR));
-    authorLink.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    authorLink.setMaximumSize(null);
-    authorLink.setMinimumSize(new java.awt.Dimension(20, 22));
-    authorLink.setName("Autor do livro"); // NOI18N
-    authorLink.setPreferredSize(null);
-    authorLink.setRequestFocusEnabled(false);
-    authorLink.setVerifyInputWhenFocusTarget(false);
-    authorLink.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
     publisherLabel.setBackground(Constants.BACKGROUND_COLOR);
     publisherLabel.setFont(Constants.DEFAULT_FONT);
     publisherLabel.setForeground(Constants.FONT_COLOR);
     publisherLabel.setLabelFor(publisherLink);
     publisherLabel.setText("Editora");
     publisherLabel.setFocusable(false);
-    publisherLabel.setMaximumSize(null);
     publisherLabel.setMinimumSize(new java.awt.Dimension(20, 18));
-    publisherLabel.setPreferredSize(null);
 
     publisherLink.setBackground(Constants.BACKGROUND_COLOR);
     publisherLink.setFont(Constants.MEDIUM_FONT);
@@ -174,9 +161,7 @@ public class BookDetails extends javax.swing.JFrame {
     isbn13Label.setLabelFor(isbn13);
     isbn13Label.setText("ISBN-13");
     isbn13Label.setFocusable(false);
-    isbn13Label.setMaximumSize(null);
     isbn13Label.setMinimumSize(new java.awt.Dimension(20, 18));
-    isbn13Label.setPreferredSize(null);
 
     isbn13.setBackground(Constants.BACKGROUND_COLOR);
     isbn13.setFont(Constants.MEDIUM_FONT);
@@ -196,9 +181,7 @@ public class BookDetails extends javax.swing.JFrame {
     isbn10Label.setLabelFor(isbn14);
     isbn10Label.setText("ISBN-10");
     isbn10Label.setFocusable(false);
-    isbn10Label.setMaximumSize(null);
     isbn10Label.setMinimumSize(new java.awt.Dimension(20, 18));
-    isbn10Label.setPreferredSize(null);
 
     isbn14.setBackground(Constants.BACKGROUND_COLOR);
     isbn14.setFont(Constants.MEDIUM_FONT);
@@ -212,6 +195,26 @@ public class BookDetails extends javax.swing.JFrame {
     isbn14.setVerifyInputWhenFocusTarget(false);
     isbn14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+    authorLink.setEditable(false);
+    authorLink.setBackground(null);
+    authorLink.setFont(Constants.LARGE_FONT);
+    authorLink.setForeground(Constants.FONT_COLOR);
+    authorLink.setText(author.getName());
+    authorLink.setToolTipText(String.format("Abrir a página do autor %s", author.getName()));
+    authorLink.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, Constants.FONT_COLOR));
+    authorLink.setCaretColor(Constants.FONT_COLOR);
+    authorLink.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    authorLink.setMinimumSize(new java.awt.Dimension(20, 22));
+    authorLink.setName("Autor do livro"); // NOI18N
+    authorLink.setPreferredSize(null);
+    authorLink.setSelectedTextColor(Constants.WHITE);
+    authorLink.setSelectionColor(Constants.DARK_BLUE);
+    authorLink.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        authorLinkMouseClicked(evt);
+      }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -220,16 +223,11 @@ public class BookDetails extends javax.swing.JFrame {
         .addContainerGap(50, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
+            .addComponent(authorLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 0, Short.MAX_VALUE))
+          .addGroup(layout.createSequentialGroup()
             .addComponent(windowTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(authorLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,13 +237,18 @@ public class BookDetails extends javax.swing.JFrame {
                   .addComponent(isbn13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(publisherLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(formatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(formatName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(isbn14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addContainerGap(153, Short.MAX_VALUE))))
+            .addContainerGap(153, Short.MAX_VALUE))
+          .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(326, Short.MAX_VALUE))))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,12 +256,12 @@ public class BookDetails extends javax.swing.JFrame {
         .addContainerGap(35, Short.MAX_VALUE)
         .addComponent(windowTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
         .addGap(30, 30, 30)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(20, 20, 20)
+        .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(20, 20, 20)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(authorLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,7 +269,7 @@ public class BookDetails extends javax.swing.JFrame {
             .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(publisherLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addGroup(layout.createSequentialGroup()
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addComponent(formatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(formatName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -285,22 +288,26 @@ public class BookDetails extends javax.swing.JFrame {
 
     bookTitleLabel.getAccessibleContext().setAccessibleName("Título do livro");
     bookTitle.getAccessibleContext().setAccessibleName("Título do livro");
-    authorLink.getAccessibleContext().setAccessibleName("Autor do livro");
     publisherLink.getAccessibleContext().setAccessibleName("Editora do livro");
     formatName.getAccessibleContext().setAccessibleName("Formato do livro");
     isbn13.getAccessibleContext().setAccessibleName("ISBN-13 do livro");
-    isbn10Label.getAccessibleContext().setAccessibleName("ISBN-10");
     isbn14.getAccessibleContext().setAccessibleName("ISBN-10 do livro");
+    authorLink.getAccessibleContext().setAccessibleName("Autor do livro");
 
     getAccessibleContext().setAccessibleName("Página de livro");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void authorLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorLinkMouseClicked
+    var view = new AuthorDetails(controllerFactory, author);
+    view.setVisible(true);
+  }//GEN-LAST:event_authorLinkMouseClicked
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel authorLabel;
-  private javax.swing.JLabel authorLink;
-  private javax.swing.JLabel bookTitle;
+  private javax.swing.JTextField authorLink;
+  private javax.swing.JTextField bookTitle;
   private javax.swing.JLabel bookTitleLabel;
   private javax.swing.JLabel formatLabel;
   private javax.swing.JLabel formatName;

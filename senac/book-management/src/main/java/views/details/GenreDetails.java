@@ -484,7 +484,7 @@ public class GenreDetails extends javax.swing.JFrame {
 	private void bookDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookDetailsButtonActionPerformed
 		try {
 			var selectedBook = getSelectedBook();
-			var view = new BookDetails(selectedBook);
+			var view = new BookDetails(controllerFactory, selectedBook);
 			view.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,
