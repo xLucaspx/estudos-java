@@ -1,8 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
-package views.forms;
+package views.forms.jframes;
+
+import static utils.Validator.isValidString;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 
 import controller.AuthorController;
 import controller.BookController;
@@ -10,28 +21,20 @@ import controller.GenreController;
 import controller.PublisherController;
 import exceptions.ValidationException;
 import factory.ControllerFactory;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
 import models.Author;
 import models.Book;
 import models.Format;
 import models.Genre;
 import models.Publisher;
 import models.dto.BookDto;
-import static utils.Validator.isValidString;
 import views.constants.Constants;
 
-public class InternalBookForm extends javax.swing.JInternalFrame {
-  private final java.text.Format dateFormat = Constants.dateFormatter.toFormat();
+public class BookForm extends javax.swing.JFrame {
+
+  private final java.text.Format dateFormat = Constants.DATE_FORMATTER.toFormat();
   private final NumberFormat decimalFormat = DecimalFormat.getInstance();
   private final NumberFormat integerFormat = NumberFormat.getIntegerInstance();
 
@@ -46,12 +49,12 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
   private Format[] formats;
   private Book book;
 
-  public InternalBookForm(ControllerFactory controllerFactory) {
+  public BookForm(ControllerFactory controllerFactory) {
     initControllers(controllerFactory);
     initComponents();
   }
 
-  public InternalBookForm(ControllerFactory controllerFactory, Book book) {
+  public BookForm(ControllerFactory controllerFactory, Book book) {
     this.book = book;
     initControllers(controllerFactory);
     initComponents();
@@ -67,6 +70,7 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     this.authors = authorController.getAll();
     this.publishers = publisherController.getAll();
     this.genres = genreController.getAll();
+//    this.formats = Arrays.asList(Format.values());
     this.formats = Format.values();
   }
 
@@ -123,10 +127,10 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
 
     title = new javax.swing.JLabel();
     titleLabel = new javax.swing.JLabel();
-    isbn13Label = new javax.swing.JLabel();
-    isbn10Label = new javax.swing.JLabel();
     titleInput = new javax.swing.JTextField();
+    isbn13Label = new javax.swing.JLabel();
     isbn13Input = new javax.swing.JTextField();
+    isbn10Label = new javax.swing.JLabel();
     isbn10Input = new javax.swing.JTextField();
     formatLabel = new javax.swing.JLabel();
     var formatComboModel = new DefaultComboBoxModel<>(formats);
@@ -171,18 +175,19 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     saveBtn = new javax.swing.JButton();
     cancelBtn = new javax.swing.JButton();
 
-    setBackground(Constants.BACKGROUND_COLOR);
-    setBorder(new javax.swing.border.LineBorder(Constants.BLACK, 2, true));
-    setClosable(true);
-    setIconifiable(true);
-    setMaximizable(true);
-    setResizable(true);
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle(book != null ? "Edição de livro" : "Cadastro de livro");
-    setMinimumSize(new java.awt.Dimension(944, 554));
-    setName("Formulário de livro"); // NOI18N
-    setNormalBounds(new java.awt.Rectangle(0, 0, 944, 554));
-    setVisible(true);
+    setBackground(Constants.BACKGROUND_COLOR);
+    setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    setFont(Constants.DEFAULT_FONT);
+    setForeground(Constants.FONT_COLOR);
+    setMaximumSize(new java.awt.Dimension(975, 550));
+    setMinimumSize(new java.awt.Dimension(975, 550));
+    setName("window"); // NOI18N
+    setPreferredSize(new java.awt.Dimension(975, 550));
+    setSize(new java.awt.Dimension(975, 550));
 
+    title.setBackground(Constants.BACKGROUND_COLOR);
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -191,52 +196,29 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
     title.setFocusable(false);
     title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    title.setMaximumSize(null);
-    title.setMinimumSize(new java.awt.Dimension(270, 30));
+    title.setMaximumSize(new java.awt.Dimension(295, 30));
+    title.setMinimumSize(new java.awt.Dimension(295, 30));
     title.setName("Título"); // NOI18N
-    title.setPreferredSize(null);
+    title.setPreferredSize(new java.awt.Dimension(295, 30));
     title.setRequestFocusEnabled(false);
     title.setVerifyInputWhenFocusTarget(false);
     title.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
+    titleLabel.setBackground(Constants.BACKGROUND_COLOR);
     titleLabel.setFont(Constants.DEFAULT_FONT);
     titleLabel.setForeground(Constants.FONT_COLOR);
+    titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     titleLabel.setLabelFor(titleInput);
     titleLabel.setText("Título");
+    titleLabel.setToolTipText("");
     titleLabel.setFocusable(false);
-    titleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    titleLabel.setMaximumSize(null);
-    titleLabel.setMinimumSize(new java.awt.Dimension(265, 18));
+    titleLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    titleLabel.setMaximumSize(new java.awt.Dimension(265, 16));
+    titleLabel.setMinimumSize(new java.awt.Dimension(265, 16));
     titleLabel.setName("Label título"); // NOI18N
-    titleLabel.setPreferredSize(null);
+    titleLabel.setPreferredSize(new java.awt.Dimension(265, 16));
     titleLabel.setRequestFocusEnabled(false);
     titleLabel.setVerifyInputWhenFocusTarget(false);
-
-    isbn13Label.setFont(Constants.DEFAULT_FONT);
-    isbn13Label.setForeground(Constants.FONT_COLOR);
-    isbn13Label.setLabelFor(isbn13Input);
-    isbn13Label.setText("ISBN-13");
-    isbn13Label.setFocusable(false);
-    isbn13Label.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    isbn13Label.setMaximumSize(null);
-    isbn13Label.setMinimumSize(new java.awt.Dimension(265, 18));
-    isbn13Label.setName("Label ISBN-13"); // NOI18N
-    isbn13Label.setPreferredSize(null);
-    isbn13Label.setRequestFocusEnabled(false);
-    isbn13Label.setVerifyInputWhenFocusTarget(false);
-
-    isbn10Label.setFont(Constants.DEFAULT_FONT);
-    isbn10Label.setForeground(Constants.FONT_COLOR);
-    isbn10Label.setLabelFor(isbn10Input);
-    isbn10Label.setText("ISBN-10");
-    isbn10Label.setFocusable(false);
-    isbn10Label.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    isbn10Label.setMaximumSize(null);
-    isbn10Label.setMinimumSize(new java.awt.Dimension(265, 18));
-    isbn10Label.setName("Label ISBN-10"); // NOI18N
-    isbn10Label.setPreferredSize(null);
-    isbn10Label.setRequestFocusEnabled(false);
-    isbn10Label.setVerifyInputWhenFocusTarget(false);
 
     titleInput.setBackground(Constants.WHITE);
     titleInput.setColumns(25);
@@ -249,9 +231,26 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     titleInput.setMaximumSize(new java.awt.Dimension(270, 30));
     titleInput.setMinimumSize(new java.awt.Dimension(270, 30));
     titleInput.setName("Título do livro"); // NOI18N
+    titleInput.setNextFocusableComponent(isbn13Input);
     titleInput.setPreferredSize(new java.awt.Dimension(270, 30));
     titleInput.setSelectedTextColor(Constants.WHITE);
     titleInput.setSelectionColor(Constants.DARK_BLUE);
+
+    isbn13Label.setBackground(Constants.BACKGROUND_COLOR);
+    isbn13Label.setFont(Constants.DEFAULT_FONT);
+    isbn13Label.setForeground(Constants.FONT_COLOR);
+    isbn13Label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    isbn13Label.setLabelFor(isbn13Input);
+    isbn13Label.setText("ISBN-13");
+    isbn13Label.setToolTipText("");
+    isbn13Label.setFocusable(false);
+    isbn13Label.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    isbn13Label.setMaximumSize(new java.awt.Dimension(265, 16));
+    isbn13Label.setMinimumSize(new java.awt.Dimension(265, 16));
+    isbn13Label.setName("Label ISBN-13"); // NOI18N
+    isbn13Label.setPreferredSize(new java.awt.Dimension(265, 16));
+    isbn13Label.setRequestFocusEnabled(false);
+    isbn13Label.setVerifyInputWhenFocusTarget(false);
 
     isbn13Input.setBackground(Constants.WHITE);
     isbn13Input.setColumns(25);
@@ -264,9 +263,26 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     isbn13Input.setMaximumSize(new java.awt.Dimension(270, 30));
     isbn13Input.setMinimumSize(new java.awt.Dimension(270, 30));
     isbn13Input.setName("ISBN-13 do livro"); // NOI18N
+    isbn13Input.setNextFocusableComponent(isbn10Input);
     isbn13Input.setPreferredSize(new java.awt.Dimension(270, 30));
     isbn13Input.setSelectedTextColor(Constants.WHITE);
     isbn13Input.setSelectionColor(Constants.DARK_BLUE);
+
+    isbn10Label.setBackground(Constants.BACKGROUND_COLOR);
+    isbn10Label.setFont(Constants.DEFAULT_FONT);
+    isbn10Label.setForeground(Constants.FONT_COLOR);
+    isbn10Label.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    isbn10Label.setLabelFor(isbn10Input);
+    isbn10Label.setText("ISBN-10");
+    isbn10Label.setToolTipText("");
+    isbn10Label.setFocusable(false);
+    isbn10Label.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    isbn10Label.setMaximumSize(new java.awt.Dimension(265, 16));
+    isbn10Label.setMinimumSize(new java.awt.Dimension(265, 16));
+    isbn10Label.setName("Label ISBN-10"); // NOI18N
+    isbn10Label.setPreferredSize(new java.awt.Dimension(265, 16));
+    isbn10Label.setRequestFocusEnabled(false);
+    isbn10Label.setVerifyInputWhenFocusTarget(false);
 
     isbn10Input.setBackground(Constants.WHITE);
     isbn10Input.setColumns(25);
@@ -279,20 +295,24 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     isbn10Input.setMaximumSize(new java.awt.Dimension(270, 30));
     isbn10Input.setMinimumSize(new java.awt.Dimension(270, 30));
     isbn10Input.setName("ISBN-10 do livro"); // NOI18N
+    isbn10Input.setNextFocusableComponent(formatCombo);
     isbn10Input.setPreferredSize(new java.awt.Dimension(270, 30));
     isbn10Input.setSelectedTextColor(Constants.WHITE);
     isbn10Input.setSelectionColor(Constants.DARK_BLUE);
 
+    formatLabel.setBackground(Constants.BACKGROUND_COLOR);
     formatLabel.setFont(Constants.DEFAULT_FONT);
     formatLabel.setForeground(Constants.FONT_COLOR);
+    formatLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     formatLabel.setLabelFor(formatCombo);
     formatLabel.setText("Formato");
+    formatLabel.setToolTipText("");
     formatLabel.setFocusable(false);
-    formatLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    formatLabel.setMaximumSize(null);
-    formatLabel.setMinimumSize(new java.awt.Dimension(265, 18));
+    formatLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    formatLabel.setMaximumSize(new java.awt.Dimension(265, 16));
+    formatLabel.setMinimumSize(new java.awt.Dimension(265, 16));
     formatLabel.setName("Label formato"); // NOI18N
-    formatLabel.setPreferredSize(null);
+    formatLabel.setPreferredSize(new java.awt.Dimension(265, 16));
     formatLabel.setRequestFocusEnabled(false);
     formatLabel.setVerifyInputWhenFocusTarget(false);
 
@@ -306,18 +326,22 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     formatCombo.setMaximumSize(new java.awt.Dimension(270, 30));
     formatCombo.setMinimumSize(new java.awt.Dimension(270, 30));
     formatCombo.setName("Formato"); // NOI18N
+    formatCombo.setNextFocusableComponent(authorCombo);
     formatCombo.setPreferredSize(new java.awt.Dimension(270, 30));
 
+    authorLabel.setBackground(Constants.BACKGROUND_COLOR);
     authorLabel.setFont(Constants.DEFAULT_FONT);
     authorLabel.setForeground(Constants.FONT_COLOR);
+    authorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     authorLabel.setLabelFor(authorCombo);
     authorLabel.setText("Autor");
+    authorLabel.setToolTipText("");
     authorLabel.setFocusable(false);
-    authorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    authorLabel.setMaximumSize(null);
-    authorLabel.setMinimumSize(new java.awt.Dimension(265, 18));
+    authorLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    authorLabel.setMaximumSize(new java.awt.Dimension(265, 16));
+    authorLabel.setMinimumSize(new java.awt.Dimension(265, 16));
     authorLabel.setName("Label autor"); // NOI18N
-    authorLabel.setPreferredSize(null);
+    authorLabel.setPreferredSize(new java.awt.Dimension(265, 16));
     authorLabel.setRequestFocusEnabled(false);
     authorLabel.setVerifyInputWhenFocusTarget(false);
 
@@ -331,18 +355,22 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     authorCombo.setMaximumSize(new java.awt.Dimension(270, 30));
     authorCombo.setMinimumSize(new java.awt.Dimension(270, 30));
     authorCombo.setName("Autor"); // NOI18N
+    authorCombo.setNextFocusableComponent(publisherCombo);
     authorCombo.setPreferredSize(new java.awt.Dimension(270, 30));
 
+    publisherLabel.setBackground(Constants.BACKGROUND_COLOR);
     publisherLabel.setFont(Constants.DEFAULT_FONT);
     publisherLabel.setForeground(Constants.FONT_COLOR);
+    publisherLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     publisherLabel.setLabelFor(publisherCombo);
     publisherLabel.setText("Editora");
+    publisherLabel.setToolTipText("");
     publisherLabel.setFocusable(false);
-    publisherLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    publisherLabel.setMaximumSize(null);
-    publisherLabel.setMinimumSize(new java.awt.Dimension(265, 18));
+    publisherLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    publisherLabel.setMaximumSize(new java.awt.Dimension(265, 16));
+    publisherLabel.setMinimumSize(new java.awt.Dimension(265, 16));
     publisherLabel.setName("Label editora"); // NOI18N
-    publisherLabel.setPreferredSize(null);
+    publisherLabel.setPreferredSize(new java.awt.Dimension(265, 16));
     publisherLabel.setRequestFocusEnabled(false);
     publisherLabel.setVerifyInputWhenFocusTarget(false);
 
@@ -356,18 +384,21 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     publisherCombo.setMaximumSize(new java.awt.Dimension(270, 30));
     publisherCombo.setMinimumSize(new java.awt.Dimension(270, 30));
     publisherCombo.setName("Editora"); // NOI18N
+    publisherCombo.setNextFocusableComponent(purchaseDateInput);
     publisherCombo.setPreferredSize(new java.awt.Dimension(270, 30));
 
+    purchaseDateLabel.setBackground(Constants.BACKGROUND_COLOR);
     purchaseDateLabel.setFont(Constants.DEFAULT_FONT);
     purchaseDateLabel.setForeground(Constants.FONT_COLOR);
+    purchaseDateLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     purchaseDateLabel.setLabelFor(purchaseDateInput);
     purchaseDateLabel.setText("Data da compra");
     purchaseDateLabel.setFocusable(false);
-    purchaseDateLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    purchaseDateLabel.setMaximumSize(null);
-    purchaseDateLabel.setMinimumSize(new java.awt.Dimension(120, 18));
+    purchaseDateLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    purchaseDateLabel.setMaximumSize(new java.awt.Dimension(120, 16));
+    purchaseDateLabel.setMinimumSize(new java.awt.Dimension(120, 16));
     purchaseDateLabel.setName("Label data da compra"); // NOI18N
-    purchaseDateLabel.setPreferredSize(null);
+    purchaseDateLabel.setPreferredSize(new java.awt.Dimension(120, 16));
     purchaseDateLabel.setRequestFocusEnabled(false);
     purchaseDateLabel.setVerifyInputWhenFocusTarget(false);
 
@@ -381,21 +412,24 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     purchaseDateInput.setMaximumSize(new java.awt.Dimension(125, 30));
     purchaseDateInput.setMinimumSize(new java.awt.Dimension(125, 30));
     purchaseDateInput.setName("Data da compra"); // NOI18N
+    purchaseDateInput.setNextFocusableComponent(priceInput);
     purchaseDateInput.setPreferredSize(new java.awt.Dimension(125, 30));
     purchaseDateInput.setSelectedTextColor(Constants.WHITE);
     purchaseDateInput.setSelectionColor(Constants.DARK_BLUE);
     purchaseDateInput.setValue(book != null ? book.getPurchaseDate() : LocalDate.now());
 
+    priceLabel.setBackground(Constants.BACKGROUND_COLOR);
     priceLabel.setFont(Constants.DEFAULT_FONT);
     priceLabel.setForeground(Constants.FONT_COLOR);
+    priceLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     priceLabel.setLabelFor(priceInput);
     priceLabel.setText("Preço");
     priceLabel.setFocusable(false);
-    priceLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    priceLabel.setMaximumSize(null);
-    priceLabel.setMinimumSize(new java.awt.Dimension(120, 18));
+    priceLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    priceLabel.setMaximumSize(new java.awt.Dimension(120, 16));
+    priceLabel.setMinimumSize(new java.awt.Dimension(120, 16));
     priceLabel.setName("Label preço"); // NOI18N
-    priceLabel.setPreferredSize(null);
+    priceLabel.setPreferredSize(new java.awt.Dimension(120, 16));
     priceLabel.setRequestFocusEnabled(false);
     priceLabel.setVerifyInputWhenFocusTarget(false);
 
@@ -409,21 +443,24 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     priceInput.setMaximumSize(new java.awt.Dimension(125, 30));
     priceInput.setMinimumSize(new java.awt.Dimension(125, 30));
     priceInput.setName("Preço do livro"); // NOI18N
+    priceInput.setNextFocusableComponent(pagesInput);
     priceInput.setPreferredSize(new java.awt.Dimension(125, 30));
     priceInput.setSelectedTextColor(Constants.WHITE);
     priceInput.setSelectionColor(Constants.DARK_BLUE);
     priceInput.setValue(book != null ? book.getPrice() : 0);
 
+    pagesLabel.setBackground(Constants.BACKGROUND_COLOR);
     pagesLabel.setFont(Constants.DEFAULT_FONT);
     pagesLabel.setForeground(Constants.FONT_COLOR);
+    pagesLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
     pagesLabel.setLabelFor(pagesInput);
     pagesLabel.setText("Nº de páginas");
     pagesLabel.setFocusable(false);
-    pagesLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-    pagesLabel.setMaximumSize(null);
-    pagesLabel.setMinimumSize(new java.awt.Dimension(95, 18));
+    pagesLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+    pagesLabel.setMaximumSize(new java.awt.Dimension(95, 16));
+    pagesLabel.setMinimumSize(new java.awt.Dimension(95, 16));
     pagesLabel.setName("Label número de páginas"); // NOI18N
-    pagesLabel.setPreferredSize(null);
+    pagesLabel.setPreferredSize(new java.awt.Dimension(95, 16));
     pagesLabel.setRequestFocusEnabled(false);
     pagesLabel.setVerifyInputWhenFocusTarget(false);
 
@@ -437,6 +474,7 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     pagesInput.setMaximumSize(new java.awt.Dimension(100, 30));
     pagesInput.setMinimumSize(new java.awt.Dimension(100, 30));
     pagesInput.setName("Número de páginas"); // NOI18N
+    pagesInput.setNextFocusableComponent(readCheckbox);
     pagesInput.setPreferredSize(new java.awt.Dimension(100, 30));
     pagesInput.setSelectedTextColor(Constants.WHITE);
     pagesInput.setSelectionColor(Constants.DARK_BLUE);
@@ -452,6 +490,7 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     readCheckbox.setMaximumSize(new java.awt.Dimension(150, 30));
     readCheckbox.setMinimumSize(new java.awt.Dimension(150, 30));
     readCheckbox.setName("Checkbox leitura concluída"); // NOI18N
+    readCheckbox.setNextFocusableComponent(genreCombo1);
     readCheckbox.setPreferredSize(new java.awt.Dimension(150, 30));
     readCheckbox.addItemListener(new java.awt.event.ItemListener() {
       public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -467,7 +506,9 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     genresPanel.setMaximumSize(new java.awt.Dimension(874, 95));
     genresPanel.setMinimumSize(new java.awt.Dimension(874, 95));
     genresPanel.setName("Painel de categorias"); // NOI18N
+    genresPanel.setPreferredSize(new java.awt.Dimension(874, 95));
 
+    genresLabel.setBackground(Constants.BACKGROUND_COLOR);
     genresLabel.setFont(Constants.SMALL_FONT);
     genresLabel.setForeground(Constants.FONT_COLOR);
     genresLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -490,6 +531,7 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     genreCombo1.setMaximumSize(new java.awt.Dimension(270, 30));
     genreCombo1.setMinimumSize(new java.awt.Dimension(270, 30));
     genreCombo1.setName("Categoria 1"); // NOI18N
+    genreCombo1.setNextFocusableComponent(genreCombo2);
     genreCombo1.setPreferredSize(new java.awt.Dimension(270, 30));
     genreCombo1.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -508,6 +550,7 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     genreCombo2.setMaximumSize(new java.awt.Dimension(270, 30));
     genreCombo2.setMinimumSize(new java.awt.Dimension(270, 30));
     genreCombo2.setName("Categoria 2"); // NOI18N
+    genreCombo2.setNextFocusableComponent(genreCombo3);
     genreCombo2.setPreferredSize(new java.awt.Dimension(270, 30));
     genreCombo2.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -526,6 +569,7 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     genreCombo3.setMaximumSize(new java.awt.Dimension(270, 30));
     genreCombo3.setMinimumSize(new java.awt.Dimension(270, 30));
     genreCombo3.setName("Categoria 3"); // NOI18N
+    genreCombo3.setNextFocusableComponent(saveBtn);
     genreCombo3.setPreferredSize(new java.awt.Dimension(270, 30));
 
     javax.swing.GroupLayout genresPanelLayout = new javax.swing.GroupLayout(genresPanel);
@@ -533,16 +577,16 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     genresPanelLayout.setHorizontalGroup(
       genresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(genresPanelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(genreCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(genreCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(genreCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap())
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, genresPanelLayout.createSequentialGroup()
-        .addGap(0, 0, Short.MAX_VALUE)
-        .addComponent(genresLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(genresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addComponent(genresLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 849, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addGroup(genresPanelLayout.createSequentialGroup()
+            .addComponent(genreCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(genreCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(genreCombo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     genresPanelLayout.setVerticalGroup(
       genresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,12 +600,19 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
         .addContainerGap(14, Short.MAX_VALUE))
     );
 
+    genresLabel.getAccessibleContext().setAccessibleName("Legenda categorias");
+    genresLabel.getAccessibleContext().setAccessibleDescription("Selecione entre uma e três categorias para o livro");
+    genreCombo1.getAccessibleContext().setAccessibleName("Combo categoria 1");
+    genreCombo2.getAccessibleContext().setAccessibleName("Combo categoria 2");
+    genreCombo3.getAccessibleContext().setAccessibleName("Combo categoria 3");
+
     buttonsPanel.setBackground(null);
     buttonsPanel.setForeground(Constants.FONT_COLOR);
     buttonsPanel.setFont(Constants.DEFAULT_FONT);
     buttonsPanel.setMaximumSize(new java.awt.Dimension(874, 50));
     buttonsPanel.setMinimumSize(new java.awt.Dimension(874, 50));
     buttonsPanel.setName("Painel de botões"); // NOI18N
+    buttonsPanel.setPreferredSize(new java.awt.Dimension(874, 50));
 
     saveBtn.setBackground(Constants.BLUE);
     saveBtn.setFont(Constants.LARGE_FONT);
@@ -575,6 +626,7 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
     saveBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     saveBtn.setMinimumSize(new java.awt.Dimension(175, 40));
     saveBtn.setName("Botão salvar"); // NOI18N
+    saveBtn.setNextFocusableComponent(cancelBtn);
     saveBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     saveBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -620,15 +672,18 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
+    saveBtn.getAccessibleContext().setAccessibleName("Salvar");
+    saveBtn.getAccessibleContext().setAccessibleDescription("Salvar informações do livro");
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(35, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        .addContainerGap(50, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addComponent(buttonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+          .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -643,41 +698,42 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
                 .addComponent(formatCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addComponent(titleLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(formatLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(36, 36, 36)
+            .addGap(32, 32, 32)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pagesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                  .addGap(20, 20, 20)
-                  .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+              .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                  .addComponent(authorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                      .addComponent(pagesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                      .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(20, 20, 20)
+                    .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                  .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(isbn10Input, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(publisherCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addComponent(isbn13Input, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(isbn13Label, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(36, 36, 36)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-              .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(isbn10Input, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(publisherCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-              .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-          .addComponent(genresPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(isbn13Label, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))))
+          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(genresPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(50, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(35, Short.MAX_VALUE)
-        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(25, 25, 25)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(isbn13Label, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(isbn13Label, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(titleInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -685,9 +741,9 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
           .addComponent(isbn10Input, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addGap(20, 20, 20)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(formatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(formatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(formatCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -696,17 +752,17 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
         .addGap(20, 20, 20)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-            .addComponent(priceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(priceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(priceInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(layout.createSequentialGroup()
-            .addComponent(pagesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pagesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(pagesInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(readCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
           .addGroup(layout.createSequentialGroup()
-            .addComponent(purchaseDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(purchaseDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(purchaseDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addGap(20, 20, 20)
@@ -716,17 +772,35 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
         .addContainerGap(45, Short.MAX_VALUE))
     );
 
-    getAccessibleContext().setAccessibleName("Formulário de livro");
-    getAccessibleContext().setAccessibleDescription("");
+    title.getAccessibleContext().setAccessibleDescription("");
+    titleInput.getAccessibleContext().setAccessibleName("Input título");
+    isbn13Input.getAccessibleContext().setAccessibleName("Input ISBN-13");
+    isbn10Input.getAccessibleContext().setAccessibleName("Input ISBN-10");
+    formatCombo.getAccessibleContext().setAccessibleName("Combo formato");
+    authorCombo.getAccessibleContext().setAccessibleName("Combo autor");
+    publisherCombo.getAccessibleContext().setAccessibleName("Combo editora");
+    purchaseDateInput.getAccessibleContext().setAccessibleName("Input data da compra");
+    priceInput.getAccessibleContext().setAccessibleName("Input preço");
+    pagesInput.getAccessibleContext().setAccessibleName("Input número de páginas");
+    readCheckbox.getAccessibleContext().setAccessibleName("Checkbox leitura concluída");
+    readCheckbox.getAccessibleContext().setAccessibleDescription("Alternar leitura concluída/não concluída");
+    genresPanel.getAccessibleContext().setAccessibleDescription("Painel de categorias");
+    buttonsPanel.getAccessibleContext().setAccessibleName("Painel de botões");
+
+    getAccessibleContext().setAccessibleName("Formulário de livros");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void readCheckboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_readCheckboxItemStateChanged
+  private void readCheckboxItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_readCheckboxItemStateChanged
     readCheckbox.setToolTipText(readCheckbox.isSelected() ? "Marcar livro como não lido" : "Marcar livro como lido");
-  }//GEN-LAST:event_readCheckboxItemStateChanged
+  }// GEN-LAST:event_readCheckboxItemStateChanged
 
-  private void genreCombo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreCombo1ActionPerformed
+  private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
+    dispose();
+  }// GEN-LAST:event_cancelBtnActionPerformed
+
+  private void genreCombo1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreCombo1ActionPerformed
     if (genreCombo1.getSelectedIndex() > 0) {
       genreCombo2.setEnabled(true);
       genreCombo2.actionPerformed(evt);
@@ -734,14 +808,14 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
       genreCombo2.setEnabled(false);
       genreCombo3.setEnabled(false);
     }
-  }//GEN-LAST:event_genreCombo1ActionPerformed
+  }// GEN-LAST:event_genreCombo1ActionPerformed
 
-  private void genreCombo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreCombo2ActionPerformed
+  private void genreCombo2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreCombo2ActionPerformed
     if (genreCombo2.getSelectedIndex() > 0) genreCombo3.setEnabled(true);
     else genreCombo3.setEnabled(false);
-  }//GEN-LAST:event_genreCombo2ActionPerformed
+  }// GEN-LAST:event_genreCombo2ActionPerformed
 
-  private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+  private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_saveBtnActionPerformed
     try {
       String isbn10 = isbn10Input.getText();
       String isbn13 = isbn13Input.getText();
@@ -753,37 +827,31 @@ public class InternalBookForm extends javax.swing.JInternalFrame {
       Format format = selectFormat();
       Author author = selectAuthor();
       Publisher publisher = selectPublisher();
-      LocalDate purchaseDate = LocalDate.parse(purchaseDateInput.getText(), Constants.dateFormatter);
+      LocalDate purchaseDate = LocalDate.parse(purchaseDateInput.getText(), Constants.DATE_FORMATTER);
       float price = Float.parseFloat(priceInput.getText().replace(".", "").replace(",", "."));
       int pages = Integer.parseInt(pagesInput.getText().replace(".", ""));
       boolean read = readCheckbox.isSelected();
       Set<Genre> genres = selectGenres();
 
-      BookDto bookData = new BookDto(title, isbn10, isbn13, pages, read, format, author, publisher, purchaseDate, price);
+      BookDto bookData = new BookDto(title, isbn10, isbn13, pages, read, format, author, publisher, purchaseDate,
+        price);
+      String msg;
 
-      if (book != null) updateBook(book.getId(), bookData, genres);
-      else createBook(bookData, genres);
+      if (book != null) {
+        bookController.update(book.getId(), bookData, genres);
+        msg = "Livro atualizado com sucesso!";
+      } else {
+        bookController.create(bookData, genres);
+        msg = "Livro cadastrado com sucesso!";
+      }
 
+      JOptionPane.showMessageDialog(this, msg, getTitle(), JOptionPane.INFORMATION_MESSAGE);
       dispose();
     } catch (Exception e) {
       JOptionPane.showMessageDialog(this, String.format("Ocorreu um erro ao tentar salvar:\n%s", e.getMessage()),
         getTitle(), JOptionPane.ERROR_MESSAGE);
     }
-  }//GEN-LAST:event_saveBtnActionPerformed
-
-  private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-    dispose();
-  }//GEN-LAST:event_cancelBtnActionPerformed
-
-  private void createBook(BookDto data, Set<Genre> genres) {
-    bookController.create(data, genres);
-    JOptionPane.showMessageDialog(this, "Livro cadastrado com sucesso!", getTitle(), JOptionPane.INFORMATION_MESSAGE);
-  }
-
-  private void updateBook(int id, BookDto data, Set<Genre> genres) {
-    bookController.update(id, data, genres);
-    JOptionPane.showMessageDialog(this, "Livro atualizado com sucesso!", getTitle(), JOptionPane.INFORMATION_MESSAGE);
-  }
+  }// GEN-LAST:event_saveBtnActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JComboBox<Author> authorCombo;

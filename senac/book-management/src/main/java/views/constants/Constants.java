@@ -28,5 +28,5 @@ public class Constants {
 	public static final Color BURNT_YELLOW = new Color(221, 127, 3);
 
 	// formats
-	public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 }

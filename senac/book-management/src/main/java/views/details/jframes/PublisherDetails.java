@@ -1,10 +1,13 @@
-package views.details;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package views.details.jframes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -16,69 +19,71 @@ import factory.ControllerFactory;
 import models.Book;
 import models.Publisher;
 import views.constants.Constants;
-import views.forms.BookForm;
-import views.forms.PublisherForm;
+import views.forms.jframes.BookForm;
+import views.forms.jframes.PublisherForm;
 
-public class PublisherDetails extends javax.swing.JInternalFrame {
-  private final ControllerFactory controllerFactory;
-  private final PublisherController publisherController;
-  private final BookController bookController;
+public class PublisherDetails extends javax.swing.JFrame {
+	private ControllerFactory controllerFactory;
 
-  private Publisher publisher;
-  private Set<Book> books;
+	private PublisherController publisherController;
+	private BookController bookController;
+	private DefaultTableModel tableModel;
 
-  private DefaultTableModel tableModel;
+	private Publisher publisher;
+	private Set<Book> books;
 
-  public PublisherDetails(ControllerFactory controllerFactory, Publisher publisher) {
-    this.controllerFactory = controllerFactory;
-    this.publisherController = controllerFactory.getPublisherController();
-    this.bookController = controllerFactory.getBookController();
-    this.publisher = publisher;
-    this.books = bookController.getByPublisher(publisher);
-    initComponents();
-    fillTable();
-  }
+	public PublisherDetails(ControllerFactory controllerFactory, Publisher publisher) {
+		this.controllerFactory = controllerFactory;
+		initControllers(controllerFactory);
+		this.publisher = publisher;
+		this.books = bookController.getByPublisher(publisher);
+		initComponents();
+		fillTable();
+	}
 
-  private void fillTable() {
-    tableModel.getDataVector().clear();
+	private void initControllers(ControllerFactory controllerFactory) {
+		this.publisherController = controllerFactory.getPublisherController();
+		this.bookController = controllerFactory.getBookController();
+	}
 
-    if (books.isEmpty()) {
-      bookTable.repaint();
-      return;
-    }
+	private void fillTable() {
+		tableModel.getDataVector().clear();
 
-    var booksList = new ArrayList<>(books);
-    Collections.sort(booksList);
+		if (books.isEmpty()) {
+			bookTable.repaint();
+			return;
+		}
 
-    booksList.forEach(b -> tableModel.addRow(new Object[]{b.getId(), b.getTitle(), b.getAuthor(), b.getFormat(),
-      b.getPages(), b.isRead() ? "Lido" : "Não lido"}));
-  }
+		var booksList = new ArrayList<>(books);
+		Collections.sort(booksList);
 
-  private void updateView() {
-    this.publisher = publisherController.getById(publisher.getId());
-    this.books = bookController.getByPublisher(publisher);
+		booksList.forEach(b -> tableModel.addRow(new Object[] { b.getId(), b.getTitle(), b.getAuthor(), b.getFormat(),
+				b.getPages(), b.isRead() ? "Lido" : "Não lido" }));
+	}
 
-    setTitle(String.format("%s - Editora", publisher.getName()));
-    nameLabel.setText(publisher.getName());
-    totalLabel.setText(String.format("Total encontrado: %d", books.size()));
-    deletePublisherBtn.setToolTipText(String.format("Excluir a editora %s", publisher.getName()));
-    fillTable();
+	private void updateView() {
+		this.publisher = publisherController.getById(publisher.getId());
+		this.books = bookController.getByPublisher(publisher);
 
-    boolean enabled = !books.isEmpty();
-    bookDetailsButton.setEnabled(enabled);
-    editBookBtn.setEnabled(enabled);
-    deleteBookBtn.setEnabled(enabled);
-  }
+		this.nameLabel.setText(publisher.getName());
+		this.totalLabel.setText(String.format("Total encontrado: %d", books.size()));
+		fillTable();
 
-  private Book getSelectedBook() {
-    int selectedRow = bookTable.getSelectedRow();
+		boolean enabled = !books.isEmpty();
+		this.bookDetailsButton.setEnabled(enabled);
+		this.editBookBtn.setEnabled(enabled);
+		this.deleteBookBtn.setEnabled(enabled);
+	}
 
-    if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
-      throw new RuntimeException("Você deve selecionar um livro!");
+	private Book getSelectedBook() {
+		int selectedRow = bookTable.getSelectedRow();
 
-    var id = (int) tableModel.getValueAt(selectedRow, 0);
-    return bookController.getById(id);
-  }
+		if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
+			throw new RuntimeException("Você deve selecionar um livro!");
+
+		var id = (int) tableModel.getValueAt(selectedRow, 0);
+		return bookController.getById(id);
+	}
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
@@ -114,18 +119,14 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     editBookBtn = new javax.swing.JButton();
     deleteBookBtn = new javax.swing.JButton();
 
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    setTitle(String.format("Editora - %s", publisher.getName()));
     setBackground(Constants.BACKGROUND_COLOR);
-    setBorder(new javax.swing.border.LineBorder(Constants.BLACK, 2, true));
-    setClosable(true);
-    setIconifiable(true);
-    setMaximizable(true);
-    setResizable(true);
-    setTitle(String.format("%s - Editora", publisher.getName()));
-    setMinimumSize(new java.awt.Dimension(867, 497));
+    setMinimumSize(new java.awt.Dimension(875, 470));
     setName("Detalhes editora"); // NOI18N
-    setNormalBounds(new java.awt.Rectangle(0, 0, 867, 497));
-    setVisible(true);
+    setSize(new java.awt.Dimension(875, 470));
 
+    title.setBackground(Constants.BACKGROUND_COLOR);
     title.setFont(Constants.LARGE_FONT);
     title.setForeground(Constants.FONT_COLOR);
     title.setLabelFor(this);
@@ -136,16 +137,17 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     title.setPreferredSize(new java.awt.Dimension(650, 30));
     title.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
+    nameLabel.setBackground(Constants.BACKGROUND_COLOR);
     nameLabel.setFont(Constants.TITLE_FONT);
     nameLabel.setForeground(Constants.FONT_COLOR);
     nameLabel.setText(publisher.getName());
-    nameLabel.setMaximumSize(null);
     nameLabel.setName("Nome da editora"); // NOI18N
-    nameLabel.setPreferredSize(null);
+    nameLabel.setPreferredSize(new java.awt.Dimension(650, 30));
     nameLabel.setRequestFocusEnabled(false);
     nameLabel.setVerifyInputWhenFocusTarget(false);
     nameLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
+    booksLabel.setBackground(Constants.BACKGROUND_COLOR);
     booksLabel.setFont(Constants.MEDIUM_FONT);
     booksLabel.setForeground(Constants.FONT_COLOR);
     booksLabel.setLabelFor(bookTable);
@@ -154,9 +156,10 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     booksLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
     booksLabel.setMaximumSize(null);
     booksLabel.setMinimumSize(new java.awt.Dimension(70, 20));
-    booksLabel.setName("Livros"); // NOI18N
-    booksLabel.setPreferredSize(null);
+    booksLabel.setName(""); // NOI18N
+    booksLabel.setPreferredSize(new java.awt.Dimension(175, 20));
 
+    totalLabel.setBackground(Constants.BACKGROUND_COLOR);
     totalLabel.setFont(Constants.MEDIUM_FONT);
     totalLabel.setForeground(Constants.FONT_COLOR);
     totalLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -165,24 +168,26 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     totalLabel.setMaximumSize(null);
     totalLabel.setMinimumSize(new java.awt.Dimension(70, 20));
     totalLabel.setName("Total registros"); // NOI18N
-    totalLabel.setPreferredSize(null);
+    totalLabel.setPreferredSize(new java.awt.Dimension(175, 20));
 
     publisherMenuPanel.setBackground(null);
     publisherMenuPanel.setForeground(Constants.FONT_COLOR);
     publisherMenuPanel.setFocusable(false);
     publisherMenuPanel.setFont(Constants.DEFAULT_FONT);
-    publisherMenuPanel.setMinimumSize(new java.awt.Dimension(135, 150));
+    publisherMenuPanel.setMinimumSize(new java.awt.Dimension(115, 150));
+    publisherMenuPanel.setName(""); // NOI18N
     publisherMenuPanel.setPreferredSize(new java.awt.Dimension(115, 150));
     publisherMenuPanel.setRequestFocusEnabled(false);
     publisherMenuPanel.setVerifyInputWhenFocusTarget(false);
 
+    publisherMenuLabel.setBackground(Constants.BACKGROUND_COLOR);
     publisherMenuLabel.setFont(Constants.MEDIUM_FONT);
     publisherMenuLabel.setForeground(Constants.FONT_COLOR);
     publisherMenuLabel.setLabelFor(publisherMenuPanel);
     publisherMenuLabel.setText("Menu editora");
     publisherMenuLabel.setFocusable(false);
     publisherMenuLabel.setMinimumSize(new java.awt.Dimension(105, 20));
-    publisherMenuLabel.setName("Menu editora"); // NOI18N
+    publisherMenuLabel.setName(""); // NOI18N
     publisherMenuLabel.setPreferredSize(new java.awt.Dimension(105, 20));
 
     editPublisherBtn.setBackground(Constants.BLUE);
@@ -243,15 +248,13 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     publisherMenuPanelLayout.setHorizontalGroup(
       publisherMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(publisherMenuPanelLayout.createSequentialGroup()
-        .addGap(15, 15, 15)
-        .addGroup(publisherMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(editPublisherBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(refreshBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(deletePublisherBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addContainerGap(15, Short.MAX_VALUE))
-      .addGroup(publisherMenuPanelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(publisherMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(publisherMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(publisherMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(deletePublisherBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(editPublisherBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(refreshBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap())
     );
     publisherMenuPanelLayout.setVerticalGroup(
       publisherMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,6 +269,10 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
         .addComponent(deletePublisherBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap(7, Short.MAX_VALUE))
     );
+
+    editPublisherBtn.getAccessibleContext().setAccessibleName("Alterar editora");
+    deletePublisherBtn.getAccessibleContext().setAccessibleName("Excluir editora");
+    deletePublisherBtn.getAccessibleContext().setAccessibleDescription("Excluir a editora");
 
     tableScrollPane.setBackground(Constants.WHITE);
     tableScrollPane.setForeground(Constants.FONT_COLOR);
@@ -308,23 +315,26 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     pagesColumn.setPreferredWidth(80);
     statusColumn.setPreferredWidth(80);
     tableScrollPane.setViewportView(bookTable);
+    bookTable.getAccessibleContext().setAccessibleName("Lista de livros");
 
     bookMenuPanel.setBackground(null);
     bookMenuPanel.setForeground(Constants.FONT_COLOR);
     bookMenuPanel.setFocusable(false);
     bookMenuPanel.setFont(Constants.DEFAULT_FONT);
-    bookMenuPanel.setMinimumSize(new java.awt.Dimension(135, 150));
+    bookMenuPanel.setMinimumSize(new java.awt.Dimension(115, 150));
+    bookMenuPanel.setName(""); // NOI18N
     bookMenuPanel.setPreferredSize(new java.awt.Dimension(115, 150));
     bookMenuPanel.setRequestFocusEnabled(false);
     bookMenuPanel.setVerifyInputWhenFocusTarget(false);
 
+    bookMenuLabel.setBackground(Constants.BACKGROUND_COLOR);
     bookMenuLabel.setFont(Constants.MEDIUM_FONT);
     bookMenuLabel.setForeground(Constants.FONT_COLOR);
     bookMenuLabel.setLabelFor(bookMenuPanel);
     bookMenuLabel.setText("Menu livro");
     bookMenuLabel.setFocusable(false);
     bookMenuLabel.setMinimumSize(new java.awt.Dimension(105, 20));
-    bookMenuLabel.setName("Menu livro"); // NOI18N
+    bookMenuLabel.setName(""); // NOI18N
     bookMenuLabel.setPreferredSize(new java.awt.Dimension(105, 20));
 
     bookDetailsButton.setBackground(Constants.DARK_BLUE);
@@ -389,15 +399,16 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     bookMenuPanelLayout.setHorizontalGroup(
       bookMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(bookMenuPanelLayout.createSequentialGroup()
-        .addGap(15, 15, 15)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(bookMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
           .addComponent(deleteBookBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(editBookBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(bookDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addContainerGap(15, Short.MAX_VALUE))
+          .addComponent(bookDetailsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       .addGroup(bookMenuPanelLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(bookMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addComponent(bookMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     bookMenuPanelLayout.setVerticalGroup(
       bookMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,141 +424,146 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
+    bookDetailsButton.getAccessibleContext().setAccessibleName("Detalhes do livro");
+    editBookBtn.getAccessibleContext().setAccessibleName("Editar livro");
+    deleteBookBtn.getAccessibleContext().setAccessibleName("Excluir livro");
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(35, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(booksLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(publisherMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(bookMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(booksLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 305, Short.MAX_VALUE)
+            .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+          .addComponent(publisherMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(bookMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addContainerGap(35, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(37, Short.MAX_VALUE)
+        .addContainerGap(35, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(30, 30, 30)
             .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, Short.MAX_VALUE))
-          .addComponent(publisherMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(publisherMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(bookMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(booksLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addComponent(booksLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(20, 20, 20)
-            .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(47, Short.MAX_VALUE))
+            .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(bookMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(45, Short.MAX_VALUE))
     );
+
+    nameLabel.getAccessibleContext().setAccessibleName("Nome da editora");
+    nameLabel.getAccessibleContext().setAccessibleDescription("");
+
+    getAccessibleContext().setAccessibleName("Página de editora");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void showInternalFrame(JInternalFrame frame) {
-    getDesktopPane().add(frame);
-    frame.moveToFront();
-    frame.requestFocus();
-  }
+	private void bookDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookDetailsButtonActionPerformed
+		try {
+			var selectedBook = getSelectedBook();
+			var view = new BookDetails(controllerFactory, selectedBook);
+			view.setVisible(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir a página de detalhes:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_bookDetailsButtonActionPerformed
 
-  private void editPublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPublisherBtnActionPerformed
-    try {
-      var form = new PublisherForm(controllerFactory, publisher);
-      showInternalFrame(form);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir o formulário de alteração de editora:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_editPublisherBtnActionPerformed
+	private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBookBtnActionPerformed
+		try {
+			var selectedBook = getSelectedBook();
+			var form = new BookForm(controllerFactory, selectedBook);
+			form.setVisible(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir o formulário de edição de livro:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_editBookBtnActionPerformed
 
-  private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-    try {
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
-        getTitle(), JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_refreshBtnActionPerformed
+	private void deleteBookBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteBookBtnActionPerformed
+		try {
+			var selectedBook = getSelectedBook();
 
-  private void deletePublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePublisherBtnActionPerformed
-    try {
-      String[] options = {"Sim", "Não"};
-      int res = JOptionPane.showOptionDialog(this,
-        String.format("Tem certeza que deseja excluir a editora %s?\nNão é possível desfazer esta ação!",
-          publisher.getName()),
-        getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+			String[] options = { "Sim", "Não" };
+			int res = JOptionPane.showOptionDialog(this,
+					String.format("Tem certeza que deseja excluir o livros %s?\nNão é possível desfazer esta ação!",
+							selectedBook.getTitle()),
+					getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-      if (res != 0) return;
+			if (res != 0) return;
 
-      if (publisher.getBooksOwned() > 0)
-        throw new ValidationException("A editora possui livros cadastrados no sistema!");
+			bookController.delete(selectedBook.getId());
+			updateView();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_deleteBookBtnActionPerformed
 
-      publisherController.delete(publisher.getId());
-      dispose();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_deletePublisherBtnActionPerformed
+	private void editPublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editPublisherBtnActionPerformed
+		try {
+			var form = new PublisherForm(controllerFactory, publisher);
+			form.setVisible(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir o formulário de alteração de editora:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_editPublisherBtnActionPerformed
 
-  private void bookDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookDetailsButtonActionPerformed
-    try {
-      var selectedBook = getSelectedBook();
-      var view = new BookDetails(controllerFactory, selectedBook);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página do livro:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_bookDetailsButtonActionPerformed
+	private void deletePublisherBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deletePublisherBtnActionPerformed
+		try {
+			String[] options = { "Sim", "Não" };
+			int res = JOptionPane.showOptionDialog(this,
+					String.format("Tem certeza que deseja excluir a editora %s?\nNão é possível desfazer esta ação!",
+							publisher.getName()),
+					getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-  private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBookBtnActionPerformed
-    try {
-      var selectedBook = getSelectedBook();
-      var form = new BookForm(controllerFactory, selectedBook);
-      showInternalFrame(form);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir o formulário de edição de livro:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_editBookBtnActionPerformed
+			if (res != 0) return;
 
-  private void deleteBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBookBtnActionPerformed
-    try {
-      var selectedBook = getSelectedBook();
+			if (publisher.getBooksOwned() > 0)
+				throw new ValidationException("A editora possui livros cadastrados no sistema!");
 
-      String[] options = {"Sim", "Não"};
-      int res = JOptionPane.showOptionDialog(this,
-        String.format("Tem certeza que deseja excluir o livro %s?\nNão é possível desfazer esta ação!",
-          selectedBook.getTitle()),
-        getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+			publisherController.delete(publisher.getId());
+			dispose();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_deletePublisherBtnActionPerformed
 
-      if (res != 0) return;
-
-      bookController.delete(selectedBook.getId());
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_deleteBookBtnActionPerformed
+	private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_refreshBtnActionPerformed
+		try {
+			updateView();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
+					getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_refreshBtnActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton bookDetailsButton;

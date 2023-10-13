@@ -1,10 +1,9 @@
-package views.lists;
+package views.lists.jframes;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -14,48 +13,49 @@ import exceptions.ValidationException;
 import factory.ControllerFactory;
 import models.Publisher;
 import views.constants.Constants;
-import views.details.PublisherDetails;
-import views.forms.PublisherForm;
+import views.details.jframes.PublisherDetails;
+import views.forms.jframes.PublisherForm;
 
-public class PublisherList extends javax.swing.JInternalFrame {
-  private final ControllerFactory controllerFactory;
-  private final PublisherController publisherController;
-  private Set<Publisher> publishers;
+public class PublisherList extends javax.swing.JFrame {
+	private ControllerFactory controllerFactory;
 
-  private DefaultTableModel tableModel;
+	private final PublisherController publisherController;
+	private Set<Publisher> publishers;
 
-  public PublisherList(ControllerFactory controllerFactory) {
-    this.controllerFactory = controllerFactory;
-    this.publisherController = controllerFactory.getPublisherController();
-    this.publishers = publisherController.getAll();
-    initComponents();
-    fillTable();
-  }
+	private DefaultTableModel tableModel;
 
-  private void fillTable() {
-    tableModel.getDataVector().clear();
+	public PublisherList(ControllerFactory controllerFactory) {
+		this.controllerFactory = controllerFactory;
+		this.publisherController = controllerFactory.getPublisherController();
+		this.publishers = publisherController.getAll();
+		initComponents();
+		fillTable();
+	}
 
-    var publisherList = new ArrayList<>(publishers);
-    Collections.sort(publisherList);
+	private void fillTable() {
+		tableModel.getDataVector().clear();
 
-    publisherList.forEach(p -> tableModel.addRow(new Object[]{p.getId(), p.getName(), p.getBooksOwned()}));
-  }
+		var publisherList = new ArrayList<>(publishers);
+		Collections.sort(publisherList);
 
-  private void updateView(Set<Publisher> publishers) {
-    this.publishers = publishers;
-    this.totalLabel.setText(String.format("Total encontrado: %d", publishers.size()));
-    fillTable();
-  }
+		publisherList.forEach(p -> tableModel.addRow(new Object[] { p.getId(), p.getName(), p.getBooksOwned() }));
+	}
 
-  private Publisher getSelectedPublisher() {
-    int selectedRow = publisherTable.getSelectedRow();
+	private void updateView(Set<Publisher> publishers) {
+		this.publishers = publishers;
+		this.totalLabel.setText(String.format("Total encontrado: %d", publishers.size()));
+		fillTable();
+	}
 
-    if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
-      throw new RuntimeException("Você deve selecionar uma editora!");
+	private Publisher getSelectedPublisher() {
+		int selectedRow = publisherTable.getSelectedRow();
 
-    var id = (int) tableModel.getValueAt(selectedRow, 0);
-    return publisherController.getById(id);
-  }
+		if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
+			throw new RuntimeException("Você deve selecionar uma editora!");
+
+		var id = (int) tableModel.getValueAt(selectedRow, 0);
+		return publisherController.getById(id);
+	}
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
@@ -77,18 +77,17 @@ public class PublisherList extends javax.swing.JInternalFrame {
     deleteBtn = new javax.swing.JButton();
     totalLabel = new javax.swing.JLabel();
 
-    setBackground(Constants.BACKGROUND_COLOR);
-    setBorder(new javax.swing.border.LineBorder(Constants.BLACK, 2, true));
-    setClosable(true);
-    setIconifiable(true);
-    setMaximizable(true);
-    setResizable(true);
+    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Lista de editoras");
-    setMinimumSize(new java.awt.Dimension(728, 600));
-    setName("Lista de editoras"); // NOI18N
-    setNormalBounds(new java.awt.Rectangle(0, 0, 728, 646));
-    setVisible(true);
+    setBackground(Constants.BACKGROUND_COLOR);
+    setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    setFont(Constants.DEFAULT_FONT);
+    setForeground(Constants.FONT_COLOR);
+    setMinimumSize(new java.awt.Dimension(900, 625));
+    setName("window"); // NOI18N
+    setSize(new java.awt.Dimension(900, 625));
 
+    title.setBackground(Constants.BACKGROUND_COLOR);
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,7 +111,6 @@ public class PublisherList extends javax.swing.JInternalFrame {
     tableScrollPane.setMaximumSize(null);
     tableScrollPane.setMinimumSize(new java.awt.Dimension(480, 500));
     tableScrollPane.setName("Painel da tabela"); // NOI18N
-    tableScrollPane.setPreferredSize(null);
 
     publisherTable.setBackground(Constants.WHITE);
     publisherTable.setFont(Constants.DEFAULT_FONT);
@@ -124,6 +122,7 @@ public class PublisherList extends javax.swing.JInternalFrame {
     publisherTable.setMaximumSize(null);
     publisherTable.setMinimumSize(new java.awt.Dimension(480, 500));
     publisherTable.setName("Lista de editoras"); // NOI18N
+    publisherTable.setNextFocusableComponent(detailsButton);
     publisherTable.setPreferredSize(null);
     publisherTable.setRowHeight(25);
     publisherTable.setSelectionBackground(Constants.DARK_GREEN);
@@ -137,10 +136,11 @@ public class PublisherList extends javax.swing.JInternalFrame {
     TableColumn nameColumn = publisherTable.getColumnModel().getColumn(1);
     TableColumn booksOwnedColumn = publisherTable.getColumnModel().getColumn(2);
 
-    idColumn.setPreferredWidth(100);
-    nameColumn.setPreferredWidth(255);
+    idColumn.setPreferredWidth(125);
+    nameColumn.setPreferredWidth(230);
     booksOwnedColumn.setPreferredWidth(125);
     tableScrollPane.setViewportView(publisherTable);
+    publisherTable.getAccessibleContext().setAccessibleName("Lista de editoras");
 
     detailsButton.setBackground(Constants.BLUE);
     detailsButton.setFont(Constants.LARGE_FONT);
@@ -152,6 +152,7 @@ public class PublisherList extends javax.swing.JInternalFrame {
     detailsButton.setMaximumSize(new java.awt.Dimension(175, 40));
     detailsButton.setMinimumSize(new java.awt.Dimension(175, 40));
     detailsButton.setName("Botão de detalhes"); // NOI18N
+    detailsButton.setNextFocusableComponent(editBtn);
     detailsButton.setPreferredSize(new java.awt.Dimension(175, 40));
     detailsButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +170,7 @@ public class PublisherList extends javax.swing.JInternalFrame {
     editBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     editBtn.setMinimumSize(new java.awt.Dimension(175, 40));
     editBtn.setName("Botão de editar"); // NOI18N
+    editBtn.setNextFocusableComponent(newBtn);
     editBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     editBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +187,8 @@ public class PublisherList extends javax.swing.JInternalFrame {
     newBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
     newBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     newBtn.setMinimumSize(new java.awt.Dimension(175, 40));
-    newBtn.setName("Botão nova categoria"); // NOI18N
+    newBtn.setName("Botão nova editora"); // NOI18N
+    newBtn.setNextFocusableComponent(refreshBtn);
     newBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     newBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,6 +206,7 @@ public class PublisherList extends javax.swing.JInternalFrame {
     refreshBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     refreshBtn.setMinimumSize(new java.awt.Dimension(175, 40));
     refreshBtn.setName("Botão de atualizar"); // NOI18N
+    refreshBtn.setNextFocusableComponent(deleteBtn);
     refreshBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     refreshBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,23 +248,23 @@ public class PublisherList extends javax.swing.JInternalFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(35, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        .addContainerGap(45, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
           .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
           .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(detailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(refreshBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(35, Short.MAX_VALUE))
+          .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(45, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+      .addGroup(layout.createSequentialGroup()
         .addContainerGap(35, Short.MAX_VALUE)
         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(25, 25, 25)
@@ -276,91 +280,85 @@ public class PublisherList extends javax.swing.JInternalFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
-            .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 0, Short.MAX_VALUE))
+          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
         .addContainerGap(45, Short.MAX_VALUE))
     );
 
-    getAccessibleContext().setAccessibleName("Lista de editoras");
+    title.getAccessibleContext().setAccessibleDescription("");
+    detailsButton.getAccessibleContext().setAccessibleName("Botão detalhes");
+    editBtn.getAccessibleContext().setAccessibleName("Botão editar");
+    newBtn.getAccessibleContext().setAccessibleName("Botão nova editora");
+    refreshBtn.getAccessibleContext().setAccessibleName("Botão atualizar");
+    deleteBtn.getAccessibleContext().setAccessibleName("Botão excluir");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void showInternalFrame(JInternalFrame frame) {
-    getDesktopPane().add(frame);
-    frame.moveToFront();
-    frame.requestFocus();
-  }
+	private void detailsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_detailsButtonActionPerformed
+		try {
+			var selectedPublisher = getSelectedPublisher();
+			var view = new PublisherDetails(controllerFactory, selectedPublisher);
+			view.setVisible(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir a página de detalhes:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_detailsButtonActionPerformed
 
-  private void detailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsButtonActionPerformed
-    try {
-      var selectedPublisher = getSelectedPublisher();
-      var view = new PublisherDetails(controllerFactory, selectedPublisher);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página da editora:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_detailsButtonActionPerformed
+	private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBtnActionPerformed
+		try {
+			var selectedPublisher = getSelectedPublisher();
+			var form = new PublisherForm(controllerFactory, selectedPublisher);
+			form.setVisible(true);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir o formulário de alteração de editora:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_editBtnActionPerformed
 
-  private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-    try {
-      var selectedPublisher = getSelectedPublisher();
-      var form = new PublisherForm(controllerFactory, selectedPublisher);
-      showInternalFrame(form);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir o formulário de alteração de editora:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_editBtnActionPerformed
+	private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_refreshBtnActionPerformed
+		try {
+			var publishers = publisherController.getAll();
+			updateView(publishers);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar atualizar a tabela de editoras:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_refreshBtnActionPerformed
 
-  private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
-    try {
-      var form = new PublisherForm(controllerFactory);
-      showInternalFrame(form);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir o formulário de cadastro de editora:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_newBtnActionPerformed
+	private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteBtnActionPerformed
+		try {
+			var selectedPublisher = getSelectedPublisher();
 
-  private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-    try {
-      var publishers = publisherController.getAll();
-      updateView(publishers);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar atualizar a tabela de editoras:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_refreshBtnActionPerformed
+			String[] options = { "Sim", "Não" };
+			int res = JOptionPane.showOptionDialog(this,
+					String.format("Tem certeza que deseja excluir a editora %s?\nNão é possível desfazer esta ação!",
+							selectedPublisher.getName()),
+					getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-  private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-    try {
-      var selectedPublisher = getSelectedPublisher();
+			if (res != 0) return;
 
-      String[] options = {"Sim", "Não"};
-      int res = JOptionPane.showOptionDialog(this,
-        String.format("Tem certeza que deseja excluir a editora %s?\nNão é possível desfazer esta ação!",
-          selectedPublisher.getName()),
-        getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+			if (selectedPublisher.getBooksOwned() > 0)
+				throw new ValidationException("A editora selecionada possui livros cadastrados no sistema!");
 
-      if (res != 0) return;
+			publisherController.delete(selectedPublisher.getId());
+			var publishers = publisherController.getAll();
+			updateView(publishers);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_deleteBtnActionPerformed
 
-      if (selectedPublisher.getBooksOwned() > 0)
-        throw new ValidationException("A editora selecionada possui livros cadastrados no sistema!");
-
-      publisherController.delete(selectedPublisher.getId());
-      var publishers = publisherController.getAll();
-      updateView(publishers);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_deleteBtnActionPerformed
+	private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_newBtnActionPerformed
+		var form = new PublisherForm(controllerFactory);
+		form.setVisible(true);
+	}// GEN-LAST:event_newBtnActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton deleteBtn;

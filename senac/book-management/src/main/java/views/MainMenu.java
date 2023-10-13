@@ -6,15 +6,13 @@ package views;
 
 import java.awt.Component;
 
-import factory.ControllerFactory;
 import javax.swing.JInternalFrame;
+
+import factory.ControllerFactory;
 import views.constants.Constants;
+import views.forms.AuthorForm;
 import views.forms.BookForm;
 import views.forms.GenreForm;
-import views.forms.InternalAuthorForm;
-import views.forms.InternalBookForm;
-import views.forms.InternalGenreForm;
-import views.forms.InternalPublisherForm;
 import views.forms.PublisherForm;
 import views.lists.AuthorList;
 import views.lists.BookList;
@@ -23,7 +21,7 @@ import views.lists.PublisherList;
 
 public class MainMenu extends javax.swing.JFrame {
   private final ControllerFactory controllerFactory;
-  
+
   public MainMenu() {
     this.controllerFactory = new ControllerFactory();
     initComponents();
@@ -52,18 +50,16 @@ public class MainMenu extends javax.swing.JFrame {
     setBackground(Constants.BACKGROUND_COLOR);
     setFont(Constants.DEFAULT_FONT);
     setForeground(Constants.FONT_COLOR);
-    setMinimumSize(new java.awt.Dimension(1095, 600));
+    setMinimumSize(new java.awt.Dimension(1095, 675));
     setName("window"); // NOI18N
-    setPreferredSize(null);
-    setSize(new java.awt.Dimension(1095, 600));
+    setSize(new java.awt.Dimension(1145, 675));
 
     sidebarPanel.setBackground(Constants.BLUE);
     sidebarPanel.setForeground(Constants.WHITE);
     sidebarPanel.setFocusable(false);
     sidebarPanel.setFont(Constants.DEFAULT_FONT);
-    sidebarPanel.setMinimumSize(new java.awt.Dimension(195, 600));
+    sidebarPanel.setMinimumSize(new java.awt.Dimension(195, 675));
     sidebarPanel.setName("Menu lateral"); // NOI18N
-    sidebarPanel.setPreferredSize(null);
 
     listMenusPanel.setBackground(Constants.BLUE);
     listMenusPanel.setForeground(Constants.WHITE);
@@ -71,7 +67,6 @@ public class MainMenu extends javax.swing.JFrame {
     listMenusPanel.setFont(Constants.DEFAULT_FONT);
     listMenusPanel.setMinimumSize(new java.awt.Dimension(195, 195));
     listMenusPanel.setName("Menu de cadastros"); // NOI18N
-    listMenusPanel.setPreferredSize(null);
 
     listMenusLabel.setBackground(Constants.BLUE);
     listMenusLabel.setFont(Constants.MEDIUM_FONT);
@@ -90,11 +85,9 @@ public class MainMenu extends javax.swing.JFrame {
     bookListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     bookListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     bookListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    bookListBtn.setMaximumSize(null);
     bookListBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     bookListBtn.setName("Botão listar livros"); // NOI18N
     bookListBtn.setNextFocusableComponent(authorListBtn);
-    bookListBtn.setPreferredSize(null);
     bookListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -125,11 +118,9 @@ public class MainMenu extends javax.swing.JFrame {
     authorListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     authorListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     authorListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    authorListBtn.setMaximumSize(null);
     authorListBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     authorListBtn.setName("Botão listar autores"); // NOI18N
     authorListBtn.setNextFocusableComponent(genreListBtn);
-    authorListBtn.setPreferredSize(null);
     authorListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -160,11 +151,9 @@ public class MainMenu extends javax.swing.JFrame {
     genreListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     genreListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     genreListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    genreListBtn.setMaximumSize(null);
     genreListBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     genreListBtn.setName("Botão listar categorias"); // NOI18N
     genreListBtn.setNextFocusableComponent(publisherListBtn);
-    genreListBtn.setPreferredSize(null);
     genreListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -195,10 +184,8 @@ public class MainMenu extends javax.swing.JFrame {
     publisherListBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     publisherListBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     publisherListBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    publisherListBtn.setMaximumSize(null);
     publisherListBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     publisherListBtn.setName("Botão listar editoras"); // NOI18N
-    publisherListBtn.setPreferredSize(null);
     publisherListBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -250,7 +237,7 @@ public class MainMenu extends javax.swing.JFrame {
         .addComponent(genreListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(publisherListBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(21, Short.MAX_VALUE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     formMenusPanel.setBackground(Constants.BLUE);
@@ -259,7 +246,6 @@ public class MainMenu extends javax.swing.JFrame {
     formMenusPanel.setFont(Constants.DEFAULT_FONT);
     formMenusPanel.setMinimumSize(new java.awt.Dimension(195, 195));
     formMenusPanel.setName("Menu de cadastros"); // NOI18N
-    formMenusPanel.setPreferredSize(null);
 
     formMenusLabel.setBackground(Constants.BLUE);
     formMenusLabel.setFont(Constants.MEDIUM_FONT);
@@ -278,11 +264,9 @@ public class MainMenu extends javax.swing.JFrame {
     bookFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     bookFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     bookFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    bookFormBtn.setMaximumSize(null);
     bookFormBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     bookFormBtn.setName("Botão cadastro de livro"); // NOI18N
     bookFormBtn.setNextFocusableComponent(authorFormBtn);
-    bookFormBtn.setPreferredSize(null);
     bookFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -313,11 +297,9 @@ public class MainMenu extends javax.swing.JFrame {
     authorFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     authorFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     authorFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    authorFormBtn.setMaximumSize(null);
     authorFormBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     authorFormBtn.setName("Botão cadastro de autor"); // NOI18N
     authorFormBtn.setNextFocusableComponent(genreFormBtn);
-    authorFormBtn.setPreferredSize(null);
     authorFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -348,11 +330,9 @@ public class MainMenu extends javax.swing.JFrame {
     genreFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     genreFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     genreFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    genreFormBtn.setMaximumSize(null);
     genreFormBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     genreFormBtn.setName("Botão cadastro de categoria"); // NOI18N
     genreFormBtn.setNextFocusableComponent(publisherFormBtn);
-    genreFormBtn.setPreferredSize(null);
     genreFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -383,10 +363,8 @@ public class MainMenu extends javax.swing.JFrame {
     publisherFormBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, Constants.WHITE));
     publisherFormBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     publisherFormBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    publisherFormBtn.setMaximumSize(null);
     publisherFormBtn.setMinimumSize(new java.awt.Dimension(195, 30));
     publisherFormBtn.setName("Botão cadastro de editora"); // NOI18N
-    publisherFormBtn.setPreferredSize(null);
     publisherFormBtn.addFocusListener(new java.awt.event.FocusAdapter() {
       public void focusGained(java.awt.event.FocusEvent evt) {
         formBtnFocusGained(evt);
@@ -438,7 +416,7 @@ public class MainMenu extends javax.swing.JFrame {
         .addComponent(genreFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(publisherFormBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(21, Short.MAX_VALUE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
@@ -458,15 +436,14 @@ public class MainMenu extends javax.swing.JFrame {
         .addComponent(listMenusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(formMenusPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(0, 204, Short.MAX_VALUE))
+        .addGap(0, 309, Short.MAX_VALUE))
     );
 
     formMenusPanel.getAccessibleContext().setAccessibleName("Menu de cadastros");
 
     desktopPane.setBackground(Constants.BACKGROUND_COLOR);
-    desktopPane.setMinimumSize(new java.awt.Dimension(1090, 600));
+    desktopPane.setMinimumSize(new java.awt.Dimension(1090, 675));
     desktopPane.setName("Desktop pane"); // NOI18N
-    desktopPane.setPreferredSize(null);
 
     javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
     desktopPane.setLayout(desktopPaneLayout);
@@ -507,16 +484,6 @@ public class MainMenu extends javax.swing.JFrame {
     frame.moveToFront();
     frame.requestFocus();
   }
-  
-  private void bookFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookFormBtnActionPerformed
-    var bookForm = new InternalBookForm(controllerFactory);
-    showInternalFrame(bookForm);
-  }// GEN-LAST:event_bookFormBtnActionPerformed
-
-  private void authorFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_authorFormBtnActionPerformed
-    var authorForm = new InternalAuthorForm(controllerFactory);
-    showInternalFrame(authorForm);
-  }// GEN-LAST:event_authorFormBtnActionPerformed
 
   private void formBtnFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_formBtnFocusGained
     Component c = evt.getComponent();
@@ -538,35 +505,45 @@ public class MainMenu extends javax.swing.JFrame {
     c.setBackground(Constants.BLUE);
   }// GEN-LAST:event_formBtnMouseExited
 
-  private void genreFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreFormBtnActionPerformed
-    var genreForm = new InternalGenreForm(controllerFactory);
-    showInternalFrame(genreForm);
-  }// GEN-LAST:event_genreFormBtnActionPerformed
-
-  private void publisherFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publisherFormBtnActionPerformed
-    var publisherForm = new InternalPublisherForm(controllerFactory);
-    showInternalFrame(publisherForm);
-  }// GEN-LAST:event_publisherFormBtnActionPerformed
-
   private void bookListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookListBtnActionPerformed
     var bookList = new BookList(controllerFactory);
-    bookList.setVisible(true);
+    showInternalFrame(bookList);
   }// GEN-LAST:event_bookListBtnActionPerformed
 
   private void authorListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_authorListBtnActionPerformed
     var authorList = new AuthorList(controllerFactory);
-    authorList.setVisible(true);
+    showInternalFrame(authorList);
   }// GEN-LAST:event_authorListBtnActionPerformed
 
   private void genreListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreListBtnActionPerformed
     var genreList = new GenreList(controllerFactory);
-    genreList.setVisible(true);
+    showInternalFrame(genreList);
   }// GEN-LAST:event_genreListBtnActionPerformed
 
   private void publisherListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publisherListBtnActionPerformed
     var publisherList = new PublisherList(controllerFactory);
-    publisherList.setVisible(true);
+    showInternalFrame(publisherList);
   }// GEN-LAST:event_publisherListBtnActionPerformed
+
+  private void bookFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookFormBtnActionPerformed
+    var bookForm = new BookForm(controllerFactory);
+    showInternalFrame(bookForm);
+  }// GEN-LAST:event_bookFormBtnActionPerformed
+
+  private void authorFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_authorFormBtnActionPerformed
+    var authorForm = new AuthorForm(controllerFactory);
+    showInternalFrame(authorForm);
+  }// GEN-LAST:event_authorFormBtnActionPerformed
+
+  private void genreFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreFormBtnActionPerformed
+    var genreForm = new GenreForm(controllerFactory);
+    showInternalFrame(genreForm);
+  }// GEN-LAST:event_genreFormBtnActionPerformed
+
+  private void publisherFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publisherFormBtnActionPerformed
+    var publisherForm = new PublisherForm(controllerFactory);
+    showInternalFrame(publisherForm);
+  }// GEN-LAST:event_publisherFormBtnActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton authorFormBtn;

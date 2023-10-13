@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -16,46 +17,45 @@ import views.constants.Constants;
 import views.details.GenreDetails;
 import views.forms.GenreForm;
 
-public class GenreList extends javax.swing.JFrame {
-	private ControllerFactory controllerFactory;
+public class GenreList extends javax.swing.JInternalFrame {
+  private final ControllerFactory controllerFactory;
+  private final GenreController genreController;
+  private Set<Genre> genres;
 
-	private final GenreController genreController;
-	private Set<Genre> genres;
+  private DefaultTableModel tableModel;
 
-	private DefaultTableModel tableModel;
+  public GenreList(ControllerFactory controllerFactory) {
+    this.controllerFactory = controllerFactory;
+    this.genreController = controllerFactory.getGenreController();
+    this.genres = genreController.getAll();
+    initComponents();
+    fillTable();
+  }
 
-	public GenreList(ControllerFactory controllerFactory) {
-		this.controllerFactory = controllerFactory;
-		this.genreController = controllerFactory.getGenreController();
-		this.genres = genreController.getAll();
-		initComponents();
-		fillTable();
-	}
+  private void fillTable() {
+    tableModel.getDataVector().clear();
 
-	private void fillTable() {
-		tableModel.getDataVector().clear();
+    var genreList = new ArrayList<>(genres);
+    Collections.sort(genreList);
 
-		var genreList = new ArrayList<>(genres);
-		Collections.sort(genreList);
+    genreList.forEach(g -> tableModel.addRow(new Object[]{g.getId(), g.getName(), g.getBooksOwned()}));
+  }
 
-		genreList.forEach(g -> tableModel.addRow(new Object[] { g.getId(), g.getName(), g.getBooksOwned() }));
-	}
+  private void updateView(Set<Genre> genres) {
+    this.genres = genres;
+    this.totalLabel.setText(String.format("Total encontrado: %d", genres.size()));
+    fillTable();
+  }
 
-	private void updateView(Set<Genre> genres) {
-		this.genres = genres;
-		this.totalLabel.setText(String.format("Total encontrado: %d", genres.size()));
-		fillTable();
-	}
+  private Genre getSelectedGenre() {
+    int selectedRow = genreTable.getSelectedRow();
 
-	private Genre getSelectedGenre() {
-		int selectedRow = genreTable.getSelectedRow();
+    if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
+      throw new RuntimeException("Você deve selecionar uma categoria!");
 
-		if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
-			throw new RuntimeException("Você deve selecionar uma categoria!");
-
-		var id = (int) tableModel.getValueAt(selectedRow, 0);
-		return genreController.getById(id);
-	}
+    var id = (int) tableModel.getValueAt(selectedRow, 0);
+    return genreController.getById(id);
+  }
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
@@ -77,19 +77,18 @@ public class GenreList extends javax.swing.JFrame {
     deleteBtn = new javax.swing.JButton();
     totalLabel = new javax.swing.JLabel();
 
-    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    setTitle("Lista de categorias");
     setBackground(Constants.BACKGROUND_COLOR);
-    setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    setFont(Constants.DEFAULT_FONT);
-    setForeground(Constants.FONT_COLOR);
-    setMaximumSize(null);
-    setMinimumSize(new java.awt.Dimension(900, 625));
-    setName("window"); // NOI18N
-    setPreferredSize(new java.awt.Dimension(900, 625));
-    setSize(new java.awt.Dimension(900, 625));
+    setBorder(new javax.swing.border.LineBorder(Constants.BLACK, 2, true));
+    setClosable(true);
+    setIconifiable(true);
+    setMaximizable(true);
+    setResizable(true);
+    setTitle("Lista de categorias");
+    setMinimumSize(new java.awt.Dimension(728, 600));
+    setName("Lista de categorias"); // NOI18N
+    setNormalBounds(new java.awt.Rectangle(0, 0, 728, 646));
+    setVisible(true);
 
-    title.setBackground(Constants.BACKGROUND_COLOR);
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
     title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -113,6 +112,7 @@ public class GenreList extends javax.swing.JFrame {
     tableScrollPane.setMaximumSize(null);
     tableScrollPane.setMinimumSize(new java.awt.Dimension(480, 500));
     tableScrollPane.setName("Painel da tabela"); // NOI18N
+    tableScrollPane.setPreferredSize(null);
 
     genreTable.setBackground(Constants.WHITE);
     genreTable.setFont(Constants.DEFAULT_FONT);
@@ -124,7 +124,6 @@ public class GenreList extends javax.swing.JFrame {
     genreTable.setMaximumSize(null);
     genreTable.setMinimumSize(new java.awt.Dimension(480, 500));
     genreTable.setName("Lista de categorias"); // NOI18N
-    genreTable.setNextFocusableComponent(detailsButton);
     genreTable.setPreferredSize(null);
     genreTable.setRowHeight(25);
     genreTable.setSelectionBackground(Constants.DARK_GREEN);
@@ -142,7 +141,6 @@ public class GenreList extends javax.swing.JFrame {
     nameColumn.setPreferredWidth(255);
     booksOwnedColumn.setPreferredWidth(125);
     tableScrollPane.setViewportView(genreTable);
-    genreTable.getAccessibleContext().setAccessibleName("Lista de categorias");
 
     detailsButton.setBackground(Constants.BLUE);
     detailsButton.setFont(Constants.LARGE_FONT);
@@ -154,7 +152,6 @@ public class GenreList extends javax.swing.JFrame {
     detailsButton.setMaximumSize(new java.awt.Dimension(175, 40));
     detailsButton.setMinimumSize(new java.awt.Dimension(175, 40));
     detailsButton.setName("Botão de detalhes"); // NOI18N
-    detailsButton.setNextFocusableComponent(editBtn);
     detailsButton.setPreferredSize(new java.awt.Dimension(175, 40));
     detailsButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +169,6 @@ public class GenreList extends javax.swing.JFrame {
     editBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     editBtn.setMinimumSize(new java.awt.Dimension(175, 40));
     editBtn.setName("Botão de editar"); // NOI18N
-    editBtn.setNextFocusableComponent(newBtn);
     editBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     editBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +186,6 @@ public class GenreList extends javax.swing.JFrame {
     newBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     newBtn.setMinimumSize(new java.awt.Dimension(175, 40));
     newBtn.setName("Botão nova categoria"); // NOI18N
-    newBtn.setNextFocusableComponent(refreshBtn);
     newBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     newBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +203,6 @@ public class GenreList extends javax.swing.JFrame {
     refreshBtn.setMaximumSize(new java.awt.Dimension(175, 40));
     refreshBtn.setMinimumSize(new java.awt.Dimension(175, 40));
     refreshBtn.setName("Botão de atualizar"); // NOI18N
-    refreshBtn.setNextFocusableComponent(deleteBtn);
     refreshBtn.setPreferredSize(new java.awt.Dimension(175, 40));
     refreshBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,19 +244,19 @@ public class GenreList extends javax.swing.JFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(45, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        .addContainerGap(35, Short.MAX_VALUE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
           .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(detailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(refreshBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addContainerGap(45, Short.MAX_VALUE))
+          .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(35, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,85 +276,89 @@ public class GenreList extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
-            .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, Short.MAX_VALUE))
-          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+            .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addContainerGap(45, Short.MAX_VALUE))
     );
-
-    title.getAccessibleContext().setAccessibleDescription("");
-    detailsButton.getAccessibleContext().setAccessibleName("Botão detalhes");
-    editBtn.getAccessibleContext().setAccessibleName("Botão editar");
-    newBtn.getAccessibleContext().setAccessibleName("Botão nova categoria");
-    refreshBtn.getAccessibleContext().setAccessibleName("Botão atualizar");
-    deleteBtn.getAccessibleContext().setAccessibleName("Botão excluir");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-	private void detailsButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_detailsButtonActionPerformed
-		try {
-			var selectedGenre = getSelectedGenre();
-			var view = new GenreDetails(controllerFactory, selectedGenre);
-			view.setVisible(true);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,
-					String.format("Erro ao tentar abrir a página de detalhes:\n%s", e.getMessage()), getTitle(),
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}// GEN-LAST:event_detailsButtonActionPerformed
+  private void showInternalFrame(JInternalFrame frame) {
+    getDesktopPane().add(frame);
+    frame.moveToFront();
+    frame.requestFocus();
+  }
 
-	private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_editBtnActionPerformed
-		try {
-			var selectedGenre = getSelectedGenre();
-			var form = new GenreForm(controllerFactory, selectedGenre);
-			form.setVisible(true);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,
-					String.format("Erro ao tentar abrir o formulário de edição de categoria:\n%s", e.getMessage()), getTitle(),
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}// GEN-LAST:event_editBtnActionPerformed
+  private void detailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsButtonActionPerformed
+    try {
+      var selectedGenre = getSelectedGenre();
+      var view = new GenreDetails(controllerFactory, selectedGenre);
+      showInternalFrame(view);
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this,
+        String.format("Erro ao tentar abrir a página da categoria:\n%s", e.getMessage()), getTitle(),
+        JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_detailsButtonActionPerformed
 
-	private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_refreshBtnActionPerformed
-		try {
-			var genres = genreController.getAll();
-			updateView(genres);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this,
-					String.format("Erro ao tentar atualizar a tabela de categorias:\n%s", e.getMessage()), getTitle(),
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}// GEN-LAST:event_refreshBtnActionPerformed
+  private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+    try {
+      var selectedGenre = getSelectedGenre();
+      var form = new GenreForm(controllerFactory, selectedGenre);
+      showInternalFrame(form);
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this,
+        String.format("Erro ao tentar abrir o formulário de edição de categoria:\n%s", e.getMessage()), getTitle(),
+        JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_editBtnActionPerformed
 
-	private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_deleteBtnActionPerformed
-		try {
-			var selectedGenre = getSelectedGenre();
+  private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
+    try {
+      var form = new GenreForm(controllerFactory);
+      form.setVisible(true);
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this,
+        String.format("Erro ao tentar abrir o formulário de cadastro de categoria:\n%s", e.getMessage()), getTitle(),
+        JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_newBtnActionPerformed
 
-			String[] options = { "Sim", "Não" };
-			int res = JOptionPane.showOptionDialog(this,
-					String.format("Tem certeza que deseja excluir a categoria %s?\nNão é possível desfazer esta ação!",
-							selectedGenre.getName()),
-					getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+  private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+    try {
+      var genres = genreController.getAll();
+      updateView(genres);
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this,
+        String.format("Erro ao tentar atualizar a tabela de categorias:\n%s", e.getMessage()), getTitle(),
+        JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_refreshBtnActionPerformed
 
-			if (res != 0) return;
+  private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+    try {
+      var selectedGenre = getSelectedGenre();
 
-			if (selectedGenre.getBooksOwned() > 0)
-				throw new ValidationException("A categoria selecionada possui livros cadastrados no sistema!");
+      String[] options = {"Sim", "Não"};
+      int res = JOptionPane.showOptionDialog(this,
+        String.format("Tem certeza que deseja excluir a categoria %s?\nNão é possível desfazer esta ação!",
+          selectedGenre.getName()),
+        getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-			genreController.delete(selectedGenre.getId());
-			var genres = genreController.getAll();
-			updateView(genres);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}// GEN-LAST:event_deleteBtnActionPerformed
+      if (res != 0) return;
 
-	private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_newBtnActionPerformed
-		var form = new GenreForm(controllerFactory);
-		form.setVisible(true);
-	}// GEN-LAST:event_newBtnActionPerformed
+      if (selectedGenre.getBooksOwned() > 0)
+        throw new ValidationException("A categoria selecionada possui livros cadastrados no sistema!");
+
+      genreController.delete(selectedGenre.getId());
+      var genres = genreController.getAll();
+      updateView(genres);
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
+        JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_deleteBtnActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton deleteBtn;
