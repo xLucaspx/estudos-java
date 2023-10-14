@@ -92,7 +92,9 @@ public class BookList extends javax.swing.JInternalFrame {
     setClosable(true);
     setIconifiable(true);
     setMaximizable(true);
+    setResizable(true);
     setTitle("Lista de livros");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/book-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(1045, 600));
     setName("Lista de livros"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 1090, 625));

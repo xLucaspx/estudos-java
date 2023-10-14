@@ -19,6 +19,10 @@
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
       <Connection code="author != null ? &quot;Edi&#xe7;&#xe3;o de autor&quot; : &quot;Cadastro de autor&quot;" type="code"/>
     </Property>
+    <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+      <Image iconType="3" name="/img/icons/author-icon.png"/>
+    </Property>
+    <Property name="icon" type="boolean" value="true"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[512, 425]"/>
     </Property>

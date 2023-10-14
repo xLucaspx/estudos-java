@@ -43,6 +43,7 @@ public class PublisherForm extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle(publisher != null ? "Alteração de editora" : "Cadastro de editora");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/publisher-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(512, 351));
     setName("Formulário de editora"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 512, 351));

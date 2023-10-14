@@ -43,6 +43,7 @@ public class GenreForm extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle(genre != null ? "Edição de categoria" : "Cadastro de categoria");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/genre-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(512, 351));
     setName("Formulário de categoria"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 512, 351));

@@ -4,7 +4,8 @@
  */
 package views;
 
-import java.awt.Component;
+import java.awt.Toolkit;
+import java.util.Arrays;
 
 import javax.swing.JInternalFrame;
 
@@ -25,6 +26,16 @@ public class MainMenu extends javax.swing.JFrame {
   public MainMenu() {
     this.controllerFactory = new ControllerFactory();
     initComponents();
+    defineIcons();
+  }
+
+  private void defineIcons() {
+    var icon16 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icons/book-16.png"));
+    var icon32 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icons/book-32.png"));
+    var icon64 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icons/book-64.png"));
+    var icon128 = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icons/book-128.png"));
+    var icons = Arrays.asList(icon16, icon32, icon64, icon128);
+    setIconImages(icons);
   }
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -486,22 +497,22 @@ public class MainMenu extends javax.swing.JFrame {
   }
 
   private void formBtnFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_formBtnFocusGained
-    Component c = evt.getComponent();
+    var c = evt.getComponent();
     c.setBackground(Constants.DARK_BLUE);
   }// GEN-LAST:event_formBtnFocusGained
 
   private void formBtnFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_formBtnFocusLost
-    Component c = evt.getComponent();
+    var c = evt.getComponent();
     c.setBackground(Constants.BLUE);
   }// GEN-LAST:event_formBtnFocusLost
 
   private void formBtnMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_formBtnMouseEntered
-    Component c = evt.getComponent();
+    var c = evt.getComponent();
     c.setBackground(Constants.DARK_BLUE);
   }// GEN-LAST:event_formBtnMouseEntered
 
   private void formBtnMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_formBtnMouseExited
-    Component c = evt.getComponent();
+    var c = evt.getComponent();
     c.setBackground(Constants.BLUE);
   }// GEN-LAST:event_formBtnMouseExited
 

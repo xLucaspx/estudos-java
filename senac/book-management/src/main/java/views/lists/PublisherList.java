@@ -84,6 +84,7 @@ public class PublisherList extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle("Lista de editoras");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/publisher-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(728, 600));
     setName("Lista de editoras"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 728, 646));
@@ -112,7 +113,6 @@ public class PublisherList extends javax.swing.JInternalFrame {
     tableScrollPane.setMaximumSize(null);
     tableScrollPane.setMinimumSize(new java.awt.Dimension(480, 500));
     tableScrollPane.setName("Painel da tabela"); // NOI18N
-    tableScrollPane.setPreferredSize(null);
 
     publisherTable.setBackground(Constants.WHITE);
     publisherTable.setFont(Constants.DEFAULT_FONT);
@@ -280,8 +280,6 @@ public class PublisherList extends javax.swing.JInternalFrame {
           .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addContainerGap(45, Short.MAX_VALUE))
     );
-
-    getAccessibleContext().setAccessibleName("Lista de editoras");
 
     pack();
   }// </editor-fold>//GEN-END:initComponents

@@ -84,6 +84,8 @@ public class GenreList extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle("Lista de categorias");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/genre-icon.png"))); // NOI18N
+    setInheritsPopupMenu(true);
     setMinimumSize(new java.awt.Dimension(728, 600));
     setName("Lista de categorias"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 728, 646));
@@ -112,7 +114,6 @@ public class GenreList extends javax.swing.JInternalFrame {
     tableScrollPane.setMaximumSize(null);
     tableScrollPane.setMinimumSize(new java.awt.Dimension(480, 500));
     tableScrollPane.setName("Painel da tabela"); // NOI18N
-    tableScrollPane.setPreferredSize(null);
 
     genreTable.setBackground(Constants.WHITE);
     genreTable.setFont(Constants.DEFAULT_FONT);
@@ -317,7 +318,7 @@ public class GenreList extends javax.swing.JInternalFrame {
   private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
     try {
       var form = new GenreForm(controllerFactory);
-      form.setVisible(true);
+      showInternalFrame(form);
     } catch (Exception e) {
       JOptionPane.showMessageDialog(this,
         String.format("Erro ao tentar abrir o formulário de cadastro de categoria:\n%s", e.getMessage()), getTitle(),

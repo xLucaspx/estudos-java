@@ -121,6 +121,7 @@ public class PublisherDetails extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle(String.format("%s - Editora", publisher.getName()));
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/publisher-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(867, 497));
     setName("Detalhes editora"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 867, 497));

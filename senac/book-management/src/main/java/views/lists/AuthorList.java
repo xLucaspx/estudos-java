@@ -86,6 +86,7 @@ public class AuthorList extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle("Lista de autores");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/author-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(932, 671));
     setName("Lista de autores"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 932, 671));

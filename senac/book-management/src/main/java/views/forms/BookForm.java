@@ -182,6 +182,7 @@ public class BookForm extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle(book != null ? "Edição de livro" : "Cadastro de livro");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/book-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(944, 554));
     setName("Formulário de livro"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 944, 554));

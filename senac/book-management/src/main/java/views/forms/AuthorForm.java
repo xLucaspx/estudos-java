@@ -46,6 +46,7 @@ public class AuthorForm extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle(author != null ? "Edição de autor" : "Cadastro de autor");
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/author-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(512, 425));
     setName("Formulário de autor"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 512, 425));

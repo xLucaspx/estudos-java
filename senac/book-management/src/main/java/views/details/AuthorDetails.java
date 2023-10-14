@@ -124,6 +124,7 @@ public class AuthorDetails extends javax.swing.JInternalFrame {
     setMaximizable(true);
     setResizable(true);
     setTitle(String.format("%s - Autor", author.getName()));
+    setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/author-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(867, 497));
     setName("Detalhes autor"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 867, 497));
