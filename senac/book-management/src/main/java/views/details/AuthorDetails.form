@@ -22,7 +22,6 @@
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
       <Image iconType="3" name="/img/icons/author-icon.png"/>
     </Property>
-    <Property name="icon" type="boolean" value="true"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[867, 497]"/>
     </Property>
@@ -35,6 +34,9 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="internalFrameActivated" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameActivated"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -53,43 +55,47 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="booksLabel" max="32767" attributes="0"/>
-                      <EmptySpace pref="513" max="32767" attributes="0"/>
-                      <Component id="totalLabel" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="authorName" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Component id="tableScrollPane" alignment="0" max="32767" attributes="0"/>
-                  <Component id="nameLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="nationalityLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="title" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="booksLabel" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="totalLabel" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="tableScrollPane" alignment="0" max="32767" attributes="0"/>
+                          <Component id="title" alignment="1" pref="656" max="32767" attributes="0"/>
+                          <Component id="authorNationality" alignment="1" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="authorMenuPanel" alignment="0" max="32767" attributes="0"/>
+                          <Component id="bookMenuPanel" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="authorMenuPanel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="bookMenuPanel" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="title" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="nameLabel" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="nationalityLabel" min="-2" pref="20" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="authorName" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="authorMenuPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="authorMenuPanel" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <Component id="authorNationality" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -101,7 +107,7 @@
                   </Group>
                   <Component id="bookMenuPanel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -128,8 +134,12 @@
         <Property name="verticalTextPosition" type="int" value="1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nameLabel">
+    <Component class="javax.swing.JTextField" name="authorName">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="null" type="code"/>
+        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.TITLE_FONT" type="code"/>
         </Property>
@@ -139,17 +149,38 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="author.getName()" type="code"/>
         </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder/>
+          </Border>
+        </Property>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Text Cursor"/>
+        </Property>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 3, 0]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[10, 30]"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="Nome do autor" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[650, 30]"/>
+          <Dimension value="null"/>
         </Property>
-        <Property name="requestFocusEnabled" type="boolean" value="false"/>
-        <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
-        <Property name="verticalTextPosition" type="int" value="3"/>
+        <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.WHITE" type="code"/>
+        </Property>
+        <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DARK_BLUE" type="code"/>
+        </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nationalityLabel">
+    <Component class="javax.swing.JTextField" name="authorNationality">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="null" type="code"/>
+        </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.LARGE_FONT" type="code"/>
         </Property>
@@ -159,19 +190,30 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="author.getNationality()" type="code"/>
         </Property>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="null"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+            <EmptyBorder/>
+          </Border>
+        </Property>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Text Cursor"/>
+        </Property>
+        <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+          <Insets value="[0, 0, 3, 0]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[70, 20]"/>
+          <Dimension value="[10, 30]"/>
         </Property>
         <Property name="name" type="java.lang.String" value="Nacionalidade do autor" noResource="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[650, 20]"/>
+          <Dimension value="null"/>
         </Property>
-        <Property name="requestFocusEnabled" type="boolean" value="false"/>
-        <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
-        <Property name="verticalTextPosition" type="int" value="3"/>
+        <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.WHITE" type="code"/>
+        </Property>
+        <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.DARK_BLUE" type="code"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="booksLabel">
@@ -255,7 +297,6 @@
                       <Component id="authorMenuLabel" alignment="0" max="-2" attributes="0"/>
                       <Component id="deleteAuthorBtn" alignment="0" max="32767" attributes="0"/>
                       <Component id="editAuthorBtn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="refreshBtn" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -264,15 +305,13 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="authorMenuLabel" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="editAuthorBtn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="refreshBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="deleteAuthorBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="7" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -303,7 +342,7 @@
         <Component class="javax.swing.JButton" name="editAuthorBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Constants.BLUE" type="code"/>
+              <Connection code="Constants.DARK_BLUE" type="code"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.MEDIUM_FONT" type="code"/>
@@ -331,38 +370,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editAuthorBtnActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="refreshBtn">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Constants.GREEN" type="code"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Constants.MEDIUM_FONT" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Constants.WHITE" type="code"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Atualizar"/>
-            <Property name="toolTipText" type="java.lang.String" value="Atualizar a p&#xe1;gina"/>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
-            </Property>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[105, 30]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[105, 30]"/>
-            </Property>
-            <Property name="name" type="java.lang.String" value="Bot&#xe3;o de atualizar" noResource="true"/>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[105, 30]"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deleteAuthorBtn">
@@ -479,8 +486,9 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="String[] columnNames = {&#xd;&#xa;  &quot;ID&quot;,&#xd;&#xa;  &quot;T&#xed;tulo&quot;,&#xd;&#xa;  &quot;Formato&quot;,&#xd;&#xa;  &quot;Editora&quot;,&#xd;&#xa;  &quot;N&#xba; p&#xe1;ginas&quot;,&#xd;&#xa;  &quot;Status&quot;&#xd;&#xa;};&#xd;&#xa;tableModel = new DefaultTableModel(columnNames, 0) {&#xd;&#xa;  @Override&#xd;&#xa;  public boolean isCellEditable(int row, int column) {&#xd;&#xa;    return false;&#xd;&#xa;  }&#xd;&#xa;};&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var books = bookController.getByAuthor(author);&#xd;&#xa;String[] columnNames = {&#xd;&#xa;  &quot;ID&quot;,&#xd;&#xa;  &quot;T&#xed;tulo&quot;,&#xd;&#xa;  &quot;Formato&quot;,&#xd;&#xa;  &quot;Editora&quot;,&#xd;&#xa;  &quot;N&#xba; p&#xe1;ginas&quot;,&#xd;&#xa;  &quot;Status&quot;&#xd;&#xa;};&#xd;&#xa;tableModel = new DefaultTableModel(columnNames, 0) {&#xd;&#xa;  @Override&#xd;&#xa;  public boolean isCellEditable(int row, int column) {&#xd;&#xa;    return false;&#xd;&#xa;  }&#xd;&#xa;};&#xd;&#xa;"/>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="TableColumn idColumn = bookTable.getColumnModel().getColumn(0);&#xd;&#xa;TableColumn titleColumn = bookTable.getColumnModel().getColumn(1);&#xd;&#xa;TableColumn formatColumn = bookTable.getColumnModel().getColumn(2);&#xd;&#xa;TableColumn publisherColumn = bookTable.getColumnModel().getColumn(3);&#xd;&#xa;TableColumn pagesColumn = bookTable.getColumnModel().getColumn(4);&#xd;&#xa;TableColumn statusColumn = bookTable.getColumnModel().getColumn(5);&#xd;&#xa;&#xd;&#xa;idColumn.setPreferredWidth(50);&#xd;&#xa;titleColumn.setPreferredWidth(175);&#xd;&#xa;formatColumn.setPreferredWidth(90);&#xd;&#xa;publisherColumn.setPreferredWidth(175);&#xd;&#xa;pagesColumn.setPreferredWidth(80);&#xd;&#xa;statusColumn.setPreferredWidth(80);"/>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="fillTable(books);"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -526,7 +534,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="bookMenuLabel" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="bookDetailsButton" min="-2" max="-2" attributes="0"/>
@@ -565,7 +573,7 @@
         <Component class="javax.swing.JButton" name="bookDetailsButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="Constants.DARK_BLUE" type="code"/>
+              <Connection code="Constants.BURNT_YELLOW" type="code"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Constants.MEDIUM_FONT" type="code"/>

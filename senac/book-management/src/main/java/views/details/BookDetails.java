@@ -109,7 +109,6 @@ public class BookDetails extends javax.swing.JInternalFrame {
     genreLink2 = new javax.swing.JTextField();
     genreLink3 = new javax.swing.JTextField();
     editBookBtn = new javax.swing.JButton();
-    refreshBtn = new javax.swing.JButton();
     deleteBookBtn = new javax.swing.JButton();
 
     setBackground(Constants.BACKGROUND_COLOR);
@@ -122,8 +121,25 @@ public class BookDetails extends javax.swing.JInternalFrame {
     setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons/book-icon.png"))); // NOI18N
     setMinimumSize(new java.awt.Dimension(577, 516));
     setName("Detalhes livro"); // NOI18N
-    setNormalBounds(new java.awt.Rectangle(0, 0, 577, 516));
+    setNormalBounds(new java.awt.Rectangle(0, 0, 623, 515));
     setVisible(true);
+    addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+      public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+        formInternalFrameActivated(evt);
+      }
+      public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+      }
+    });
 
     title.setFont(Constants.LARGE_FONT);
     title.setForeground(Constants.FONT_COLOR);
@@ -293,11 +309,11 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(publisherLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGap(18, 18, Short.MAX_VALUE)
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(formatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(formatName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap())
+        .addGap(0, 0, 0))
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,15 +390,15 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(isbn13Label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(isbn13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
+        .addGap(18, 18, Short.MAX_VALUE)
         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(isbn10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap())
+        .addGap(0, 0, 0))
     );
     jPanel2Layout.setVerticalGroup(
       jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+      .addGroup(jPanel2Layout.createSequentialGroup()
         .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(isbn10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -686,7 +702,7 @@ public class BookDetails extends javax.swing.JInternalFrame {
 
     genreLink1.getAccessibleContext().setAccessibleName("");
 
-    editBookBtn.setBackground(Constants.BLUE);
+    editBookBtn.setBackground(Constants.DARK_BLUE);
     editBookBtn.setFont(Constants.MEDIUM_FONT);
     editBookBtn.setForeground(Constants.WHITE);
     editBookBtn.setText("Editar");
@@ -701,23 +717,6 @@ public class BookDetails extends javax.swing.JInternalFrame {
     editBookBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         editBookBtnActionPerformed(evt);
-      }
-    });
-
-    refreshBtn.setBackground(Constants.GREEN);
-    refreshBtn.setFont(Constants.MEDIUM_FONT);
-    refreshBtn.setForeground(Constants.WHITE);
-    refreshBtn.setText("Atualizar");
-    refreshBtn.setToolTipText("Atualizar a página");
-    refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    refreshBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    refreshBtn.setMaximumSize(new java.awt.Dimension(105, 30));
-    refreshBtn.setMinimumSize(new java.awt.Dimension(105, 30));
-    refreshBtn.setName("Botão de atualizar"); // NOI18N
-    refreshBtn.setPreferredSize(new java.awt.Dimension(105, 30));
-    refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        refreshBtnActionPerformed(evt);
       }
     });
 
@@ -744,11 +743,9 @@ public class BookDetails extends javax.swing.JInternalFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(50, Short.MAX_VALUE)
+        .addContainerGap(35, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(genresPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(authorLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -757,12 +754,13 @@ public class BookDetails extends javax.swing.JInternalFrame {
               .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(bookTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-              .addComponent(refreshBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(editBookBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(deleteBookBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        .addContainerGap(50, Short.MAX_VALUE))
+              .addComponent(deleteBookBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+          .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(35, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -771,7 +769,7 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
             .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -779,10 +777,8 @@ public class BookDetails extends javax.swing.JInternalFrame {
           .addGroup(layout.createSequentialGroup()
             .addComponent(editBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(deleteBookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGap(0, 0, Short.MAX_VALUE)))
         .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(authorLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -794,7 +790,7 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(20, 20, 20)
         .addComponent(genresPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(44, Short.MAX_VALUE))
+        .addContainerGap(45, Short.MAX_VALUE))
     );
 
     pack();
@@ -817,28 +813,36 @@ public class BookDetails extends javax.swing.JInternalFrame {
     }
   }//GEN-LAST:event_authorLinkMouseClicked
 
+  private void setActiveLink(JTextField link) {
+    var color = Constants.BLUE;
+    link.setForeground(color);
+    link.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, color));
+  }
+  
+    private void setInactiveLink(JTextField link) {
+    var color = Constants.FONT_COLOR;
+    link.setForeground(color);
+    link.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, color));
+  }
+  
   private void linkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseEntered
     var comp = (JTextField) evt.getComponent();
-    comp.setForeground(Constants.BLUE);
-    comp.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Constants.BLUE));
+    setActiveLink(comp);
   }//GEN-LAST:event_linkMouseEntered
 
   private void linkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseExited
     var comp = (JTextField) evt.getComponent();
-    comp.setForeground(Constants.FONT_COLOR);
-    comp.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Constants.FONT_COLOR));
+    setInactiveLink(comp);
   }//GEN-LAST:event_linkMouseExited
 
   private void linkFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusGained
     var comp = (JTextField) evt.getComponent();
-    comp.setForeground(Constants.BLUE);
-    comp.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Constants.BLUE));
+    setActiveLink(comp);
   }//GEN-LAST:event_linkFocusGained
 
   private void linkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusLost
     var comp = (JTextField) evt.getComponent();
-    comp.setForeground(Constants.FONT_COLOR);
-    comp.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Constants.FONT_COLOR));
+    setInactiveLink(comp);
   }//GEN-LAST:event_linkFocusLost
 
   private void publisherLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_publisherLinkMouseClicked
@@ -900,15 +904,6 @@ public class BookDetails extends javax.swing.JInternalFrame {
     }
   }//GEN-LAST:event_editBookBtnActionPerformed
 
-  private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-    try {
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
-        getTitle(), JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_refreshBtnActionPerformed
-
   private void deleteBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBookBtnActionPerformed
     try {
       String[] options = {"Sim", "Não"};
@@ -926,6 +921,16 @@ public class BookDetails extends javax.swing.JInternalFrame {
         JOptionPane.ERROR_MESSAGE);
     }
   }//GEN-LAST:event_deleteBookBtnActionPerformed
+
+  private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+    try {
+      updateView();
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
+        getTitle(), JOptionPane.ERROR_MESSAGE);
+      dispose();
+    }
+  }//GEN-LAST:event_formInternalFrameActivated
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel authorLabel;
@@ -956,7 +961,6 @@ public class BookDetails extends javax.swing.JInternalFrame {
   private javax.swing.JLabel publisherLabel;
   private javax.swing.JTextField publisherLink;
   private javax.swing.JLabel purchaseDateLabel;
-  private javax.swing.JButton refreshBtn;
   private javax.swing.JLabel statusLabel;
   private javax.swing.JLabel title;
   // End of variables declaration//GEN-END:variables

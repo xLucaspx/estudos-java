@@ -33,6 +33,9 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="internalFrameActivated" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameActivated"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -59,7 +62,6 @@
                   <Component id="deleteBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="editBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="detailsButton" alignment="0" max="32767" attributes="0"/>
-                  <Component id="refreshBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="newBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="totalLabel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -80,8 +82,6 @@
                       <Component id="editBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="newBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="refreshBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="deleteBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -203,8 +203,9 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="String[] columnNames = { &quot;ID&quot;, &quot;Nome&quot;, &quot;Livros obtidos&quot; };&#xd;&#xa;tableModel = new DefaultTableModel(columnNames, 0) {&#xd;&#xa;  @Override&#xd;&#xa;    public boolean isCellEditable(int row, int column) {&#xd;&#xa;    return false;&#xd;&#xa;  }&#xd;&#xa;};"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genres = genreController.getAll();&#xd;&#xa;String[] columnNames = { &quot;ID&quot;, &quot;Nome&quot;, &quot;Livros obtidos&quot; };&#xd;&#xa;tableModel = new DefaultTableModel(columnNames, 0) {&#xd;&#xa;  @Override&#xd;&#xa;    public boolean isCellEditable(int row, int column) {&#xd;&#xa;    return false;&#xd;&#xa;  }&#xd;&#xa;};"/>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="TableColumn idColumn = genreTable.getColumnModel().getColumn(0);&#xd;&#xa;TableColumn nameColumn = genreTable.getColumnModel().getColumn(1);&#xd;&#xa;TableColumn booksOwnedColumn = genreTable.getColumnModel().getColumn(2);&#xd;&#xa;&#xd;&#xa;idColumn.setPreferredWidth(100);&#xd;&#xa;nameColumn.setPreferredWidth(255);&#xd;&#xa;booksOwnedColumn.setPreferredWidth(125);"/>
+            <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="fillTable(genres);"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -212,7 +213,7 @@
     <Component class="javax.swing.JButton" name="detailsButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.BLUE" type="code"/>
+          <Connection code="Constants.BURNT_YELLOW" type="code"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="Constants.LARGE_FONT" type="code"/>
@@ -303,38 +304,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newBtnActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="refreshBtn">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.DARK_GREEN" type="code"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.LARGE_FONT" type="code"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="Constants.WHITE" type="code"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Atualizar"/>
-        <Property name="toolTipText" type="java.lang.String" value="Atualizar a lista de categorias"/>
-        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Hand Cursor"/>
-        </Property>
-        <Property name="horizontalTextPosition" type="int" value="0"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="Bot&#xe3;o de atualizar" noResource="true"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[175, 40]"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshBtnActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="deleteBtn">

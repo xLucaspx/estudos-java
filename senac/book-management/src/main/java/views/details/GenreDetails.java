@@ -1,7 +1,7 @@
 package views.details;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import static utils.Lists.getSortedList;
+
 import java.util.Set;
 
 import javax.swing.JInternalFrame;
@@ -25,7 +25,6 @@ public class GenreDetails extends javax.swing.JInternalFrame {
   private final BookController bookController;
 
   private Genre genre;
-  private Set<Book> books;
 
   private DefaultTableModel tableModel;
 
@@ -34,12 +33,10 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     this.genreController = controllerFactory.getGenreController();
     this.bookController = controllerFactory.getBookController();
     this.genre = genre;
-    this.books = bookController.getByGenre(genre);
     initComponents();
-    fillTable();
   }
 
-  private void fillTable() {
+  private void fillTable(Set<Book> books) {
     tableModel.getDataVector().clear();
 
     if (books.isEmpty()) {
@@ -47,8 +44,7 @@ public class GenreDetails extends javax.swing.JInternalFrame {
       return;
     }
 
-    var booksList = new ArrayList<>(books);
-    Collections.sort(booksList);
+    var booksList = getSortedList(books);
 
     booksList.forEach(b -> tableModel.addRow(
       new Object[]{b.getId(), b.getTitle(), b.getAuthor(), b.getFormat(), b.getPublisher(), b.getPages()}));
@@ -56,13 +52,13 @@ public class GenreDetails extends javax.swing.JInternalFrame {
 
   private void updateView() {
     this.genre = genreController.getById(genre.getId());
-    this.books = bookController.getByGenre(genre);
+    var books = bookController.getByGenre(genre);
 
     setTitle(String.format("%s - Categoria", genre.getName()));
-    nameLabel.setText(genre.getName());
+    genreName.setText(genre.getName());
     totalLabel.setText(String.format("Total encontrado: %d", books.size()));
     deleteGenreBtn.setToolTipText(String.format("Excluir a categoria %s", genre.getName()));
-    fillTable();
+    fillTable(books);
 
     boolean enabled = !books.isEmpty();
     bookDetailsButton.setEnabled(enabled);
@@ -84,15 +80,15 @@ public class GenreDetails extends javax.swing.JInternalFrame {
   private void initComponents() {
 
     title = new javax.swing.JLabel();
-    nameLabel = new javax.swing.JLabel();
+    genreName = new javax.swing.JTextField();
     booksLabel = new javax.swing.JLabel();
     totalLabel = new javax.swing.JLabel();
     genreMenuPanel = new javax.swing.JPanel();
     genreMenuLabel = new javax.swing.JLabel();
     editGenreBtn = new javax.swing.JButton();
-    refreshBtn = new javax.swing.JButton();
     deleteGenreBtn = new javax.swing.JButton();
     tableScrollPane = new javax.swing.JScrollPane();
+    var books = bookController.getByGenre(genre);
     String[] columnNames = {
       "ID",
       "Título",
@@ -126,6 +122,23 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     setName("Detalhes categoria"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 867, 497));
     setVisible(true);
+    addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+      public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+        formInternalFrameActivated(evt);
+      }
+      public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+      }
+    });
 
     title.setFont(Constants.LARGE_FONT);
     title.setForeground(Constants.FONT_COLOR);
@@ -137,14 +150,19 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     title.setPreferredSize(new java.awt.Dimension(650, 30));
     title.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
-    nameLabel.setFont(Constants.TITLE_FONT);
-    nameLabel.setForeground(Constants.FONT_COLOR);
-    nameLabel.setText(genre.getName());
-    nameLabel.setName("Nome da categoria"); // NOI18N
-    nameLabel.setPreferredSize(new java.awt.Dimension(650, 30));
-    nameLabel.setRequestFocusEnabled(false);
-    nameLabel.setVerifyInputWhenFocusTarget(false);
-    nameLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+    genreName.setEditable(false);
+    genreName.setBackground(null);
+    genreName.setFont(Constants.TITLE_FONT);
+    genreName.setForeground(Constants.FONT_COLOR);
+    genreName.setText(genre.getName());
+    genreName.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+    genreName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+    genreName.setMargin(new java.awt.Insets(0, 0, 3, 0));
+    genreName.setMinimumSize(new java.awt.Dimension(10, 30));
+    genreName.setName("Nome da categoria"); // NOI18N
+    genreName.setPreferredSize(null);
+    genreName.setSelectedTextColor(Constants.WHITE);
+    genreName.setSelectionColor(Constants.DARK_BLUE);
 
     booksLabel.setFont(Constants.MEDIUM_FONT);
     booksLabel.setForeground(Constants.FONT_COLOR);
@@ -185,7 +203,7 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     genreMenuLabel.setName("Menu categoria"); // NOI18N
     genreMenuLabel.setPreferredSize(new java.awt.Dimension(105, 20));
 
-    editGenreBtn.setBackground(Constants.BLUE);
+    editGenreBtn.setBackground(Constants.DARK_BLUE);
     editGenreBtn.setFont(Constants.MEDIUM_FONT);
     editGenreBtn.setForeground(Constants.WHITE);
     editGenreBtn.setText("Editar");
@@ -200,23 +218,6 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     editGenreBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         editGenreBtnActionPerformed(evt);
-      }
-    });
-
-    refreshBtn.setBackground(Constants.GREEN);
-    refreshBtn.setFont(Constants.MEDIUM_FONT);
-    refreshBtn.setForeground(Constants.WHITE);
-    refreshBtn.setText("Atualizar");
-    refreshBtn.setToolTipText("Atualizar a página");
-    refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    refreshBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    refreshBtn.setMaximumSize(new java.awt.Dimension(105, 30));
-    refreshBtn.setMinimumSize(new java.awt.Dimension(105, 30));
-    refreshBtn.setName("Botão de atualizar"); // NOI18N
-    refreshBtn.setPreferredSize(new java.awt.Dimension(105, 30));
-    refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        refreshBtnActionPerformed(evt);
       }
     });
 
@@ -246,7 +247,6 @@ public class GenreDetails extends javax.swing.JInternalFrame {
         .addGap(15, 15, 15)
         .addGroup(genreMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
           .addComponent(editGenreBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(refreshBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(deleteGenreBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addContainerGap(15, Short.MAX_VALUE))
       .addGroup(genreMenuPanelLayout.createSequentialGroup()
@@ -256,15 +256,13 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     genreMenuPanelLayout.setVerticalGroup(
       genreMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, genreMenuPanelLayout.createSequentialGroup()
-        .addContainerGap()
+        .addGap(0, 0, 0)
         .addComponent(genreMenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addComponent(editGenreBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(deleteGenreBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(7, Short.MAX_VALUE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     tableScrollPane.setBackground(Constants.WHITE);
@@ -308,6 +306,7 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     publisherColumn.setPreferredWidth(155);
     pagesColumn.setPreferredWidth(65);
     tableScrollPane.setViewportView(bookTable);
+    fillTable(books);
 
     bookMenuPanel.setBackground(null);
     bookMenuPanel.setForeground(Constants.FONT_COLOR);
@@ -327,7 +326,7 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     bookMenuLabel.setName("Menu livro"); // NOI18N
     bookMenuLabel.setPreferredSize(new java.awt.Dimension(105, 20));
 
-    bookDetailsButton.setBackground(Constants.DARK_BLUE);
+    bookDetailsButton.setBackground(Constants.BURNT_YELLOW);
     bookDetailsButton.setFont(Constants.MEDIUM_FONT);
     bookDetailsButton.setForeground(Constants.WHITE);
     bookDetailsButton.setText("Detalhes");
@@ -402,7 +401,7 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     bookMenuPanelLayout.setVerticalGroup(
       bookMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookMenuPanelLayout.createSequentialGroup()
-        .addContainerGap()
+        .addGap(0, 0, 0)
         .addComponent(bookMenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addComponent(bookDetailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -419,14 +418,15 @@ public class GenreDetails extends javax.swing.JInternalFrame {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(35, Short.MAX_VALUE)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addGroup(layout.createSequentialGroup()
-            .addComponent(booksLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createSequentialGroup()
+              .addComponent(booksLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
+          .addComponent(genreName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(genreMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,9 +441,9 @@ public class GenreDetails extends javax.swing.JInternalFrame {
           .addGroup(layout.createSequentialGroup()
             .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 0, Short.MAX_VALUE))
-          .addComponent(genreMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(genreName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(genreMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(bookMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(layout.createSequentialGroup()
@@ -458,6 +458,12 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
+  private void showInternalFrame(JInternalFrame frame) {
+    getDesktopPane().add(frame);
+    frame.moveToFront();
+    frame.requestFocus();
+  }
+
   private void editGenreBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGenreBtnActionPerformed
     try {
       var form = new GenreForm(controllerFactory, genre);
@@ -468,15 +474,6 @@ public class GenreDetails extends javax.swing.JInternalFrame {
         JOptionPane.ERROR_MESSAGE);
     }
   }//GEN-LAST:event_editGenreBtnActionPerformed
-
-  private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-    try {
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
-        getTitle(), JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_refreshBtnActionPerformed
 
   private void deleteGenreBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGenreBtnActionPerformed
     try {
@@ -543,11 +540,15 @@ public class GenreDetails extends javax.swing.JInternalFrame {
     }
   }//GEN-LAST:event_deleteBookBtnActionPerformed
 
-  private void showInternalFrame(JInternalFrame frame) {
-    getDesktopPane().add(frame);
-    frame.moveToFront();
-    frame.requestFocus();
-  }
+  private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+    try {
+      updateView();
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
+        getTitle(), JOptionPane.ERROR_MESSAGE);
+      dispose();
+    }
+  }//GEN-LAST:event_formInternalFrameActivated
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton bookDetailsButton;
@@ -561,8 +562,7 @@ public class GenreDetails extends javax.swing.JInternalFrame {
   private javax.swing.JButton editGenreBtn;
   private javax.swing.JLabel genreMenuLabel;
   private javax.swing.JPanel genreMenuPanel;
-  private javax.swing.JLabel nameLabel;
-  private javax.swing.JButton refreshBtn;
+  private javax.swing.JTextField genreName;
   private javax.swing.JScrollPane tableScrollPane;
   private javax.swing.JLabel title;
   private javax.swing.JLabel totalLabel;

@@ -1,7 +1,7 @@
 package views.lists;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import static utils.Lists.getSortedList;
+
 import java.util.Set;
 
 import javax.swing.JInternalFrame;
@@ -20,32 +20,32 @@ public class BookList extends javax.swing.JInternalFrame {
   private final ControllerFactory controllerFactory;
   private final BookController bookController;
 
-  private Set<Book> books;
-
   private DefaultTableModel tableModel;
 
   public BookList(ControllerFactory controllerFactory) {
     this.controllerFactory = controllerFactory;
     this.bookController = controllerFactory.getBookController();
-    this.books = bookController.getAll();
     initComponents();
-    fillTable();
   }
 
-  private void fillTable() {
+  private void fillTable(Set<Book> books) {
     tableModel.getDataVector().clear();
 
-    var bookList = new ArrayList<>(books);
-    Collections.sort(bookList);
+    if (books.isEmpty()) {
+      bookTable.repaint();
+      return;
+    }
+
+    var bookList = getSortedList(books);
 
     bookList.forEach(b -> tableModel.addRow(new Object[]{b.getId(), b.getTitle(), b.getAuthor(), b.getFormat(),
       b.getPublisher(), b.getPages(), b.isRead() ? "Lido" : "Não lido"}));
   }
 
-  private void updateView(Set<Book> books) {
-    this.books = books;
+  private void updateView() {
+    var books = bookController.getAll();
     this.totalLabel.setText(String.format("Total encontrado: %d", books.size()));
-    fillTable();
+    fillTable(books);
   }
 
   private Book getSelectedBook() {
@@ -63,6 +63,7 @@ public class BookList extends javax.swing.JInternalFrame {
 
     title = new javax.swing.JLabel();
     tableScrollPane = new javax.swing.JScrollPane();
+    var books = bookController.getAll();
     String[] columnNames = {
       "ID",
       "Título",
@@ -83,7 +84,6 @@ public class BookList extends javax.swing.JInternalFrame {
     editBtn = new javax.swing.JButton();
     statusBtn = new javax.swing.JButton();
     newBtn = new javax.swing.JButton();
-    refreshBtn = new javax.swing.JButton();
     deleteBtn = new javax.swing.JButton();
     totalLabel = new javax.swing.JLabel();
 
@@ -100,6 +100,23 @@ public class BookList extends javax.swing.JInternalFrame {
     setNormalBounds(new java.awt.Rectangle(0, 0, 1090, 625));
     setPreferredSize(new java.awt.Dimension(1090, 625));
     setVisible(true);
+    addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+      public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+        formInternalFrameActivated(evt);
+      }
+      public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+      }
+    });
 
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
@@ -160,8 +177,9 @@ public class BookList extends javax.swing.JInternalFrame {
     pagesColumn.setPreferredWidth(67);
     statusColumn.setPreferredWidth(73);
     tableScrollPane.setViewportView(bookTable);
+    fillTable(books);
 
-    detailsButton.setBackground(Constants.BLUE);
+    detailsButton.setBackground(Constants.BURNT_YELLOW);
     detailsButton.setFont(Constants.LARGE_FONT);
     detailsButton.setForeground(Constants.WHITE);
     detailsButton.setText("Detalhes");
@@ -195,7 +213,7 @@ public class BookList extends javax.swing.JInternalFrame {
       }
     });
 
-    statusBtn.setBackground(Constants.BURNT_YELLOW);
+    statusBtn.setBackground(Constants.DARK_GREEN);
     statusBtn.setFont(Constants.LARGE_FONT);
     statusBtn.setForeground(Constants.WHITE);
     statusBtn.setText("Alterar status");
@@ -226,23 +244,6 @@ public class BookList extends javax.swing.JInternalFrame {
     newBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         newBtnActionPerformed(evt);
-      }
-    });
-
-    refreshBtn.setBackground(Constants.DARK_GREEN);
-    refreshBtn.setFont(Constants.LARGE_FONT);
-    refreshBtn.setForeground(Constants.WHITE);
-    refreshBtn.setText("Atualizar");
-    refreshBtn.setToolTipText("Atualizar a lista de livros");
-    refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    refreshBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    refreshBtn.setMaximumSize(new java.awt.Dimension(175, 40));
-    refreshBtn.setMinimumSize(new java.awt.Dimension(175, 40));
-    refreshBtn.setName("Botão de atualizar"); // NOI18N
-    refreshBtn.setPreferredSize(new java.awt.Dimension(175, 40));
-    refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        refreshBtnActionPerformed(evt);
       }
     });
 
@@ -280,26 +281,31 @@ public class BookList extends javax.swing.JInternalFrame {
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap(20, Short.MAX_VALUE)
+        .addGap(9, 9, 9)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
-          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE))
+          .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
+          .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-            .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(detailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(refreshBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(statusBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          .addComponent(totalLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(0, 20, Short.MAX_VALUE))
+          .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(detailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(statusBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 9, Short.MAX_VALUE))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
-        .addContainerGap(35, Short.MAX_VALUE)
+        .addContainerGap(17, Short.MAX_VALUE)
         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addGap(25, 25, 25)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,14 +318,12 @@ public class BookList extends javax.swing.JInternalFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(newBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
             .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 0, Short.MAX_VALUE))
           .addComponent(tableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
-        .addContainerGap(45, Short.MAX_VALUE))
+        .addContainerGap(27, Short.MAX_VALUE))
     );
 
     pack();
@@ -368,8 +372,7 @@ public class BookList extends javax.swing.JInternalFrame {
       if (res != 0) return;
 
       bookController.updateReadStatus(selectedBook);
-      var books = bookController.getAll();
-      updateView(books);
+      updateView();
     } catch (Exception e) {
       JOptionPane.showMessageDialog(this, String.format("Erro ao tentar alterar o status:\n%s", e.getMessage()),
         getTitle(), JOptionPane.ERROR_MESSAGE);
@@ -387,17 +390,6 @@ public class BookList extends javax.swing.JInternalFrame {
     }
   }//GEN-LAST:event_newBtnActionPerformed
 
-  private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-    try {
-      var books = bookController.getAll();
-      updateView(books);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar atualizar a tabela de livros:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_refreshBtnActionPerformed
-
   private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
     try {
       var selectedBook = getSelectedBook();
@@ -411,13 +403,22 @@ public class BookList extends javax.swing.JInternalFrame {
       if (res != 0) return;
 
       bookController.delete(selectedBook.getId());
-      var books = bookController.getAll();
-      updateView(books);
+      updateView();
     } catch (Exception e) {
       JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
         JOptionPane.ERROR_MESSAGE);
     }
   }//GEN-LAST:event_deleteBtnActionPerformed
+
+  private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+    try {
+      updateView();
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this,
+        String.format("Erro ao tentar atualizar a tabela de livros:\n%s", e.getMessage()), getTitle(),
+        JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_formInternalFrameActivated
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTable bookTable;
@@ -425,7 +426,6 @@ public class BookList extends javax.swing.JInternalFrame {
   private javax.swing.JButton detailsButton;
   private javax.swing.JButton editBtn;
   private javax.swing.JButton newBtn;
-  private javax.swing.JButton refreshBtn;
   private javax.swing.JButton statusBtn;
   private javax.swing.JScrollPane tableScrollPane;
   private javax.swing.JLabel title;

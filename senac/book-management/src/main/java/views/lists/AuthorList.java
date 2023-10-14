@@ -1,7 +1,7 @@
 package views.lists;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import static utils.Lists.getSortedList;
+
 import java.util.Set;
 
 import javax.swing.JInternalFrame;
@@ -20,41 +20,41 @@ import views.forms.AuthorForm;
 public class AuthorList extends javax.swing.JInternalFrame {
   private final ControllerFactory controllerFactory;
   private final AuthorController authorController;
-  
-  private Set<Author> authors;
-  
+
   private DefaultTableModel tableModel;
-  
+
   public AuthorList(ControllerFactory controllerFactory) {
     this.controllerFactory = controllerFactory;
     this.authorController = controllerFactory.getAuthorController();
-    this.authors = authorController.getAll();
     initComponents();
-    fillTable();
   }
-  
-  private void fillTable() {
+
+  private void fillTable(Set<Author> authors) {
     tableModel.getDataVector().clear();
-    
-    var authorsList = new ArrayList<>(authors);
-    Collections.sort(authorsList);
-    
+
+    if (authors.isEmpty()) {
+      authorTable.repaint();
+      return;
+    }
+
+    var authorsList = getSortedList(authors);
+
     authorsList.forEach(
       a -> tableModel.addRow(new Object[]{a.getId(), a.getName(), a.getNationality(), a.getBooksOwned()}));
   }
-  
-  private void updateView(Set<Author> authors) {
-    this.authors = authors;
-    this.totalLabel.setText(String.format("Total encontrado: %d", authors.size()));
-    fillTable();
+
+  private void updateView() {
+    var authors = authorController.getAll();
+    totalLabel.setText(String.format("Total encontrado: %d", authors.size()));
+    fillTable(authors);
   }
-  
+
   private Author getSelectedAuthor() {
     int selectedRow = authorTable.getSelectedRow();
-    
+
     if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
       throw new RuntimeException("Você deve selecionar um autor!");
-    
+
     var id = (int) tableModel.getValueAt(selectedRow, 0);
     return authorController.getById(id);
   }
@@ -64,6 +64,7 @@ public class AuthorList extends javax.swing.JInternalFrame {
 
     title = new javax.swing.JLabel();
     tableScrollPane = new javax.swing.JScrollPane();
+    var authors = authorController.getAll();
     String[] columnNames = { "ID", "Nome", "Nacionalidade", "Livros obtidos" };
     tableModel = new DefaultTableModel(columnNames, 0) {
       @Override
@@ -75,7 +76,6 @@ public class AuthorList extends javax.swing.JInternalFrame {
     detailsButton = new javax.swing.JButton();
     editBtn = new javax.swing.JButton();
     newBtn = new javax.swing.JButton();
-    refreshBtn = new javax.swing.JButton();
     deleteBtn = new javax.swing.JButton();
     totalLabel = new javax.swing.JLabel();
 
@@ -91,6 +91,23 @@ public class AuthorList extends javax.swing.JInternalFrame {
     setName("Lista de autores"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 932, 671));
     setVisible(true);
+    addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+      public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+        formInternalFrameActivated(evt);
+      }
+      public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+      }
+    });
 
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
@@ -145,8 +162,9 @@ public class AuthorList extends javax.swing.JInternalFrame {
     nationalityColumn.setPreferredWidth(190);
     booksOwnedColumn.setPreferredWidth(130);
     tableScrollPane.setViewportView(authorTable);
+    fillTable(authors);
 
-    detailsButton.setBackground(Constants.BLUE);
+    detailsButton.setBackground(Constants.BURNT_YELLOW);
     detailsButton.setFont(Constants.LARGE_FONT);
     detailsButton.setForeground(Constants.WHITE);
     detailsButton.setText("Detalhes");
@@ -197,23 +215,6 @@ public class AuthorList extends javax.swing.JInternalFrame {
       }
     });
 
-    refreshBtn.setBackground(Constants.DARK_GREEN);
-    refreshBtn.setFont(Constants.LARGE_FONT);
-    refreshBtn.setForeground(Constants.WHITE);
-    refreshBtn.setText("Atualizar");
-    refreshBtn.setToolTipText("Atualizar a lista de autores");
-    refreshBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    refreshBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    refreshBtn.setMaximumSize(new java.awt.Dimension(175, 40));
-    refreshBtn.setMinimumSize(new java.awt.Dimension(175, 40));
-    refreshBtn.setName("Botão de atualizar"); // NOI18N
-    refreshBtn.setPreferredSize(new java.awt.Dimension(175, 40));
-    refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        refreshBtnActionPerformed(evt);
-      }
-    });
-
     deleteBtn.setBackground(Constants.RED);
     deleteBtn.setFont(Constants.LARGE_FONT);
     deleteBtn.setForeground(Constants.WHITE);
@@ -257,7 +258,6 @@ public class AuthorList extends javax.swing.JInternalFrame {
           .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(editBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(detailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(refreshBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addContainerGap(35, Short.MAX_VALUE))
@@ -275,8 +275,6 @@ public class AuthorList extends javax.swing.JInternalFrame {
             .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(newBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(18, 18, 18)
@@ -330,40 +328,38 @@ public class AuthorList extends javax.swing.JInternalFrame {
     }
   }//GEN-LAST:event_newBtnActionPerformed
 
-  private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-    try {
-      var authors = authorController.getAll();
-      updateView(authors);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar atualizar a tabela de autores:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_refreshBtnActionPerformed
-
   private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
     try {
       var selectedAuthor = getSelectedAuthor();
-      
+
       String[] options = {"Sim", "Não"};
       int res = JOptionPane.showOptionDialog(this,
         String.format("Tem certeza que deseja excluir o autor %s?\nNão é possível desfazer esta ação!",
           selectedAuthor.getName()),
         getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-      
+
       if (res != 0) return;
-      
+
       if (selectedAuthor.getBooksOwned() > 0)
         throw new ValidationException("O autor selecionado possui livros cadastrados no sistema!");
-      
+
       authorController.delete(selectedAuthor.getId());
-      var authors = authorController.getAll();
-      updateView(authors);
+      updateView();
     } catch (Exception e) {
       JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
         JOptionPane.ERROR_MESSAGE);
     }
   }//GEN-LAST:event_deleteBtnActionPerformed
+
+  private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+    try {
+      updateView();
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this,
+        String.format("Erro ao tentar atualizar a tabela de autores:\n%s", e.getMessage()), getTitle(),
+        JOptionPane.ERROR_MESSAGE);
+    }
+  }//GEN-LAST:event_formInternalFrameActivated
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JTable authorTable;
@@ -371,7 +367,6 @@ public class AuthorList extends javax.swing.JInternalFrame {
   private javax.swing.JButton detailsButton;
   private javax.swing.JButton editBtn;
   private javax.swing.JButton newBtn;
-  private javax.swing.JButton refreshBtn;
   private javax.swing.JScrollPane tableScrollPane;
   private javax.swing.JLabel title;
   private javax.swing.JLabel totalLabel;

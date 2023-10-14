@@ -22,7 +22,6 @@
     <Property name="frameIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
       <Image iconType="3" name="/img/icons/book-icon.png"/>
     </Property>
-    <Property name="icon" type="boolean" value="true"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[944, 554]"/>
     </Property>
@@ -38,6 +37,9 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="internalFrameActivated" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameActivated"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -469,7 +471,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var formatComboModel = new DefaultComboBoxModel&lt;&gt;(formats);&#xd;&#xa;formatComboModel.insertElementAt(null, 0);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var formatComboModel = new DefaultComboBoxModel&lt;&gt;(Format.values());&#xd;&#xa;formatComboModel.insertElementAt(null, 0);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Format&gt;"/>
       </AuxValues>
     </Component>
@@ -532,7 +534,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var authorsList = new ArrayList&lt;&gt;(authors);&#xd;&#xa;Collections.sort(authorsList);&#xd;&#xa;var authorComboModel = new DefaultComboBoxModel&lt;&gt;(authorsList.toArray(Author[]::new));&#xd;&#xa;authorComboModel.insertElementAt(null, 0);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var authorsList = getSortedList(authorController.getAll());&#xd;&#xa;var authorComboModel = new DefaultComboBoxModel&lt;&gt;(authorsList.toArray(Author[]::new));&#xd;&#xa;authorComboModel.insertElementAt(null, 0);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Author&gt;"/>
       </AuxValues>
     </Component>
@@ -595,7 +597,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var publishersList = new ArrayList&lt;&gt;(publishers);&#xd;&#xa;Collections.sort(publishersList);&#xd;&#xa;var publisherComboModel = new DefaultComboBoxModel&lt;&gt;(publishersList.toArray(Publisher[]::new));&#xd;&#xa;publisherComboModel.insertElementAt(null, 0);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var publishersList = getSortedList(publisherController.getAll());&#xd;&#xa;var publisherComboModel = new DefaultComboBoxModel&lt;&gt;(publishersList.toArray(Publisher[]::new));&#xd;&#xa;publisherComboModel.insertElementAt(null, 0);"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Publisher&gt;"/>
       </AuxValues>
     </Component>
@@ -971,7 +973,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="genreCombo1ActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresList = new ArrayList&lt;&gt;(genres);&#xd;&#xa;Collections.sort(genresList);&#xd;&#xa;var genresComboModel1 = new DefaultComboBoxModel&lt;&gt;(genresList.toArray(Genre[]::new));&#xd;&#xa;genresComboModel1.insertElementAt(null, 0);&#xd;&#xa;"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="var genresList = getSortedList(genreController.getAll());&#xd;&#xa;var genresComboModel1 = new DefaultComboBoxModel&lt;&gt;(genresList.toArray(Genre[]::new));&#xd;&#xa;genresComboModel1.insertElementAt(null, 0);&#xd;&#xa;"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Genre&gt;"/>
           </AuxValues>
         </Component>

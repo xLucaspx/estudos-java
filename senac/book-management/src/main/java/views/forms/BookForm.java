@@ -4,18 +4,18 @@
  */
 package views.forms;
 
+import static utils.Lists.getSortedList;
 import static utils.Validator.isValidString;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 
@@ -43,10 +43,6 @@ public class BookForm extends javax.swing.JInternalFrame {
   private PublisherController publisherController;
   private GenreController genreController;
 
-  private Set<Author> authors;
-  private Set<Publisher> publishers;
-  private Set<Genre> genres;
-  private Format[] formats;
   private Book book;
 
   public BookForm(ControllerFactory controllerFactory) {
@@ -66,11 +62,6 @@ public class BookForm extends javax.swing.JInternalFrame {
     this.authorController = controllerFactory.getAuthorController();
     this.publisherController = controllerFactory.getPublisherController();
     this.genreController = controllerFactory.getGenreController();
-
-    this.authors = authorController.getAll();
-    this.publishers = publisherController.getAll();
-    this.genres = genreController.getAll();
-    this.formats = Format.values();
   }
 
   private void defineGenres(Book book) {
@@ -120,7 +111,7 @@ public class BookForm extends javax.swing.JInternalFrame {
 
     return genres;
   }
-
+  
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
@@ -132,18 +123,16 @@ public class BookForm extends javax.swing.JInternalFrame {
     isbn10Label = new javax.swing.JLabel();
     isbn10Input = new javax.swing.JTextField();
     formatLabel = new javax.swing.JLabel();
-    var formatComboModel = new DefaultComboBoxModel<>(formats);
+    var formatComboModel = new DefaultComboBoxModel<>(Format.values());
     formatComboModel.insertElementAt(null, 0);
     formatCombo = new javax.swing.JComboBox<>();
     authorLabel = new javax.swing.JLabel();
-    var authorsList = new ArrayList<>(authors);
-    Collections.sort(authorsList);
+    var authorsList = getSortedList(authorController.getAll());
     var authorComboModel = new DefaultComboBoxModel<>(authorsList.toArray(Author[]::new));
     authorComboModel.insertElementAt(null, 0);
     authorCombo = new javax.swing.JComboBox<>();
     publisherLabel = new javax.swing.JLabel();
-    var publishersList = new ArrayList<>(publishers);
-    Collections.sort(publishersList);
+    var publishersList = getSortedList(publisherController.getAll());
     var publisherComboModel = new DefaultComboBoxModel<>(publishersList.toArray(Publisher[]::new));
     publisherComboModel.insertElementAt(null, 0);
     publisherCombo = new javax.swing.JComboBox<>();
@@ -160,8 +149,7 @@ public class BookForm extends javax.swing.JInternalFrame {
     readCheckbox = new javax.swing.JCheckBox();
     genresPanel = new javax.swing.JPanel();
     genresLabel = new javax.swing.JLabel();
-    var genresList = new ArrayList<>(genres);
-    Collections.sort(genresList);
+    var genresList = getSortedList(genreController.getAll());
     var genresComboModel1 = new DefaultComboBoxModel<>(genresList.toArray(Genre[]::new));
     genresComboModel1.insertElementAt(null, 0);
     genreCombo1 = new javax.swing.JComboBox<>();
@@ -187,6 +175,23 @@ public class BookForm extends javax.swing.JInternalFrame {
     setName("Formulário de livro"); // NOI18N
     setNormalBounds(new java.awt.Rectangle(0, 0, 944, 554));
     setVisible(true);
+    addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+      public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+        formInternalFrameActivated(evt);
+      }
+      public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+      }
+      public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+      }
+    });
 
     title.setFont(Constants.TITLE_FONT);
     title.setForeground(Constants.FONT_COLOR);
@@ -778,6 +783,38 @@ public class BookForm extends javax.swing.JInternalFrame {
   private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
     dispose();
   }//GEN-LAST:event_cancelBtnActionPerformed
+
+  private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+    try {
+      refreshComboBoxes();
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
+        getTitle(), JOptionPane.ERROR_MESSAGE);
+      dispose();
+    }
+  }//GEN-LAST:event_formInternalFrameActivated
+
+  private void refreshComboBoxes() {
+    var authorsList = getSortedList(authorController.getAll());
+    updateComboModel(authorsList.toArray(Author[]::new), authorCombo);
+
+    var publishersList = getSortedList(publisherController.getAll());
+    updateComboModel(publishersList.toArray(Publisher[]::new), publisherCombo);
+
+    var genresList = getSortedList(genreController.getAll());
+    updateComboModel(genresList.toArray(Genre[]::new), genreCombo1);
+    updateComboModel(genresList.toArray(Genre[]::new), genreCombo2);
+    updateComboModel(genresList.toArray(Genre[]::new), genreCombo3);
+  }
+
+  private <T> void updateComboModel(T[] items, JComboBox<T> combo) {
+    var model = new DefaultComboBoxModel<>(items);
+    model.insertElementAt(null, 0);
+
+    var selected = combo.getSelectedItem();
+    combo.setModel(model);
+    combo.setSelectedItem(selected);
+  }
 
   private void createBook(BookDto data, Set<Genre> genres) {
     bookController.create(data, genres);
