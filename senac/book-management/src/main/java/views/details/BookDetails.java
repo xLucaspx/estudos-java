@@ -15,67 +15,64 @@ import views.constants.Constants;
 import views.forms.BookForm;
 
 public class BookDetails extends javax.swing.JInternalFrame {
-  private final ControllerFactory controllerFactory;
-  private final BookController bookController;
+	private final ControllerFactory controllerFactory;
+	private final BookController bookController;
 
-  private Book book;
-  private Author author;
-  private Publisher publisher;
-  private Genre[] genres;
+	private Book book;
+	private Author author;
+	private Publisher publisher;
+	private Genre[] genres;
 
-  /*
-  falta:
-    String review;
-   */
-  public BookDetails(ControllerFactory controllerFactory, Book book) {
-    this.controllerFactory = controllerFactory;
-    this.bookController = controllerFactory.getBookController();
-    this.book = book;
-    this.author = book.getAuthor();
-    this.publisher = book.getPublisher();
-    this.genres = book.getGenres().toArray(Genre[]::new);
-    initComponents();
-  }
+	/* falta: String review; */
+	public BookDetails(ControllerFactory controllerFactory, Book book) {
+		this.controllerFactory = controllerFactory;
+		this.bookController = controllerFactory.getBookController();
+		this.book = book;
+		this.author = book.getAuthor();
+		this.publisher = book.getPublisher();
+		this.genres = book.getGenres().toArray(Genre[]::new);
+		initComponents();
+	}
 
-  private void updateView() {
-    this.book = bookController.getById(book.getId());
-    this.author = book.getAuthor();
-    this.publisher = book.getPublisher();
-    this.genres = book.getGenres().toArray(Genre[]::new);
+	private void updateView() {
+		this.book = bookController.getById(book.getId());
+		this.author = book.getAuthor();
+		this.publisher = book.getPublisher();
+		this.genres = book.getGenres().toArray(Genre[]::new);
 
-    setTitle(String.format("%s - Livro", book.getTitle()));
-    bookTitle.setText(book.getTitle());
-    authorLink.setText(author.getName());
-    authorLink.setToolTipText(String.format("Abrir a página do autor %s", author.getName()));
-    publisherLink.setText(publisher.getName());
-    publisherLink.setToolTipText(String.format("Abrir a página da editora %s", publisher.getName()));
-    formatName.setText(book.getFormat().toString());
-    isbn13.setText(book.getIsbn13());
-    isbn10.setText(book.getIsbn10());
-    bookPrice.setText(String.format("R$ %.2f", book.getPrice()));
-    bookPurchaseDate.setText(Constants.DATE_FORMATTER.format(book.getPurchaseDate()));
-    bookPages.setText(String.valueOf(book.getPages()));
-    bookStatus.setText(book.isRead() ? "Lido" : "Não lido");
+		setTitle(String.format("%s - Livro", book.getTitle()));
+		bookTitle.setText(book.getTitle());
+		authorLink.setText(author.getName());
+		authorLink.setToolTipText(String.format("Abrir a página do autor %s", author.getName()));
+		publisherLink.setText(publisher.getName());
+		publisherLink.setToolTipText(String.format("Abrir a página da editora %s", publisher.getName()));
+		formatName.setText(book.getFormat().toString());
+		isbn13.setText(book.getIsbn13());
+		isbn10.setText(book.getIsbn10());
+		bookPrice.setText(String.format("R$ %.2f", book.getPrice()));
+		bookPurchaseDate.setText(Constants.DATE_FORMATTER.format(book.getPurchaseDate()));
+		bookPages.setText(String.valueOf(book.getPages()));
+		bookStatus.setText(book.isRead() ? "Lido" : "Não lido");
 
-    deleteBookBtn.setToolTipText(String.format("Excluir o livro %s", book.getTitle()));
+		deleteBookBtn.setToolTipText(String.format("Excluir o livro %s", book.getTitle()));
 
-    genreLink1.setText(genres[0].getName());
-    genreLink1.setToolTipText(String.format("Abrir a página da categoria %s", genres[0].getName()));
+		genreLink1.setText(genres[0].getName());
+		genreLink1.setToolTipText(String.format("Abrir a página da categoria %s", genres[0].getName()));
 
-    if (genres.length > 1) {
-      genreLink2.setText(genres[1].getName());
-      genreLink2.setToolTipText(String.format("Abrir a página da categoria %s", genres[1].getName()));
-      genreLink2.setEnabled(true);
-      genreLink2.setFocusable(true);
-    }
+		if (genres.length > 1) {
+			genreLink2.setText(genres[1].getName());
+			genreLink2.setToolTipText(String.format("Abrir a página da categoria %s", genres[1].getName()));
+			genreLink2.setEnabled(true);
+			genreLink2.setFocusable(true);
+		}
 
-    if (genres.length > 2) {
-      genreLink3.setText(genres[2].getName());
-      genreLink3.setToolTipText(String.format("Abrir a página da categoria %s", genres[2].getName()));
-      genreLink3.setEnabled(true);
-      genreLink3.setFocusable(true);
-    }
-  }
+		if (genres.length > 2) {
+			genreLink3.setText(genres[2].getName());
+			genreLink3.setToolTipText(String.format("Abrir a página da categoria %s", genres[2].getName()));
+			genreLink3.setEnabled(true);
+			genreLink3.setFocusable(true);
+		}
+	}
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
@@ -309,7 +306,7 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(publisherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(publisherLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(18, 18, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(formatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(formatName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -390,7 +387,7 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(isbn13Label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(isbn13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addGap(18, 18, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(isbn10Label, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(isbn10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -537,7 +534,7 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(bookStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap())
+        .addGap(0, 0, 0))
     );
     jPanel3Layout.setVerticalGroup(
       jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,9 +680,9 @@ public class BookDetails extends javax.swing.JInternalFrame {
       .addGroup(genresPanelLayout.createSequentialGroup()
         .addContainerGap()
         .addComponent(genreLink1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(18, 18, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(genreLink2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(18, 18, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(genreLink3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap())
     );
@@ -745,7 +742,6 @@ public class BookDetails extends javax.swing.JInternalFrame {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap(35, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-          .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(genresPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(authorLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -754,12 +750,14 @@ public class BookDetails extends javax.swing.JInternalFrame {
               .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(bookTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(editBookBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(deleteBookBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-          .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(35, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -769,7 +767,7 @@ public class BookDetails extends javax.swing.JInternalFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
             .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
             .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(bookTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -796,141 +794,140 @@ public class BookDetails extends javax.swing.JInternalFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void showInternalFrame(JInternalFrame frame) {
-    getDesktopPane().add(frame);
-    frame.moveToFront();
-    frame.requestFocus();
-  }
+	private void showInternalFrame(JInternalFrame frame) {
+		getDesktopPane().add(frame);
+		frame.moveToFront();
+		frame.requestFocus();
+	}
 
-  private void authorLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorLinkMouseClicked
-    try {
-      var view = new AuthorDetails(controllerFactory, author);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página do autor:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_authorLinkMouseClicked
+	private void authorLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorLinkMouseClicked
+		try {
+			var view = new AuthorDetails(controllerFactory, author);
+			showInternalFrame(view);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar abrir a página do autor:\n%s", e.getMessage()),
+					getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_authorLinkMouseClicked
 
-  private void setActiveLink(JTextField link) {
-    var color = Constants.BLUE;
-    link.setForeground(color);
-    link.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, color));
-  }
-  
-    private void setInactiveLink(JTextField link) {
-    var color = Constants.FONT_COLOR;
-    link.setForeground(color);
-    link.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, color));
-  }
-  
-  private void linkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseEntered
-    var comp = (JTextField) evt.getComponent();
-    setActiveLink(comp);
-  }//GEN-LAST:event_linkMouseEntered
+	private void setActiveLink(JTextField link) {
+		var color = Constants.BLUE;
+		link.setForeground(color);
+		link.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, color));
+	}
 
-  private void linkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseExited
-    var comp = (JTextField) evt.getComponent();
-    setInactiveLink(comp);
-  }//GEN-LAST:event_linkMouseExited
+	private void setInactiveLink(JTextField link) {
+		var color = Constants.FONT_COLOR;
+		link.setForeground(color);
+		link.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, color));
+	}
 
-  private void linkFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusGained
-    var comp = (JTextField) evt.getComponent();
-    setActiveLink(comp);
-  }//GEN-LAST:event_linkFocusGained
+	private void linkMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseEntered
+		var comp = (JTextField) evt.getComponent();
+		setActiveLink(comp);
+	}//GEN-LAST:event_linkMouseEntered
 
-  private void linkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusLost
-    var comp = (JTextField) evt.getComponent();
-    setInactiveLink(comp);
-  }//GEN-LAST:event_linkFocusLost
+	private void linkMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_linkMouseExited
+		var comp = (JTextField) evt.getComponent();
+		setInactiveLink(comp);
+	}//GEN-LAST:event_linkMouseExited
 
-  private void publisherLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_publisherLinkMouseClicked
-    try {
-      var view = new PublisherDetails(controllerFactory, publisher);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página da editora:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_publisherLinkMouseClicked
+	private void linkFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusGained
+		var comp = (JTextField) evt.getComponent();
+		setActiveLink(comp);
+	}//GEN-LAST:event_linkFocusGained
 
-  private void genreLink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genreLink1MouseClicked
-    try {
-      var view = new GenreDetails(controllerFactory, genres[0]);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página da categoria:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_genreLink1MouseClicked
+	private void linkFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_linkFocusLost
+		var comp = (JTextField) evt.getComponent();
+		setInactiveLink(comp);
+	}//GEN-LAST:event_linkFocusLost
 
-  private void genreLink2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genreLink2MouseClicked
-    try {
-      if (!evt.getComponent().isEnabled()) return;
+	private void publisherLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_publisherLinkMouseClicked
+		try {
+			var view = new PublisherDetails(controllerFactory, publisher);
+			showInternalFrame(view);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir a página da editora:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_publisherLinkMouseClicked
 
-      var view = new GenreDetails(controllerFactory, genres[1]);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página da editora:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_genreLink2MouseClicked
+	private void genreLink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genreLink1MouseClicked
+		try {
+			var view = new GenreDetails(controllerFactory, genres[0]);
+			showInternalFrame(view);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir a página da categoria:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_genreLink1MouseClicked
 
-  private void genreLink3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genreLink3MouseClicked
-    try {
-      if (!evt.getComponent().isEnabled()) return;
+	private void genreLink2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genreLink2MouseClicked
+		try {
+			if (!evt.getComponent().isEnabled()) return;
 
-      var view = new GenreDetails(controllerFactory, genres[2]);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página da editora:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_genreLink3MouseClicked
+			var view = new GenreDetails(controllerFactory, genres[1]);
+			showInternalFrame(view);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir a página da editora:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_genreLink2MouseClicked
 
-  private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBookBtnActionPerformed
-    try {
-      var form = new BookForm(controllerFactory, book);
-      showInternalFrame(form);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir o formulário de edição de livro:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_editBookBtnActionPerformed
+	private void genreLink3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_genreLink3MouseClicked
+		try {
+			if (!evt.getComponent().isEnabled()) return;
 
-  private void deleteBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBookBtnActionPerformed
-    try {
-      String[] options = {"Sim", "Não"};
-      int res = JOptionPane.showOptionDialog(this,
-        String.format("Tem certeza que deseja excluir o livro %s?\nNão é possível desfazer esta ação!",
-          book.getTitle()),
-        getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+			var view = new GenreDetails(controllerFactory, genres[2]);
+			showInternalFrame(view);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir a página da editora:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_genreLink3MouseClicked
 
-      if (res != 0) return;
+	private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBookBtnActionPerformed
+		try {
+			var form = new BookForm(controllerFactory, book);
+			showInternalFrame(form);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir o formulário de edição de livro:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_editBookBtnActionPerformed
 
-      bookController.delete(book.getId());
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_deleteBookBtnActionPerformed
+	private void deleteBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBookBtnActionPerformed
+		try {
+			String[] options = { "Sim", "Não" };
+			int res = JOptionPane.showOptionDialog(this,
+					String.format("Tem certeza que deseja excluir o livro %s?\nNão é possível desfazer esta ação!",
+							book.getTitle()),
+					getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-  private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-    try {
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
-        getTitle(), JOptionPane.ERROR_MESSAGE);
-      dispose();
-    }
-  }//GEN-LAST:event_formInternalFrameActivated
+			if (res != 0) return;
+
+			bookController.delete(book.getId());
+			dispose();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_deleteBookBtnActionPerformed
+
+	private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+		try {
+			updateView();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
+					getTitle(), JOptionPane.ERROR_MESSAGE);
+			dispose();
+		}
+	}//GEN-LAST:event_formInternalFrameActivated
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel authorLabel;

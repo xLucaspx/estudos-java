@@ -55,7 +55,6 @@
           <Group type="102" attributes="0">
               <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
                   <Component id="genresPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="authorLabel" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                   <Component id="authorLink" alignment="0" max="-2" attributes="0"/>
@@ -65,14 +64,17 @@
                           <Component id="bookTitle" alignment="0" max="-2" attributes="0"/>
                           <Component id="bookTitleLabel" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="370" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="editBookBtn" alignment="1" max="32767" attributes="0"/>
                           <Component id="deleteBookBtn" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jPanel2" alignment="0" min="-2" pref="350" max="-2" attributes="0"/>
+                  <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jPanel2" alignment="0" pref="325" max="32767" attributes="0"/>
+                      <Component id="jPanel1" alignment="0" min="-2" pref="325" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="35" max="32767" attributes="0"/>
           </Group>
@@ -85,7 +87,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="title" max="-2" attributes="0"/>
-                      <EmptySpace pref="24" max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                       <Component id="bookTitleLabel" min="-2" pref="18" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="bookTitle" min="-2" max="-2" attributes="0"/>
@@ -312,7 +314,7 @@
                       <Component id="publisherLabel" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="publisherLink" alignment="0" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="formatLabel" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="formatName" max="-2" attributes="0"/>
@@ -504,7 +506,7 @@
                       <Component id="isbn13Label" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="isbn13" alignment="0" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="isbn10Label" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="isbn10" max="-2" attributes="0"/>
@@ -696,7 +698,7 @@
                       <Component id="statusLabel" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="bookStatus" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1044,9 +1046,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="genreLink1" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="genreLink2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="genreLink3" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

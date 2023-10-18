@@ -20,7 +20,7 @@ CREATE TABLE `author` (
 
 CREATE TABLE `book` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-  `title` VARCHAR(50) NOT NULL,
+  `title` VARCHAR(75) NOT NULL,
   `isbn_10` VARCHAR(10),
   `isbn_13` VARCHAR(13) NOT NULL,
   `pages` INT NOT NULL,

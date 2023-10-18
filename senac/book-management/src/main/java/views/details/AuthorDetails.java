@@ -20,63 +20,63 @@ import views.forms.AuthorForm;
 import views.forms.BookForm;
 
 public class AuthorDetails extends javax.swing.JInternalFrame {
-  private final ControllerFactory controllerFactory;
-  private final AuthorController authorController;
-  private final BookController bookController;
+	private final ControllerFactory controllerFactory;
+	private final AuthorController authorController;
+	private final BookController bookController;
 
-  private Author author;
+	private Author author;
 
-  private DefaultTableModel tableModel;
+	private DefaultTableModel tableModel;
 
-  public AuthorDetails(ControllerFactory controllerFactory, Author author) {
-    this.controllerFactory = controllerFactory;
-    this.authorController = controllerFactory.getAuthorController();
-    this.bookController = controllerFactory.getBookController();
-    this.author = author;
-    initComponents();
-  }
+	public AuthorDetails(ControllerFactory controllerFactory, Author author) {
+		this.controllerFactory = controllerFactory;
+		this.authorController = controllerFactory.getAuthorController();
+		this.bookController = controllerFactory.getBookController();
+		this.author = author;
+		initComponents();
+	}
 
-  private void fillTable(Set<Book> books) {
-    tableModel.getDataVector().clear();
+	private void fillTable(Set<Book> books) {
+		tableModel.getDataVector().clear();
 
-    if (books.isEmpty()) {
-      bookTable.repaint();
-      return;
-    }
+		if (books.isEmpty()) {
+			bookTable.repaint();
+			return;
+		}
 
-    var booksList = getSortedList(books);
+		var booksList = getSortedList(books);
 
-    booksList.forEach(b -> tableModel.addRow(new Object[]{b.getId(), b.getTitle(), b.getFormat(), b.getPublisher(),
-      b.getPages(), b.isRead() ? "Lido" : "Não lido"}));
-  }
+		booksList.forEach(b -> tableModel.addRow(new Object[] { b.getId(), b.getTitle(), b.getFormat(), b.getPublisher(),
+				b.getPages(), b.isRead() ? "Lido" : "Não lido" }));
+	}
 
-  private void updateView() {
-    this.author = authorController.getById(author.getId());
-    var books = bookController.getByAuthor(author);
+	private void updateView() {
+		this.author = authorController.getById(author.getId());
+		var books = bookController.getByAuthor(author);
 
-    setTitle(String.format("%s - Autor", author.getName()));
-    authorName.setText(author.getName());
-    authorNationality.setText(author.getNationality());
-    totalLabel.setText(String.format("Total encontrado: %d", books.size()));
-    deleteAuthorBtn.setToolTipText(String.format("Excluir o autor %s", author.getName()));
+		setTitle(String.format("%s - Autor", author.getName()));
+		authorName.setText(author.getName());
+		authorNationality.setText(author.getNationality());
+		totalLabel.setText(String.format("Total encontrado: %d", books.size()));
+		deleteAuthorBtn.setToolTipText(String.format("Excluir o autor %s", author.getName()));
 
-    fillTable(books);
+		fillTable(books);
 
-    boolean enabled = !books.isEmpty();
-    bookDetailsButton.setEnabled(enabled);
-    editBookBtn.setEnabled(enabled);
-    deleteBookBtn.setEnabled(enabled);
-  }
+		boolean enabled = !books.isEmpty();
+		bookDetailsButton.setEnabled(enabled);
+		editBookBtn.setEnabled(enabled);
+		deleteBookBtn.setEnabled(enabled);
+	}
 
-  private Book getSelectedBook() {
-    int selectedRow = bookTable.getSelectedRow();
+	private Book getSelectedBook() {
+		int selectedRow = bookTable.getSelectedRow();
 
-    if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
-      throw new RuntimeException("Você deve selecionar um livro!");
+		if (selectedRow == -1 || selectedRow >= tableModel.getRowCount())
+			throw new RuntimeException("Você deve selecionar um livro!");
 
-    var id = (int) tableModel.getValueAt(selectedRow, 0);
-    return bookController.getById(id);
-  }
+		var id = (int) tableModel.getValueAt(selectedRow, 0);
+		return bookController.getById(id);
+	}
 
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
@@ -434,6 +434,9 @@ public class AuthorDetails extends javax.swing.JInternalFrame {
         .addContainerGap(35, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
+            .addComponent(authorNationality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 0, Short.MAX_VALUE))
+          .addGroup(layout.createSequentialGroup()
             .addComponent(authorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
@@ -443,8 +446,7 @@ public class AuthorDetails extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(totalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
               .addComponent(tableScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-              .addComponent(authorNationality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(authorMenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -461,9 +463,9 @@ public class AuthorDetails extends javax.swing.JInternalFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(authorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addComponent(authorMenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
         .addComponent(authorNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -478,97 +480,95 @@ public class AuthorDetails extends javax.swing.JInternalFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void showInternalFrame(JInternalFrame frame) {
-    getDesktopPane().add(frame);
-    frame.moveToFront();
-    frame.requestFocus();
-  }
+	private void showInternalFrame(JInternalFrame frame) {
+		getDesktopPane().add(frame);
+		frame.moveToFront();
+		frame.requestFocus();
+	}
 
-  private void editAuthorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAuthorBtnActionPerformed
-    try {
-      var form = new AuthorForm(controllerFactory, author);
-      showInternalFrame(form);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir o formulário de edição de autor:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_editAuthorBtnActionPerformed
+	private void editAuthorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAuthorBtnActionPerformed
+		try {
+			var form = new AuthorForm(controllerFactory, author);
+			showInternalFrame(form);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir o formulário de edição de autor:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_editAuthorBtnActionPerformed
 
-  private void deleteAuthorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAuthorBtnActionPerformed
-    try {
-      String[] options = {"Sim", "Não"};
-      int res = JOptionPane.showOptionDialog(this,
-        String.format("Tem certeza que deseja excluir o autor %s?\nNão é possível desfazer esta ação!",
-          author.getName()),
-        getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+	private void deleteAuthorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAuthorBtnActionPerformed
+		try {
+			String[] options = { "Sim", "Não" };
+			int res = JOptionPane.showOptionDialog(this,
+					String.format("Tem certeza que deseja excluir o autor %s?\nNão é possível desfazer esta ação!",
+							author.getName()),
+					getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-      if (res != 0) return;
+			if (res != 0) return;
 
-      if (author.getBooksOwned() > 0)
-        throw new ValidationException("O autor possui livros cadastrados no sistema!");
+			if (author.getBooksOwned() > 0) throw new ValidationException("O autor possui livros cadastrados no sistema!");
 
-      authorController.delete(author.getId());
-      dispose();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_deleteAuthorBtnActionPerformed
+			authorController.delete(author.getId());
+			dispose();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_deleteAuthorBtnActionPerformed
 
-  private void bookDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookDetailsButtonActionPerformed
-    try {
-      var selectedBook = getSelectedBook();
-      var view = new BookDetails(controllerFactory, selectedBook);
-      showInternalFrame(view);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir a página do livro:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_bookDetailsButtonActionPerformed
+	private void bookDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookDetailsButtonActionPerformed
+		try {
+			var selectedBook = getSelectedBook();
+			var view = new BookDetails(controllerFactory, selectedBook);
+			showInternalFrame(view);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar abrir a página do livro:\n%s", e.getMessage()),
+					getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_bookDetailsButtonActionPerformed
 
-  private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBookBtnActionPerformed
-    try {
-      var selectedBook = getSelectedBook();
-      var form = new BookForm(controllerFactory, selectedBook);
-      showInternalFrame(form);
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this,
-        String.format("Erro ao tentar abrir o formulário de edição de livro:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_editBookBtnActionPerformed
+	private void editBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBookBtnActionPerformed
+		try {
+			var selectedBook = getSelectedBook();
+			var form = new BookForm(controllerFactory, selectedBook);
+			showInternalFrame(form);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,
+					String.format("Erro ao tentar abrir o formulário de edição de livro:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_editBookBtnActionPerformed
 
-  private void deleteBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBookBtnActionPerformed
-    try {
-      var selectedBook = getSelectedBook();
+	private void deleteBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBookBtnActionPerformed
+		try {
+			var selectedBook = getSelectedBook();
 
-      String[] options = {"Sim", "Não"};
-      int res = JOptionPane.showOptionDialog(this,
-        String.format("Tem certeza que deseja excluir o livro %s?\nNão é possível desfazer esta ação!",
-          selectedBook.getTitle()),
-        getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+			String[] options = { "Sim", "Não" };
+			int res = JOptionPane.showOptionDialog(this,
+					String.format("Tem certeza que deseja excluir o livro %s?\nNão é possível desfazer esta ação!",
+							selectedBook.getTitle()),
+					getTitle(), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 
-      if (res != 0) return;
+			if (res != 0) return;
 
-      bookController.delete(selectedBook.getId());
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
-        JOptionPane.ERROR_MESSAGE);
-    }
-  }//GEN-LAST:event_deleteBookBtnActionPerformed
+			bookController.delete(selectedBook.getId());
+			updateView();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar excluir:\n%s", e.getMessage()), getTitle(),
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}//GEN-LAST:event_deleteBookBtnActionPerformed
 
-  private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-    try {
-      updateView();
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
-        getTitle(), JOptionPane.ERROR_MESSAGE);
-      dispose();
-    }
-  }//GEN-LAST:event_formInternalFrameActivated
+	private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+		try {
+			updateView();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, String.format("Erro ao tentar atualizar a página:\n%s", e.getMessage()),
+					getTitle(), JOptionPane.ERROR_MESSAGE);
+			dispose();
+		}
+	}//GEN-LAST:event_formInternalFrameActivated
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel authorMenuLabel;

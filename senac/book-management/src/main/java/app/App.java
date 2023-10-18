@@ -3,15 +3,15 @@ package app;
 import views.MainMenu;
 
 public class App {
-  public static void main(String... args) {
+	public static void main(String... args) {
     /*
     - Nacionalidade como ENUM;
-    - alterar Label para TextField ou TextPane onde deve ser selecionável;
     - refatoração:
-      - removeratributos desnecessários;
+    	- utilizar document (?) para permitir valores vazios no preço e na data de compra
+      - remover atributos desnecessários;
       - deixar horizontal e vertical size como default (responsividade);
       - avaliar se deve ser utilizado preferred size
-    - avaliar a utilização de interfaces para Services e Controller;
+    - avaliar a utilização de interfaces para Services e Controller;N
     - Testar conversão e valição de ISBN
      */
 

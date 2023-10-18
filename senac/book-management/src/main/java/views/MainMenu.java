@@ -529,65 +529,65 @@ public class MainMenu extends javax.swing.JFrame {
 		frame.requestFocus();
 	}
 
-	private void formBtnFocusGained(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_formBtnFocusGained
+	private void formBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formBtnFocusGained
 		var c = evt.getComponent();
 		c.setBackground(Constants.DARK_BLUE);
-	}// GEN-LAST:event_formBtnFocusGained
+	}//GEN-LAST:event_formBtnFocusGained
 
-	private void formBtnFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_formBtnFocusLost
+	private void formBtnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formBtnFocusLost
 		var c = evt.getComponent();
 		c.setBackground(Constants.BLUE);
-	}// GEN-LAST:event_formBtnFocusLost
+	}//GEN-LAST:event_formBtnFocusLost
 
-	private void formBtnMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_formBtnMouseEntered
+	private void formBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formBtnMouseEntered
 		var c = evt.getComponent();
 		c.setBackground(Constants.DARK_BLUE);
-	}// GEN-LAST:event_formBtnMouseEntered
+	}//GEN-LAST:event_formBtnMouseEntered
 
-	private void formBtnMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_formBtnMouseExited
+	private void formBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formBtnMouseExited
 		var c = evt.getComponent();
 		c.setBackground(Constants.BLUE);
-	}// GEN-LAST:event_formBtnMouseExited
+	}//GEN-LAST:event_formBtnMouseExited
 
-	private void bookListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookListBtnActionPerformed
+	private void bookListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookListBtnActionPerformed
 		var bookList = new BookList(controllerFactory);
 		showInternalFrame(bookList);
-	}// GEN-LAST:event_bookListBtnActionPerformed
+	}//GEN-LAST:event_bookListBtnActionPerformed
 
-	private void authorListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_authorListBtnActionPerformed
+	private void authorListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorListBtnActionPerformed
 		var authorList = new AuthorList(controllerFactory);
 		showInternalFrame(authorList);
-	}// GEN-LAST:event_authorListBtnActionPerformed
+	}//GEN-LAST:event_authorListBtnActionPerformed
 
-	private void genreListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreListBtnActionPerformed
+	private void genreListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreListBtnActionPerformed
 		var genreList = new GenreList(controllerFactory);
 		showInternalFrame(genreList);
-	}// GEN-LAST:event_genreListBtnActionPerformed
+	}//GEN-LAST:event_genreListBtnActionPerformed
 
-	private void publisherListBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publisherListBtnActionPerformed
+	private void publisherListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherListBtnActionPerformed
 		var publisherList = new PublisherList(controllerFactory);
 		showInternalFrame(publisherList);
-	}// GEN-LAST:event_publisherListBtnActionPerformed
+	}//GEN-LAST:event_publisherListBtnActionPerformed
 
-	private void bookFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bookFormBtnActionPerformed
+	private void bookFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookFormBtnActionPerformed
 		var bookForm = new BookForm(controllerFactory);
 		showInternalFrame(bookForm);
-	}// GEN-LAST:event_bookFormBtnActionPerformed
+	}//GEN-LAST:event_bookFormBtnActionPerformed
 
-	private void authorFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_authorFormBtnActionPerformed
+	private void authorFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorFormBtnActionPerformed
 		var authorForm = new AuthorForm(controllerFactory);
 		showInternalFrame(authorForm);
-	}// GEN-LAST:event_authorFormBtnActionPerformed
+	}//GEN-LAST:event_authorFormBtnActionPerformed
 
-	private void genreFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_genreFormBtnActionPerformed
+	private void genreFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreFormBtnActionPerformed
 		var genreForm = new GenreForm(controllerFactory);
 		showInternalFrame(genreForm);
-	}// GEN-LAST:event_genreFormBtnActionPerformed
+	}//GEN-LAST:event_genreFormBtnActionPerformed
 
-	private void publisherFormBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_publisherFormBtnActionPerformed
+	private void publisherFormBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherFormBtnActionPerformed
 		var publisherForm = new PublisherForm(controllerFactory);
 		showInternalFrame(publisherForm);
-	}// GEN-LAST:event_publisherFormBtnActionPerformed
+	}//GEN-LAST:event_publisherFormBtnActionPerformed
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton authorFormBtn;
