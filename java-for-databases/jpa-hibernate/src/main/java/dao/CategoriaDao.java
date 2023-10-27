@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.EntityManager;
 import models.Categoria;
+import models.CategoriaId;
 
 public class CategoriaDao {
 	private EntityManager em;
@@ -12,7 +13,7 @@ public class CategoriaDao {
 		this.em = em;
 	}
 
-	public Categoria buscaPorId(long id) {
+	public Categoria buscaPorId(CategoriaId id) {
 		return em.find(Categoria.class, id);
 	}
 
@@ -23,7 +24,7 @@ public class CategoriaDao {
 	}
 
 	public List<Categoria> filtraPorNome(String nome) {
-		String jpql = "SELECT c FROM Categoria c WHERE c.nome LIKE ?1"; // também podemos passar parâmetros por número!
+		String jpql = "SELECT c FROM Categoria c WHERE c.id.nome LIKE ?1"; // também podemos passar parâmetros por número!
 		return em.createQuery(jpql, Categoria.class).setParameter(1, "%" + nome + "%").getResultList();
 	}
 

@@ -9,6 +9,7 @@ import dao.ClienteDao;
 import dao.PedidoDao;
 import dao.ProdutoDao;
 import models.Categoria;
+import models.CategoriaId;
 import models.Cliente;
 import models.Pedido;
 import models.Produto;
@@ -17,8 +18,8 @@ public class App {
 	public static void main(String... args) {
 		populaBancoDeDados();
 
-//		testaCadastroDeProdutos();
-//		testaCadastroDePedido();
+		testaCadastroDeProdutos();
+		testaCadastroDePedido();
 
 		try (var em = getEntityManager()) {
 			var clienteDao = new ClienteDao(em);
@@ -40,9 +41,9 @@ public class App {
 	private static void populaBancoDeDados() {
 		var cliente = new Cliente("Lucas", "01928374659");
 
-		var celulares = new Categoria("Celulares");
-		var informatica = new Categoria("Informática");
-		var livros = new Categoria("Livros");
+		var celulares = new Categoria("Celulares", "Eletrônicos");
+		var informatica = new Categoria("Informática", "Eletrônicos");
+		var livros = new Categoria("Livros", "Literatura");
 
 		var celular1 = new Produto("Moto G31", "4GB RAM, 32GB HD", new BigDecimal("879.35"), celulares);
 		var celular2 = new Produto("Moto G33", "16GB RAM, 128GB HD", new BigDecimal("1025.00"), celulares);
@@ -104,8 +105,9 @@ public class App {
 			var categorias = categoriaDao.buscaTodos();
 			categorias.forEach(System.out::println);
 
-			var produtosFiltrados = produtoDao.filtraPorCategoriaEPreco(categoriaDao.buscaPorId(1l), new BigDecimal("900"),
-					new BigDecimal("950"));
+			var produtosFiltrados = produtoDao.filtraPorCategoriaEPreco(
+					categoriaDao.buscaPorId(new CategoriaId("Celulares", "Eletrônicos")), new BigDecimal("850"),
+					new BigDecimal("900"));
 			produtosFiltrados.forEach(System.out::println);
 
 			var categoriasFiltradas = categoriaDao.filtraPorNome("Livro");

@@ -1,41 +1,36 @@
 package models;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "categorias")
 public class Categoria {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String nome;
+	@EmbeddedId
+	private CategoriaId id;
 
 	public Categoria() {}
 
-	public Categoria(String nome) {
-		this.nome = nome;
+	public Categoria(String nome, String tipo) {
+		this.id = new CategoriaId(nome, tipo);
 	}
 
-	public Categoria(long id, String nome) {
-		this.id = id;
-		this.nome = nome;
-	}
-
-	public long getId() {
+	public CategoriaId getId() {
 		return id;
 	}
 
 	public String getNome() {
-		return nome;
+		return id.nome();
+	}
+
+	public String getTipo() {
+		return id.tipo();
 	}
 
 	@Override
 	public String toString() {
-		return String.format("categoria: { id: %d, nome: \"%s\" }", id, nome);
+		return String.format("categoria: { nome: \"%s\", tipo: \"%s\" }", getNome(), getTipo());
 	}
 }
