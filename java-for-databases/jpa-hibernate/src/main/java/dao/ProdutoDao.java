@@ -1,9 +1,15 @@
 package dao;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import models.Categoria;
 import models.Produto;
 
@@ -59,5 +65,47 @@ public class ProdutoDao {
 	public void remove(Produto produto) {
 		produto = em.merge(produto);
 		this.em.remove(produto);
+	}
+
+	public List<Produto> buscarPorParametros(String nome, BigDecimal preco, LocalDate dataCadastro) {
+		// gambiarra para concatenar ANDs:
+		String jpql = "SELECT p FROM Produto p WHERE 1=1 ";
+
+		if (nome != null && !nome.trim().isEmpty()) jpql += " AND p.nome = :nome ";
+
+		if (preco != null) jpql += " AND p.preco = :preco ";
+
+		if (dataCadastro != null) jpql += " AND p.dataCadastro = :dataCadastro ";
+
+		TypedQuery<Produto> query = em.createQuery(jpql, Produto.class);
+
+		if (nome != null && !nome.trim().isEmpty()) query.setParameter("nome", nome);
+
+		if (preco != null) query.setParameter("preco", preco);
+
+		if (dataCadastro != null) query.setParameter("dataCadastro", dataCadastro);
+
+		return query.getResultList();
+	}
+
+	public List<Produto> buscarPorParametrosComCriteria(String nome, BigDecimal precoMin, LocalDate dataCadastro) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
+		Root<Produto> from = query.from(Produto.class);
+
+		Predicate filtros = builder.and();
+		// para adicionar parâmetros, é necessário substituir o Predicate; para isso, chamamos o método do CriteriaBuilder
+		// que desejamos utilizar para concatenar os parâmetros e passamos o Predicate antigo e o método de comparação, que
+		// recebe o campo/coluna que desejamos usar como parâmetro buscado no Root e o valor passado para ele:
+		if (nome != null && !nome.trim().isEmpty())
+			filtros = builder.and(filtros, builder.like(from.get("nome"), "%" + nome + "%"));
+
+		if (precoMin != null) filtros = builder.and(filtros, builder.greaterThan(from.get("preco"), precoMin));
+
+		if (dataCadastro != null) filtros = builder.and(filtros, builder.equal(from.get("dataCadastro"), dataCadastro));
+
+		query.where(filtros);
+
+		return em.createQuery(query).getResultList();
 	}
 }

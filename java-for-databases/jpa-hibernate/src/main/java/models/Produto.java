@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,9 +23,10 @@ public class Produto {
 	private String nome;
 	private String descricao;
 	private BigDecimal preco;
+	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro = LocalDate.now();
 	// a JPA já entende que é um relacionamento entre duas entidades, devemos apenas dizer a cardinalidade:
-	@ManyToOne // um produto tem uma categoria, categorias podem ter vários produtos
+	@ManyToOne(fetch = FetchType.LAZY) // um produto tem uma categoria, categorias podem ter vários produtos
 	private Categoria categoria;
 
 	public Produto() {};
@@ -82,9 +85,9 @@ public class Produto {
 				descricao: "%s",
 				preco: "R$ %.2f",
 				dataCadastro: "%s",
-				categoria: %s
+				%s
 			}
-			""".formatted(id, nome, descricao, preco,
-				DateTimeFormatter.ofPattern("dd/MM/yyyy").format(dataCadastro), categoria);
+			""".formatted(id, nome, descricao, preco, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(dataCadastro),
+				categoria);
 	}
 }
