@@ -14,7 +14,7 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Embedded
+	@Embedded //informando à JPA que os atributos de DadosPessoais são colunas de Cliente
 	private DadosPessoais dadosPessoais;
 
 	public Cliente() {}
