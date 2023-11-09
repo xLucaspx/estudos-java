@@ -13,6 +13,7 @@ public record MedicoDto(
 		@NotBlank @Size(min = 3, max = 75) String nome,
 		@NotBlank @Email @Size(min = 10, max = 75) String email,
 		@NotBlank @Pattern(regexp = "\\d{4,6}") String crm,
+		@NotBlank @Size(min = 10, max = 25) String telefone,
 		@NotNull Especialidade especialidade,
 		// @Valid serve para garantir a execução das validações do outro DTO
 		@NotNull @Valid EnderecoDto endereco) {}

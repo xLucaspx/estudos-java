@@ -10,17 +10,18 @@ import api.medico.Medico;
 import api.medico.MedicoDto;
 import api.medico.MedicoRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
-	
+
 	@Autowired // este atributo será injetado pelo Spring
 	private MedicoRepository repository;
-	
+
 	@PostMapping
 	@Transactional
-	public void cadastra(@RequestBody MedicoDto dados) {
+	public void cadastra(@RequestBody @Valid MedicoDto dados) {
 		repository.save(new Medico(dados));
 	}
 }

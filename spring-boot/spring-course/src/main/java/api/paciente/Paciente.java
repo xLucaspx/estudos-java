@@ -1,18 +1,16 @@
-package api.medico;
+package api.paciente;
 
 import api.endereco.Endereco;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "medicos")
-public class Medico {
+@Table(name = "pacientes")
+public class Paciente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,32 +18,27 @@ public class Medico {
 	private String nome;
 	private String email;
 	private String telefone;
-	private String crm;
-
-	@Enumerated(EnumType.STRING)
-	private Especialidade especialidade;
+	private String cpf;
 
 	@Embedded
 	private Endereco endereco;
 
-	public Medico() {}
+	public Paciente() {}
 
-	public Medico(MedicoDto dados) {
+	public Paciente(PacienteDto dados) {
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.telefone = dados.telefone();
-		this.crm = dados.crm();
-		this.especialidade = dados.especialidade();
+		this.cpf = dados.cpf();
 		this.endereco = new Endereco(dados.endereco());
 	}
 
-	public Medico(int id, MedicoDto dados) {
+	public Paciente(int id, PacienteDto dados) {
 		this.id = id;
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.telefone = dados.telefone();
-		this.crm = dados.crm();
-		this.especialidade = dados.especialidade();
+		this.cpf = dados.cpf();
 		this.endereco = new Endereco(dados.endereco());
 	}
 
@@ -53,14 +46,14 @@ public class Medico {
 		return id;
 	}
 
-	public String getCrm() {
-		return crm;
+	public String getCpf() {
+		return cpf;
 	}
 
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -69,17 +62,13 @@ public class Medico {
 		return nome;
 	}
 
-	public Especialidade getEspecialidade() {
-		return especialidade;
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
 
 	@Override
 	public int hashCode() {
-		return id * crm.hashCode();
+		return id * cpf.hashCode();
 	}
 
 	@Override
@@ -88,7 +77,7 @@ public class Medico {
 		if (o == null) return false;
 		if (this.getClass() != o.getClass()) return false;
 
-		Medico medico = (Medico) o;
-		return id == medico.getId() && crm.equals(medico.getCrm());
+		Paciente paciente = (Paciente) o;
+		return id == paciente.getId() && cpf.equals(paciente.getCpf());
 	}
 }
