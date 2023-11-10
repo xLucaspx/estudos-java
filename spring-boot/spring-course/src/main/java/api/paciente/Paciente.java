@@ -25,7 +25,7 @@ public class Paciente {
 
 	public Paciente() {}
 
-	public Paciente(PacienteDto dados) {
+	public Paciente(CadastroPacienteDto dados) {
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.telefone = dados.telefone();
@@ -33,7 +33,7 @@ public class Paciente {
 		this.endereco = new Endereco(dados.endereco());
 	}
 
-	public Paciente(int id, PacienteDto dados) {
+	public Paciente(int id, CadastroPacienteDto dados) {
 		this.id = id;
 		this.nome = dados.nome();
 		this.email = dados.email();

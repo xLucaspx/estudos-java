@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public record MedicoDto(
+public record CadastroMedicoDto(
 		// @NotBlank já verifica se não é nulo e nem vazio, mas serve apenas para String
 		@NotBlank @Size(min = 3, max = 75) String nome,
 		@NotBlank @Email @Size(min = 10, max = 75) String email,
