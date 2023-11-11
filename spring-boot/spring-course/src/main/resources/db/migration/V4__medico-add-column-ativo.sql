@@ -1,0 +1,9 @@
+ALTER TABLE medicos ADD COLUMN ativo BOOLEAN NOT NULL DEFAULT TRUE;
+
+/* poderia ser:
+ALTER TABLE medicos ADD COLUMN ativo BOOLEAN;
+
+UPDATE medicos SET ativo = TRUE;
+
+ALTER TABLE medicos MODIFY COLUMN ativo BOOLEAN NOT NULL;
+*/

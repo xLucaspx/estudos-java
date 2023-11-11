@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 @Entity
 @Table(name = "medicos")
@@ -21,6 +22,7 @@ public class Medico {
 	private String email;
 	private String telefone;
 	private String crm;
+	private boolean ativo;
 
 	@Enumerated(EnumType.STRING)
 	private Especialidade especialidade;
@@ -37,16 +39,7 @@ public class Medico {
 		this.crm = dados.crm();
 		this.especialidade = dados.especialidade();
 		this.endereco = new Endereco(dados.endereco());
-	}
-
-	public Medico(int id, CadastroMedicoDto dados) {
-		this.id = id;
-		this.nome = dados.nome();
-		this.email = dados.email();
-		this.telefone = dados.telefone();
-		this.crm = dados.crm();
-		this.especialidade = dados.especialidade();
-		this.endereco = new Endereco(dados.endereco());
+		this.ativo = true;
 	}
 
 	public int getId() {
@@ -60,7 +53,7 @@ public class Medico {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -75,6 +68,20 @@ public class Medico {
 
 	public Endereco getEndereco() {
 		return endereco;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void desativa() {
+		this.ativo = false;
+	}
+
+	public void atualizaInformacoes(@Valid UpdateMedicoDto dados) {
+		if (dados.nome() != null && !dados.nome().trim().isEmpty()) this.nome = dados.nome();
+		if (dados.telefone() != null && !dados.telefone().trim().isEmpty()) this.telefone = dados.telefone();
+		if (dados.endereco() != null) this.endereco = new Endereco(dados.endereco());
 	}
 
 	@Override

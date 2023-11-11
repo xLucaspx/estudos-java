@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 @Entity
 @Table(name = "pacientes")
@@ -26,15 +27,6 @@ public class Paciente {
 	public Paciente() {}
 
 	public Paciente(CadastroPacienteDto dados) {
-		this.nome = dados.nome();
-		this.email = dados.email();
-		this.telefone = dados.telefone();
-		this.cpf = dados.cpf();
-		this.endereco = new Endereco(dados.endereco());
-	}
-
-	public Paciente(int id, CadastroPacienteDto dados) {
-		this.id = id;
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.telefone = dados.telefone();
@@ -64,6 +56,12 @@ public class Paciente {
 
 	public Endereco getEndereco() {
 		return endereco;
+	}
+
+	public void atualizaInformacoes(@Valid UpdatePacienteDto dados) {
+		if (dados.nome() != null && !dados.nome().trim().isEmpty()) this.nome = dados.nome();
+		if (dados.telefone() != null && !dados.telefone().trim().isEmpty()) this.telefone = dados.telefone();
+		if (dados.endereco() != null) this.endereco = new Endereco(dados.endereco());
 	}
 
 	@Override

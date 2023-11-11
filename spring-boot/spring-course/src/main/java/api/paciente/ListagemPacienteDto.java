@@ -1,8 +1,8 @@
 package api.paciente;
 
-public record ListagemPacienteDto(String nome, String email, String cpf) {
+public record ListagemPacienteDto(int id, String nome, String email, String cpf) {
 
 	public ListagemPacienteDto(Paciente p) {
-		this(p.getNome(), p.getEmail(), p.getCpf());
+		this(p.getId(), p.getNome(), p.getEmail(), p.getCpf());
 	}
 }
