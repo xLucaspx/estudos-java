@@ -21,8 +21,36 @@ public class Endereco {
 		this.uf = dados.uf();
 		this.numero = dados.numero();
 	}
-	
+
 	public Endereco() {}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
 
 	@Override
 	public String toString() {
