@@ -1,6 +1,6 @@
-package api.medico;
+package api.domain.medico;
 
-import api.endereco.EnderecoDto;
+import api.domain.endereco.EnderecoDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 

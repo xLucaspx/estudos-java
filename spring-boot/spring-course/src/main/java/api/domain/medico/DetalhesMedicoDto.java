@@ -1,6 +1,6 @@
-package api.medico;
+package api.domain.medico;
 
-import api.endereco.Endereco;
+import api.domain.endereco.Endereco;
 
 public record DetalhesMedicoDto(
 		int id,

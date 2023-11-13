@@ -1,4 +1,4 @@
-package api.medico;
+package api.domain.medico;
 
 // para a listagem devmos devolver apenas 4 campos, então criamos um novo DTO que contenha apenas estes campos:
 public record ListagemMedicoDto(int id, String nome, String email, String crm, Especialidade especialidade) {

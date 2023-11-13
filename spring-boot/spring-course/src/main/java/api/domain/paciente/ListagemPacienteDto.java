@@ -1,4 +1,4 @@
-package api.paciente;
+package api.domain.paciente;
 
 public record ListagemPacienteDto(int id, String nome, String email, String cpf) {
 

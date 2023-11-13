@@ -1,6 +1,6 @@
-package api.paciente;
+package api.domain.paciente;
 
-import api.endereco.Endereco;
+import api.domain.endereco.Endereco;
 
 public record DetalhesPacienteDto(int id, String nome, String cpf, String email, String telefone, Endereco endereco) {
 

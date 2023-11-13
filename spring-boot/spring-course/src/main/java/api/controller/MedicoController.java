@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import api.medico.CadastroMedicoDto;
-import api.medico.DetalhesMedicoDto;
-import api.medico.ListagemMedicoDto;
-import api.medico.Medico;
-import api.medico.MedicoRepository;
-import api.medico.UpdateMedicoDto;
+import api.domain.medico.CadastroMedicoDto;
+import api.domain.medico.DetalhesMedicoDto;
+import api.domain.medico.ListagemMedicoDto;
+import api.domain.medico.Medico;
+import api.domain.medico.MedicoRepository;
+import api.domain.medico.UpdateMedicoDto;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 

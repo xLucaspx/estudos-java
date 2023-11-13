@@ -1,8 +1,10 @@
-package api.paciente;
+package api.domain.medico;
 
-import api.endereco.Endereco;
+import api.domain.endereco.Endereco;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,8 +12,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 
 @Entity
-@Table(name = "pacientes")
-public class Paciente {
+@Table(name = "medicos")
+public class Medico {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,27 +21,33 @@ public class Paciente {
 	private String nome;
 	private String email;
 	private String telefone;
-	private String cpf;
+	private String crm;
+	private boolean ativo;
+
+	@Enumerated(EnumType.STRING)
+	private Especialidade especialidade;
 
 	@Embedded
 	private Endereco endereco;
 
-	public Paciente() {}
+	public Medico() {}
 
-	public Paciente(CadastroPacienteDto dados) {
+	public Medico(CadastroMedicoDto dados) {
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.telefone = dados.telefone();
-		this.cpf = dados.cpf();
+		this.crm = dados.crm();
+		this.especialidade = dados.especialidade();
 		this.endereco = new Endereco(dados.endereco());
+		this.ativo = true;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public String getCrm() {
+		return crm;
 	}
 
 	public String getEmail() {
@@ -54,11 +62,23 @@ public class Paciente {
 		return nome;
 	}
 
+	public Especialidade getEspecialidade() {
+		return especialidade;
+	}
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void atualizaInformacoes(@Valid UpdatePacienteDto dados) {
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void desativa() {
+		this.ativo = false;
+	}
+
+	public void atualizaInformacoes(@Valid UpdateMedicoDto dados) {
 		if (dados.nome() != null && !dados.nome().trim().isEmpty()) this.nome = dados.nome();
 		if (dados.telefone() != null && !dados.telefone().trim().isEmpty()) this.telefone = dados.telefone();
 		if (dados.endereco() != null) this.endereco = new Endereco(dados.endereco());
@@ -66,7 +86,7 @@ public class Paciente {
 
 	@Override
 	public int hashCode() {
-		return id * cpf.hashCode();
+		return id * crm.hashCode();
 	}
 
 	@Override
@@ -75,7 +95,7 @@ public class Paciente {
 		if (o == null) return false;
 		if (this.getClass() != o.getClass()) return false;
 
-		Paciente paciente = (Paciente) o;
-		return id == paciente.getId() && cpf.equals(paciente.getCpf());
+		Medico medico = (Medico) o;
+		return id == medico.getId() && crm.equals(medico.getCrm());
 	}
 }
