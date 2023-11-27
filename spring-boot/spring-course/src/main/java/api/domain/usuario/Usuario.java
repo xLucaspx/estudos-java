@@ -1,5 +1,12 @@
 package api.domain.usuario;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +16,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+// para utilizar a autenticação do Spring Security é necessário que o usuário implemente a interface UserDetails
+public class Usuario implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -17,14 +25,11 @@ public class Usuario {
 	@Column(name = "hash_senha")
 	private String hashSenha;
 
-	public Usuario() {}
+	public Usuario() {
+	}
 
 	public int getId() {
 		return id;
-	}
-
-	public String getUsername() {
-		return username;
 	}
 
 	public String getHashSenha() {
@@ -44,5 +49,40 @@ public class Usuario {
 
 		Usuario usuario = (Usuario) o;
 		return id == usuario.getId() && username.equals(usuario.getUsername());
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+	}
+
+	@Override
+	public String getUsername() {
+		return username;
+	}
+
+	@Override
+	public String getPassword() {
+		return hashSenha;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 }
