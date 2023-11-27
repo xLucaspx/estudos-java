@@ -1,4 +1,4 @@
-package api.infra;
+package api.infra.exception;
 
 import java.util.List;
 

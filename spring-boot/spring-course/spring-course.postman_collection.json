@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "8778493e-fbbf-44bb-a531-cdba7baa529c",
+		"name": "spring-course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24464241"
+	},
+	"item": [
+		{
+			"name": "medicos",
+			"item": [
+				{
+					"name": "medicos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nome\": \"em\",\r\n\t\"email\": \"fulana-silveira.email.com\",\r\n\t\"crm\": \"120060\",\r\n\t\"telefone\": \"51 9 87\",\r\n\t\"especialidade\": \"ONCOLOGIA\",\r\n\t\"endereco\": {\r\n\t\t\"cep\": \"90570020\",\r\n\t\t\"logradouro\": \"Rua Tobias da Silva\",\r\n\t\t/*\"complemento\": \"\",*/\r\n\t\t\"bairro\": \"Moinhos de Vento\",\r\n\t\t\"cidade\": \"Porto Alegre\",\r\n\t\t\"uf\": \"RS\",\r\n\t\t\"numero\": \"267\"\r\n\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos?page=0&size=5&sort=nome,crm",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "sort",
+									"value": "nome,crm"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "medicos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/medicos?page=0&size=5&sort=nome,crm",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "sort",
+									"value": "nome,crm"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "medicos/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/medicos/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "medicos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 7,\r\n\t\"nome\": \"Doutor Atualizado da Silva\",\r\n\t\"telefone\": \"51 9 8766-5432\",\r\n\t\"endereco\": {\r\n\t\t\"cep\": \"90570020\",\r\n\t\t\"logradouro\": \"Rua Tobias da Silva\",\r\n\t\t\"complemento\": \"Segundo andar\",\r\n\t\t\"bairro\": \"Moinhos de Vento\",\r\n\t\t\"cidade\": \"Porto Alegre\",\r\n\t\t\"uf\": \"RS\",\r\n\t\t\"numero\": \"267\"\r\n\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/medicos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "medicos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/medicos/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"medicos",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pacientes",
+			"item": [
+				{
+					"name": "pacientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nome\": \"Julia Ana\",\r\n\t\"email\": \"juliaana@email.com\",\r\n\t\"telefone\": \"51 9 8934-2567\",\r\n\t\"cpf\": \"71625364788\",\r\n\t\"endereco\": {\r\n\t\t\"cep\": \"90040-191\",\r\n\t\t\"logradouro\": \"Avenida Venâncio Aires\",\r\n\t\t\"bairro\": \"Azenha\",\r\n\t\t\"cidade\": \"Porto Alegre\",\r\n\t\t\"uf\": \"RS\",\r\n\t\t\"numero\": \"93\"\r\n\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pacientes/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pacientes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 5,\r\n\t\"endereco\": {\r\n\t\t\"cep\": \"90040-190\",\r\n\t\t\"logradouro\": \"Avenida Venâncio Aires\",\r\n\t\t\"complemento\": \"até 354 - lado par\",\r\n\t\t\"bairro\": \"Cidade Baixa\",\r\n\t\t\"cidade\": \"Porto Alegre\",\r\n\t\t\"uf\": \"RS\",\r\n\t\t\"numero\": \"\"\r\n\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pacientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pacientes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pacientes/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pacientes",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		}
+	]
+}
