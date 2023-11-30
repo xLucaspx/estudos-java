@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.domain.usuario.DadosAutenticacao;
+import api.domain.usuario.Usuario;
+import api.infra.security.DadosTokenJwt;
+import api.infra.security.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -20,15 +23,18 @@ public class AutenticacaoController {
 	// não devemos chamar a service diretamente.
 	@Autowired
 	private AuthenticationManager manager;
+	@Autowired
+	private TokenService tokenService;
 
 	@PostMapping
 	public ResponseEntity<?> efetuaLogin(@RequestBody @Valid DadosAutenticacao dados) {
 		// o Spring tem um DTO próprio para representar o usuário e a senha: UsernamePasswordAuthenticationToken;
 		// o método authenticate() do AuthenticationManager recebe este DTO como parâmetro.
-		var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+		var authToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
 		// devolve um objeto que representa o usuário autenticado no sistema
-		var authentication = manager.authenticate(token);
-		System.out.println(authentication);
-		return ResponseEntity.ok().build();
+		var authentication = manager.authenticate(authToken);
+		var tokenJwt = tokenService.geraToken((Usuario) authentication.getPrincipal());
+
+		return ResponseEntity.ok(new DadosTokenJwt(tokenJwt));
 	}
 }
