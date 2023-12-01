@@ -10,16 +10,20 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import api.domain.usuario.Usuario;
 
 @Service
 public class TokenService {
-	
+
 	@Value("${api.security.token.secret}")
 	private String secret;
+	@Value("${api.security.token.issuer}")
+	private String issuer;
 
 	public String geraToken(Usuario user) {
+		System.out.println(issuer);
 		try {
 			var algorithm = Algorithm.HMAC256(secret);
 			// issuer = quem foi responsável pela geração do token (neste caso a API)
@@ -27,7 +31,7 @@ public class TokenService {
 			// withClaim() = metodo para adicionar informações ao token (chave, valor)
 			// withExpitesAt() = define a data de expiração do Token
 			var token = JWT.create()
-					.withIssuer("Spring Course API")
+					.withIssuer(issuer)
 					.withSubject(user.getUsername())
 					.withClaim("id", user.getId())
 					.withExpiresAt(getDataExpiracao())
@@ -35,6 +39,15 @@ public class TokenService {
 			return token;
 		} catch (JWTCreationException e) {
 			throw new RuntimeException("Erro ao gerar token JWT", e);
+		}
+	}
+
+	public String getSubject(String tokenJwt) {
+		try {
+			var algorithm = Algorithm.HMAC256(secret);
+			return JWT.require(algorithm).withIssuer(issuer).build().verify(tokenJwt).getSubject();
+		} catch (JWTVerificationException e) {
+			throw new RuntimeException("Token de autorização inválido ou expirado!");
 		}
 	}
 
