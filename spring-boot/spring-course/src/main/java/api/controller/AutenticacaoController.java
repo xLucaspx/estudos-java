@@ -27,7 +27,7 @@ public class AutenticacaoController {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<?> efetuaLogin(@RequestBody @Valid DadosAutenticacao dados) {
+	public ResponseEntity<DadosTokenJwt> efetuaLogin(@RequestBody @Valid DadosAutenticacao dados) {
 		// o Spring tem um DTO próprio para representar o usuário e a senha: UsernamePasswordAuthenticationToken;
 		// o método authenticate() do AuthenticationManager recebe este DTO como parâmetro.
 		var authToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
