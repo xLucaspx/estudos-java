@@ -30,6 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 		var tokenJwt = recuperaToken(request);
 
 		if (tokenJwt != null) {
+			// nosso método getSubject já valida o token
 			var subject = tokenService.getSubject(tokenJwt);
 			// buscando o usuário no banco
 			var usuario = usuarioRepository.findByUsername(subject);
@@ -46,8 +47,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 	private String recuperaToken(HttpServletRequest request) {
 		var authorizationHeader = request.getHeader("Authorization");
 
-		if (authorizationHeader != null) return authorizationHeader.replace("Bearer ", "");
-
-		return null;
+		return authorizationHeader != null ? authorizationHeader.replace("Bearer ", "") : null;
 	}
 }
