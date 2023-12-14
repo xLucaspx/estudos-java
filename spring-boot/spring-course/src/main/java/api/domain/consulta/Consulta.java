@@ -40,6 +40,12 @@ public class Consulta {
 		this.data = data;
 	}
 
+	public Consulta(Paciente paciente, Medico medico, LocalDateTime data) {
+		this.paciente = paciente;
+		this.medico = medico;
+		this.data = data;
+	}
+
 	public int getId() {
 		return id;
 	}
