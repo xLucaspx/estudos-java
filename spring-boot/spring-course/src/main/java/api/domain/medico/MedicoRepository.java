@@ -27,4 +27,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer> {
 		LIMIT 1
 		""")
 	Medico escolheMedicoLivreNaDataPorEspecialidade(@NotNull @Future LocalDateTime data, Especialidade especialidade);
+
+	@Query("SELECT m.ativo FROM Medico m WHERE m.id = :id")
+	boolean findAtivoById(int id);
 }
