@@ -35,14 +35,23 @@ public class AgendaDeConsultas {
 		System.out.println(medico.getNome());
 		System.out.println(paciente.getNome());
 		System.out.println(dados);
-//		consultaRepository.save(consulta);
+		consultaRepository.save(consulta);
+	}
+
+	public void cancelaConsulta(CancelamentoConsultaDto dados) {
+		if (!consultaRepository.existsById(dados.idConsulta()))
+			throw new ValidationException("Nenhuma consulta encontrada para o ID informado!");
+
+		var consulta = consultaRepository.getReferenceById(dados.idConsulta());
+		consulta.cancela(dados.motivo());
 	}
 
 	private Medico escolheMedico(AgendamentoConsultaDto dados) {
 		if (dados.idMedico() != 0) return medicoRepository.getReferenceById(dados.idMedico());
-		
-		if (dados.especialidade() == null) throw new ValidationException("Selecione um médico ou uma especialidade para agendar a consulta!");
-		
+
+		if (dados.especialidade() == null)
+			throw new ValidationException("Selecione um médico ou uma especialidade para agendar a consulta!");
+
 		return medicoRepository.escolheMedicoLivreNaDataPorEspecialidade(dados.data(), dados.especialidade());
 	}
 }
