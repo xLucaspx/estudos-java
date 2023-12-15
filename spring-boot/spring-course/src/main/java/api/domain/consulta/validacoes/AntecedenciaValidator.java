@@ -3,9 +3,12 @@ package api.domain.consulta.validacoes;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Component;
+
 import api.domain.consulta.AgendamentoConsultaDto;
 import api.domain.exceptions.ValidationException;
 
+@Component
 public class AntecedenciaValidator implements AgendamentoConsultaValidator {
 	@Override
 	public void valida(AgendamentoConsultaDto dados) {

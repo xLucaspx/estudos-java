@@ -13,12 +13,18 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import api.domain.exceptions.ValidationException;
 import jakarta.persistence.EntityNotFoundException;
 
 // A anotação @RestControllerAdvice serve para que o Spring carregue esta classe quando rodarmos o projeto;
 // no caso, esta anotação é específica para a classe que vai tartar os erros da API
 @RestControllerAdvice
 public class ErrorHandler {
+
+	@ExceptionHandler(ValidationException.class)
+	public ResponseEntity<String> handleBadRequest400(ValidationException ex) {
+		return ResponseEntity.badRequest().body(ex.getMessage());
+	}
 
 	// MethodArgumentNotValidException é jogada quando falham as validações Bean Validation
 	@ExceptionHandler(MethodArgumentNotValidException.class)

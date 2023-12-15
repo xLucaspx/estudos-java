@@ -2,9 +2,12 @@ package api.domain.consulta.validacoes;
 
 import java.time.DayOfWeek;
 
+import org.springframework.stereotype.Component;
+
 import api.domain.consulta.AgendamentoConsultaDto;
 import api.domain.exceptions.ValidationException;
 
+@Component
 public class HorarioClinicaValidator implements AgendamentoConsultaValidator {
 	@Override
 	public void valida(AgendamentoConsultaDto dados) {
