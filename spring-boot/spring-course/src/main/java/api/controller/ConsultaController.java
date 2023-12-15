@@ -12,11 +12,15 @@ import api.domain.consulta.AgendaDeConsultas;
 import api.domain.consulta.AgendamentoConsultaDto;
 import api.domain.consulta.CancelamentoConsultaDto;
 import api.domain.consulta.DetalhesConsultaDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("consultas")
+// anotação @SecurityRequirement(name = "bearer-key") para o SpringDoc utilizar um token de autorização;
+// funciona em conjunto com a classe SpringDocConfig que criamos; pode ser utilizada em métodos ou classes
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
 	@Autowired

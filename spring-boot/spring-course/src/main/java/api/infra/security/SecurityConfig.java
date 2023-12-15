@@ -30,6 +30,10 @@ public class SecurityConfig {
 				.authorizeHttpRequests(req -> {
 					// declarando a rota de login como pública:
 					req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+
+					// declarando as rotas do SpringDoc como públicas para todos os métodos HTTP:
+					req.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
+
 					// exigindo autenticação para as outras rotas:
 					req.anyRequest().authenticated();
 				}) // declarando que o securityFilter deve ser executado antes do filtro do Spring

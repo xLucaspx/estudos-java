@@ -21,11 +21,13 @@ import api.domain.paciente.ListagemPacienteDto;
 import api.domain.paciente.Paciente;
 import api.domain.paciente.PacienteRepository;
 import api.domain.paciente.UpdatePacienteDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 
 	@Autowired

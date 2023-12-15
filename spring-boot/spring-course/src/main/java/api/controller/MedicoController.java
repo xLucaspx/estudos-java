@@ -21,11 +21,13 @@ import api.domain.medico.ListagemMedicoDto;
 import api.domain.medico.Medico;
 import api.domain.medico.MedicoRepository;
 import api.domain.medico.UpdateMedicoDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/medicos")
+@SecurityRequirement(name = "bearer-key")
 public class MedicoController {
 
 	@Autowired // este atributo será injetado pelo Spring
