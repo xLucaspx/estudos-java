@@ -1,4 +1,4 @@
-package api.domain.consulta.validacoes;
+package api.domain.consulta.validacoes.agendamento;
 
 import api.domain.consulta.AgendamentoConsultaDto;
 

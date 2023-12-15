@@ -17,12 +17,12 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer> {
 	Page<Medico> findAllByAtivoTrue(Pageable paginacao);
 
 	// se o método não segue o padrão de nomenclatura do Spring é necessário escrever o JPQL utilizando a anotação @Query.
-	// esta consulta busca um médico aleatório da especialidade definida e que não tenha consulta agendada na data passada
+	// esta consulta busca um médico aleatório da especialidade definida e que não tenha consulta válida agendada na data passada
 	@Query("""
 		SELECT m from Medico m
 		WHERE m.ativo = TRUE
 			AND m.especialidade = :especialidade
-			AND m.id NOT IN (SELECT c.medico.id FROM Consulta c WHERE c.data = :data)
+			AND m.id NOT IN (SELECT c.medico.id FROM Consulta c WHERE c.data = :data AND c.motivoCancelamento IS NULL)
 		ORDER BY rand()
 		LIMIT 1
 		""")

@@ -1,4 +1,4 @@
-package api.domain.consulta.validacoes;
+package api.domain.consulta.validacoes.agendamento;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class PacienteComConsutaNoDiaValidator implements AgendamentoConsultaVali
 		var primeiroHorario = dados.data().withHour(7);
 		var ultimoHorario = dados.data().withHour(18);
 
-		var pacientePossuiOutraConsulta = repository.existsByPacienteIdAndDataBetween(dados.idPaciente(), primeiroHorario,
+		var pacientePossuiOutraConsulta = repository.existsByPacienteIdAndDataBetweenAndMotivoCancelamentoIsNull(dados.idPaciente(), primeiroHorario,
 				ultimoHorario);
 
 		if (pacientePossuiOutraConsulta)

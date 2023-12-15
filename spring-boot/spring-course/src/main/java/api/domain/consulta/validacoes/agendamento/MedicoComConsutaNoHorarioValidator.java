@@ -1,4 +1,4 @@
-package api.domain.consulta.validacoes;
+package api.domain.consulta.validacoes.agendamento;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class MedicoComConsutaNoHorarioValidator implements AgendamentoConsultaVa
 	public void valida(AgendamentoConsultaDto dados) {
 		if (dados.idMedico() == 0) return; // seleção automatica de médico
 
-		var medicoPossuiOutraConsulta = repository.existsByMedicoIdAndData(dados.idMedico(), dados.data());
+		var medicoPossuiOutraConsulta = repository.existsByMedicoIdAndDataAndMotivoCancelamentoIsNull(dados.idMedico(), dados.data());
 
 		if (medicoPossuiOutraConsulta)
 			throw new ValidationException("O médico selecionado não está disponível neste horário!");

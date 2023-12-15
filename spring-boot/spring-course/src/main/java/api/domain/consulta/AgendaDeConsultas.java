@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import api.domain.consulta.validacoes.AgendamentoConsultaValidator;
+import api.domain.consulta.validacoes.agendamento.AgendamentoConsultaValidator;
+import api.domain.consulta.validacoes.cancelamento.CancelamentoConsultaValidator;
 import api.domain.exceptions.ValidationException;
 import api.domain.medico.Medico;
 import api.domain.medico.MedicoRepository;
@@ -23,7 +24,9 @@ public class AgendaDeConsultas {
 	// ao criar uma lista da interface e anotá-la com @Autowired,
 	// o Spring irá criar essa lista com todas as implementações encontradas desta interface
 	@Autowired
-	private List<AgendamentoConsultaValidator> validators;
+	private List<AgendamentoConsultaValidator> agendamentoValidators;
+	@Autowired
+	private List<CancelamentoConsultaValidator> cancelamentoValidators;
 
 	public DetalhesConsultaDto agendaConsulta(AgendamentoConsultaDto dados) {
 		if (!pacienteRepository.existsById(dados.idPaciente()))
@@ -33,7 +36,7 @@ public class AgendaDeConsultas {
 		if (dados.idMedico() != 0 && !medicoRepository.existsById(dados.idMedico()))
 			throw new ValidationException("Nenhum médico encontrado para o ID informado!");
 
-		validators.forEach(v -> v.valida(dados));
+		agendamentoValidators.forEach(v -> v.valida(dados));
 
 		// precisamos colocar o .get() para obter a entidade pois o findById retorna um Optional; devemos utilizá-lo quando
 		// queremos manipular a entidade. Quando queremos, por exemplo, apenas atribuí-la, utilizamos o getReferenceById():
@@ -52,6 +55,8 @@ public class AgendaDeConsultas {
 	public void cancelaConsulta(CancelamentoConsultaDto dados) {
 		if (!consultaRepository.existsById(dados.idConsulta()))
 			throw new ValidationException("Nenhuma consulta encontrada para o ID informado!");
+
+		cancelamentoValidators.forEach(v -> v.valida(dados));
 
 		var consulta = consultaRepository.getReferenceById(dados.idConsulta());
 		consulta.cancela(dados.motivo());

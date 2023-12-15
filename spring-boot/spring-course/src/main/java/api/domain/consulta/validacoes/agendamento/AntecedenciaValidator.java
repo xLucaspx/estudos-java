@@ -1,4 +1,4 @@
-package api.domain.consulta.validacoes;
+package api.domain.consulta.validacoes.agendamento;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import api.domain.consulta.AgendamentoConsultaDto;
 import api.domain.exceptions.ValidationException;
 
-@Component
+@Component("AntecedenciaAgendamentoValidator")
 public class AntecedenciaValidator implements AgendamentoConsultaValidator {
 	@Override
 	public void valida(AgendamentoConsultaDto dados) {
@@ -18,6 +18,6 @@ public class AntecedenciaValidator implements AgendamentoConsultaValidator {
 		var minutesDiff = Duration.between(agora, horaConsulta).toMinutes();
 
 		if (minutesDiff < 30)
-			throw new ValidationException("A consulta deve ser agenddada com, no mínimo, 30 minutos de antecedência!");
+			throw new ValidationException("A consulta deve ser agendada com, no mínimo, 30 minutos de antecedência!");
 	}
 }
