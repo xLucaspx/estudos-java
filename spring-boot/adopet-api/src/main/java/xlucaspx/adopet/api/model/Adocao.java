@@ -17,7 +17,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -26,11 +25,7 @@ public class Adocao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private Long id;
-
-	@Column(name = "data")
-	private LocalDateTime data;
 
 	@NotNull
 	@ManyToOne
@@ -38,18 +33,15 @@ public class Adocao {
 	@JoinColumn(name = "tutor_id")
 	private Tutor tutor;
 
-	@NotNull
 	@OneToOne
 	@JoinColumn(name = "pet_id")
 	@JsonManagedReference("adocao_pets")
 	private Pet pet;
 
-	@NotBlank
-	@Column(name = "motivo")
+	private LocalDateTime data;
 	private String motivo;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status")
 	private StatusAdocao status;
 
 	@Column(name = "justificativa_status")

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import xlucaspx.adopet.api.dto.DetalhesPetDto;
 import xlucaspx.adopet.api.model.Pet;
 import xlucaspx.adopet.api.repository.PetRepository;
 
@@ -20,14 +21,14 @@ public class PetController {
 	private PetRepository repository;
 
 	@GetMapping
-	public ResponseEntity<List<Pet>> listarTodosDisponiveis() {
-		List<Pet> pets = repository.findAll();
-		List<Pet> disponiveis = new ArrayList<>();
+	public ResponseEntity<List<DetalhesPetDto>> listarTodosDisponiveis() {
+		var pets = repository.findAll();
+		var disponiveis = new ArrayList<DetalhesPetDto>();
+
 		for (Pet pet : pets) {
-			if (pet.getAdotado() == false) {
-				disponiveis.add(pet);
-			}
+			if (!pet.getAdotado()) disponiveis.add(new DetalhesPetDto(pet));
 		}
+
 		return ResponseEntity.ok(disponiveis);
 	}
 }

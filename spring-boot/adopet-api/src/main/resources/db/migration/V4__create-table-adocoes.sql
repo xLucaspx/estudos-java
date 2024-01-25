@@ -1,8 +1,8 @@
 create table adocoes(
-  id INT NOT NULL AUTO_INCREMENT,
+  id BIGINT NOT NULL AUTO_INCREMENT,
   data DATETIME NOT NULL,
-  tutor_id INT NOT NULL,
-  pet_id INT NOT NULL,
+  tutor_id BIGINT NOT NULL,
+  pet_id BIGINT NOT NULL,
   motivo VARCHAR(255) NOT NULL,
   status VARCHAR(100) NOT NULL,
   justificativa_status VARCHAR(255),
