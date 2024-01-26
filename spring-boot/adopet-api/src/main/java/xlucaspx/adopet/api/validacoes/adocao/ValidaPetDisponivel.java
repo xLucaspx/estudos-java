@@ -1,4 +1,4 @@
-package xlucaspx.adopet.api.validacoes;
+package xlucaspx.adopet.api.validacoes.adocao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

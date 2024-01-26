@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import xlucaspx.adopet.api.dto.pet.CadastroPetDto;
 
 @Entity
 @Table(name = "pets")
@@ -36,6 +37,18 @@ public class Pet {
 
 	@OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
 	private Adocao adocao;
+	
+	public Pet() {}
+	
+	public Pet(CadastroPetDto dto) {
+		setNome(dto.nome());
+		setRaca(dto.raca());
+		setCor(dto.cor());
+		setIdade(dto.idade());
+		setPeso(dto.peso());
+		setTipo(dto.tipo());
+		setAdotado(false);
+	}
 
 	public Long getId() {
 		return id;

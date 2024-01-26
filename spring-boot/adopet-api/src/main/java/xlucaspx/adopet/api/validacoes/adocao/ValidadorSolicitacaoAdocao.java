@@ -1,4 +1,4 @@
-package xlucaspx.adopet.api.validacoes;
+package xlucaspx.adopet.api.validacoes.adocao;
 
 import xlucaspx.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 

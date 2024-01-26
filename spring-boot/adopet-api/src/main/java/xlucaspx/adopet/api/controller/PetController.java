@@ -18,7 +18,7 @@ public class PetController {
 	private PetRepository repository;
 
 	@GetMapping
-	public Page<DetalhesPetDto> listarTodosDisponiveis(Pageable paginacao) {
+	public Page<DetalhesPetDto> listaTodosDisponiveis(Pageable paginacao) {
 		return repository.findAllByAdotadoFalse(paginacao).map(DetalhesPetDto::new);
 	}
 }

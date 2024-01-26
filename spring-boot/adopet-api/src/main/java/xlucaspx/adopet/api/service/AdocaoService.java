@@ -13,7 +13,7 @@ import xlucaspx.adopet.api.model.Adocao;
 import xlucaspx.adopet.api.repository.AdocaoRepository;
 import xlucaspx.adopet.api.repository.PetRepository;
 import xlucaspx.adopet.api.repository.TutorRepository;
-import xlucaspx.adopet.api.validacoes.ValidadorSolicitacaoAdocao;
+import xlucaspx.adopet.api.validacoes.adocao.ValidadorSolicitacaoAdocao;
 
 @Service
 public class AdocaoService {
@@ -30,10 +30,10 @@ public class AdocaoService {
 	private List<ValidadorSolicitacaoAdocao> validacoes;
 
 	public void solicitaAdocao(SolicitacaoAdocaoDto dto) {
+		validacoes.forEach(v -> v.valida(dto));
+		
 		var pet = petRepository.getReferenceById(dto.idPet());
 		var tutor = tutorRepository.getReferenceById(dto.idTutor());
-
-		validacoes.forEach(v -> v.valida(dto));
 
 		var adocao = new Adocao(tutor, pet, dto.motivo());
 
