@@ -2,7 +2,7 @@ package xlucaspx.adopet.api.validacoes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import xlucaspx.adopet.api.dto.SolicitacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import xlucaspx.adopet.api.exception.ValidacaoException;
 import xlucaspx.adopet.api.model.StatusAdocao;
 import xlucaspx.adopet.api.repository.AdocaoRepository;

@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import xlucaspx.adopet.api.dto.AprovacaoAdocaoDto;
-import xlucaspx.adopet.api.dto.ReprovacaoAdocaoDto;
-import xlucaspx.adopet.api.dto.SolicitacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.AprovacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.ReprovacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import xlucaspx.adopet.api.model.Adocao;
 import xlucaspx.adopet.api.repository.AdocaoRepository;
 import xlucaspx.adopet.api.repository.PetRepository;

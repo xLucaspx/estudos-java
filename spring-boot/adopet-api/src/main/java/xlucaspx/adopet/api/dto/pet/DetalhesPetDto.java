@@ -1,4 +1,4 @@
-package xlucaspx.adopet.api.dto;
+package xlucaspx.adopet.api.dto.pet;
 
 import xlucaspx.adopet.api.model.Pet;
 import xlucaspx.adopet.api.model.TipoPet;

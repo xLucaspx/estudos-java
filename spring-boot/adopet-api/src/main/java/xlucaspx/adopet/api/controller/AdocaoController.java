@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import xlucaspx.adopet.api.dto.AprovacaoAdocaoDto;
-import xlucaspx.adopet.api.dto.ReprovacaoAdocaoDto;
-import xlucaspx.adopet.api.dto.SolicitacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.AprovacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.ReprovacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import xlucaspx.adopet.api.exception.ValidacaoException;
 import xlucaspx.adopet.api.service.AdocaoService;
 

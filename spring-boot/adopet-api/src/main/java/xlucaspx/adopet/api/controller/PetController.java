@@ -1,16 +1,13 @@
 package xlucaspx.adopet.api.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import xlucaspx.adopet.api.dto.DetalhesPetDto;
-import xlucaspx.adopet.api.model.Pet;
+import xlucaspx.adopet.api.dto.pet.DetalhesPetDto;
 import xlucaspx.adopet.api.repository.PetRepository;
 
 @RestController
@@ -21,14 +18,7 @@ public class PetController {
 	private PetRepository repository;
 
 	@GetMapping
-	public ResponseEntity<List<DetalhesPetDto>> listarTodosDisponiveis() {
-		var pets = repository.findAll();
-		var disponiveis = new ArrayList<DetalhesPetDto>();
-
-		for (Pet pet : pets) {
-			if (!pet.getAdotado()) disponiveis.add(new DetalhesPetDto(pet));
-		}
-
-		return ResponseEntity.ok(disponiveis);
+	public Page<DetalhesPetDto> listarTodosDisponiveis(Pageable paginacao) {
+		return repository.findAllByAdotadoFalse(paginacao).map(DetalhesPetDto::new);
 	}
 }

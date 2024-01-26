@@ -1,4 +1,4 @@
-package xlucaspx.adopet.api.dto;
+package xlucaspx.adopet.api.dto.adocao;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
