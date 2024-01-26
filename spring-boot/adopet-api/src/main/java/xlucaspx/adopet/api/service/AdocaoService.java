@@ -2,6 +2,7 @@ package xlucaspx.adopet.api.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,12 +10,12 @@ import org.springframework.stereotype.Service;
 import xlucaspx.adopet.api.dto.AprovacaoAdocaoDto;
 import xlucaspx.adopet.api.dto.ReprovacaoAdocaoDto;
 import xlucaspx.adopet.api.dto.SolicitacaoAdocaoDto;
-import xlucaspx.adopet.api.exception.ValidacaoException;
 import xlucaspx.adopet.api.model.Adocao;
 import xlucaspx.adopet.api.model.StatusAdocao;
 import xlucaspx.adopet.api.repository.AdocaoRepository;
 import xlucaspx.adopet.api.repository.PetRepository;
 import xlucaspx.adopet.api.repository.TutorRepository;
+import xlucaspx.adopet.api.validacoes.ValidadorSolicitacaoAdocao;
 
 @Service
 public class AdocaoService {
@@ -27,27 +28,14 @@ public class AdocaoService {
 	private TutorRepository tutorRepository;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	private List<ValidadorSolicitacaoAdocao> validacoes;
 
 	public void solicitaAdocao(SolicitacaoAdocaoDto dto) {
 		var pet = petRepository.getReferenceById(dto.idPet());
 		var tutor = tutorRepository.getReferenceById(dto.idTutor());
 
-		if (pet.getAdotado()) throw new ValidacaoException("Pet já foi adotado!");
-
-		var adocoes = adocaoRepository.findAll();
-		int contador = 0;
-
-		for (Adocao a : adocoes) {
-			if (a.getTutor().equals(tutor) && a.getStatus() == StatusAdocao.AGUARDANDO_AVALIACAO)
-				throw new ValidacaoException("Tutor já possui outra adoção aguardando avaliação!");
-
-			if (a.getPet().equals(pet) && a.getStatus() == StatusAdocao.AGUARDANDO_AVALIACAO)
-				throw new ValidacaoException("Pet já está aguardando avaliação para ser adotado!");
-
-			if (a.getTutor().equals(tutor) && a.getStatus() == StatusAdocao.APROVADO) contador++;
-
-			if (contador == 5) throw new ValidacaoException("Tutor chegou ao limite máximo de 5 adoções!");
-		}
+		validacoes.forEach(v -> v.valida(dto));
 
 		var adocao = new Adocao();
 		adocao.setData(LocalDateTime.now());
