@@ -10,34 +10,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import xlucaspx.adopet.api.model.Tutor;
-import xlucaspx.adopet.api.repository.TutorRepository;
+import xlucaspx.adopet.api.dto.tutor.AtualizacaoTutorDto;
+import xlucaspx.adopet.api.dto.tutor.CadastroTutorDto;
+import xlucaspx.adopet.api.exception.ValidacaoException;
+import xlucaspx.adopet.api.service.TutorService;
 
 @RestController
 @RequestMapping("/tutores")
 public class TutorController {
 
 	@Autowired
-	private TutorRepository repository;
+	private TutorService tutorService;
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> cadastrar(@RequestBody @Valid Tutor tutor) {
-		boolean telefoneJaCadastrado = repository.existsByTelefone(tutor.getTelefone());
-		boolean emailJaCadastrado = repository.existsByEmail(tutor.getEmail());
-
-		if (telefoneJaCadastrado || emailJaCadastrado) {
-			return ResponseEntity.badRequest().body("Dados já cadastrados para outro tutor!");
-		} else {
-			repository.save(tutor);
-			return ResponseEntity.ok().build();
+	public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastroTutorDto dto) {
+		try {
+			tutorService.cadastraTutor(dto);
+			return ResponseEntity.ok("Tutor cadastrado com sucesso");
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
 	@PutMapping
 	@Transactional
-	public ResponseEntity<String> atualizar(@RequestBody @Valid Tutor tutor) {
-		repository.save(tutor);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<String> atualizar(@RequestBody @Valid AtualizacaoTutorDto dto) {
+		try {
+			tutorService.atualizaTutor(dto);
+			return ResponseEntity.ok().build();
+		} catch (ValidacaoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 }
