@@ -1,6 +1,5 @@
 package xlucaspx.adopet.api.service;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import xlucaspx.adopet.api.dto.AprovacaoAdocaoDto;
 import xlucaspx.adopet.api.dto.ReprovacaoAdocaoDto;
 import xlucaspx.adopet.api.dto.SolicitacaoAdocaoDto;
 import xlucaspx.adopet.api.model.Adocao;
-import xlucaspx.adopet.api.model.StatusAdocao;
 import xlucaspx.adopet.api.repository.AdocaoRepository;
 import xlucaspx.adopet.api.repository.PetRepository;
 import xlucaspx.adopet.api.repository.TutorRepository;
@@ -37,12 +35,7 @@ public class AdocaoService {
 
 		validacoes.forEach(v -> v.valida(dto));
 
-		var adocao = new Adocao();
-		adocao.setData(LocalDateTime.now());
-		adocao.setStatus(StatusAdocao.AGUARDANDO_AVALIACAO);
-		adocao.setPet(pet);
-		adocao.setTutor(tutor);
-		adocao.setMotivo(dto.motivo());
+		var adocao = new Adocao(tutor, pet, dto.motivo());
 
 		adocaoRepository.save(adocao);
 
@@ -60,7 +53,7 @@ public class AdocaoService {
 	public void aprovaAdocao(AprovacaoAdocaoDto dto) {
 		var adocao = adocaoRepository.getReferenceById(dto.idAdocao());
 
-		adocao.setStatus(StatusAdocao.APROVADO); // ao carregar o objeto do banco, qualquer mudança dispara o UPDATE
+		adocao.aprovar();
 
 		var emailTutor = adocao.getTutor().getEmail();
 		var assunto = "Adoção aprovada";
@@ -78,8 +71,7 @@ public class AdocaoService {
 	public void reprovaAdocao(ReprovacaoAdocaoDto dto) {
 		var adocao = adocaoRepository.getReferenceById(dto.idAdocao());
 
-		adocao.setStatus(StatusAdocao.REPROVADO);
-		adocao.setJustificativaStatus(dto.justificativa());
+		adocao.reprovar(dto.justificativa());
 
 		var emailTutor = adocao.getTutor().getEmail();
 		var assunto = "Adoção reprovada";

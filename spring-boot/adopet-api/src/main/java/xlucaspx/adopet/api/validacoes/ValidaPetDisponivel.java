@@ -12,7 +12,8 @@ public class ValidaPetDisponivel implements ValidadorSolicitacaoAdocao {
 
 	@Override
 	public void valida(SolicitacaoAdocaoDto dto) {
-		var pet = petRepository.getReferenceById(dto.idPet());
-		if (pet.getAdotado()) throw new ValidacaoException("Pet já foi adotado!");
+		var petAdotado = petRepository.findAdotadoById(dto.idPet());
+
+		if (petAdotado) throw new ValidacaoException("Pet já foi adotado!");
 	}
 }
