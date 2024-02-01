@@ -67,7 +67,7 @@ public class MedicoController {
 		var medico = repository.save(new Medico(dados)); // ao salvar é definido um id para a entidade
 
 		// se declararmos um UriComponentsBuilder como parâmetro do método, esse objeto é passado automaticamente pelo
-		// Spring; além disso, ele encapsula a URI do prjeto e evita que tenhamos que alterar de "localhost..." quando for
+		// Spring; além disso, ele encapsula a URI do projeto e evita que tenhamos que alterar de "localhost..." quando for
 		// realizado o deploy. Para o método path() passamos apenas o recurso e para o buildAndExpand os parâmetros:
 		var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 

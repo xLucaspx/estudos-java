@@ -1,8 +1,5 @@
 package xlucaspx.adopet.api.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,64 +11,64 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import xlucaspx.adopet.api.dto.abrigo.CadastroAbrigoDto;
 import xlucaspx.adopet.api.dto.abrigo.DetalhesAbrigoDto;
 import xlucaspx.adopet.api.dto.pet.CadastroPetDto;
 import xlucaspx.adopet.api.dto.pet.DetalhesPetDto;
-import xlucaspx.adopet.api.exception.ValidacaoException;
-import xlucaspx.adopet.api.repository.AbrigoRepository;
 import xlucaspx.adopet.api.service.AbrigoService;
+import xlucaspx.adopet.api.service.PetService;
 
 @RestController
 @RequestMapping("/abrigos")
 public class AbrigoController {
 
 	@Autowired
-	private AbrigoRepository repository;
-	@Autowired
 	private AbrigoService abrigoService;
+	@Autowired
+	private PetService petService;
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> cadastra(@RequestBody @Valid CadastroAbrigoDto dto) {
-		try {
-			abrigoService.cadastraAbrigo(dto);
-			return ResponseEntity.ok("Abrigo cadastrado com sucesso!");
-		} catch (ValidacaoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+	public ResponseEntity<DetalhesAbrigoDto> cadastra(@RequestBody @Valid CadastroAbrigoDto dto,
+			UriComponentsBuilder uriBuilder) {
+		var abrigo = abrigoService.cadastraAbrigo(dto);
+
+		var uri = uriBuilder.path("/abrigos/{idOuNome}").buildAndExpand(abrigo.getId()).toUri();
+
+		return ResponseEntity.created(uri).body(new DetalhesAbrigoDto(abrigo));
 	}
 
-	@PostMapping("/{id}/pets")
+	@PostMapping("/{idOuNome}/pets")
 	@Transactional
-	public ResponseEntity<String> cadastraPet(@PathVariable Long id, @RequestBody @Valid CadastroPetDto dto) {
-		try {
-			abrigoService.cadastraPet(id, dto);
-			return ResponseEntity.ok("Pet cadastrado com sucesso!");
-		} catch (ValidacaoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+	public ResponseEntity<DetalhesPetDto> cadastraPet(@PathVariable String idOuNome,
+			@RequestBody @Valid CadastroPetDto dto, UriComponentsBuilder uriBuilder) {
+		var abrigo = abrigoService.carregaAbrigo(idOuNome);
+		var pet = petService.cadastraPet(abrigo, dto);
+
+		var uri = uriBuilder.path("/pets/{id}").buildAndExpand(pet.getId()).toUri();
+
+		return ResponseEntity.created(uri).body(new DetalhesPetDto(pet));
 	}
 
 	@GetMapping
-	public Page<DetalhesAbrigoDto> listaTodos(Pageable paginacao) {
-		return repository.findAll(paginacao).map(DetalhesAbrigoDto::new);
+	public ResponseEntity<Page<DetalhesAbrigoDto>> listaTodos(Pageable paginacao) {
+		var page = abrigoService.listaTodos(paginacao);
+		return ResponseEntity.ok(page);
 	}
 
-	@GetMapping("/{id}/pets")
-	public ResponseEntity<List<DetalhesPetDto>> listaPets(@PathVariable Long id) {
-		try {
-			var pets = repository.getReferenceById(id).getPets();
-			var lista = new ArrayList<DetalhesPetDto>();
+	@GetMapping("/{idOuNome}")
+	public ResponseEntity<DetalhesAbrigoDto> detalha(@PathVariable String idOuNome) {
+		var abrigo = abrigoService.carregaAbrigo(idOuNome);
+		return ResponseEntity.ok(new DetalhesAbrigoDto(abrigo));
+	}
 
-			for (var pet : pets) lista.add(new DetalhesPetDto(pet));
-
-			return ResponseEntity.ok(lista);
-		} catch (EntityNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
+	@GetMapping("/{idOuNome}/pets")
+	public ResponseEntity<Page<DetalhesPetDto>> listaPets(@PathVariable String idOuNome, Pageable paginacao) {
+		var abrigo = abrigoService.carregaAbrigo(idOuNome);
+		var page = petService.listaPorAbrigo(abrigo.getId(), paginacao);
+		return ResponseEntity.ok(page);
 	}
 }

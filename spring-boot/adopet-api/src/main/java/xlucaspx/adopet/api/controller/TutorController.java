@@ -3,16 +3,19 @@ package xlucaspx.adopet.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.validation.Valid;
 import xlucaspx.adopet.api.dto.tutor.AtualizacaoTutorDto;
 import xlucaspx.adopet.api.dto.tutor.CadastroTutorDto;
-import xlucaspx.adopet.api.exception.ValidacaoException;
+import xlucaspx.adopet.api.dto.tutor.DetalhesTutorDto;
 import xlucaspx.adopet.api.service.TutorService;
 
 @RestController
@@ -24,23 +27,25 @@ public class TutorController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastroTutorDto dto) {
-		try {
-			tutorService.cadastraTutor(dto);
-			return ResponseEntity.ok("Tutor cadastrado com sucesso");
-		} catch (ValidacaoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+	public ResponseEntity<DetalhesTutorDto> cadastra(@RequestBody @Valid CadastroTutorDto dto,
+			UriComponentsBuilder uriBuilder) {
+		var tutor = tutorService.cadastraTutor(dto);
+
+		var uri = uriBuilder.path("/tutores/{id}").buildAndExpand(tutor.getId()).toUri();
+
+		return ResponseEntity.created(uri).body(new DetalhesTutorDto(tutor));
 	}
 
 	@PutMapping
 	@Transactional
-	public ResponseEntity<String> atualizar(@RequestBody @Valid AtualizacaoTutorDto dto) {
-		try {
-			tutorService.atualizaTutor(dto);
-			return ResponseEntity.ok().build();
-		} catch (ValidacaoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
+	public ResponseEntity<DetalhesTutorDto> atualiza(@RequestBody @Valid AtualizacaoTutorDto dto) {
+		var tutor = tutorService.atualizaTutor(dto);
+		return ResponseEntity.ok(new DetalhesTutorDto(tutor));
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<DetalhesTutorDto> detalha(@PathVariable Long id) {
+		var tutor = tutorService.buscaPorId(id);
+		return ResponseEntity.ok(new DetalhesTutorDto(tutor));
 	}
 }

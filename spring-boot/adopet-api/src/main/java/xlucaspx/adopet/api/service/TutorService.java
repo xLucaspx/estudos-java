@@ -17,16 +17,24 @@ public class TutorService {
 	@Autowired
 	private List<ValidadorCadastroTutor> validacoes;
 
-	public void cadastraTutor(CadastroTutorDto dto) {
+	public Tutor buscaPorId(Long id) {
+		return tutorRepository.getReferenceById(id);
+	}
+
+	public Tutor cadastraTutor(CadastroTutorDto dto) {
 		validacoes.forEach(v -> v.valida(dto));
 
 		var tutor = new Tutor(dto);
 		tutorRepository.save(tutor);
+
+		return tutor;
 	}
 
-	public void atualizaTutor(AtualizacaoTutorDto dto) {
+	public Tutor atualizaTutor(AtualizacaoTutorDto dto) {
 		var tutor = tutorRepository.getReferenceById(dto.id());
 		tutor.setEmail(dto.email());
 		tutor.setTelefone(dto.telefone());
+
+		return tutor;
 	}
 }

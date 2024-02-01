@@ -12,6 +12,9 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
 	Page<Pet> findAllByAdotadoFalse(Pageable paginacao);
 
+	Page<Pet> findAllByAbrigoId(Long idAbrigo, Pageable paginacao);
+
 	@Query("SELECT p.adotado FROM Pet p WHERE p.id = :id")
 	boolean findAdotadoById(@NotNull Long id);
+
 }

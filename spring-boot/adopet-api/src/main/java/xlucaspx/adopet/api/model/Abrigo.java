@@ -28,8 +28,7 @@ public class Abrigo {
 	@OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL)
 	private List<Pet> pets;
 
-	public Abrigo() {
-	}
+	public Abrigo() {}
 
 	public Abrigo(CadastroAbrigoDto dto) {
 		setNome(dto.nome());
