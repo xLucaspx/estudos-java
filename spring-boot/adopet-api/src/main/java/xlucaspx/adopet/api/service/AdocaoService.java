@@ -31,7 +31,7 @@ public class AdocaoService {
 
 	public void solicitaAdocao(SolicitacaoAdocaoDto dto) {
 		validacoes.forEach(v -> v.valida(dto));
-		
+
 		var pet = petRepository.getReferenceById(dto.idPet());
 		var tutor = tutorRepository.getReferenceById(dto.idTutor());
 
