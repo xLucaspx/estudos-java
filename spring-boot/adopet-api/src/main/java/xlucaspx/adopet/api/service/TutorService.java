@@ -3,6 +3,7 @@ package xlucaspx.adopet.api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import xlucaspx.adopet.api.dto.tutor.AtualizacaoTutorDto;
 import xlucaspx.adopet.api.dto.tutor.CadastroTutorDto;
@@ -10,6 +11,7 @@ import xlucaspx.adopet.api.model.Tutor;
 import xlucaspx.adopet.api.repository.TutorRepository;
 import xlucaspx.adopet.api.validacoes.tutor.ValidadorCadastroTutor;
 
+@Service
 public class TutorService {
 
 	@Autowired

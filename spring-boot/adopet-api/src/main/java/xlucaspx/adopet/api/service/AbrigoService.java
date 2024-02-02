@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import xlucaspx.adopet.api.dto.abrigo.CadastroAbrigoDto;
 import xlucaspx.adopet.api.dto.abrigo.DetalhesAbrigoDto;
@@ -14,6 +15,7 @@ import xlucaspx.adopet.api.model.Abrigo;
 import xlucaspx.adopet.api.repository.AbrigoRepository;
 import xlucaspx.adopet.api.validacoes.abrigo.ValidadorCadastroAbrigo;
 
+@Service
 public class AbrigoService {
 
 	@Autowired

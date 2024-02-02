@@ -1,11 +1,13 @@
 package xlucaspx.adopet.api.validacoes.adocao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import xlucaspx.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import xlucaspx.adopet.api.exception.ValidacaoException;
 import xlucaspx.adopet.api.repository.PetRepository;
 
+@Component
 public class ValidaPetDisponivel implements ValidadorSolicitacaoAdocao {
 	@Autowired
 	private PetRepository petRepository;
