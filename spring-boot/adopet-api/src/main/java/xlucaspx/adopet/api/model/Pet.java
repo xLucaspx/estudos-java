@@ -1,18 +1,9 @@
 package xlucaspx.adopet.api.model;
 
-import java.util.Objects;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import xlucaspx.adopet.api.dto.pet.CadastroPetDto;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "pets")
@@ -37,16 +28,18 @@ public class Pet {
 
 	@OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
 	private Adocao adocao;
-	
-	public Pet() {}
-	
-	public Pet(CadastroPetDto dto) {
+
+	public Pet() {
+	}
+
+	public Pet(CadastroPetDto dto, Abrigo abrigo) {
 		setNome(dto.nome());
 		setRaca(dto.raca());
 		setCor(dto.cor());
 		setIdade(dto.idade());
 		setPeso(dto.peso());
 		setTipo(dto.tipo());
+		setAbrigo(abrigo);
 		setAdotado(false);
 	}
 
@@ -127,15 +120,15 @@ public class Pet {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Pet pet = (Pet) o;
 		return Objects.equals(id, pet.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
 	}
 }

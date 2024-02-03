@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import xlucaspx.adopet.api.dto.pet.CadastroPetDto;
 import xlucaspx.adopet.api.dto.pet.DetalhesPetDto;
 import xlucaspx.adopet.api.model.Abrigo;
@@ -30,9 +29,7 @@ public class PetService {
 	}
 
 	public Pet cadastraPet(Abrigo abrigo, CadastroPetDto dto) {
-		var pet = new Pet(dto);
-		pet.setAbrigo(abrigo);
-
+		var pet = new Pet(dto, abrigo);
 		petRepository.save(pet);
 
 		return pet;
