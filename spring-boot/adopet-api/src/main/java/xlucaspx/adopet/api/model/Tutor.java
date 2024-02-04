@@ -1,5 +1,6 @@
 package xlucaspx.adopet.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,6 +34,7 @@ public class Tutor {
 		setNome(dto.nome());
 		setEmail(dto.email());
 		setTelefone(dto.telefone());
+		this.adocoes = new ArrayList<>();
 	}
 
 	public Long getId() {

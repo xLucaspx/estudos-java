@@ -1,19 +1,18 @@
 package xlucaspx.adopet.api.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import xlucaspx.adopet.api.dto.abrigo.CadastroAbrigoDto;
 import xlucaspx.adopet.api.dto.abrigo.DetalhesAbrigoDto;
-import xlucaspx.adopet.api.exception.ValidacaoException;
+import xlucaspx.adopet.api.exception.NaoEncontradoException;
 import xlucaspx.adopet.api.model.Abrigo;
 import xlucaspx.adopet.api.repository.AbrigoRepository;
 import xlucaspx.adopet.api.validacoes.abrigo.ValidadorCadastroAbrigo;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AbrigoService {
@@ -37,7 +36,7 @@ public class AbrigoService {
 			optional = repository.findByNome(idOuNome);
 		}
 
-		return optional.orElseThrow(() -> new ValidacaoException("Abrigo não encontrado"));
+		return optional.orElseThrow(() -> new NaoEncontradoException("Abrigo não encontrado"));
 	}
 
 	public Abrigo cadastraAbrigo(CadastroAbrigoDto dto) {
@@ -45,7 +44,7 @@ public class AbrigoService {
 
 		var abrigo = new Abrigo(dto);
 		repository.save(abrigo);
-		
+
 		return abrigo;
 	}
 }

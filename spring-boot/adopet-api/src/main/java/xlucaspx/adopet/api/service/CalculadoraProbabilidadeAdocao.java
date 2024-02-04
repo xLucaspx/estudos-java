@@ -1,5 +1,6 @@
 package xlucaspx.adopet.api.service;
 
+import xlucaspx.adopet.api.exception.ValidacaoException;
 import xlucaspx.adopet.api.model.Pet;
 import xlucaspx.adopet.api.model.ProbabilidadeAdocao;
 
@@ -24,6 +25,7 @@ public class CalculadoraProbabilidadeAdocao {
 		switch (tipo) {
 			case GATO -> {if (peso > 10) nota -= 2;}
 			case CACHORRO -> {if (peso > 15) nota -= 2;}
+			default -> throw new ValidacaoException("Erro ao definir tipo do pet: " + tipo);
 		}
 
 		// penalizando por idade avançada

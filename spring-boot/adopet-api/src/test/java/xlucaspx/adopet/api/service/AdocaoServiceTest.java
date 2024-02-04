@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import xlucaspx.adopet.api.dto.adocao.AprovacaoAdocaoDto;
+import xlucaspx.adopet.api.dto.adocao.ReprovacaoAdocaoDto;
 import xlucaspx.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import xlucaspx.adopet.api.model.Abrigo;
 import xlucaspx.adopet.api.model.Adocao;
@@ -19,12 +21,14 @@ import xlucaspx.adopet.api.repository.PetRepository;
 import xlucaspx.adopet.api.repository.TutorRepository;
 import xlucaspx.adopet.api.validacoes.adocao.ValidadorSolicitacaoAdocao;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class AdocaoServiceTest {
@@ -46,6 +50,8 @@ class AdocaoServiceTest {
 	@Mock
 	private Pet pet;
 	@Mock
+	private Adocao adocao;
+	@Mock
 	private ValidadorSolicitacaoAdocao validador1;
 	@Mock
 	private ValidadorSolicitacaoAdocao validador2;
@@ -57,31 +63,10 @@ class AdocaoServiceTest {
 	@Captor
 	private ArgumentCaptor<Adocao> adocaoCaptor;
 
-	private SolicitacaoAdocaoDto dto;
-
-	@Test
-	@DisplayName("Deve salvar a adoção no banco de dados ao solicitar")
-	void salvarAdocaoNoBancoCenario01() {
-		this.dto = new SolicitacaoAdocaoDto(1L, 1L, "Motivo adoção");
-
-		given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
-		given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
-		given(pet.getAbrigo()).willReturn(abrigo);
-
-		service.solicitaAdocao(dto);
-
-		then(adocaoRepository).should().save(adocaoCaptor.capture());
-		var adocaoSalva = adocaoCaptor.getValue();
-
-		assertEquals(pet, adocaoSalva.getPet());
-		assertEquals(tutor, adocaoSalva.getTutor());
-		assertEquals(dto.motivo(), adocaoSalva.getMotivo());
-	}
-
 	@Test
 	@DisplayName("Deve chamar os validadores ao solicitar adoção")
 	void validarSolicitacaoAdocaoCenario01() {
-		this.dto = new SolicitacaoAdocaoDto(1L, 1L, "Motivo adoção");
+		var dto = new SolicitacaoAdocaoDto(1L, 1L, "Motivo adoção");
 
 		given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
 		given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
@@ -92,7 +77,58 @@ class AdocaoServiceTest {
 
 		service.solicitaAdocao(dto);
 
-		then(validador1).should().valida(dto);
-		then(validador2).should().valida(dto);
+		then(validador1).should(times(1)).valida(dto);
+		then(validador2).should(times(1)).valida(dto);
+	}
+
+	@Test
+	@DisplayName("Deve salvar a adoção no banco de dados ao solicitar")
+	void salvarAdocaoNoBancoCenario01() {
+		var dto = new SolicitacaoAdocaoDto(1L, 1L, "Motivo adoção");
+
+		given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
+		given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
+		given(pet.getAbrigo()).willReturn(abrigo);
+
+		service.solicitaAdocao(dto);
+
+		then(adocaoRepository).should(times(1)).save(adocaoCaptor.capture());
+		var adocaoSalva = adocaoCaptor.getValue();
+
+		assertEquals(pet, adocaoSalva.getPet());
+		assertEquals(tutor, adocaoSalva.getTutor());
+		assertEquals(dto.motivo(), adocaoSalva.getMotivo());
+	}
+
+	@Test
+	@DisplayName("Deve aprovar a adoção de id correspondente")
+	void aprovarAdocaoCenario01() {
+		var dto = new AprovacaoAdocaoDto(1L);
+
+		given(adocaoRepository.getReferenceById(dto.idAdocao())).willReturn(adocao);
+		given(adocao.getTutor()).willReturn(tutor);
+		given(adocao.getPet()).willReturn(pet);
+		given(adocao.getData()).willReturn(LocalDateTime.now());
+		given(pet.getAbrigo()).willReturn(abrigo);
+
+		service.aprovaAdocao(dto);
+
+		then(adocao).should(times(1)).aprovar();
+	}
+
+	@Test
+	@DisplayName("Deve reprovar a adoção de id correspondente")
+	void reprovarAdocaoCenario01() {
+		var dto = new ReprovacaoAdocaoDto(1L, "Justificativa teste.");
+
+		given(adocaoRepository.getReferenceById(dto.idAdocao())).willReturn(adocao);
+		given(adocao.getTutor()).willReturn(tutor);
+		given(adocao.getPet()).willReturn(pet);
+		given(adocao.getData()).willReturn(LocalDateTime.now());
+		given(pet.getAbrigo()).willReturn(abrigo);
+
+		service.reprovaAdocao(dto);
+
+		then(adocao).should(times(1)).reprovar(dto.justificativa());
 	}
 }

@@ -27,8 +27,10 @@ class ValidaPetDisponivelTest {
 	@Test
 	@DisplayName("Deve permitir solicitar a adoção de um pet disponível")
 	void validaCenario01() {
+		// ARRANGE
 		BDDMockito.given(repository.findAdotadoById(dto.idPet())).willReturn(false);
 
+		// ACT + ASSERT
 		Assertions.assertDoesNotThrow(() -> validador.valida(dto));
 	}
 

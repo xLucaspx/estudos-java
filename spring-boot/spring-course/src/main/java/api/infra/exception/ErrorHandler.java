@@ -17,7 +17,7 @@ import api.domain.exceptions.ValidationException;
 import jakarta.persistence.EntityNotFoundException;
 
 // A anotação @RestControllerAdvice serve para que o Spring carregue esta classe quando rodarmos o projeto;
-// no caso, esta anotação é específica para a classe que vai tartar os erros da API
+// no caso, esta anotação é específica para a classe que vai tratar os erros da API
 @RestControllerAdvice
 public class ErrorHandler {
 
