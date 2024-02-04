@@ -1,12 +1,9 @@
 package api.domain.medico;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.TemporalAdjusters;
-
+import api.domain.consulta.Consulta;
+import api.domain.endereco.EnderecoDto;
+import api.domain.paciente.CadastroPacienteDto;
+import api.domain.paciente.Paciente;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +12,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
-import api.domain.consulta.Consulta;
-import api.domain.endereco.EnderecoDto;
-import api.domain.paciente.CadastroPacienteDto;
-import api.domain.paciente.Paciente;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 // @DataJpaTest é usada quando queremos realizar testes na camada de persistência (geralmente interfaces Repository)
 @DataJpaTest
@@ -50,7 +49,8 @@ class MedicoRepositoryTest {
 
 		// when ou act
 		var medicoLivre = medicoRepository.escolheMedicoLivreNaDataPorEspecialidade(proximaSegundaAs10,
-				Especialidade.CARDIOLOGIA);
+			Especialidade.CARDIOLOGIA
+		);
 
 		// then ou assert
 		assertThat(medicoLivre).isNull();
@@ -64,7 +64,8 @@ class MedicoRepositoryTest {
 		var medico = cadastraMedico("Fulano", "dr-fulano@med.com.br", "234097", Especialidade.CARDIOLOGIA);
 
 		var medicoLivre = medicoRepository.escolheMedicoLivreNaDataPorEspecialidade(proximaSegundaAs10,
-				Especialidade.CARDIOLOGIA);
+			Especialidade.CARDIOLOGIA
+		);
 
 		assertThat(medicoLivre).isEqualTo(medico);
 	}

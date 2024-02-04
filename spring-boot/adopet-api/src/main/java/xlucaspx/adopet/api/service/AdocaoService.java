@@ -39,15 +39,15 @@ public class AdocaoService {
 
 		adocaoRepository.save(adocao);
 
-		var emailAbrigo = pet.getAbrigo().getEmail();
-		var assunto = "Solicitação de adoção";
-		var mensagem = """
-			Olá %s,\n
-			Uma solicitação de adoção foi registrada hoje para o pet %s.
-			Favor avaliar para aprovação ou reprovação.
-			""".formatted(pet.getAbrigo().getNome(), pet.getNome());
+		// var emailAbrigo = pet.getAbrigo().getEmail();
+		// var assunto = "Solicitação de adoção";
+		// var mensagem = """
+		// 	Olá %s,\n
+		// 	Uma solicitação de adoção foi registrada hoje para o pet %s.
+		// 	Favor avaliar para aprovação ou reprovação.
+		// 	""".formatted(pet.getAbrigo().getNome(), pet.getNome());
 
-		emailService.enviaEmail(emailAbrigo, assunto, mensagem);
+		// emailService.enviaEmail(emailAbrigo, assunto, mensagem);
 	}
 
 	public void aprovaAdocao(AprovacaoAdocaoDto dto) {
@@ -55,17 +55,17 @@ public class AdocaoService {
 
 		adocao.aprovar();
 
-		var emailTutor = adocao.getTutor().getEmail();
-		var assunto = "Adoção aprovada";
-		var mensagem = """
-			Parabéns %s!\n
-			Sua adoção do pet %s, solicitada em %s, foi aprovada.
-			Favor entrar em contato com o abrigo %s para agendar a busca do seu pet.
-			""".formatted(adocao.getTutor().getNome(), adocao.getPet().getNome(),
-				adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
-				adocao.getPet().getAbrigo().getNome());
+		// var emailTutor = adocao.getTutor().getEmail();
+		// var assunto = "Adoção aprovada";
+		// var mensagem = """
+		// 	Parabéns %s!\n
+		// 	Sua adoção do pet %s, solicitada em %s, foi aprovada.
+		// 	Favor entrar em contato com o abrigo %s para agendar a busca do seu pet.
+		// 	""".formatted(adocao.getTutor().getNome(), adocao.getPet().getNome(),
+		// 		adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
+		// 		adocao.getPet().getAbrigo().getNome());
 
-		emailService.enviaEmail(emailTutor, assunto, mensagem);
+		// emailService.enviaEmail(emailTutor, assunto, mensagem);
 	}
 
 	public void reprovaAdocao(ReprovacaoAdocaoDto dto) {
@@ -73,16 +73,16 @@ public class AdocaoService {
 
 		adocao.reprovar(dto.justificativa());
 
-		var emailTutor = adocao.getTutor().getEmail();
-		var assunto = "Adoção reprovada";
-		var mensagem = """
-			Olá %s,\n
-			Infelizmente sua adoção do pet %s, solicitada em %s, foi reprovada pelo abrigo %s com a seguinte justificativa:
-			"%s"
-			""".formatted(adocao.getTutor().getNome(), adocao.getPet().getNome(),
-				adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
-				adocao.getPet().getAbrigo().getNome(), dto.justificativa());
+		// var emailTutor = adocao.getTutor().getEmail();
+		// var assunto = "Adoção reprovada";
+		// var mensagem = """
+		// 	Olá %s,\n
+		// 	Infelizmente sua adoção do pet %s, solicitada em %s, foi reprovada pelo abrigo %s com a seguinte justificativa:
+		// 	"%s"
+		// 	""".formatted(adocao.getTutor().getNome(), adocao.getPet().getNome(),
+		// 		adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
+		// 		adocao.getPet().getAbrigo().getNome(), dto.justificativa());
 
-		emailService.enviaEmail(emailTutor, assunto, mensagem);
+		// emailService.enviaEmail(emailTutor, assunto, mensagem);
 	}
 }
