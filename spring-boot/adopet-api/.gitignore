@@ -5,6 +5,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+htmlReport/
+
 ### STS ###
 .apt_generated
 .classpath
