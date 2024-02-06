@@ -2,12 +2,15 @@ package xlucaspx.adopet.api.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -46,6 +49,14 @@ class AbrigoControllerTest {
 	private AbrigoService abrigoService;
 	@MockBean
 	private PetService petService;
+	@Mock
+	private Abrigo abrigo;
+	@Mock
+	private Pageable paginacao;
+	@Mock
+	private Page<DetalhesAbrigoDto> abrigoPage;
+	@Mock
+	private Page<DetalhesPetDto> petPage;
 
 	@Test
 	@DisplayName("Deve devolver código HTTP 201 e detalhes do abrigo cadastrado")
@@ -138,7 +149,9 @@ class AbrigoControllerTest {
 
 		when(abrigoService.carregaAbrigo(idOuNome)).thenReturn(abrigo);
 
-		var res = mvc.perform(get("/abrigos/{idOuNome}", idOuNome).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+		var res = mvc.perform(get("/abrigos/{idOuNome}", idOuNome).contentType(MediaType.APPLICATION_JSON))
+			.andReturn()
+			.getResponse();
 
 		assertEquals(HttpStatus.OK.value(), res.getStatus());
 		assertEquals(expected, res.getContentAsString());
@@ -151,7 +164,46 @@ class AbrigoControllerTest {
 
 		when(abrigoService.carregaAbrigo(idOuNome)).thenThrow(NaoEncontradoException.class);
 
-		var res = mvc.perform(get("/abrigos/{idOuNome}", idOuNome).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+		var res = mvc.perform(get("/abrigos/{idOuNome}", idOuNome).contentType(MediaType.APPLICATION_JSON))
+			.andReturn()
+			.getResponse();
+
+		assertEquals(HttpStatus.NOT_FOUND.value(), res.getStatus());
+	}
+
+	@Test
+	@DisplayName("Deve devolver código HTTP 200 ao listar abrigos")
+	void listaTodosCenario01() throws Exception {
+		when(abrigoService.listaTodos(paginacao)).thenReturn(abrigoPage);
+
+		var res = mvc.perform(get("/abrigos").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+
+		assertEquals(HttpStatus.OK.value(), res.getStatus());
+	}
+
+	@Test
+	@DisplayName("Deve devolver código HTTP 200 ao listar de pets de abrigo")
+	void listaPetsCenario01() throws Exception {
+		when(abrigo.getId()).thenReturn(1L);
+		when(abrigoService.carregaAbrigo(abrigo.getId().toString())).thenReturn(abrigo);
+		when(petService.listaPorAbrigo(abrigo.getId(), paginacao)).thenReturn(petPage);
+
+		var res = mvc.perform(get("/abrigos/{idOuNome}/pets", abrigo.getId()).contentType(MediaType.APPLICATION_JSON))
+			.andReturn()
+			.getResponse();
+
+		assertEquals(HttpStatus.OK.value(), res.getStatus());
+	}
+
+	@Test
+	@DisplayName("Deve devolver código HTTP 404 ao listar de pets de abrigo inválido")
+	void listaPetsCenario02() throws Exception {
+		var idOuNome = "idOuNome";
+		when(abrigoService.carregaAbrigo(idOuNome)).thenThrow(NaoEncontradoException.class);
+
+		var res = mvc.perform(get("/abrigos/{idOuNome}/pets", idOuNome).contentType(MediaType.APPLICATION_JSON))
+			.andReturn()
+			.getResponse();
 
 		assertEquals(HttpStatus.NOT_FOUND.value(), res.getStatus());
 	}

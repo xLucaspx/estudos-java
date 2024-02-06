@@ -90,9 +90,8 @@ class AdocaoControllerTest {
 	@Test
 	@DisplayName("Deve devolver código HTTP 400 para uma aprovação de adoção inválida")
 	void aprovaAdocaoCenario02() throws Exception {
-		var json = "{}";
-
-		var res = mvc.perform(put("/adocoes/aprovar").contentType(MediaType.APPLICATION_JSON).content(json))
+		// POST sem body
+		var res = mvc.perform(put("/adocoes/aprovar").contentType(MediaType.APPLICATION_JSON))
 			.andReturn()
 			.getResponse();
 

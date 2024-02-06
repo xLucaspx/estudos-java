@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import xlucaspx.adopet.api.dto.pet.CadastroPetDto;
 import xlucaspx.adopet.api.model.Abrigo;
 import xlucaspx.adopet.api.model.Pet;
@@ -14,6 +16,7 @@ import xlucaspx.adopet.api.repository.PetRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
@@ -27,6 +30,10 @@ class PetServiceTest {
 	private PetRepository repository;
 	@Mock
 	private Abrigo abrigo;
+	@Mock
+	private Pageable paginacao;
+	@Mock
+	private Page<Pet> petPage;
 
 	@Test
 	@DisplayName("Deve salvar o pet no banco de dados ao cadastrar")
@@ -68,6 +75,27 @@ class PetServiceTest {
 		assertEquals(pet.getTipo(), petRetornado.getTipo());
 		assertEquals(pet.getAbrigo(), petRetornado.getAbrigo());
 		assertEquals(pet.isAdotado(), petRetornado.isAdotado());
+	}
+
+	@Test
+	@DisplayName("Deve chamar o método que lista os pets disponíveis")
+	void listaDisponiveisCenario01() {
+		given(repository.findAllByAdotadoFalse(paginacao)).willReturn(petPage);
+
+		service.listaDisponiveis(paginacao);
+
+		then(repository).should(times(1)).findAllByAdotadoFalse(paginacao);
+	}
+
+	@Test
+	@DisplayName("Deve chamar o método que lista os pets por abrigo")
+	void listaPorAbrigoCenario01() {
+		var id = 1L;
+		given(repository.findAllByAbrigoId(id, paginacao)).willReturn(petPage);
+
+		service.listaPorAbrigo(id, paginacao);
+
+		then(repository).should(times(1)).findAllByAbrigoId(id, paginacao);
 	}
 
 	private CadastroPetDto criaCadastroPetDto() {

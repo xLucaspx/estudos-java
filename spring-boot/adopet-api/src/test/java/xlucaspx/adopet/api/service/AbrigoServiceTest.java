@@ -9,7 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import xlucaspx.adopet.api.dto.abrigo.CadastroAbrigoDto;
+import xlucaspx.adopet.api.dto.abrigo.DetalhesAbrigoDto;
 import xlucaspx.adopet.api.exception.NaoEncontradoException;
 import xlucaspx.adopet.api.model.Abrigo;
 import xlucaspx.adopet.api.repository.AbrigoRepository;
@@ -35,6 +38,10 @@ class AbrigoServiceTest {
 	private AbrigoRepository repository;
 	@Mock
 	private Abrigo abrigo;
+	@Mock
+	private Pageable paginacao;
+	@Mock
+	private Page<Abrigo> abrigoPage;
 	@Mock
 	private ValidadorCadastroAbrigo validador1;
 	@Mock
@@ -106,5 +113,15 @@ class AbrigoServiceTest {
 
 	private CadastroAbrigoDto criaCadastroAbrigoDto() {
 		return new CadastroAbrigoDto("Abrigo Teste", "abrigo@teste.com", "55 33445678");
+	}
+
+	@Test
+	@DisplayName("Deve chamar o método que lista todos os abrigos")
+	void listaTodosCenario01() {
+		given(repository.findAll(paginacao)).willReturn(abrigoPage);
+
+		service.listaTodos(paginacao);
+
+		then(repository).should(times(1)).findAll(paginacao);
 	}
 }

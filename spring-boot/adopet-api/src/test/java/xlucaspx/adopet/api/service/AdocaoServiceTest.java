@@ -22,6 +22,7 @@ import xlucaspx.adopet.api.repository.TutorRepository;
 import xlucaspx.adopet.api.validacoes.adocao.ValidadorSolicitacaoAdocao;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,6 +102,27 @@ class AdocaoServiceTest {
 	}
 
 	@Test
+	@DisplayName("Deve chamar método de enviar e-mail ao solicitar adoção")
+	void enviarEmailSolicitacaoCenario01() {
+		var dto = new SolicitacaoAdocaoDto(1L, 1L, "Motivo adoção");
+
+		given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
+		given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
+		given(pet.getAbrigo()).willReturn(abrigo);
+
+		service.solicitaAdocao(dto);
+
+		var assunto = "Solicitação de adoção";
+		var mensagem = """
+			Olá %s,\n
+			Uma solicitação de adoção foi registrada hoje para o pet %s.
+			Favor avaliar para aprovação ou reprovação.
+			""".formatted(abrigo.getNome(), pet.getNome());
+
+		then(emailService).should(times(1)).enviaEmail(abrigo.getEmail(), assunto, mensagem);
+	}
+
+	@Test
 	@DisplayName("Deve aprovar a adoção de id correspondente")
 	void aprovarAdocaoCenario01() {
 		var dto = new AprovacaoAdocaoDto(1L);
@@ -117,6 +139,33 @@ class AdocaoServiceTest {
 	}
 
 	@Test
+	@DisplayName("Deve chamar método de enviar e-mail ao aprovar adoção")
+	void enviarEmailAprovacaoCenario01() {
+		var dto = new AprovacaoAdocaoDto(1L);
+
+		given(adocaoRepository.getReferenceById(dto.idAdocao())).willReturn(adocao);
+		given(adocao.getTutor()).willReturn(tutor);
+		given(adocao.getPet()).willReturn(pet);
+		given(adocao.getData()).willReturn(LocalDateTime.now());
+		given(pet.getAbrigo()).willReturn(abrigo);
+
+		service.aprovaAdocao(dto);
+
+		var assunto = "Adoção aprovada";
+		var mensagem = """
+			Parabéns %s!\n
+			Sua adoção do pet %s, solicitada em %s, foi aprovada.
+			Favor entrar em contato com o abrigo %s para agendar a busca do seu pet.
+			""".formatted(tutor.getNome(),
+			pet.getNome(),
+			adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
+			abrigo.getNome()
+		);
+
+		then(emailService).should(times(1)).enviaEmail(tutor.getEmail(), assunto, mensagem);
+	}
+
+	@Test
 	@DisplayName("Deve reprovar a adoção de id correspondente")
 	void reprovarAdocaoCenario01() {
 		var dto = new ReprovacaoAdocaoDto(1L, "Justificativa teste.");
@@ -130,5 +179,33 @@ class AdocaoServiceTest {
 		service.reprovaAdocao(dto);
 
 		then(adocao).should(times(1)).reprovar(dto.justificativa());
+	}
+
+	@Test
+	@DisplayName("Deve chamar método de enviar e-mail ao reprovar adoção")
+	void enviarEmailReprovacaoCenario01() {
+		var dto = new ReprovacaoAdocaoDto(1L, "Justificativa teste.");
+
+		given(adocaoRepository.getReferenceById(dto.idAdocao())).willReturn(adocao);
+		given(adocao.getTutor()).willReturn(tutor);
+		given(adocao.getPet()).willReturn(pet);
+		given(adocao.getData()).willReturn(LocalDateTime.now());
+		given(pet.getAbrigo()).willReturn(abrigo);
+
+		service.reprovaAdocao(dto);
+
+		var assunto = "Adoção reprovada";
+		var mensagem = """
+			Olá %s,\n
+			Infelizmente sua adoção do pet %s, solicitada em %s, foi reprovada pelo abrigo %s com a seguinte justificativa:
+			"%s"
+			""".formatted(tutor.getNome(),
+			pet.getNome(),
+			adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
+			abrigo.getNome(),
+			dto.justificativa()
+		);
+
+		then(emailService).should(times(1)).enviaEmail(tutor.getEmail(), assunto, mensagem);
 	}
 }

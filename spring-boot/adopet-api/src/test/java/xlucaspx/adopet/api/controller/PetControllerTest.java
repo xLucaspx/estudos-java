@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -37,6 +39,10 @@ class PetControllerTest {
 	private PetService petService;
 	@Mock
 	private Abrigo abrigo;
+	@Mock
+	private Pageable paginacao;
+	@Mock
+	private Page<DetalhesPetDto> petPage;
 
 	@Test
 	@DisplayName("Deve devolver código HTTP 200 e detalhes do pet correspondente")
@@ -66,5 +72,15 @@ class PetControllerTest {
 		var res = mvc.perform(get("/pets/{id}", id).contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
 
 		assertEquals(HttpStatus.NOT_FOUND.value(), res.getStatus());
+	}
+
+	@Test
+	@DisplayName("Deve devolver código HTTP 200 ao listar pets disponíveis")
+	void listaDisponiveisCenario01() throws Exception {
+		when(petService.listaDisponiveis(paginacao)).thenReturn(petPage);
+
+		var res = mvc.perform(get("/pets").contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse();
+
+		assertEquals(HttpStatus.OK.value(), res.getStatus());
 	}
 }
