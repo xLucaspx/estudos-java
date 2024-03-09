@@ -1,71 +1,84 @@
 package app;
 
-import static exercicios.Calculadora.*;
-import static exercicios.IntervalosPrimitivos.*;
-import static exercicios.ConversorTemperatura.*;
-import static exercicios.DiferencaArredondamento.exibeDiferencaArredondamento;
+import exercicios.lista1.Calculadora;
+import exercicios.lista1.CalculadoraAltura;
+import exercicios.lista1.CalculadoraAreaEsfera;
+import exercicios.lista1.CalculadoraAreaTerreno;
+import exercicios.lista1.CalculadoraPotencia;
+import exercicios.lista1.CalculadoraTempo;
+import exercicios.lista1.ConversorTemperatura;
+import exercicios.lista1.DiferencaArredondamento;
+import exercicios.lista1.TiposPrimitivos;
 
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
+
+import static java.util.Map.entry;
 
 public class App {
+	private static final String MENU_PROMPT = "O que você deseja executar? ";
+	private static final String CONTINUE_PROMPT = "Digite S para continuar... ";
+
 	public static void main(String[] args) {
+		var opcoes = new TreeMap<>(Map.ofEntries(entry(1, TiposPrimitivos.class),
+			entry(2, DiferencaArredondamento.class),
+			entry(3, CalculadoraAreaEsfera.class),
+			entry(4, CalculadoraPotencia.class),
+			entry(5, ConversorTemperatura.class),
+			entry(6, Calculadora.class),
+			entry(7, CalculadoraAreaTerreno.class),
+			entry(8, CalculadoraAltura.class),
+			entry(9, CalculadoraTempo.class)
+		));
 
-		System.out.println(converteFahrenheitParaCelsius(0));
-		System.out.println(converteCelsiusParaFahrenheit(0));
-
-		System.out.println(calculaAreaEsfera(2));
-
-		exibeDiferencaArredondamento(1.4, 5.8);
-
-		System.exit(0);
-
-		exibeIntervaloByte();
-		exibeIntervaloShort();
-		exibeIntervaloInt();
-		exibeIntervaloLong();
-		exibeIntervaloFloat();
-		exibeIntervaloDouble();
-		exibeIntervaloBoolean();
-		exibeIntervaloChar();
-
-		System.exit(0);
-
-		var continuar = true;
+		var run = true;
 		try (var in = new Scanner(System.in)) {
+
+			var menu = App.criaMenu(opcoes);
+
 			do {
-				Double x = null;
-				Double y = null;
+				try {
+					System.out.println(menu);
+					System.out.print(MENU_PROMPT);
+					var opcao = Integer.parseInt(in.nextLine());
 
-				do {
-					try {
-						System.out.print("Digite o primeiro valor: ");
-						x = Double.parseDouble(in.nextLine());
-
-						System.out.print("Digite o segundo valor: ");
-						y = Double.parseDouble(in.nextLine());
-					} catch (NumberFormatException e) {
-						System.out.println("Valor inválido inserido!");
+					if (!opcoes.containsKey(opcao)) {
+						throw new IllegalArgumentException("Não há opção especificada para o valor " + opcao);
 					}
-				} while (x == null || y == null);
 
+					opcoes.get(opcao).getDeclaredConstructor().newInstance().run(in);
 
-				System.out.printf("%.1f + %.1f = %.1f%n", x, y, soma(x, y));
-				System.out.printf("%.1f - %.1f = %.1f%n", x, y, subtrai(x, y));
-				System.out.printf("Média de %.1f e %.1f = %.1f%n", x, y, calculaMedia(x, y));
-				System.out.printf("Maior entre %.1f e %.1f = %.1f%n", x, y, retornaMaior(x, y));
-				System.out.printf("Menor entre %.1f e %.1f = %.1f%n", x, y, retornaMenor(x, y));
+					System.out.print(CONTINUE_PROMPT);
+					var res = in.nextLine();
 
-				System.out.print("Digite S para continuar... ");
-				var res = in.nextLine();
+					if (!res.equalsIgnoreCase("s")) {
+						run = false;
+					}
 
-				if (!res.equalsIgnoreCase("s")) continuar = false;
-
-
-			} while (continuar);
+				} catch (NumberFormatException e) {
+					System.err.println("Valor inválido!");
+				} catch (IllegalArgumentException e) {
+					System.err.println(e.getMessage());
+				}
+			} while (run);
 		} catch (Exception e) {
-			System.err.println("Ocorreu um erro durante a execução do programa:");
+			System.err.println("Ocorreu um erro inesperado durante a execução do programa: " + e.getMessage());
 			e.printStackTrace();
-			System.exit(0);
 		}
+
+		System.out.println("Programa finalizado!");
+		System.exit(0);
+	}
+
+	private static String criaMenu(Map<Integer, Class<? extends model.RunnableExercise>> params) throws Exception {
+		StringBuilder menu = new StringBuilder("\n"); // quebra de linha
+
+		for (var param : params.entrySet()) {
+			var exercise = param.getValue().getDeclaredConstructor().newInstance();
+			menu.append("[%d] %s%n".formatted(param.getKey(), exercise));
+		}
+
+		return menu.toString();
 	}
 }
