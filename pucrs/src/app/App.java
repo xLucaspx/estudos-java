@@ -1,14 +1,7 @@
 package app;
 
-import exercicios.lista1.Calculadora;
-import exercicios.lista1.CalculadoraAltura;
-import exercicios.lista1.CalculadoraAreaEsfera;
-import exercicios.lista1.CalculadoraAreaTerreno;
-import exercicios.lista1.CalculadoraPotencia;
-import exercicios.lista1.CalculadoraTempo;
-import exercicios.lista1.ConversorTemperatura;
-import exercicios.lista1.DiferencaArredondamento;
-import exercicios.lista1.TiposPrimitivos;
+import exercicios.lista1.*;
+import model.RunnableExercise;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -21,7 +14,8 @@ public class App {
 	private static final String CONTINUE_PROMPT = "Digite S para continuar... ";
 
 	public static void main(String[] args) {
-		var opcoes = new TreeMap<>(Map.ofEntries(entry(1, TiposPrimitivos.class),
+		var opcoes = new TreeMap<>(Map.ofEntries(
+			entry(1, TiposPrimitivos.class),
 			entry(2, DiferencaArredondamento.class),
 			entry(3, CalculadoraAreaEsfera.class),
 			entry(4, CalculadoraPotencia.class),
@@ -29,7 +23,8 @@ public class App {
 			entry(6, Calculadora.class),
 			entry(7, CalculadoraAreaTerreno.class),
 			entry(8, CalculadoraAltura.class),
-			entry(9, CalculadoraTempo.class)
+			entry(9, CalculadoraTempo.class),
+			entry(10, InversorNumero.class)
 		));
 
 		var run = true;
@@ -71,12 +66,12 @@ public class App {
 		System.exit(0);
 	}
 
-	private static String criaMenu(Map<Integer, Class<? extends model.RunnableExercise>> params) throws Exception {
+	private static String criaMenu(Map<Integer, Class<? extends RunnableExercise>> params) throws Exception {
 		StringBuilder menu = new StringBuilder("\n"); // quebra de linha
 
 		for (var param : params.entrySet()) {
 			var exercise = param.getValue().getDeclaredConstructor().newInstance();
-			menu.append("[%d] %s%n".formatted(param.getKey(), exercise));
+			menu.append("[%2d] %s%n".formatted(param.getKey(), exercise));
 		}
 
 		return menu.toString();
