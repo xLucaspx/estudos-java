@@ -14,8 +14,7 @@ public class App {
 	private static final String CONTINUE_PROMPT = "Digite S para continuar... ";
 
 	public static void main(String[] args) {
-		var opcoes = new TreeMap<>(Map.ofEntries(
-			entry(1, TiposPrimitivos.class),
+		var opcoes = new TreeMap<>(Map.ofEntries(entry(1, TiposPrimitivos.class),
 			entry(2, DiferencaArredondamento.class),
 			entry(3, CalculadoraAreaEsfera.class),
 			entry(4, CalculadoraPotencia.class),
@@ -24,7 +23,10 @@ public class App {
 			entry(7, CalculadoraAreaTerreno.class),
 			entry(8, CalculadoraAltura.class),
 			entry(9, CalculadoraTempo.class),
-			entry(10, InversorNumero.class)
+			entry(10, InversorNumero.class),
+			entry(11, CalculadoraDinheiro.class),
+			entry(12, CalculadoraPascoa.class),
+			entry(13, CalculadoraSegundos.class)
 		));
 
 		var run = true;
