@@ -21,6 +21,12 @@ public class CalculadoraAreaEsfera extends RunnableExercise {
 
 				System.out.print("Digite o valor do raio (r): ");
 				raio = Double.parseDouble(in.nextLine());
+
+				if (raio <= 0) {
+					System.err.println("O valor do raio deve ser maior do que 0!");
+					raio = null;
+				}
+
 			} catch (NumberFormatException e) {
 				System.err.println("Valor inválido inserido!");
 			}
