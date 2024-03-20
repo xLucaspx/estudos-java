@@ -31,7 +31,10 @@ public class App {
 			entry(14, ExercicioEscada.class),
 			entry(15, CalculadoraVolumeGarrafa.class),
 			entry(16, CalculaDigitoVerificadorConta.class),
-			entry(17, CalculaNotaAtleta.class)
+			entry(17, CalculaNotaAtleta.class),
+			entry(18, ExercicioCarro.class),
+			entry(19, CalculadoraBolasDeGude.class),
+			entry(20, CalculadoraIngressoTeatro.class)
 		));
 
 		var run = true;

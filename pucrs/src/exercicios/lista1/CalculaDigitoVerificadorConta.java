@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class CalculaDigitoVerificadorConta extends RunnableExercise {
 	public CalculaDigitoVerificadorConta() {
-		super("Lista I", 18, "Calcular odígito verificador de uma conta");
+		super("Lista I", 18, "Calcular o dígito verificador de uma conta");
 	}
 
 	@Override
