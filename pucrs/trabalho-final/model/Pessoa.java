@@ -41,9 +41,17 @@ public class Pessoa {
 	}
 
 	/**
-	 * @return O CPF da pessoa, formatado para exibição
+	 *
+	 * @return O CPF da pessoa contendo apenas números.
 	 */
 	public String getCpf() {
+		return cpf;
+	}
+
+	/**
+	 * @return O CPF da pessoa, formatado para exibição
+	 */
+	public String getCpfFormatado() {
 		// utilizando RegExp para formatar o CPF
 		return cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
 	}
@@ -90,7 +98,7 @@ public class Pessoa {
 		soma = 0;
 
 		for (int i = 0; i < 10; i++) {
-			var digito = cpf.charAt(i) - '0'; // converte o char para número
+			int digito = cpf.charAt(i) - '0'; // converte o char para número
 			soma += digito * (11 - i);
 		}
 
@@ -124,7 +132,7 @@ public class Pessoa {
 		}
 
 		if (!telefone.matches(
-			"^[(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[)]?\\s?(?:[2-8]|9 ?[1-9])[0-9]{3}-? ?[0-9]{4}$")) {
+			"^[(]?(?:[14689][1-9]|2[12478]|3[1234578]|5[1345]|7[134579])[)]?\\s?(?:[2-8]|9\\s?[1-9])[0-9]{3}-?\\s?[0-9]{4}$")) {
 			throw new IllegalArgumentException("O telefone inserido é inválido!");
 		}
 
@@ -177,6 +185,6 @@ public class Pessoa {
 				CPF: %s,
 				Telefone: %s,
 				E-mail: <%s>
-			""".formatted(nome, getCpf(), getTelefone(), email);
+			""".formatted(nome, getCpfFormatado(), getTelefone(), email);
 	}
 }

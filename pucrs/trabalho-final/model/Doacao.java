@@ -20,11 +20,36 @@ public class Doacao {
 		setQuantidade(quantidade);
 	}
 
+	/**
+	 * @param quantidade A quantidade a ser adicionada; deve ser maior do que zero
+	 * @return Falso caso a quantidade seja inválida, verdadeiro caso contrário
+	 */
+	public boolean adiciona(double quantidade) {
+		if (quantidade <= 0) {
+			return false;
+		}
+		this.quantidade += quantidade;
+		return true;
+	}
+
+	/**
+	 * @param quantidade A quantidade a ser removida; deve ser maior do que zero e menor do que a quantidade disponível
+	 * @return Falso caso a quantidade seja inválida, verdadeiro caso contrário
+	 */
+	public boolean remove(double quantidade) {
+		if (quantidade <= 0 || quantidade > this.quantidade) {
+			return false;
+		}
+		this.quantidade -= quantidade;
+		return true;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
 
-	// o método setCodigo é privado pois o código da doação não deve ser alterado após sua inicialização
+	// os métodos setCodigo e setQuantidade são privado pois o código da doação não deve ser alterado após sua
+	// inicialização e a quantidade deve ser modificada pelos métodos adiciona e remove
 
 	/**
 	 * @param codigo O código da doação sendo cadastrada
@@ -62,7 +87,7 @@ public class Doacao {
 	 * @param quantidade A quantidade da doação sendo cadastrada
 	 * @throws IllegalArgumentException Caso o valor passado seja menor ou igual a zero
 	 */
-	public void setQuantidade(double quantidade) {
+	private void setQuantidade(double quantidade) {
 		if (quantidade <= 0) {
 			throw new IllegalArgumentException("A quantidade deve ser maior do que zero!");
 		}
