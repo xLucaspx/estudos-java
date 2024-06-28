@@ -28,10 +28,21 @@ public class Pessoa {
 	}
 
 	/**
-	 * @param doacao A doação recebida pela pessoa, que será adicionada à lista
-	 * @return Falso caso a doação seja nula ou duplicada, verdadeiro caso contrário
+	 * @param doacao A doação recebida pela pessoa, que será adicionada à lista ou terá a quantidade incrementada
+	 * @return Falso caso a doação seja nula, verdadeiro caso contrário
 	 */
 	public boolean adicionaDoacao(Doacao doacao) {
+		if (doacao == null) {
+			return false;
+		}
+
+		Doacao existente = doacoesRecebidas.buscaPorCodigo(doacao.getCodigo());
+
+		if (existente != null) {
+			doacoesRecebidas.adiciona(doacao.getCodigo(), doacao.getQuantidade());
+			return true;
+		}
+
 		return doacoesRecebidas.cadastraDoacao(doacao);
 	}
 

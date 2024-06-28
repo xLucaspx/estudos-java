@@ -10,15 +10,14 @@ import java.util.Scanner;
 import static utils.Validador.*;
 
 public class App {
-	private static ListaPessoa pessoas = new ListaPessoa();
-	private static ListaDoacao doacoes = new ListaDoacao();
+	private static final ListaPessoa PESSOAS = new ListaPessoa();
+	private static final ListaDoacao DOACOES = new ListaDoacao();
 	private static boolean continuar = true;
 
 	/*
 TODO:
 [ ] Incluir método que gera CPF para testes
 [ ] Incluir mensagem que informa que a ordenação é prejudicada pelos acentos
-[ ] Criar README
  */
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -33,8 +32,11 @@ TODO:
 		System.out.println("\n\nprograma encerrado\n");
 	}
 
+	/**
+	 * Método que imprime todas as pessoas da lista de pessoas.
+	 */
 	private static void listaPessoas() {
-		Pessoa[] lista = pessoas.getPessoas();
+		Pessoa[] lista = PESSOAS.getPessoas();
 
 		System.out.println("Lista de pessoas:\n");
 		for (Pessoa p : lista) {
@@ -42,8 +44,11 @@ TODO:
 		}
 	}
 
+	/**
+	 * Método que imprime todas as doações da lista de doações.
+	 */
 	private static void listaDoacoes() {
-		Doacao[] lista = doacoes.getDoacoes();
+		Doacao[] lista = DOACOES.getDoacoes();
 
 		System.out.println("Lista de doações:\n");
 		for (Doacao p : lista) {
@@ -51,33 +56,76 @@ TODO:
 		}
 	}
 
+	/**
+	 * Método que realiza a ordenação da lista de pessoas por CPF utilizando o método <code>compareTo</code> da classe
+	 * String.
+	 */
 	private static void ordenaPessoasPorCpf() {
 		System.out.println("Ordenando...");
-		pessoas.ordenaPorCpf();
+		PESSOAS.ordenaPorCpf();
 		System.out.println("Ordenação concluída\n");
 		listaPessoas();
 	}
 
+	/**
+	 * Método que realiza a ordenação da lista de pessoas por nome, em ordem alfabética, utilizando o método
+	 * <code>compareToIgnoreCase</code> da classe String; acentuações e caracteres especiais podem prejudicar a
+	 * ordenação.
+	 */
 	private static void ordenaPessoasPorNome() {
 		System.out.println("Ordenando...");
-		pessoas.ordenaPorNome();
+		PESSOAS.ordenaPorNome();
 		System.out.println("Ordenação concluída\n");
 		listaPessoas();
 	}
 
-	private static void consultaPessoaPorCpf(Scanner in) {
-		System.out.print("Digite o CPF que deseja consultar... ");
-		String cpf = in.nextLine();
-		Pessoa p = pessoas.buscaPorCpf(cpf);
-
-		String saida = p != null ? "Resultado encontrado:\n" + p : "Nenhum resultado encontrado!";
-		System.out.println(saida);
-	}
-
-	private static void alteraEmailPessoa(Scanner in) {
+	/**
+	 * Método que busca uma pessoa pelo CPF informado pelo usuário.
+	 *
+	 * @param in O Scanner para ler a entrada do usuário
+	 * @return A pessoa encontrada ou null caso não seja encontrada uma pessoa correspondente na lista
+	 */
+	private static Pessoa buscaPessoa(Scanner in) {
 		System.out.print("Digite o CPF para localizar a pessoa... ");
 		String cpf = in.nextLine();
-		Pessoa p = pessoas.buscaPorCpf(cpf);
+		return PESSOAS.buscaPorCpf(cpf);
+	}
+
+	/**
+	 * Método que consulta uma pessoa pelo CPF informado pelo usuário e, caso encontre uma
+	 * correspondência, imprime-a na tela; caso contrário, informa o usuário.
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
+	private static void consultaPessoaPorCpf(Scanner in) {
+		Pessoa p = buscaPessoa(in);
+
+		if (p == null) {
+			System.out.println("Nenhuma correspondência encontrada!");
+			return;
+		}
+
+		System.out.printf("""
+			Resultado encontrado:
+			%s
+				Doações recebidas:
+			""", p);
+
+		Doacao[] doacoes = p.getDoacoesRecebidas();
+		for (Doacao d : doacoes) {
+			System.out.printf("\t\t%s%n", d);
+		}
+	}
+
+	/**
+	 * Método para alterar o e-mail de uma pessoa cadastrada; o usuário informa o CPF da pessoa que deseja alterar e,
+	 * caso seja encontrada correspondência, é informado o e-mail atual e solicitado o novo valor, que deve ser um
+	 * endereço de e-mail válido.
+	 *
+	 * @param in O Scanner para ler a entrada do usuário
+	 */
+	private static void alteraEmailPessoa(Scanner in) {
+		Pessoa p = buscaPessoa(in);
 
 		if (p == null) {
 			System.out.println("Nenhuma pessoa encontrada para o CPF encontrado!");
@@ -102,6 +150,12 @@ TODO:
 		System.out.println("E-mail alterado com sucesso!");
 	}
 
+	/**
+	 * Método que busca uma doação pelo código ou descrição informado pelo usuário.
+	 *
+	 * @param in O Scanner para ler a entrada do usuário
+	 * @return A doação encontrada ou null caso não seja encontrada uma doação correspondente na lista
+	 */
 	private static Doacao buscaDoacao(Scanner in) {
 		System.out.print("Digite a descrição ou código da doação... ");
 		String input = in.nextLine();
@@ -110,14 +164,20 @@ TODO:
 
 		try {
 			int codigo = Integer.parseInt(input);
-			d = doacoes.buscaPorCodigo(codigo);
+			d = DOACOES.buscaPorCodigo(codigo);
 		} catch (Exception e) {
-			d = doacoes.buscaPorDescricao(input);
+			d = DOACOES.buscaPorDescricao(input);
 		}
 
 		return d;
 	}
 
+	/**
+	 * Método que consulta uma doação pelo código ou descrição informado pelo usuário e, caso encontre uma
+	 * correspondência, imprime-a na tela; caso contrário, informa o usuário.
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
 	private static void consultaDoacao(Scanner in) {
 		Doacao d = buscaDoacao(in);
 
@@ -125,6 +185,13 @@ TODO:
 		System.out.println(saida);
 	}
 
+	/**
+	 * Método para adicionar determinada quantidade a uma doação. O usuário informa o código ou a descrição da doação que
+	 * deseja modificar e, caso seja encontrada uma correspondência na lista, é informada a quantidade atual e
+	 * solicitada a quantidade a ser adicionada, que deve ser maior ou igual a zero.
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
 	private static void adicionaQuantidadeDeDoacao(Scanner in) {
 		Doacao d = buscaDoacao(in);
 
@@ -133,21 +200,30 @@ TODO:
 			return;
 		}
 
-		double quantidade = 0;
+		double quantidade = -1;
 		do {
 			System.out.printf("%s - Quantidade atual: %.2f%n", d.getDescricao(), d.getQuantidade());
 			System.out.print("Digite a quantidade a ser adicionada... ");
 			quantidade = leDouble(in);
 
-			if (quantidade <= 0) {
-				System.err.println("A quantidade deve ser maior do que 0!");
+			if (quantidade < 0) {
+				System.err.println("A quantidade deve ser maior ou igual a 0!");
 			}
-		} while (quantidade <= 0);
+		} while (quantidade < 0);
 
-		d.adiciona(quantidade);
-		System.out.println("Quantidade adicionada com sucesso!");
+		boolean sucesso = d.adiciona(quantidade);
+		String saida = sucesso ? "Quantidade adicionada com sucesso! Resultado: %.2f".formatted(d.getQuantidade())
+			: "Nenhuma operação realizada!";
+		System.out.println(saida);
 	}
 
+	/**
+	 * Método para remover determinada quantidade de uma doação. O usuário informa o código ou a descrição da doação que
+	 * deseja modificar e, caso seja encontrada uma correspondência na lista, é informada a quantidade atual e
+	 * solicitada a quantidade a ser removida, que deve ser maior ou igual a zero e menor do que a quantidade atual.
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
 	private static void removeQuantidadeDeDoacao(Scanner in) {
 		Doacao d = buscaDoacao(in);
 
@@ -162,24 +238,43 @@ TODO:
 			System.out.print("Digite a quantidade a ser removida... ");
 			quantidade = leDouble(in);
 
-			if (quantidade <= 0) {
-				System.err.println("A quantidade deve ser maior do que 0!");
+			if (quantidade < 0) {
+				System.err.println("A quantidade deve ser maior ou igual a 0!");
 			}
-		} while (quantidade <= 0);
+
+			if (quantidade > d.getQuantidade()) {
+				System.err.println("Quantidade superior à disponível em estoque!");
+			}
+		} while (quantidade < 0 || quantidade > d.getQuantidade());
 
 		boolean sucesso = d.remove(quantidade);
-		String saida = sucesso ? "Quantidade removida com sucesso!"
-			: "Não foi possível remover: quantidade superior à disponível em estoque!";
+		String saida = sucesso ? "Quantidade removida com sucesso! Resultado: %.2f".formatted(d.getQuantidade())
+			: "Nenhuma operação realizada!";
 		System.out.println(saida);
 	}
 
+	/**
+	 * Método que lista todas as doações cadastradas com quantidade igual ou superior à informada pelo usuário.
+	 * A quantidade informada deve ser maior ou igual a zero.
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
 	private static void consultaDoacaoPorQuantidade(Scanner in) {
-		System.out.print("""
-			Lista todos os produtos com quantidade maior ou igual à informada
-			Digite a quantidade...\s
-			""");
-		double quantidade = leDouble(in);
-		Doacao[] lista = doacoes.getDoacoesPorQuantidade(quantidade);
+		double quantidade = -1;
+
+		do {
+			System.out.print("""
+				Lista todos os produtos com quantidade maior ou igual à informada
+				Digite a quantidade...\s
+				""");
+			quantidade = leDouble(in);
+
+			if (quantidade < 0) {
+				System.err.println("Informe uma quantidade maior ou igual a zero!");
+			}
+		} while (quantidade < 0);
+
+		Doacao[] lista = DOACOES.getDoacoesPorQuantidade(quantidade);
 
 		if (lista.length == 0) {
 			System.out.println("Nenhuma doação encontrada para a quantidade informada!");
@@ -192,6 +287,13 @@ TODO:
 		}
 	}
 
+	/**
+	 * Método utilizado para cadastrar uma doação no sistema. Solicita do usuário as informações necessárias uma a uma
+	 * e, após garantir que todas estão válidas, adiciona a doação à lista de doações.
+	 * Não permite o cadastro de doações com código ou descrição duplicados ou com dados inválidos.
+	 *
+	 * @param in O Scanner utilizado para ler as entradas do usuário
+	 */
 	private static void cadastraDoacao(Scanner in) {
 		boolean codigoValido = false;
 		boolean descricaoValida = false;
@@ -213,7 +315,7 @@ TODO:
 					continue;
 				}
 
-				if (doacoes.buscaPorCodigo(codigo) != null) {
+				if (DOACOES.buscaPorCodigo(codigo) != null) {
 					System.err.println("Já existe uma doação cadastrada com esse código!");
 					codigoValido = false;
 					continue;
@@ -230,7 +332,7 @@ TODO:
 					continue;
 				}
 
-				if (doacoes.buscaPorDescricao(descricao) != null) {
+				if (DOACOES.buscaPorDescricao(descricao) != null) {
 					System.err.println("Já existe uma doação cadastrada com essa descrição!");
 					descricaoValida = false;
 					continue;
@@ -252,10 +354,17 @@ TODO:
 		} while (!dadosValidos);
 
 		Doacao d = new Doacao(codigo, descricao, quantidade);
-		doacoes.cadastraDoacao(d);
+		DOACOES.cadastraDoacao(d);
 		System.out.println("Doação cadastrada com sucesso!");
 	}
 
+	/**
+	 * Método utilizado para cadastrar uma pessoa no sistema. Solicita do usuário as informações necessárias uma a uma
+	 * e, após garantir que todas estão válidas, adiciona a pessoa à lista de pessoas.
+	 * Não permite o cadastro de pessoas com CPF duplicado ou dados inválidos.
+	 *
+	 * @param in O Scanner utilizado para ler as entradas do usuário
+	 */
 	private static void cadastraPessoa(Scanner in) {
 		boolean nomeValido = false;
 		boolean cpfValido = false;
@@ -289,7 +398,7 @@ TODO:
 					continue;
 				}
 
-				if (pessoas.buscaPorCpf(cpf) != null) {
+				if (PESSOAS.buscaPorCpf(cpf) != null) {
 					System.err.println("Já existe uma pessoa cadastrada com este CPF!");
 					cpfValido = false;
 					continue;
@@ -323,10 +432,70 @@ TODO:
 		} while (!dadosValidos);
 
 		Pessoa p = new Pessoa(cpf, nome, email, telefone);
-		pessoas.cadastraPessoa(p);
+		PESSOAS.cadastraPessoa(p);
 		System.out.println("Pessoa cadastrada com sucesso!");
 	}
 
+	/**
+	 * Método que permite que determinada pessoa escolha uma quantidade de itens para receber como doação; informa-se o
+	 * CPF da pessoa e, caso seja encontrada uma correspondência,
+	 * informa-se o código ou a descrição da doação e a quantidade desejada. Caso todas as informações sejam válidas, a
+	 * operação será realizada.
+	 *
+	 * @param in O Scanner para ler as entradas do usuário
+	 */
+	private static void escolheDoacao(Scanner in) {
+		System.out.println("Para qual pessoa irá a doação?");
+		Pessoa p = buscaPessoa(in);
+
+		if (p == null) {
+			System.err.println("Nenhuma pessoa encontrada para o CPF informado!");
+			return;
+		}
+
+		System.out.println("Qual item será doado?");
+		Doacao d = buscaDoacao(in);
+
+		if (d == null) {
+			System.err.println("Nenhuma doação encontrada para o critério informado!");
+			return;
+		}
+
+		double quantidadeDoada = 0;
+		do {
+			System.out.printf("%s - Quantidade atual: %.2f%n", d.getDescricao(), d.getQuantidade());
+			System.out.print("Informe a quantidade que será doada... ");
+			quantidadeDoada = leDouble(in);
+
+			if (quantidadeDoada < 0) {
+				System.err.println("A quantidade deve ser maior ou igual a 0!");
+			}
+
+			if (quantidadeDoada > d.getQuantidade()) {
+				System.err.println("Quantidade superior à disponível em estoque!");
+			}
+		} while (quantidadeDoada < 0 || quantidadeDoada > d.getQuantidade());
+
+		boolean sucesso = d.remove(quantidadeDoada);
+		String saida = "Nenhuma operação realizada!";
+
+		if (sucesso) {
+			sucesso = p.adicionaDoacao(new Doacao(d.getCodigo(), d.getDescricao(), quantidadeDoada));
+			if (sucesso) {
+				saida = "Doação realizada com sucesso!";
+			}
+		}
+
+		System.out.println(saida);
+	}
+
+	/**
+	 * Método que exibe o menu de pessoas do programa. Mostra as opções disponíveis e lê a escolha do usuário; caso a
+	 * opção digitada seja válida, chama o método correspondente, caso contrário informa o usuário e solicita a entrada
+	 * novamente
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
 	private static void menuPessoas(Scanner in) {
 		int opcao = -1;
 
@@ -360,11 +529,18 @@ TODO:
 			case 4 -> ordenaPessoasPorNome();
 			case 5 -> alteraEmailPessoa(in);
 			case 6 -> listaPessoas();
-			// case 7 -> escolheDoacao(in);
+			case 7 -> escolheDoacao(in);
 			case 0 -> continuar = false;
 		}
 	}
 
+	/**
+	 * Método que exibe o menu de doações do programa. Mostra as opções disponíveis e lê a escolha do usuário; caso a
+	 * opção digitada seja válida, chama o método correspondente, caso contrário informa o usuário e solicita a entrada
+	 * novamente
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
 	private static void menuDoacoes(Scanner in) {
 		int opcao = -1;
 
@@ -400,6 +576,13 @@ TODO:
 		}
 	}
 
+	/**
+	 * Método que exibe o menu principal do programa. Mostra as opções disponíveis e lê a escolha do usuário; caso a
+	 * opção digitada seja válida, chama o método correspondente, caso contrário informa o usuário e solicita a entrada
+	 * novamente
+	 *
+	 * @param in O Scanner utilizado para ler a entrada do usuário
+	 */
 	private static void menuPrincipal(Scanner in) {
 		int opcao = -1;
 
@@ -427,6 +610,13 @@ TODO:
 		}
 	}
 
+	/**
+	 * Método que lê um inteiro digitado pelo usuário. Caso o valor digitado seja inválido ou ocorra algum erro, informa
+	 * o usuário e retorna -1
+	 *
+	 * @param in O Scanner que será utilizado para ler a entrada do usuário
+	 * @return O inteiro digitado pelo usuário ou -1 em caso de erro
+	 */
 	private static int leInt(Scanner in) {
 		int valor = -1;
 
@@ -439,6 +629,13 @@ TODO:
 		return valor;
 	}
 
+	/**
+	 * Método que lê um double digitado pelo usuário. Caso o valor digitado seja inválido ou ocorra algum erro, informa
+	 * o usuário e retorna -1
+	 *
+	 * @param in O Scanner que será utilizado para ler a entrada do usuário
+	 * @return O double digitado pelo usuário ou -1 em caso de erro
+	 */
 	private static double leDouble(Scanner in) {
 		double valor = -1;
 
@@ -451,6 +648,9 @@ TODO:
 		return valor;
 	}
 
+	/**
+	 * Método utilizado para imprimir a abertura do programa
+	 */
 	private static void abertura() {
 		System.out.println("""
 			--- Sistema de doações ---

@@ -120,13 +120,45 @@ public class ListaDoacao {
 	}
 
 	/**
+	 * @param codigo     O código da doação a qual se deseja adicionar a quantidade
+	 * @param quantidade A quantidade a ser adicionada à doação; deve ser maior do que zero
+	 * @return Falso caso a doação não seja encontrada ou a quantidade seja inválida; verdadeiro em caso de sucesso
+	 */
+	public boolean adiciona(int codigo, double quantidade) {
+		Doacao doacao = buscaPorCodigo(codigo);
+
+		if (doacao == null) {
+			return false;
+		}
+
+		return doacao.adiciona(quantidade);
+	}
+
+	/**
 	 * @param descricao  A descrição da doação a qual se deseja subtrair a quantidade; não pode ser nula
-	 * @param quantidade A quantidade a ser subtraída da doação; deve ser maior do que zero
+	 * @param quantidade A quantidade a ser subtraída da doação; deve ser maior do que zero e menor ou igual a
+	 *                   quantidade atual
 	 * @return Falso caso a descrição seja nula, a doação não seja encontrada ou a quantidade seja inválida; verdadeiro
 	 * em caso de sucesso
 	 */
 	public boolean remove(String descricao, double quantidade) {
 		Doacao doacao = buscaPorDescricao(descricao);
+
+		if (doacao == null) {
+			return false;
+		}
+
+		return doacao.remove(quantidade);
+	}
+
+	/**
+	 * @param codigo     O código da doação a qual se deseja subtrair a quantidade
+	 * @param quantidade A quantidade a ser subtraída da doação; deve ser maior do que zero e menor ou igual a
+	 *                   quantidade atual
+	 * @return Falso caso a doação não seja encontrada ou a quantidade seja inválida; verdadeiro em caso de sucesso
+	 */
+	public boolean remove(int codigo, double quantidade) {
+		Doacao doacao = buscaPorCodigo(codigo);
 
 		if (doacao == null) {
 			return false;

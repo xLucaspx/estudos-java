@@ -1,6 +1,12 @@
 package utils;
 
 public class Validador {
+	/**
+	 * Método que valida um CPF utilizando o algoritmo de cálculo do dígito verificador
+	 *
+	 * @param cpf O CPF a ser validado
+	 * @return Falso caso o CPF informado seja nulo ou inválido, verdadeiro caso contrário
+	 */
 	public static boolean validaCpf(String cpf) {
 		if (cpf == null) {
 			return false;
@@ -50,6 +56,12 @@ public class Validador {
 		return digitoVerificador.equals(digitoVerificadorCalculado);
 	}
 
+	/**
+	 * Método que valida o formato de um endereço de e-mail utilizando expressões regulares
+	 *
+	 * @param email O e-mail a ser validado
+	 * @return Falso caso o e-mail informado seja nulo ou tenha o formato inválido, verdadeiro caso contrário
+	 */
 	public static boolean validaEmail(String email) {
 		if (email == null) {
 			return false;
@@ -58,6 +70,12 @@ public class Validador {
 		return email.matches("^\\w+([.\\-]?\\w+)*@\\w+([.\\-]?\\w+)*(\\.\\w{2,3})+$");
 	}
 
+	/**
+	 * Método que valida o formato de um número de telefone/celular brasileiro utilizando expressões regulares
+	 *
+	 * @param telefone O número de telefone a ser validado
+	 * @return Falso caso o telefone informado seja nulo ou tenha o formato inválido, verdadeiro caso contrário
+	 */
 	public static boolean validaTelefone(String telefone) {
 		if (telefone == null) {
 			return false;
