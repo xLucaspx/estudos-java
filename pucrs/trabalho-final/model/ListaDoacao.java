@@ -83,6 +83,27 @@ public class ListaDoacao {
 	}
 
 	/**
+	 * Método para buscar uma doação na lista de doações; busca pelo código informado
+	 *
+	 * @param codigo O código da doação sendo buscada
+	 * @return O objeto da Doacao encontrada ou null caso o código seja inválido ou nenhuma doação seja encontrada para o
+	 * código informado
+	 */
+	public Doacao buscaPorCodigo(int codigo) {
+		if (codigo <= 0) {
+			return null;
+		}
+
+		for (int i = 0; i < index; i++) {
+			if (lista[i].getCodigo() == codigo) {
+				return lista[i];
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * @param descricao  A descrição da doação a qual se deseja adicionar a quantidade; não pode ser nula
 	 * @param quantidade A quantidade a ser adicionada à doação; deve ser maior do que zero
 	 * @return Falso caso a descrição seja nula, a doação não seja encontrada ou a quantidade seja inválida; verdadeiro
@@ -137,6 +158,10 @@ public class ListaDoacao {
 	private boolean existeDoacaoDuplicada(Doacao doacao) {
 		for (int i = 0; i < index; i++) {
 			if (lista[i].getCodigo() == doacao.getCodigo()) {
+				return true;
+			}
+
+			if (lista[i].getDescricao().equals(doacao.getDescricao())) {
 				return true;
 			}
 		}

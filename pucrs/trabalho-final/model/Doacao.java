@@ -6,7 +6,7 @@ public class Doacao {
 	private double quantidade;
 
 	/**
-	 * Construtor para instanciar um objeto do tipo Pessoa
+	 * Construtor para instanciar um objeto do tipo Doacao
 	 *
 	 * @param codigo     O código da doação sendo cadastrada; deve ser maior do que zero.
 	 * @param descricao  A descrição da doação sendo cadastrada; não pode ser nula ou vazia.
