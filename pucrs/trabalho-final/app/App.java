@@ -6,6 +6,7 @@ import model.ListaPessoa;
 import model.Pessoa;
 
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static utils.Validador.*;
 
@@ -14,11 +15,6 @@ public class App {
 	private static final ListaDoacao DOACOES = new ListaDoacao();
 	private static boolean continuar = true;
 
-	/*
-TODO:
-[ ] Incluir método que gera CPF para testes
-[ ] Incluir mensagem que informa que a ordenação é prejudicada pelos acentos
- */
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 
@@ -305,7 +301,7 @@ TODO:
 
 		do {
 			if (!codigoValido) {
-				System.out.println("Digite o código da doação: ");
+				System.out.println("Digite o código da doação (inteiro): ");
 				codigo = leInt(in);
 
 				codigoValido = codigo > 0;
@@ -340,7 +336,7 @@ TODO:
 			}
 
 			if (!quantidadeValida) {
-				System.out.println("Digite a quantidade da doação: ");
+				System.out.println("Digite a quantidade da doação (double): ");
 				quantidade = leDouble(in);
 				quantidadeValida = quantidade > 0;
 
@@ -389,12 +385,12 @@ TODO:
 			}
 
 			if (!cpfValido) {
-				System.out.println("Digite o CPF da pessoa: ");
+				System.out.println("Digite o CPF da pessoa (deve ser um CPF válido): ");
 				cpf = in.nextLine();
 				cpfValido = validaCpf(cpf);
 
 				if (!cpfValido) {
-					System.err.println("O CPF inserido é inválido!");
+					System.err.println("O CPF inserido é inválido!\nTente utilizar " + geraCpfTeste());
 					continue;
 				}
 
@@ -406,7 +402,7 @@ TODO:
 			}
 
 			if (!telefoneValido) {
-				System.out.println("Digite o telefone da pessoa: ");
+				System.out.println("Digite o telefone da pessoa (deve estar em um formato válido): ");
 				telefone = in.nextLine();
 				telefoneValido = validaTelefone(telefone);
 
@@ -417,7 +413,7 @@ TODO:
 			}
 
 			if (!emailValido) {
-				System.out.println("Digite o e-mail da pessoa: ");
+				System.out.println("Digite o e-mail da pessoa (deve estar em formato válido): ");
 				email = in.nextLine();
 				emailValido = validaEmail(email);
 
@@ -510,17 +506,18 @@ TODO:
 				[5] Alterar e-mail
 				[6] Listar
 				[7] Escolher doação
+				[8] Voltar
 				[0] Sair
 
 				Escolha...\s
 				""");
 			opcao = leInt(in);
 
-			if (opcao < 0 || opcao > 7) {
+			if (opcao < 0 || opcao > 8) {
 				System.err.println("Opção inválida!\n");
 			}
 
-		} while (opcao < 0 || opcao > 7);
+		} while (opcao < 0 || opcao > 8);
 
 		switch (opcao) {
 			case 1 -> cadastraPessoa(in);
@@ -530,6 +527,7 @@ TODO:
 			case 5 -> alteraEmailPessoa(in);
 			case 6 -> listaPessoas();
 			case 7 -> escolheDoacao(in);
+			case 8 -> {return;}
 			case 0 -> continuar = false;
 		}
 	}
@@ -554,16 +552,18 @@ TODO:
 				[4] Adiciona quantidade
 				[5] Remove quantidade
 				[6] Listar
+				[7] Voltar
+				[0] Sair
 
 				Escolha...\s
 				""");
 			opcao = leInt(in);
 
-			if (opcao < 0 || opcao > 6) {
+			if (opcao < 0 || opcao > 7) {
 				System.err.println("Opção inválida!\n");
 			}
 
-		} while (opcao < 0 || opcao > 6);
+		} while (opcao < 0 || opcao > 7);
 
 		switch (opcao) {
 			case 1 -> cadastraDoacao(in);
@@ -572,6 +572,7 @@ TODO:
 			case 4 -> adicionaQuantidadeDeDoacao(in);
 			case 5 -> removeQuantidadeDeDoacao(in);
 			case 6 -> listaDoacoes();
+			case 7 -> {return;}
 			case 0 -> continuar = false;
 		}
 	}
@@ -658,7 +659,43 @@ TODO:
 			Desenvolvido por:
 			- Lucas da Paz (24102437)
 			- Régis Júnior (24102590)
-						
 			""");
+	}
+
+	private static String geraCpfTeste() {
+		System.out.println("gera cpf teste chamado");
+		int min = 0;
+		int max = 1000;
+
+		String parte1 = String.format("%03d", ThreadLocalRandom.current().nextInt(min, max));
+		String parte2 = String.format("%03d", ThreadLocalRandom.current().nextInt(min, max));
+		String parte3 = String.format("%03d", ThreadLocalRandom.current().nextInt(min, max));
+
+		String cpf = parte1 + parte2 + parte3;
+
+		// primeiro dígito verificador
+		int soma = 0;
+		int resto = 0;
+
+		for (int i = 0; i < 9; i++) {
+			int digito = cpf.charAt(i) - '0';
+			soma += digito * (10 - i);
+		}
+
+		resto = (soma * 10) % 11;
+		cpf += resto == 10 ? 0 : resto;
+
+		// segundo dígito verificador
+		soma = 0;
+
+		for (int i = 0; i < 10; i++) {
+			int digito = cpf.charAt(i) - '0';
+			soma += digito * (11 - i);
+		}
+
+		resto = (soma * 10) % 11;
+		cpf += resto == 10 ? 0 : resto;
+
+		return validaCpf(cpf) ? cpf : geraCpfTeste();
 	}
 }
