@@ -133,7 +133,7 @@ The ISBN is ten digits long if assigned before 2007, and thirteen digits long if
 - [x] Add ISBN validation;
 - [x] Convert ISBN-10 to ISBN-13;
 - [ ] Implement filters in the views;
-- [ ] Implement Dewey Decimal System.
+- [ ] Implement Dewey Decimal System (CDD and CDU).
 
 ## Design and screens
 

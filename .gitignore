@@ -1,7 +1,10 @@
-/bin/
+.idea/
+bin/
 *.class
+*.iml
 
 .vscode
 .project
 .classpath
 .settings
+
